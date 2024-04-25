@@ -1,0 +1,114 @@
+jsonschema:
+  type : object
+  properties:
+    farmTractors:
+      title: 'Tractors'
+      properties:
+        tractorType:
+          title: 'Tractor type'
+          type: string
+          enum:
+            - Normal Tractor
+            - Mini Tractor
+            - Other
+          default: Normal Tractor
+        tractorBrand:
+          type: string
+          title: Brand
+        tractorModel:
+          type: string
+          title: Model
+        usage:
+          type: number
+          title: Usage (hrs)
+        fuelType:
+          type: string
+          enum:
+            - Petrol
+            - Diesel
+            - Electric
+            - Solar
+          default: Diesel
+        insurance:
+          type: boolean
+          title: Insurance
+          default: false
+        tractorDetails:
+          type: string
+          title: Tractor Details
+        tractorEvidence:
+          type: string
+          title: Tractor document
+          description: 'Document evidence'
+        tractorDate:
+          type: string
+          title: Purchase date
+          format: date
+          description: 'Purchase date'
+        tractorPower:
+          type: number
+          title: Power (hp)
+          description: 'Tractor power (hp)'
+        tractorRegNumber:
+          type: string
+          title: Tractor registration number
+        ownership:
+          type: string
+          enum:
+            - Owned
+            - Hypothecated
+          default: Owned
+        tractorTrailer:
+          type: boolean
+          title: Tractor trailer
+          default: false
+
+      allOf:
+        - if:
+            properties:
+              tractorType:
+                const: Other
+          then:
+            properties:
+              otherTractorType:
+                type: string
+                title: Other tractor type
+        - if:
+            properties:
+              insurance:
+                const: true
+          then:
+            properties:
+              insuranceProvider:
+                type: string
+                title: Insurance provider
+              insurancePremium:
+                type: number
+                title: Insurane premium per year (Rs.)
+                minimum: 0
+        - if:
+            properties:
+              ownership:
+                const: Hypothecated
+          then:
+            properties:
+              hypothecatedCompany:
+                type: string
+                title: Hypothecated Company
+              loanAmount:
+                type: number
+                title: Loan amount (Rs.)
+                minimum: 0
+
+      required:
+        - tractorType
+        - tractorBrand
+        - tractorModel
+        - usage
+        - tractorDetails
+        - tractorEvidence
+        - tractorDate
+        - tractorPower
+        - tractorRegNumber
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/farmTractors.yaml

@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    medicalAssistances: file:~/specs/jsonschemas/src/common/ui/medicalAssistance.yaml

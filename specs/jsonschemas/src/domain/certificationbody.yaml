@@ -1,0 +1,68 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+    slug:
+      type: string
+      format: hidden
+    address:
+      $ref: '#/definitions/Address'
+    email:
+      type: string
+      title: Email
+    poc:
+      type: string
+      title: Contact person
+    phone:
+      type: string
+      title: Phone
+    registrationId:
+      type: string
+      title: Registration id
+    registrationDocumentFile:
+      $ref: '#/definitions/DocumentRecord'
+      title: Upload registration document proof
+    certificationAuthority:
+      type: string
+      title: Certification authority
+    schemes:
+      type: array
+      items:
+        title: Scheme
+        type: string
+        enum:
+          - NPOP
+          - NOP
+          - IndGAP
+          - GlobalGAP
+          - FairTrade
+          - None
+        default: None
+    validationWorkflowId:
+      type: string
+      format: hidden
+    statusNotes:
+      type: string
+      format: hidden
+    status:
+      type: string
+      enum:
+        - Draft
+        - Under validation
+        - Under review
+        - Review failed
+        - Validation failed
+        - Approved
+      default: Draft
+    active:
+      type: boolean
+    audit:
+      $ref: '#/definitions/Audit'
+  required:
+    - name
+    - address
+    - email
+    - organization
+    - schemes
+    - active
+uiHints: file:~/specs/jsonschemas/src/domain/ui/certificationbody.yaml

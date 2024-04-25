@@ -1,0 +1,38 @@
+type: object
+title: Security House
+properties:
+  name:
+    type: string
+    title: Name
+  type:
+    type: string
+    title: type
+    enum:
+      - Standalone
+      - Part of building
+    default: Standalone
+  condition:
+    type: string
+    title: Condition
+  staff:
+    type: string
+    title: Security staff
+  policies:
+    type: string
+    title: Security policies
+  capacity:
+    type: string
+    title: Capacity
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+  map:
+    title: Security house map
+    type: string
+required:
+  - name
+  - type
+  - photoEvidence
+  - map

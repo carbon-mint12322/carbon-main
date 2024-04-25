@@ -1,0 +1,22 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Crop Complete Event'
+  properties:
+    completionDate:
+      type: string
+      format: date
+      title: Completion date
+    evidence:
+      title: evidence
+      type: array
+      description: Upload crop completion evidence
+      items:
+        type: string
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - completionDate
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/cropCompleteEvent.yaml

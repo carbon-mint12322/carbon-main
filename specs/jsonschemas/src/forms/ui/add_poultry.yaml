@@ -1,0 +1,31 @@
+form:
+  uiSchema:
+    'ui:order':
+      - productionSystem
+      - poultryPop
+      - batchIdName
+      - poultryType
+      - purpose
+      - size
+      - chickPlacementDay
+      - chickSource
+      - breed
+      - risk
+      - estHarvestDate
+      - '*'
+    productionSystem:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a production system
+      foreignSchemaId: '/productionsystem'
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: productionSystem
+      foreignLabelWidget: NameLabelWidget
+    poultryPop:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a Poultry POP
+      foreignSchemaId: '/poultrypop'
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: poultrypop
+      foreignLabelWidget: NameLabelWidget

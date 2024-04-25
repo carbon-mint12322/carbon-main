@@ -1,0 +1,5 @@
+jsonschema:
+  type: object
+  properties:
+    dinings: file:~/specs/jsonschemas/src/common/dining.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_dinings.yaml

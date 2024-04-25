@@ -1,0 +1,57 @@
+jsonschema:
+  properties:
+    scopeCertificationDetails:
+      title: Scope Certification Details
+      type: object
+      properties:
+        issuedDate:
+          title: Issued date
+          type: string
+          format: date
+        cb:
+          $ref: '#/definitions/CertificationBodyRef'
+          title: Certification body
+        scheme:
+          title: 'Scheme'
+          type: string
+          enum:
+            - NPOP
+            - NOP
+            - IndGAP
+            - GlobalGAP
+            - FairTrade
+            - BAP
+            - ASC
+          default: NPOP
+        conversionStatus:
+          title: Conversion status
+          type: string
+          enum:
+            - C1
+            - C2
+            - C3
+            - NA
+          default: C1
+        scope:
+          title: Certification Scope
+          type: string
+        effectiveDate:
+          title: Effective date
+          type: string
+          format: date
+        expiryDate:
+          title: Expiry date
+          type: string
+          format: date
+        attachments:
+          type: array
+          title: Certificate
+          items:
+            type: string
+      required:
+        - issuedDate
+        - cb
+        - scheme
+        - scope
+        - attachments
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_collectivescopecert.yaml

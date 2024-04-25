@@ -1,0 +1,13 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - cropName
+      - cropType
+      - seedVariety
+      - seedSource
+      - seedPurchaseReceipt
+      - seedCertificate
+      - season
+      - otherGrowingSeason
+      - '*'

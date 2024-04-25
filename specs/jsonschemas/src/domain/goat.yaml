@@ -1,0 +1,106 @@
+jsonschema:
+  properties:
+    productionSystem:
+      $ref: '#/definitions/ProductionSystemId'
+    age:
+      type: number
+      title: Age (days)
+    goatSource:
+      type: string
+      title: Source
+    gender:
+      type: string
+      title: Gender
+      enum:
+        - Male
+        - Female
+      default: Male
+    climateScore:
+      type: number
+      title: Climate score
+    complianceScore:
+      type: number
+      title: Compliance score
+    breed:
+      type: string
+      title: Breed
+    photoEvidence:
+      type: string
+      title: Photo evidence
+    field:
+      $ref: '#/definitions/FieldId'
+      title: Field
+    landParcel:
+      $ref: '#/definitions/NameID'
+      title: Land parcel
+    farmer:
+      $ref: '#/definitions/NameID'
+      title: Farmer
+    collective:
+      $ref: '#/definitions/CollectiveId'
+      title: Collective
+
+    acquisitionDay:
+      type: string
+      format: date
+      title: Acquisition Day
+    documents:
+      type: array
+      title: Document
+      items:
+        type: object
+        properties:
+          link:
+            type: string
+            title: Link
+          name:
+            type: string
+            title: Name
+          issuedBy:
+            type: string
+            title: Issued by
+          docNumber:
+            type: string
+            title: Document number
+          category:
+            type: string
+            enum:
+              - Reports
+              - Certificates
+              - Supporting documents
+            default: Reports
+            title: Category
+    validationWorkflowId:
+      type: string
+      format: hidden
+    statusNotes:
+      type: string
+      format: hidden
+    status:
+      type: string
+      enum:
+        - Draft
+        - Under validation
+        - Under review
+        - Review failed
+        - Validation failed
+        - Approved
+        - In progress
+        - Completed
+      default: Draft
+      title: Status
+    active:
+      type: boolean
+      title: Active
+  required:
+    - productionSystem
+    - age
+    - gender
+    - goatSource
+    - breed
+    - field
+    - landParcel
+    - farmer
+    - collective
+    - active
+uiHints: file:~/specs/jsonschemas/src/domain/ui/goat.yaml

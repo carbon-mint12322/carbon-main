@@ -1,0 +1,40 @@
+const Mustache = require('mustache');
+const mRender = Mustache.render;
+
+type Context = {
+  props:any;
+  data:any;
+  searchValue?: string;
+}
+
+const statusStep: {
+    [key: string]: {
+      buttonLabel: string;
+    };
+  } = {
+    'editable': {
+      buttonLabel: 'Submit for Review',
+    },
+    'Draft': {
+      buttonLabel: 'Submit for Review',
+    },
+    'Under Review': {
+      buttonLabel: 'Review & Approve',
+    },
+    'Under Validation': {
+      buttonLabel: 'Validate',
+    },
+    'Review Failed': {
+      buttonLabel: 'Submit for Review',
+    },
+    'Validation Failed': {
+      buttonLabel: 'Submit for Review',
+    },
+  };
+
+const defaultMainBtnTitle = "Submit for Review";
+
+export const renderMainBtnTitle = (ctx: Context, template?:string) =>
+  ctx.data?.status == 'Approved' ? 'Approved' : statusStep[ctx.data?.status]?.buttonLabel || 'Update';
+
+export default renderMainBtnTitle;

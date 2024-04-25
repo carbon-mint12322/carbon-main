@@ -1,0 +1,5 @@
+extends: ./aquacropNonValidationLifecycle.yaml
+jsonschema:
+  $ref: '#/definitions/Observations'
+  title: 'Observations'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/observations.yaml

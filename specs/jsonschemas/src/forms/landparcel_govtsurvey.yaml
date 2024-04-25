@@ -1,0 +1,20 @@
+jsonschema:
+  type: object
+  properties:
+    govtSurvey:
+      type: object
+      title: ''
+      properties:
+        info:
+          title: Govt. more info
+          type: string
+        applicationNumber:
+          title: Land parcel government survey
+          type: string
+        report:
+          title: ''
+          type: string
+      required:
+        - applicationNumber
+        - report
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_govtsurvey.yaml

@@ -1,0 +1,6 @@
+form:
+  uiSchema:
+    'ui:order':
+      - personalDetails
+      - '*'
+    personalDetails: file:~/specs/jsonschemas/src/common/ui/person.yaml

@@ -1,0 +1,6 @@
+form:
+  uiSchema:
+    'ui:order':
+      - productDetails
+      - '*'
+    productDetails: file:~/specs/jsonschemas/src/common/ui/product.yaml

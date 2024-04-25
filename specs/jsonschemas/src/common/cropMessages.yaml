@@ -1,0 +1,17 @@
+type: array
+default: [{}]
+items:
+  type: object
+  title: ""
+  properties:
+    crop:
+      $ref: '#/definitions/CropName'
+      title: Crop  
+ 
+    message:
+      title: Message
+      type: string
+ 
+  required:
+    - crop
+    - message

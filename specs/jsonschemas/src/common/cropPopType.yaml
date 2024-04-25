@@ -1,0 +1,85 @@
+type: object
+properties:
+  name:
+    $ref: '#/definitions/CropName'
+    title: Crop name
+  variety:
+    type: string
+    title: Crop variety
+  season:
+    type: string
+    title: Crop season
+    enum:
+      - Kharif
+      - Rabi
+      - Summer
+      - Biennial
+      - Annual
+      - Perennial crop
+    default: Kharif
+  region:
+    type: string
+    title: Region
+  durationDays:
+    title: Crop duration (days)
+    type: number
+    minimum: 0
+  scheme:
+    title: Scheme
+    type: string
+    enum:
+      - NPOP
+      - NOP
+      - IndGAP
+      - GlobalGAP
+      - FairTrade
+      - None
+    default: None
+required:
+  - name
+  - variety
+  - season
+  - region
+  - durationDays
+allOf:
+  - if:
+      properties:
+        season:
+          const: Kharif
+    then:
+      properties:
+        durationType:
+          type: string
+          title: Duration type
+          enum:
+            - Long
+            - Short
+          default: Long
+
+  - if:
+      properties:
+        season:
+          const: Rabi
+    then:
+      properties:
+        durationType:
+          type: string
+          title: Duration type
+          enum:
+            - Long
+            - Short
+          default: Long
+
+  - if:
+      properties:
+        season:
+          const: Summer
+    then:
+      properties:
+        durationType:
+          type: string
+          title: Duration type
+          enum:
+            - Long
+            - Short
+          default: Long

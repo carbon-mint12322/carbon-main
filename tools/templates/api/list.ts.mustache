@@ -1,0 +1,40 @@
+// Generated code - List API
+import { NextApiRequest, NextApiResponse } from 'next'
+import { getListRoles, withPermittedRoles, withPermittedRolesGssp } from "~/backendlib/rbac"
+import { httpGetHandler } from "~/backendlib/middleware/get-handler"
+import withMongo from "~/backendlib/middleware/with-mongo"
+import withDebug from "~/backendlib/middleware/with-debug"
+import { getModel } from "~/backendlib/db/adapter";
+
+const schemaId = "{{{schemaId}}}"
+const modelApi = getModel(schemaId);
+const permittedRoles = getListRoles(schemaId)
+
+export const list{{modelName}}s = (filter={},options?:any) =>
+  modelApi.list(filter, options);
+
+const extractQueryParams = (req:any) => req.query;
+
+// Supporting function for getServerSideProps
+export const listGssp = async (context: any) => {
+  // filter ???
+  const data = await list{{modelName}}s();
+	return { props: {data}};
+}
+
+const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<any> => {
+  const filter = extractQueryParams(req);
+  const result =  await list{{modelName}}s(filter);
+  res.setHeader('Content-Type', 'application/json');
+  res.status(200).json(result);
+}
+
+// Enforces role check
+const wrap  = withPermittedRoles(permittedRoles)
+
+// Wrap in post-handler, which permits http posts only 
+export default withDebug(wrap(httpGetHandler(withMongo(handler))));
+
+// Permission wrapping for getServerSideProps
+const wrapGssp  = withPermittedRolesGssp(permittedRoles)
+export const listGssp2 = wrapGssp(listGssp);

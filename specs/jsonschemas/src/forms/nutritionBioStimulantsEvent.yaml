@@ -1,0 +1,116 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Integrated Crop Nutrition Bio Stimulants Event'
+  properties:
+    bioStimulantsAndHormonesApplied:
+      title: Biostimulants & hormones applied
+      type: string
+      enum:
+        - Humic acids
+        - Fulvic acids
+        - Amino-acids
+        - Peptides
+        - Collagen
+        - Seaweed extracts
+        - Chitosan
+        - IAA
+        - IBA
+        - NAA
+        - Cytokinins
+        - Gibberellins
+        - Ethylene and abscisic acid
+        - Others
+      default: Humic acids
+    sourceOfBioStimulants:
+      title: Source of biostimulants & hormones
+      type: string
+      enum:
+        - Own
+        - Purchase
+      default: Purchase
+    quantityOfApplication:
+      title: Quantity of Application (mg,ml,grams,/Litre of water)
+      type: number
+      default: 0
+    timeOfApplication:
+      title: Time of application
+      type: string
+      enum:
+        - Before preparatory cultivation (basal application)
+        - Before last ploughing
+        - At Sowing/Planting time
+        - On standing crop
+        - Others
+      default: 'Before preparatory cultivation (basal application)'
+    methodOfApplication:
+      title: Method of application
+      type: string
+      enum:
+        - Soil application
+        - Foliar application
+        - Fertigation
+        - Others
+      default: Soil application
+    nutrientCompositionAnalysisReport:
+      title: Nutrient composition analysis report
+      type: array
+      description: Nutrient composition analysis report
+      items:
+        type: string
+    recommendedBy:
+      title: Recommended by
+      type: string
+    totalBioStimulantsCost:
+      type: number
+      title: Total biostimulants and hormones cost
+      minimum: 0
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          timeOfApplication:
+            const: Others
+      then:
+        properties:
+          otherTimeOfApplication:
+            type: string
+            title: Other time of application
+    - if:
+        properties:
+          methodOfApplication:
+            const: Others
+      then:
+        properties:
+          otherMethodOfApplication:
+            type: string
+            title: Other method of application
+    - if:
+        properties:
+          bioStimulantsAndHormonesApplied:
+            const: Others
+      then:
+        properties:
+          otherBioStimulantsAndHormonesApplied:
+            type: string
+            title: Other biostimulants and hormones applied
+    - if:
+        properties:
+          sourceOfBioStimulants:
+            const: Purchase
+      then:
+        properties:
+          purchaseReceipt:
+            type: array
+            title: Purchase receipt
+            description: Purchase receipt
+            items:
+              type: string
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/nutritionBioStimulantsEvent.yaml

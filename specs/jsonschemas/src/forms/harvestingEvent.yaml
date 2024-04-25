@@ -1,0 +1,231 @@
+extends: ./validationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Harvest Event'
+  properties:
+    harvesting:
+      type: object
+      title: 'Harvesting'
+    harvestProduce:
+      type: string
+      enum:
+        - Primary produce
+        - Secondary produce
+        - 'Other bio mass or produce (3rd produce)'
+        - 'Other bio mass or produce (4th produce / byproduct)'
+      default: Primary produce
+      title: 'Harvest produce'
+    harvestingStage:
+      type: string
+      title: Harvesting stage
+    harvestingIndex:
+      title: Harvesting index (or) indices
+      type: string
+      enum:
+        - Physical
+        - Chemical
+        - Physiological
+        - Others
+      default: Physical
+    harvestingDoneBy:
+      title: Harvesting done by
+      type: string
+      enum:
+        - Manual
+        - Machinery
+        - By bullock and tractors
+      default: Manual
+    containersUsedCondition:
+      type: string
+      enum:
+        - Fresh
+        - Used
+      default: Fresh
+      title: Containers used condition
+    containersUsedState:
+      type: string
+      enum:
+        - Cleaned
+        - Uncleaned
+      default: Cleaned
+      title: Containers used state
+    harvestQuantity:
+      type: number
+      title: Quantity of harvest (Tonnes)
+      minimum: 0
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - harvestQuantity
+  allOf:
+    - if:
+        properties:
+          harvestProduce:
+            const: Primary produce
+      then:
+        properties:
+          primaryProduce:
+            type: string
+            title: Primary produce
+            enum:
+              - Grain
+              - Fruit
+              - Stem
+              - Root
+              - Tuber
+              - Rhizome
+              - Bulb
+              - Flower
+              - Leaf
+              - Whole plant
+              - Other
+            default: Grain
+        if:
+          properties:
+            primaryProduce:
+              const: Other
+        then:
+          properties:
+            otherPrimaryProduce:
+              type: string
+              title: Other primary produce
+    - if:
+        properties:
+          harvestProduce:
+            const: Secondary produce
+      then:
+        properties:
+          secondaryProduce:
+            type: string
+            title: Secondary produce
+            enum:
+              - Grain
+              - Fruit
+              - Stem
+              - Root
+              - Tuber
+              - Rhizome
+              - Bulb
+              - Flower
+              - Leaf
+              - Whole plant
+              - Other
+            default: Grain
+        if:
+          properties:
+            secondaryProduce:
+              const: Other
+        then:
+          properties:
+            otherSecondaryProduce:
+              type: string
+              title: Other secondary produce
+    - if:
+        properties:
+          harvestProduce:
+            const: 'Other bio mass or produce (3rd produce)'
+      then:
+        properties:
+          otherBioMassProduce:
+            type: string
+            title: Other bio mass or produce (3rd produce)
+    - if:
+        properties:
+          harvestProduce:
+            const: 'Other bio mass or produce (4th produce / byproduct)'
+      then:
+        properties:
+          otherBioMassProduceByProduct:
+            type: string
+            title: Other bio mass or produce (4th produce / byproduct)
+    - if:
+        properties:
+          harvestingIndex:
+            const: Others
+      then:
+        properties:
+          otherHarvestingIndex:
+            type: string
+            title: Other harvesting index (or) indices
+    - if:
+        properties:
+          harvestingDoneBy:
+            const: Manual
+      then:
+        properties:
+          manualImplementsUsed:
+            type: string
+            title: Implements used
+            enum:
+              - By hands
+              - Clipper
+              - Sickles
+              - Diggers
+              - Pluckers
+              - Others
+            default: By hands
+        if:
+          properties:
+            manualImplementsUsed:
+              const: Others
+        then:
+          properties:
+            otherManualImplementsUsed:
+              type: string
+              title: Other implements used
+    - if:
+        properties:
+          harvestingDoneBy:
+            const: Machinery
+      then:
+        properties:
+          machineryImplementsUsed:
+            type: string
+            title: Implements used
+            enum:
+              - Reapers
+              - Diggers
+              - Combinable Harvester
+              - Others
+            default: Reapers
+        if:
+          properties:
+            machineryImplementsUsed:
+              const: Others
+        then:
+          properties:
+            otherMachineryImplementsUsed:
+              type: string
+              title: Other implements used
+    - if:
+        properties:
+          harvestingDoneBy:
+            const: By bullock and tractors
+      then:
+        properties:
+          bullockImplementsUsed:
+            type: string
+            title: Implements used
+            enum:
+              - Cultivators
+              - Country ploughs
+              - Others
+            default: Cultivators
+        if:
+          properties:
+            bullockImplementsUsed:
+              const: Others
+        then:
+          properties:
+            otherBullockImplementsUsed:
+              title: Other implements used
+              type: string
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/harvestingEvent.yaml
+templates:
+  qr: file:~/tools/templates/html/QR.mustache

@@ -1,0 +1,5 @@
+jsonschema:
+  type: object
+  properties:
+    storeUnits: file:~/specs/jsonschemas/src/common/storeUnit.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_storeUnits.yaml

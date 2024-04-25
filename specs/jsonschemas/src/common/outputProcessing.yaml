@@ -1,0 +1,114 @@
+type: object
+title: Output processing event
+properties:
+  outputProcessingUnit:
+    $ref: '#/definitions/OutputProcessingUnitId'
+    title: Output processing unit
+  productBatch:
+    $ref: '#/definitions/ProductBatchId'
+    title: Product batch
+
+  inputMaterials:
+    type: array
+    title: Input materials
+    minItems: 1
+    items:
+      title: ''
+      properties:
+        inputName:
+          type: string
+          title: Input name
+        inputQuantity:
+          type: number
+          title: Input quantity
+        inputUnits:
+          type: string
+          title: Input units
+          enum: 
+            - Kgs
+            - Litres
+          default: Kgs
+        inputCost:
+          type: string
+          title: Input cost(Rs)
+        photoEvidence:
+          type: array
+          items:
+            type: string        
+          title: Photo evidence      
+        qrCodeUrl:
+          type: string
+          format: uri
+          title: Input QR code URL
+        qrCodeInfo:
+          type: string
+          title: QR code information   
+      required: 
+        - inputName
+        - inputQuantity
+
+
+  processSteps:
+    type: array
+    title: Processing steps
+    minItems: 1
+    items:
+      title: ''
+      properties:
+        processName:
+          type: string
+          title: Process name
+        processInformation:
+          type: number
+          title: Process information    
+        photoEvidence:
+          type: array
+          items:
+            type: string        
+          title: Photo evidence 
+      required: 
+        - processName
+        - processInformation
+
+  outputs:
+    type: array
+    title: Outputs
+    minItems: 1 
+    items:
+      title: ''
+      properties:
+        outputName:
+          type: string
+          title: Output name
+        outputMaterial:
+          type: string
+          title: Output material
+        outputQuantity:
+          type: number
+          title: Output quantity
+        outputUnits:
+          type: string
+          title: Output units
+          enum:
+            - Kgs
+            - Litres
+          default: Kgs 
+        photoEvidence:
+          type: array
+          items:
+            type: string
+          title: Photo evidence  
+        
+      required:
+        - outputName
+        - outputQuantity 
+
+
+  durationAndExpenses:
+    title: 'Duration and Expenses'
+    $ref: '#/definitions/DurationAndExpenses'
+  otherRemarks:
+    type: string
+    title: Other remarks
+required:
+  - outputProcessingUnit

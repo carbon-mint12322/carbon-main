@@ -1,0 +1,15 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - startDate
+      - endDate
+      - noOfBirds
+      - averageWeight
+      - totalExpenditure
+      - evidence
+      - otherRemarks
+      - '*'
+    evidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

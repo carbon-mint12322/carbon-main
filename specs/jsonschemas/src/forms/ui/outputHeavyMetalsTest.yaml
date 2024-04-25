@@ -1,0 +1,19 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - heavyMetalsTest
+      - testTitle
+      - outputHeavyMetalsTestReport
+      - labCertifiedByNabl
+      - nablCertificationEvidence
+      - startDate
+      - endDate
+      - totalExpenditure
+      - otherRemarks
+      - '*'
+    outputHeavyMetalsTestReport:
+     'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    nablCertificationEvidence:
+     'ui:widget': 'UploadFilesWithAttachmentsWidget'

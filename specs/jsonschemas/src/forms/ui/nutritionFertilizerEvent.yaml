@@ -1,0 +1,49 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - fertilizer
+      - fertilizersApplied
+      - timeOfApplication
+      - otherTimeOfApplication
+      - methodOfApplication
+      - otherMethodOfApplication
+      - nutrientCompositionAnalysisReport
+      - recommendedBy
+      - totalFertilizersCost
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    nutrientCompositionAnalysisReport:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    fertilizersApplied:
+      'ui:order':
+        - urea
+        - ureaFertilizersApplication
+        - dap
+        - dapFertilizersApplication
+        - mop
+        - mopFertilizersApplication
+        - ssp
+        - sspFertilizersApplication
+        - lime
+        - limeFertilizersApplication
+        - gypsum
+        - gypsumFertilizersApplication
+        - rockPhosphate
+        - rockPhosphateFertilizersApplication
+        - zincSulphate
+        - zincSulphateFertilizersApplication
+        - borax
+        - boraxFertilizersApplication
+        - '28:28:00'
+        - '17:17:17'
+        - '16:16:16'
+        - '19:19:19'
+        - others
+        - otherFertilizers
+        - otherFertilizersApplication
+        - '*'
+
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

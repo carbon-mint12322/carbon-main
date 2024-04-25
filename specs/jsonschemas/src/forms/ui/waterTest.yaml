@@ -1,0 +1,27 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - waterInfo
+      - waterTestReport
+      - labCertifiedByNabl
+      - nablCertificationEvidence
+      - ph
+      - waterHeavyMetalsContaminationReport
+      - heavyMetals
+      - waterPesticideHerbicideResiduesReport
+      - chemicalResidues
+      - startDate
+      - endDate
+      - totalExpenditure
+      - otherRemarks
+      - '*'
+    waterTestReport:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    nablCertificationEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    waterHeavyMetalsContaminationReport:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    waterPesticideHerbicideResiduesReport:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

@@ -1,0 +1,39 @@
+type: object
+properties:
+  name:
+    type: string
+  size:
+    type: number
+  capacity:
+    type: number
+  category:
+    type: string
+    enum:
+      - Composting
+      - Seed processing
+      - Input processing
+      - Drying yard
+      - Output processing
+      - Store
+      - Farmhouse
+      - Toilet
+      - Labor quarters
+      - Security house
+      - Scrap shed
+      - Medical assistance
+      - Dining
+      - Attractions
+    default: Store
+  photoEvidence:
+    type: string
+  location:
+    $ref: '#/definitions/GeoLocation'
+  active:
+    type: boolean
+required:
+  - name
+  - size
+  - capacity
+  - photoEvidence
+  - location
+  # - active

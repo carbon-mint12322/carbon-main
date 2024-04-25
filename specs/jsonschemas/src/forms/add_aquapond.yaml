@@ -1,0 +1,81 @@
+jsonschema:
+  properties:
+    productionSystem:
+      $ref: '#/definitions/ProductionSystemId'
+      title: Production system
+    name:
+      type: string
+      title: Name
+    pondType:
+      type: string
+      enum:
+        - Shrimp
+        - Fish
+        - Combined
+      default: Shrimp
+      title: Pond type
+    area:
+      type: number
+      title: Pond area
+    depth:
+      type: number
+      title: Pond depth
+    shape:
+      type: string
+      enum:
+        - Circular
+        - Rectangular
+        - Irregular
+      default: Circular
+      title: Pond shape
+    waterSource:
+      type: string
+      title: Water source
+      enum:
+        - Freshwater
+        - Brackishwater
+        - Seawater
+        - Recirculating System
+      default: Freshwater
+    infra:
+      type: object
+      title: Pond infrastructure
+    aerationSystem:
+      type: boolean
+      title: Aeration system
+    feedingArea:
+      type: boolean
+      title: Feeding area
+    autoFeeders:
+      type: boolean
+      title: Auto feeders
+    waterInlet:
+      type: boolean
+      title: Water inlet
+    waterOutlet:
+      type: boolean
+      title: Water outlet
+    shadeStructures:
+      type: boolean
+      title: Shade structures
+    otherInfra:
+      type: string
+      title: Other infrastructure
+    constructionDate:
+      type: string
+      title: Construction date
+      format: date
+    additionalInfo:
+      type: string
+      title: Additional information
+
+    required:
+      - productionSystem
+      - name
+      - pondType
+      - area
+      - depth
+      - shape
+      - waterSource
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_aquapond.yaml

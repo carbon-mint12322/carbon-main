@@ -1,0 +1,24 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Audit Report'
+  properties:
+    auditingReport:
+      title: Auditing report
+      type: string
+      description: Upload auditing report
+    startDate:
+      title: Auditing start date
+      type: string
+      format: date
+    endDate:
+      title: Auditing end date
+      type: string
+      format: date
+    auditingDoneBy:
+      title: Auditing done by
+      type: string
+    otherRemarks:
+      type: string
+      title: Other remarks
+uiHints: file:~/specs/jsonschemas/src/forms/ui/internalAuditingReport.yaml

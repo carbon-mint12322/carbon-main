@@ -1,0 +1,21 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - totalGrainYield
+      - totalQuantityOfProduce
+      - totalQuantityOfProducePlannedForConsumption
+      - totalNoOfLots
+      - lotsList
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    lotsList:
+      'ui:order':
+        - authenticLotNumber
+        - lotWeight
+        - noOfUnits
+        - bagWeight
+        - labelNumber
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

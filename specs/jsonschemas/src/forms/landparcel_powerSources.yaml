@@ -1,0 +1,5 @@
+jsonschema:
+  type: object
+  properties:
+    powerSources: file:~/specs/jsonschemas/src/common/powerSource.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_powerSources.yaml

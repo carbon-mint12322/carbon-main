@@ -1,0 +1,15 @@
+form:
+  uiSchema:
+    waterSources:
+      'ui:order':
+        - source
+        - '*'
+        - photoEvidence
+        - location
+      photoEvidence:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      location:
+        'ui:field': MapLocationField
+      openWell: file:~/specs/jsonschemas/src/common/ui/openWell.yaml
+      canal: file:~/specs/jsonschemas/src/common/ui/canal.yaml
+      otherWaterSource: file:~/specs/jsonschemas/src/common/ui/otherWaterSource.yaml

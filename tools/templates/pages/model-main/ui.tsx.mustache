@@ -1,0 +1,13 @@
+// Generated code (tools/templates/pages/model-main-ui.tsx.mustache)
+import Content from "{{{importPath}}}"
+
+import {AppConfigContext} from "~/contexts/AppConfigContext";
+import withAuth from "~/components/auth/withAuth";
+
+function Page(props: any) {
+  return (
+      <Content {...props} pageProps={props}/>
+  );
+}
+
+export default withAuth(Page)

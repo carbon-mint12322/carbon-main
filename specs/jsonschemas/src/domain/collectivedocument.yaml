@@ -1,0 +1,51 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Document name
+    documentType:
+      title: Document type
+      type: string
+      enum:
+        - Report
+        - Survey
+        - Certificate
+        - Contract
+        - Agreement
+        - Supporting document
+        - Other
+    description:
+      title: Description
+      type: string
+    documentDate:
+      title: Document date
+      type: string
+      format: date
+    documentOwner:
+      title: Document owner
+      type: string
+    status:
+      title: Document status
+      type: string
+    attachments:
+      type: array
+      title: Attachements
+      items:
+        type: string
+  allOf:
+    - if:
+        properties:
+          documentType:
+            const: Other
+      then:
+        properties:
+          otherType:
+            title: Other document type
+            type: string
+  required:
+    - name
+    - description
+    - documentDate
+    - attachments
+
+uiHints: file:~/specs/jsonschemas/src/domain/ui/collectivedocument.yaml

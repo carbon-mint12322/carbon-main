@@ -1,0 +1,510 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Integrated Crop Care Event'
+  properties:
+    cropCareMethods:
+      title: Integrated crop care methods
+      '$ref': '#/cropCareMethodsData'
+    expensesMet:
+      title: Expenses met
+      type: number
+      minimum: 0
+    photoEvidence:
+      title: Upload photo evidence
+      type: array
+      description: 'Upload photo evidence'
+      items:
+        type: string
+    recommondedBy:
+      title: Recommended by
+      type: string
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  cropCareMethodsData:
+    properties:
+      mechanicalControl:
+        title: Mechanical control
+        type: object
+        properties:
+          lightTrap:
+            title: Light trap
+            type: boolean
+            default: false
+          pheromoneTrap:
+            title: Pheromone trap
+            type: boolean
+            default: false
+          yellowStickyTrap:
+            title: Yellow sticky trap
+            type: boolean
+            default: false
+          blueStickyTrap:
+            title: Blue sticky trap
+            type: boolean
+            default: false
+          baitTrap:
+            title: Bait trap / fish meal trap
+            type: boolean
+            default: false
+          otherTrap:
+            title: Other trap
+            type: boolean
+            default: false
+
+        allOf:
+          - if:
+              properties:
+                lightTrap:
+                  const: true
+            then:
+              properties:
+                lightTrapDetails:
+                  type: string
+                  title: Trap details
+                noOfLightTraps:
+                  title: No of traps / acre
+                  type: number
+                  minimum: 0
+                lightTrapOperatingHours:
+                  title: Operating hours (preferably 6 PM to 9 PM)
+                  type: string
+
+          - if:
+              properties:
+                pheromoneTrap:
+                  const: true
+            then:
+              properties:
+                pheromoneTrapDetails:
+                  type: string
+                  title: Trap details
+                noOfPheromoneTraps:
+                  title: No of traps / acre
+                  type: number
+                  minimum: 0
+                lureChangeInterval:
+                  title: Lure change interval (in months)
+                  type: number
+          - if:
+              properties:
+                yellowStickyTrap:
+                  const: true
+            then:
+              properties:
+                noOfYellowStickyTraps:
+                  title: No of traps / acre
+                  type: number
+                  minimum: 0
+                yellowStickyTrapSize:
+                  title: Size
+                  type: number
+                  minimum: 0
+                yellowStickyTrapChangeInterval:
+                  title: Replacing / Adhesive change interval (days)
+                  type: number
+                  minimum: 0
+
+          - if:
+              properties:
+                blueStickyTrap:
+                  const: true
+            then:
+              properties:
+                noOfBlueStickyTraps:
+                  title: No of traps / acre
+                  type: number
+                  minimum: 0
+                blueStickyTrapSize:
+                  title: Size
+                  type: number
+                  minimum: 0
+                blueStickyTrapChangeInterval:
+                  title: Replacing / adhesive change interval (days)
+                  type: number
+                  minimum: 0
+
+          - if:
+              properties:
+                baitTrap:
+                  const: true
+            then:
+              properties:
+                baitUsed:
+                  type: string
+                  title: Bait used
+                againstPest:
+                  title: Against pest
+                  type: string
+                baitChangeInterval:
+                  title: Interval of change (in weeks)
+                  type: number
+                  minimum: 0
+          - if:
+              properties:
+                otherTrap:
+                  const: true
+            then:
+              properties:
+                otherTrapsUsed:
+                  title: Other traps used
+                  type: array
+                  items:
+                    type: object
+                    title: ''
+                    properties:
+                      otherTrapDetails:
+                        title: Trap details
+                        type: string
+                      otherTrapNoOfTraps:
+                        title: No of traps / acre
+                        type: number
+                        minimum: 0
+                      otherTrapAgainstPest:
+                        title: Aginst pest
+                        type: string
+                      otherTrapChangeInterval:
+                        title: Interval of change (weeks)
+                        type: number
+                        minimum: 0
+
+      botanicalPesticide:
+        title: Botanical pesticide
+        type: object
+        properties:
+          botanicalPesticideUsed:
+            title: Botanical pesticides used
+            type: array
+            items:
+              type: object
+              title: ''
+              properties:
+                pesticideName:
+                  title: Pesticide name
+                  type: string
+                pesticideType:
+                  title: Pesticide type
+                  type: string
+                  enum:
+                    - Oil
+                    - Extract
+                    - Others
+                  default: Oil
+                concentration:
+                  title: Concentration / specification
+                  type: number
+                  minimum: 0
+                dosage:
+                  title: Dosage per litre
+                  type: number
+                  minimum: 0
+
+      onFarmPreparations:
+        title: On-farm preparations
+        type: object
+        properties:
+          panchakavya:
+            type: boolean
+            title: Panchakavya
+            default: false
+          jeevamritham:
+            type: boolean
+            title: Jeevamritham
+            default: false
+          dhasakavya:
+            type: boolean
+            title: Dhasakavya
+            default: false
+          cowUrine:
+            type: boolean
+            title: Cow urine
+            default: false
+          cowDungExtract:
+            type: boolean
+            title: Cow dung extract
+            default: false
+          fermentedButterMilk:
+            type: boolean
+            title: Fermented butter milk
+            default: false
+          neemasthra:
+            type: boolean
+            title: Neem asthra
+            default: false
+          chilliGarlicExtract:
+            type: boolean
+            title: Chilli garlic extract
+            default: false
+          brahmaAshtra:
+            type: boolean
+            title: Brahma asthra
+            default: false
+          agniAshtra:
+            type: boolean
+            title: Agni asthra
+            default: false
+          dasaParni:
+            type: boolean
+            title: Dasaparni
+            default: false
+          otherPreparations:
+            type: boolean
+            title: Other preparations
+            default: false
+        allOf:
+          - if:
+              properties:
+                panchakavya:
+                  const: true
+            then:
+              properties:
+                panchakavyaDosage:
+                  title: Dosage per litre
+                  type: number
+                  minimum: 0
+          - if:
+              properties:
+                jeevamritham:
+                  const: true
+            then:
+              properties:
+                jeevamrithamDosage:
+                  title: Dosage per litre
+                  type: number
+                  minimum: 0
+          - if:
+              properties:
+                dhasakavya:
+                  const: true
+            then:
+              properties:
+                dhasakavyaDosage:
+                  title: Dosage per litre
+                  type: number
+                  minimum: 0
+          - if:
+              properties:
+                cowUrine:
+                  const: true
+            then:
+              properties:
+                cowUrineDosage:
+                  title: Dosage per litre
+                  type: number
+                  minimum: 0
+          - if:
+              properties:
+                cowDungExtract:
+                  const: true
+            then:
+              properties:
+                cowDungExtractDosage:
+                  title: Dosage per litre
+                  type: number
+                  minimum: 0
+          - if:
+              properties:
+                fermentedButterMilk:
+                  const: true
+            then:
+              properties:
+                fermentedButterMilkDosage:
+                  title: Dosage per litre
+                  type: number
+                  minimum: 0
+          - if:
+              properties:
+                neemasthra:
+                  const: true
+            then:
+              properties:
+                neemasthraDosage:
+                  title: Dosage per litre
+                  type: number
+                  minimum: 0
+
+          - if:
+              properties:
+                chilliGarlicExtract:
+                  const: true
+            then:
+              properties:
+                chilliGarlicExtractDosage:
+                  title: Dosage per litre
+                  type: number
+                  minimum: 0
+          - if:
+              properties:
+                brahmaAshtra:
+                  const: true
+            then:
+              properties:
+                brahmaAshtraDosage:
+                  title: Dosage per litre
+                  type: number
+                  minimum: 0
+
+          - if:
+              properties:
+                agniAshtra:
+                  const: true
+            then:
+              properties:
+                agniAshtraDosage:
+                  title: Dosage per litre
+                  type: number
+                  minimum: 0
+          - if:
+              properties:
+                dasaParni:
+                  const: true
+            then:
+              properties:
+                dasaParniDosage:
+                  title: Dosage per litre
+                  type: number
+                  minimum: 0
+          - if:
+              properties:
+                otherPreparations:
+                  const: true
+            then:
+              properties:
+                otherPreparationsUsed:
+                  title: Other preparations used
+                  type: array
+                  items:
+                    type: object
+                    title: ''
+                    properties:
+                      otherPreparationName:
+                        type: string
+                        title: Preparation name
+                      otherPreparationDosage:
+                        type: number
+                        title: Dosage per litre
+                        minimum: 0
+
+      certifiedOrganicInputs:
+        title: Certified organic inputs
+        type: object
+        properties:
+          certifiedOrganicInputsUsed:
+            title: Certified organic inputs used
+            type: array
+            items:
+              type: object
+              title: ''
+              properties:
+                tradeName:
+                  title: Trade name of the product
+                  type: string
+                brandName:
+                  title: Brand name
+                  type: string
+                principle:
+                  title: Pesticide principle
+                  type: string
+                certifiedBy:
+                  title: Certified by
+                  type: string
+                evidence:
+                  title: Upload photo of product label & invoice
+                  type: string
+
+                  description: Upload photo of product label & invoice
+
+      naturalEnemies:
+        title: Introduction of natural enemies
+        type: object
+        properties:
+          eggParasitoid:
+            type: boolean
+            title: Egg parasitoid
+            default: false
+          larvalParasitoid:
+            type: boolean
+            title: Larval parasitoid
+            default: false
+          pupalParasitoid:
+            type: boolean
+            title: Pupal parasitoid
+            default: false
+        allOf:
+          - if:
+              properties:
+                eggParasitoid:
+                  const: true
+            then:
+              properties:
+                eggParasitoidName:
+                  type: string
+                  title: Name
+                eggParasitoidRelease:
+                  type: number
+                  title: Per acre release
+          - if:
+              properties:
+                larvalParasitoid:
+                  const: true
+            then:
+              properties:
+                larvalParasitoidName:
+                  type: string
+                  title: Name
+                larvalParasitoidRelease:
+                  type: number
+                  title: Per acre release
+          - if:
+              properties:
+                pupalParasitoid:
+                  const: true
+            then:
+              properties:
+                pupalParasitoidName:
+                  type: string
+                  title: Name
+                pupalParasitoidRelease:
+                  type: number
+                  title: Per acre release
+
+      chemicalPesticide:
+        title: 'Chemical pesticide / fungicide / Nematicide / Acaricide sprayed'
+        type: object
+        properties:
+          chemicalPesticideUsed:
+            title: Chemicals used
+            type: array
+            items:
+              type: object
+              title: ''
+              properties:
+                chemicalTradeName:
+                  title: Trade name
+                  type: string
+                chemicalFormulation:
+                  title: Formulation
+                  type: string
+                chemicalConcentration:
+                  title: Concentration
+                  type: number
+                chemicalDosage:
+                  title: Dosage per litre
+                  type: number
+                  minumum: 0
+                chemicalPurchaseEvidence:
+                  title: Upload photo for purchase evidence
+                  type: string
+
+                  description: Upload photo for purchase evidence
+
+      otherMethods:
+        title: Other crop care methods used
+        type: string
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/integratedCropCareEvent.yaml

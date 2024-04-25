@@ -1,0 +1,67 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Harvest Packing Event'
+  properties:
+    packingMaterials:
+      title: Packing materials
+      type: string
+      enum:
+        - Own
+        - Purchase
+      default: Own
+    packingMaterialsUsed:
+      title: Packing materials used
+      type: string
+      enum:
+        - Gunny bags
+        - Gunny bags with plastic film
+        - Plastic net bag
+        - Foam sleeve
+        - Wooden boxes
+        - Corrugated fibreboard box
+        - Others
+      default: Gunny bags
+    deteriorationNorms:
+      title: Upload the documents related to the norms of deterioration of the packed materials
+      type: array
+      description: Upload the documents related to the norms of deterioration of the packed materials
+      items:
+        type: string
+    disinfectedStatus:
+      title: All the containers or apparatus are used only after rinse/disinfected
+      type: string
+      enum:
+        - 'Yes'
+        - 'No'
+      default: 'Yes'
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          packingMaterials:
+            const: Purchase
+      then:
+        properties:
+          packingMaterialsPurchasedReceipt:
+            title: Packing materials purchase receipt
+            type: string
+
+            description: Packing materials purchase receipt
+    - if:
+        properties:
+          packingMaterialsUsed:
+            const: Others
+      then:
+        properties:
+          otherPackingMaterialsUsed:
+            title: Other packing materials used
+            type: string
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/harvestPackingEvent.yaml

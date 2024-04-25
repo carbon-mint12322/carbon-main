@@ -1,0 +1,54 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Name
+    category:
+      type: string
+      enum:
+        - Composting
+        - Seed processing
+        - Input processing
+        - Drying yard
+        - Output processing
+        - Store
+      default: Composting
+      title: Category
+    field:
+      $ref: '#/definitions/FieldId'
+      title: Field
+    landParcel:
+      $ref: '#/definitions/LandParcelId'
+      title: Land parcel
+
+    collective:
+      $ref: '#/definitions/CollectiveId'
+      title: Collective
+    validationWorkflowId:
+      type: string
+      format: hidden
+    statusNotes:
+      type: string
+      format: hidden
+    status:
+      type: string
+      enum:
+        - Draft
+        - Under validation
+        - Under review
+        - Review failed
+        - Validation failed
+        - Approved
+        - In progress
+        - Completed
+      default: Draft
+      title: Status
+    active:
+      type: boolean
+      title: Active
+  required:
+    - name
+    - category
+    - field
+    - collective
+    - active

@@ -1,0 +1,8 @@
+jsonschema:
+  type: object
+  properties:
+    productDetails:
+      title: Product details
+      $ref: '#/definitions/ProductInfo'
+
+uiHints: file:~/specs/jsonschemas/src/domain/ui/product.yaml

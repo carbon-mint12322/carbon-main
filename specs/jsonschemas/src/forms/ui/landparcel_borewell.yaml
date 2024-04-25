@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    borewell: file:~/specs/jsonschemas/src/common/ui/borewell.yaml

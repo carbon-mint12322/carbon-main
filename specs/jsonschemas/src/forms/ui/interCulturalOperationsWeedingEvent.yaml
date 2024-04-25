@@ -1,0 +1,126 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    culturalMethods:
+      'ui:widget': checkboxes
+    'ui:order':
+      - weeding
+      - weedControlMethods
+      - physicalAndMechancalControlMethods
+      - otherPhysicalAndMechancalControlMethods
+      - culturalMethods
+      - otherCulturalMethod
+      - biologicalAndMycoHerbicidalControlMethod
+      - otherBiologicalAndMycoHerbicidalControlMethod
+      - chemicalControlMethod
+      - otherChemicalControlMethod
+      - otherChemicalControlMethodData
+      - altrazineChemicalControlMethod
+      - propazineChemicalControlMethod
+      - prometryneChemicalControlMethod
+      - simazineChemicalControlMethod
+      - '2ChemicalControlMethod'
+      - '4DChemicalControlMethod'
+      - pendimethalinChemicalControlMethod
+      - paraquatChemicalControlMethod
+      - diquatChemicalControlMethod
+      - inputQuantity
+      - costPerUnit
+      - expensesMet
+      - recommondedBy
+      - observedWeedList
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    otherChemicalControlMethodData:
+      'ui:order':
+        - purchaseReceipt
+        - applicationRate
+        - methodOfApplication
+        - otherMethodOfApplication
+        - '*'
+      purchaseReceipt:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    altrazineChemicalControlMethod:
+      'ui:order':
+        - purchaseReceipt
+        - applicationRate
+        - methodOfApplication
+        - otherMethodOfApplication
+        - '*'
+      purchaseReceipt:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    propazineChemicalControlMethod:
+      'ui:order':
+        - purchaseReceipt
+        - applicationRate
+        - methodOfApplication
+        - otherMethodOfApplication
+        - '*'
+      purchaseReceipt:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    prometryneChemicalControlMethod:
+      'ui:order':
+        - purchaseReceipt
+        - applicationRate
+        - methodOfApplication
+        - otherMethodOfApplication
+        - '*'
+      purchaseReceipt:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    simazineChemicalControlMethod:
+      'ui:order':
+        - purchaseReceipt
+        - applicationRate
+        - methodOfApplication
+        - otherMethodOfApplication
+        - '*'
+      purchaseReceipt:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    '2ChemicalControlMethod':
+      'ui:order':
+        - purchaseReceipt
+        - applicationRate
+        - methodOfApplication
+        - otherMethodOfApplication
+        - '*'
+      purchaseReceipt:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    '4DChemicalControlMethod':
+      'ui:order':
+        - purchaseReceipt
+        - applicationRate
+        - methodOfApplication
+        - otherMethodOfApplication
+        - '*'
+      purchaseReceipt:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    pendimethalinChemicalControlMethod:
+      'ui:order':
+        - purchaseReceipt
+        - applicationRate
+        - methodOfApplication
+        - otherMethodOfApplication
+        - '*'
+      purchaseReceipt:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    paraquatChemicalControlMethod:
+      'ui:order':
+        - purchaseReceipt
+        - applicationRate
+        - methodOfApplication
+        - otherMethodOfApplication
+        - '*'
+      purchaseReceipt:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    diquatChemicalControlMethod:
+      'ui:order':
+        - purchaseReceipt
+        - applicationRate
+        - methodOfApplication
+        - otherMethodOfApplication
+        - '*'
+      purchaseReceipt:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

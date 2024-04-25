@@ -1,0 +1,9 @@
+'ui:order':
+  - name
+  - variety
+  - season
+  - region
+  - durationType
+  - durationDays
+  - scheme
+  - '*'

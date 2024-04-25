@@ -1,0 +1,142 @@
+form:
+  uiSchema:
+
+    "ui:order":
+      - personalDetails
+      - gender
+      - dob
+      - bankDetails
+      - additionalDetails
+      - "*"
+    bankDetails:
+      "ui:order":
+        - "*"
+      bankDocument:
+        "ui:widget": "file"
+    personalDetails: file:~/specs/jsonschemas/src/common/ui/person.yaml
+
+createPage:
+  titleBar:
+    pageTitle: "Add Landowner"
+  schema: landowner
+  wfName: landownerLifecycle
+  isValidationNeeded: true
+detailPage:
+  showMap: true
+  titleBar:
+    pageTitle: "{{data.personalDetails.firstName}}"
+    subTitle: "{{data.personalDetails.address.village}}"
+    subBtnTitle: "Verify Landowner"
+    showTitlebar: true
+    showTitlebarTitle: true
+    showTitlebarSubTitle: true
+    showTitlebarMainBtn: false
+    showTitlebarSubBtn: true
+    showTitlebarSearch: false
+  tabs:
+    - type: info
+      title: Landowner Bio
+      props:
+        includeJsonSchema: true
+        verticalTabs:
+          - type: basicInfo
+            title: Basic Info
+            props:
+              nodePath: personalDetails
+              viewUiOrder:
+                - firstName
+                - lastName
+                - fathersHusbandsName
+                - primaryPhone
+                - gender   
+                - dob          
+
+          - type: addressInfo
+            title: Address Info
+            props:
+              nodePath: personalDetails.address
+              viewUiOrder:
+                - houseNo
+                - street
+                - village
+                - mandal
+                - state
+                - pincode
+                        
+          - type: idAndVerficationData
+            title: ID & Verification
+            props:
+              nodePath: personalDetails.identityDetails
+              viewUiOrder:
+                - identityNumber
+                - identityDocumentFile
+                - panCardNumber
+                - panCardFile
+                - "*"
+          - type: bankDetails
+            title: Bank Details
+            props:
+              nodePath: bankDetails
+              viewUiOrder:
+                - name
+                - branch
+                - accountNumber
+                - ifsc
+                - swift
+                - bankDocument
+                - "*"
+    # - type: tasks
+    #   title: Tasks
+    - type: landparcels
+      title: Land Parcels
+    - type: documents
+      title: Documents
+    - type: history
+      title: Activity Log
+listPage:
+  showInactiveDefault: false
+  isMultiSelect: true
+  customFilterKeys:
+    - personalDetails.firstName
+    - personalDetails.lastName
+    - personalDetails.address.village
+    - personalDetails.primaryPhone
+  titleBar:
+    pageTitle: Landowners
+    subTitle: "Showing {{data.length}} landowners total"
+    showTitlebar: true
+    showTitlebarTitle: true
+    showTitlebarSubTitle: true
+    showTitlebarMainBtn: true
+    showTitlebarSubBtn: false
+    showTitlebarSearch: true
+  # bulkActions:
+  #   - label: Bulk Download
+  #     operation: downloadBulk
+  #   - label: Upload Data
+  #     operation: uploadData
+  colDefs:
+    - field: landownerName
+      headerName: "Landowner Name"
+      minWidth: 250
+      flex: 1
+    - field: fbId
+      headerName: ID
+      minWidth: 100
+      flex: 1
+    - field: primaryPhone
+      headerName: Phone Number
+      minWidth: 50
+      flex: 1
+    - field: village
+      headerName: Village
+      minWidth: 100
+      flex: 1
+    - field: status
+      headerName: Status
+      minWidth: 100
+      flex: 1
+    - field: actions
+      headerName: Actions
+      minWidth: 200
+      flex: 1

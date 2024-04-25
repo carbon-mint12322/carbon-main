@@ -1,0 +1,8 @@
+type: object
+properties:
+  link:
+    type: string
+    format: 'data-url'
+    title: Link
+required:
+  - link

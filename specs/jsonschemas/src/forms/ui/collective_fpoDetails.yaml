@@ -1,0 +1,6 @@
+form:
+  uiSchema:
+    'ui:order':
+      - fpoDetails
+      - '*'
+    fpoDetails: file:~/specs/jsonschemas/src/common/ui/fpoDetails.yaml

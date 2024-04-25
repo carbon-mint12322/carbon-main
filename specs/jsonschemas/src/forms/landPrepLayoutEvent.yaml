@@ -1,0 +1,145 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Land Preparation Layout Event'
+  properties:
+    layoutWorkMethod:
+      type: string
+      enum:
+        - Ridges & Furrows
+        - Flat bed
+        - Raised bed
+        - Ring basins
+        - Pits
+        - Puddling
+        - Other
+      default: Ridges & Furrows
+      title: Layout work method
+    machineriesUsed:
+      title: Machinery Used
+      '$ref': '#/machineriesUsedData'
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  if:
+    properties:
+      layoutWorkMethod:
+        const: Other
+  then:
+    properties:
+      levelWorkOtherMethod:
+        type: string
+        title: Other layout work method
+  machineriesUsedData:
+    properties:
+      levelWorkTractor:
+        type: boolean
+        title: Tractor
+        default: false
+      levelWorkBullock:
+        type: boolean
+        title: Bullock
+        default: false
+      levelWorkManual:
+        type: boolean
+        title: Manual
+        default: false
+      levelWorkOther:
+        type: boolean
+        title: Other
+        default: false
+    allOf:
+      - if:
+          properties:
+            levelWorkTractor:
+              const: true
+        then:
+          properties:
+            levelWorkTractorImplements:
+              title: Implement used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            levelWorkTractorImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              levelWorkTractorImplements:
+                const: Other
+          then:
+            properties:
+              levelWorkTractorOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            levelWorkBullock:
+              const: true
+        then:
+          properties:
+            levelWorkBullockImplements:
+              title: Implement used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            levelWorkBulockImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              levelWorkTractorImplements:
+                const: Other
+          then:
+            properties:
+              levelWorkTractorOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            levelWorkManual:
+              const: true
+        then:
+          properties:
+            levelWorkManualMethod:
+              title: Manual method
+              type: string
+            totalHoursOfOperation:
+              title: Total hours of operation
+              type: number
+              minimum: 0
+              default: 0
+            expensesMet:
+              title: Expenses met
+              type: number
+              minimum: 0
+      - if:
+          properties:
+            levelWorkOther:
+              const: true
+        then:
+          properties:
+            levelWorkOtherMethod:
+              title: Other machineries used
+              type: string
+            levelWorkOtherImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+  Implements: file:../common/implements.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landPrepLayoutEvent.yaml

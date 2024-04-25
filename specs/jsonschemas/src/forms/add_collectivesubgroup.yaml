@@ -1,0 +1,47 @@
+jsonschema:
+  properties:
+    subGroups:
+      title: Sub Group
+      type: object
+      properties:
+        name:
+          type: string
+          title: Subgroup name
+        description:
+          title: Description
+          type: string
+        subGroupType:
+          title: Subgroup type
+          type: string
+        subGroupLeader:
+          title: Subgroup leader
+          type: string
+        subGroupContact:
+          title: Subgroup contact number
+          type: string
+        status:
+          title: Status
+          type: string
+          enum:
+            - Active
+            - Inactive
+            - Pending
+          default: Active
+        creationDate:
+          title: Creation date
+          type: string
+          format: date
+        attachments:
+          type: array
+          title: Attachements
+          items:
+            type: string
+        group:
+          $ref: '#/definitions/CollectiveGroupId'
+          title: Operator group
+      required:
+        - name
+        - description
+        - creationDate
+        - group
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_collectivesubgroup.yaml

@@ -1,0 +1,73 @@
+jsonschema:
+  type: object
+  properties:
+    soilInfo:
+      title: Soil Information
+      properties:
+        n:
+          title: N
+          type: number
+          description: Nitrogen
+          minimum: 0
+        p:
+          title: P
+          type: number
+          description: Phosphorus
+          minimum: 0
+        k:
+          title: K
+          type: number
+          description: Potassium
+          minimum: 0
+        soilTexture:
+          title: Soil texture (soil type)
+          type: string
+        soilColor:
+          title: Soil color
+          type: string
+        depthOfSurfaceSoil:
+          title: Depth of surface soil (cm)
+          type: number
+        ca:
+          title: Ca
+          type: number
+          description: Calcium
+          minimum: 0
+        mg:
+          title: Mg
+          type: number
+          description: Magnesium
+          minimum: 0
+        s:
+          title: S
+          type: number
+          minimum: 0
+          description: Sulfur
+        otherMicroNutrients:
+          title: Other micronutrients
+          type: string
+        ph:
+          title: pH(0 to 14)
+          type: number
+          minimum: 0
+          maximum: 14
+          description: Potential of hydrogen
+        ec:
+          title: Ec (dsm/m)
+          type: number
+          minimum: 0
+          description: Electrical conductivity
+        organicCarbon:
+          title: Organic carbon (%)
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Soil organic carbon
+        otherRemarks:
+          type: string
+          title: Other remarks
+        soilTestReport:
+          title: Soil test report
+          type: string
+          description: Upload soil test report
+uiHints: file:~/specs/jsonschemas/src/forms/ui/soilInfoSummary.yaml

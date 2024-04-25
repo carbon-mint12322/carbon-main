@@ -1,0 +1,21 @@
+jsonschema:
+  properties:
+    schemes:
+      title: 'Schemes'
+      type: array
+      minItems: 0
+      items:
+        type: string
+        title: ''
+        enum:
+          - NPOP
+          - NOP
+          - IndGAP
+          - GlobalGAP
+          - FairTrade
+          - BAP
+          - ASC
+        default: NPOP
+      uniqueItems: true
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/certificationBodySchemes.yaml

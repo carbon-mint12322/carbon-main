@@ -1,0 +1,56 @@
+//generated from template: tools/templates/page-components/event-create-component.tsx.mustache
+
+import React, { useState } from 'react';
+import CreateEvent from '~/components/lib/Events/create';
+import { useRouter } from 'next/router';
+import { useOperator } from '~/contexts/OperatorContext';
+import CircularLoader from '~/components/common/CircularLoader';
+import useFetch from 'hooks/useFetch';
+import * as titleBarRenderLib from "~/entitylib/{{modelName}}/event-create/titlebar";
+
+const eventCreatePageOptions = {{{eventCreatePageOptionsJson}}};
+const workflowNames = eventCreatePageOptions.workflowNames; 
+const EventTitles = eventCreatePageOptions.eventTitles;
+const EventSubTitles = eventCreatePageOptions.eventSubtitles;
+
+const schema = eventCreatePageOptions.eventContextSchema || `{{modelName}}`;
+
+export default function Create{{{modelNameCapitalized}}}Event(props: any) {
+  const router = useRouter();
+  const { getAPIPrefix } = useOperator();
+  const [submissionData, setSubmissionsData] = useState<any>();
+
+  const API_URL = getAPIPrefix() + `/{{{modelName}}}/${router.query.id}`;
+  const { isLoading: loading, data } = useFetch<any>(API_URL);
+  const ctx = {props, data};
+
+  const titleBarConfig: any = {
+    
+    showTitlebar: titleBarRenderLib.showTitlebar(ctx),
+    showTitlebarTitle: titleBarRenderLib.showTitle(ctx),
+    showTitlebarSubTitle: titleBarRenderLib.showSubtitle(ctx),
+    showTitlebarSearch: titleBarRenderLib.showTitlebarSearch(ctx),
+    showTitlebarMainBtn: titleBarRenderLib.showTitlebarMainBtn(ctx),
+    showTitlebarSubBtn: titleBarRenderLib.showTitlebarSubBtn(ctx),
+
+    pageTitle: titleBarRenderLib.renderTitle(ctx),
+    subTitle: titleBarRenderLib.renderSubTitle(ctx),
+    mainBtnTitle: titleBarRenderLib.renderMainBtnTitle(ctx),
+    subBtnTitle: titleBarRenderLib.renderSubBtnTitle(ctx),
+  };
+
+  return (
+    <CircularLoader value={loading}>
+      <CreateEvent
+        titleBarConfig={titleBarConfig}
+        submissionData={submissionData}
+        submissionsUrl={`/event?productionSystemId=${data?.productionSystem}&category=Submission`}
+        entityId={data?.id}
+        schema={schema}
+        workflowNames={workflowNames}
+        eventTitles={EventTitles}
+        eventSubTitles={EventSubTitles}
+      />
+    </CircularLoader>
+  );
+}

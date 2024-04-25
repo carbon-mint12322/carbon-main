@@ -1,0 +1,65 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    specialCharecteristics:
+      'ui:widget': checkboxes
+    preSowingSeedTreatment:
+      'ui:widget': checkboxes
+    insectPestsObserved:
+      'ui:widget': checkboxes
+    diseasesObserved:
+      'ui:widget': checkboxes
+    purchaseReceipt:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+
+    'ui:order':
+      - sourceOfSeedlings
+      - typeOfNursery
+      - otherTypeOfNursery
+      - typeOfNurseryBed
+      - typeOfInHouseNursery
+      - otherTypeOfInHouseNursery
+      - soilTreatmentMethod
+      - soilTreatmentMethodByChemicals
+      - otherChemicals
+      - quantityApplied
+      - preSowingSeedTreatment
+      - otherPreSowingTreatment
+      - varietyHybridName
+      - cropDuration
+      - seedRate
+      - methodOfSowing
+      - otherMethodOfSowing
+      - methodOfIrrigation
+      - otherMethodOfIrrigation
+      - interculturalOperationsInNursery
+      - otherInterculturalOperationsInNursery
+      - insectPestsObserved
+      - otherInsectsPests
+      - diseasesObserved
+      - otherDiseasesObserved
+      - purchaseReceipt
+      - offFarmVarietyHybridName
+      - OffFarmCropDuration
+      - noOfSeedlingsPurchased
+      - ageOfSeedlings
+      - specialCharecteristics
+      - freeFromWeedSeedsAndForeignMaterials
+      - freeFromPestsAndDiseasesResidues
+      - draughtTolerant
+      - submergenceTolerant
+      - highStorageCapacity
+      - highYield
+      - goodSizeAndShape
+      - moreSweetness
+      - goodAroma
+      - attractiveColor
+      - goodTexturer
+      - otherCharacter
+      - otherCharacterName
+      - varietalResistanceOnPestsAndDiseases
+      - recommendedCompetentAuthority
+      - dateOfPurchase
+      - totalExpenditure
+      - otherRemarks

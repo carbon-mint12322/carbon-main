@@ -1,0 +1,16 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    implementsUsed:
+      'ui:widget': checkboxes
+    'ui:order':
+      - typeOfInterculturalOperation
+      - otherTypeOfInterculturalOperation
+      - implementsUsed
+      - otherImplementsUsed
+      - useCleanedFarmTools
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

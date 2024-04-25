@@ -1,0 +1,15 @@
+jsonschema:
+  properties:
+    qualityGradingParametersTest:
+      title: Quality and grading parameters report of the produce
+      type: string
+      descriptoin: Quality and grading parameters report of the produce
+    cultivarPurityTest:
+      title: Laboratory test report of the cultivar purity
+      type: string
+      description: Laboratory test report of the cultivar purity
+    chemicalResidueTest:
+      title: Chemical/Pesticide residue analysis report of the produce
+      type: string
+      description: Chemical/Pesticide residue analysis report of the produce
+uiHints: file:~/specs/jsonschemas/src/forms/ui/produceQualityReports.yaml

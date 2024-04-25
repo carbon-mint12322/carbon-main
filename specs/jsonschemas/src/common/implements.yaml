@@ -1,0 +1,57 @@
+type: object
+properties:
+  machineriesOwnership:
+    title: Machinery ownership
+    type: string
+    enum:
+      - Own
+      - Rent
+    default: Own
+  useCleanedAndUncontaminatedMachineries:
+    title: Use cleaned & uncontaminated machinery
+    type: string
+    enum:
+      - 'Yes'
+      - 'No'
+    default: 'No'
+allOf:
+  - if:
+      properties:
+        useCleanedAndUncontaminatedMachineries:
+          const: 'Yes'
+    then:
+      properties:
+        evidenceOfOperation:
+          type: string
+          title: Evidence of the operation
+          description: Evidence of the operation
+  - if:
+      properties:
+        machineriesOwnership:
+          const: Own
+    then:
+      properties:
+        totalHoursOfOperation:
+          title: Total hours of operation
+          type: number
+          minimum: 0
+          default: 0
+        expensesMet:
+          title: Expenses met
+          type: number
+          minimum: 0
+    else:
+      properties:
+        totalHoursOfOperation:
+          title: Total hours of operation
+          type: number
+          minimum: 0
+          default: 0
+        ratePerHour:
+          title: Rate per hour
+          type: number
+          minimum: 0
+        expensesMet:
+          title: Expenses met
+          type: number
+          minimum: 0

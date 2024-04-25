@@ -1,0 +1,13 @@
+form:
+  uiSchema:
+    'ui:order':
+      - landOwnershipDocument
+      - landGovtMap
+      - landSupportDocument
+      - '*'
+    landOwnershipDocument:
+      'ui:widget': 'file'
+    landGovtMap:
+      'ui:widget': 'file'
+    landSupportDocument:
+      'ui:widget': 'file'

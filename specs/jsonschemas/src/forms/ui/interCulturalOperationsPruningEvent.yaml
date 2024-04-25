@@ -1,0 +1,15 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - pruningType
+      - pruningDate
+      - productUsed
+      - dosage
+      - expensesMet
+      - recommondedBy
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

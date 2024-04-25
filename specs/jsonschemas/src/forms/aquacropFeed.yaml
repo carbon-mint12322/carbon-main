@@ -1,0 +1,37 @@
+extends: ./aquacropNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Feed'
+  properties:
+    startDate:
+      title: Feed start date
+      type: string
+      format: date
+    endDate:
+      title: Feed end date
+      type: string
+      format: date
+    feedType:
+      type: string
+      title: Feed type
+    feedAmount:
+      type: number
+      title: 'Feed amount (Kgs)'
+    feedUsageRate:
+      type: number
+      title: 'Feed usage rate (Kgs/day)'
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - feedType
+    - feedAmount
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryFeed.yaml

@@ -1,0 +1,29 @@
+{
+  "LOGIN_PAGE": "/public/login",
+  "admin": [
+    "/private/farmbook/crops",
+    "/private/farmbook/dashboard",
+    "/private/farmbook/events",
+    "/private/farmbook/farmers",
+    "/private/farmbook/land-owners",
+    "/private/farmbook/land-parcels",
+    "/private/farmbook/operator",
+    "/public/404",
+    "/public",
+    "/public/login"
+  ],
+  "agent": [
+    "/private/farmbook/crops",
+    "/private/farmbook/dashboard",
+    "/private/farmbook/events",
+    "/private/farmbook/farmers",
+    "/private/farmbook/land-owners",
+    "/private/farmbook/land-parcels",
+    "/private/farmbook/operator",
+    "/public/404",
+    "/public",
+    "/public/login"
+  ],
+  "operator": ["/public/404", "/public", "/public/login"],
+  "public": ["/public/404", "/public", "/public/login"]
+}

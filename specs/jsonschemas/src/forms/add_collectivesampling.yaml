@@ -1,0 +1,6 @@
+jsonschema:
+  properties:
+    samplingDetails:
+      title: Sampling Details
+      $ref: '#/definitions/CollectiveSampling'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_collectivesampling.yaml

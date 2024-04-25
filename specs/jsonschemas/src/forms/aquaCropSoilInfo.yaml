@@ -1,0 +1,5 @@
+extends: ./aquacropNonValidationLifecycle.yaml
+jsonschema:
+  title: 'Soil Test'
+  $ref: '#/definitions/SoilInfo'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/soilInfo.yaml

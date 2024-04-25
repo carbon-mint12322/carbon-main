@@ -1,0 +1,14 @@
+form:
+  uiSchema:
+    'ui:order':
+      - documents
+      - '*'
+    documents:
+      items:
+        'ui:order':
+          - documentType
+          - documentDetails
+          - documentEvidence
+          - '*'
+        documentEvidence:
+          'ui:widget': 'file'

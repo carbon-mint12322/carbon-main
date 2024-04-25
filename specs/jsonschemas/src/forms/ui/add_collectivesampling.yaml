@@ -1,0 +1,3 @@
+form:
+  uiSchema:
+    samplingDetails: file:~/specs/jsonschemas/src/common/ui/collectivesampling.yaml

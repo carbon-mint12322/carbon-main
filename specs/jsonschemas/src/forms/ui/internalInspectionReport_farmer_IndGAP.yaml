@@ -1,0 +1,16 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - inspectionReportGrid
+      - inspectionReport
+      - startDate
+      - endDate
+      - inspectionDoneBy
+      - otherRemarks
+      - '*'
+    inspectionReportGrid:
+      ui:field: DgField
+    inspectionReport:
+      'ui:widget': 'file'

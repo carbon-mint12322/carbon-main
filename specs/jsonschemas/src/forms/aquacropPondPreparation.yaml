@@ -1,0 +1,61 @@
+extends: ./aquacropNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Pond Preparation'
+  properties:
+    preparationDate:
+      title: Preparation date
+      type: string
+      format: date
+    operation:
+      title: Operation
+      enum:
+        - Liming
+        - Cleaning
+        - Drying
+      default: Liming
+    waterSource:
+      title: Water source
+      type: string
+    durationAndExpenses:
+      title: 'Duration and Expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          operation:
+            const: Cleaning
+      then:
+        properties:
+          cleaningMethod:
+            type: string
+            title: Cleaning method
+    - if:
+        properties:
+          operation:
+            const: Drying
+      then:
+        properties:
+          dryingPeriod:
+            type: string
+            title: Drying period
+    - if:
+        properties:
+          operation:
+            const: Liming
+      then:
+        properties:
+          limeQuantity:
+            type: string
+            title: Lime quantity
+          limeType:
+            type: string
+            title: Lime type
+
+  required:
+    - preparationDate
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/aquacropPondPreparation.yaml

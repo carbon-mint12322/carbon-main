@@ -1,0 +1,32 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Egg Collection'
+  properties:
+    testType:
+      title: Test type
+      type: string
+    startDate:
+      title: Egg collection start date
+      type: string
+      format: date
+    endDate:
+      title: Egg collection end date
+      type: string
+      format: date
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    testResultsEvidence:
+      title: Test result evidence
+      type: string
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - noOfEggs
+    - totalExpenditure
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryDiagnosticTest.yaml

@@ -1,0 +1,18 @@
+type: object
+title: Canal
+properties:
+  name:
+    title: Canal name
+    type: string
+  availability:
+    title: Available months
+    type: string
+  quantity:
+    title: Potential quantity (Irrigatable water / hour)
+    type: number
+  pumpUsed: file:~/specs/jsonschemas/src/common/pumpUsed.yaml
+required:
+  - name
+  - availability
+  - quantity
+uiHints: file:~/specs/jsonschemas/src/common/ui/canal.yaml

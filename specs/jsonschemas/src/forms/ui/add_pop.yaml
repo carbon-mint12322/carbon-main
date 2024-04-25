@@ -1,0 +1,11 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - description
+      - recommendedBy
+      - cropPopType
+      - controlPoints
+      - '*'
+    cropPopType: file:~/specs/jsonschemas/src/common/ui/cropPopType.yaml
+    controlPoints: file:~/specs/jsonschemas/src/common/ui/controlPoint.yaml

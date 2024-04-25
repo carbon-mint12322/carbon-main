@@ -1,0 +1,26 @@
+form:
+  uiSchema:
+    comments:
+      'ui:widget': textarea
+    'ui:order':
+      - name
+      - desc
+      - dueDate
+      - priority
+      - assignee
+      - status
+      - category
+      - documents
+      - comments
+      - reminders
+      - '*'
+    documents:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    assignee:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a user
+      foreignSchemaId: '/user'
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: assignee
+      foreignLabelWidget: UserNameWidget

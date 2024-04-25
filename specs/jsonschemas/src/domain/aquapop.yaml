@@ -1,0 +1,42 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: POP name
+    description:
+      type: string
+      title: Description
+    aquaPopType:
+      title: Aquaculture information
+      $ref: '#/definitions/AquaPOPType'
+    controlPoints:
+      title: Control points
+      type: array
+      items:
+        $ref: '#/definitions/AquaControlPoint'
+    validationWorkflowId:
+      type: string
+      format: hidden
+    statusNotes:
+      type: string
+      format: hidden
+    status:
+      type: string
+      enum:
+        - Draft
+        - Under validation
+        - Under review
+        - Review failed
+        - Validation failed
+        - Approved
+      default: Draft
+    active:
+      type: boolean
+      format: hidden
+    audit:
+      $ref: '#/definitions/Audit'
+  required:
+    - name
+    - description
+    - controlPoints
+uiHints: file:~/specs/jsonschemas/src/domain/ui/aquapop.yaml

@@ -1,0 +1,39 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Egg Collection'
+  properties:
+    startDate:
+      title: Egg collection start date
+      type: string
+      format: date
+    endDate:
+      title: Egg collection end date
+      type: string
+      format: date
+    noOfEggs:
+      type: number
+      title: Number of eggs collected
+    qualityIssues:
+      type: string
+      title: Notable quality issues
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    evidence:
+      title: Evidence
+      type: array
+      description: Attach evidences
+      items:
+        type: string
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - noOfEggs
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryEggCollection.yaml

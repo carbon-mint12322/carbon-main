@@ -1,0 +1,16 @@
+
+type Context = {
+  props:any;
+  data:any;
+  searchValue?: string;
+}
+
+const showTitlebarSubBtn = (_ctx: Context) => (!_ctx.data?.status ||
+               _ctx.data?.status === 'editable' ||
+               _ctx.data?.status === 'Draft' ||
+               _ctx.data?.status === 'Review Failed' ||
+               _ctx.data?.status === 'Validation Failed') &&
+             !_ctx.data?.locked;
+export default showTitlebarSubBtn;
+
+

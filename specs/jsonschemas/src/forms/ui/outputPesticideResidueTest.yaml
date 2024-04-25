@@ -1,0 +1,18 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - pesticideTest
+      - outputPestcideResidueTestReport
+      - labCertifiedByNabl
+      - nablCertificationEvidence
+      - startDate
+      - endDate
+      - totalExpenditure
+      - otherRemarks
+      - '*'
+    outputPestcideResidueTestReport:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    nablCertificationEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

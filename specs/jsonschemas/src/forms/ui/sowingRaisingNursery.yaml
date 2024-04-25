@@ -1,0 +1,32 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    classOfPlantingMaterial:
+      'ui:widget': checkboxes
+    'ui:order':
+      - sowingPlantingMaterial
+      - sowingPlantingOtherMaterial
+      - classOfPlantingMaterial
+      - otherClassOfPlantingMaterial
+      - seedRateUnits
+      - otherSeedRate
+      - seedRateKgs
+      - seedRateNumbers
+      - seedSeedlingTreatment
+      - otherSeedSeedlingTreatment
+      - natureOfSowing
+      - otherNatureOfSowing
+      - rowToRowSpacing
+      - plantToPlantSpacing
+      - plantPopulation
+      - depthOfSowingPlanting
+      - useCleanedPlantingMaterial
+      - evidenceOfOperation
+      - ratePerKgNo
+      - expensesMet
+      - seedPlantingMaterialSource
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

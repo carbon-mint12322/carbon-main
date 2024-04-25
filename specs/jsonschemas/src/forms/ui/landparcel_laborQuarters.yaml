@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    laborQuarters: file:~/specs/jsonschemas/src/common/ui/laborQuarter.yaml

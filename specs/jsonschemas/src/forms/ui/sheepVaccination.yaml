@@ -1,0 +1,13 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - dateOfVaccination
+      - type
+      - route
+      - dose
+      - adverseReactions
+      - totalExpenditure
+      - otherRemarks
+      - '*'

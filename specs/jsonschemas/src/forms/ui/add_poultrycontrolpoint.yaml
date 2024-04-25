@@ -1,0 +1,16 @@
+form:
+  uiSchema:
+    'ui:order':
+      - addCP
+      - '*'
+    addCP:
+      technicalAdvice:
+      'ui:widget': textarea
+      'ui:order':
+        - name
+        - activityType
+        - period
+        - days
+        - technicalAdvice
+        - ccp
+        - '*'

@@ -1,0 +1,45 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Medication'
+  properties:
+    medicationType:
+      type: string
+      title: Type of medication
+    medicationSource:
+      type: string
+      title: Medication source
+    dosage:
+      type: string
+      title: Dosage
+    administration:
+      type: string
+      title: Route of administration
+    noOfBirds:
+      title: Number of birds medicated
+      type: number
+      minimum: 0
+    reactions:
+      title: Any adverse reactions
+      type: string
+    medicationReceipt:
+      title: Medication receipt
+      type: array
+      items:
+        type: string
+    reason:
+      title: Reason for treatment
+      type: string
+    durationAndExpenses: file:../common/durationAndExpensesComp.yaml
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - medicationType
+    - medicationSource
+    - dosage
+    - administration
+    - noOfBirds
+    - reason
+  # DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryMedication.yaml

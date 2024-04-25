@@ -1,0 +1,34 @@
+extends: ./cowNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Vaccination Event'
+  properties:
+    dateOfVaccination:
+      type: string
+      format: date
+      title: Vaccination date
+    type:
+      type: string
+      title: Type of vaccination
+    route:
+      type: string
+      title: Route of administration
+    dose:
+      type: string
+      title: Dose
+    adverseReactions:
+      type: string
+      title: Any adverse reactions
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - dateOfVaccination
+    - type
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/cowVaccination.yaml

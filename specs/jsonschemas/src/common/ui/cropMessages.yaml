@@ -1,0 +1,8 @@
+items:
+  message:
+    'ui:widget': textarea
+  'ui:order':
+    - crop
+    - message
+    - '*'
+

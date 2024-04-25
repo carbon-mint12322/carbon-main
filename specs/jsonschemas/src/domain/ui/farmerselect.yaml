@@ -1,0 +1,18 @@
+form:
+  uiSchema:
+    'ui:options':
+      showSubmit: false
+      showCancel: false  
+    'ui:order':
+      - farmer    
+      - '*'
+
+    farmer:
+      'ui:field': ReferenceField
+      ui:placeholder: Select a farmer
+      foreignSchemaId: '/farmer'
+      foreignLabelWidget: NameLabelWidget
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: farmer
+    

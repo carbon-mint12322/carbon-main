@@ -1,0 +1,101 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Harvest Winnowing Event'
+  properties:
+    operationDoneBy:
+      title: Operation done by
+      type: string
+      enum:
+        - Manual
+        - Tractor operated
+        - Machinery
+      default: Manual
+    gradingInstructionsDocument:
+      title: Upload the documents related to the sorting and grading instructions of the produce
+      type: string
+
+      description: Upload the documents related to the sorting and grading instructions of the produce
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          operationDoneBy:
+            const: Manual
+      then:
+        properties:
+          manualImplementsUsed:
+            title: Implements used
+            type: string
+            enum:
+              - Shovels
+              - Sievers
+              - Baskets
+              - Trays
+              - Others
+            default: Shovels
+        if:
+          properties:
+            manualImplementsUsed:
+              const: Others
+        then:
+          properties:
+            otherManualImplementsUsed:
+              title: Other implements used
+              type: string
+    - if:
+        properties:
+          operationDoneBy:
+            const: Tractor operated
+      then:
+        properties:
+          tractorImplementsUsed:
+            title: Implements used
+            type: string
+            enum:
+              - Tractor moulded Fans
+              - Winnower
+              - Sievers
+              - Others
+            default: Tractor moulded Fans
+        if:
+          properties:
+            tractorImplementsUsed:
+              const: Others
+        then:
+          properties:
+            otherTractorImplementsUsed:
+              title: Other implements used
+              type: string
+    - if:
+        properties:
+          operationDoneBy:
+            const: Machinery
+      then:
+        properties:
+          machineryImplementsUsed:
+            title: Implements used
+            type: string
+            enum:
+              - Winnowers
+              - Sieves
+              - Screens
+              - Others
+            default: Winnowers
+        if:
+          properties:
+            machineryImplementsUsed:
+              const: Others
+        then:
+          properties:
+            otherMachineryImplementsUsed:
+              title: Other implements used
+              type: string
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/harvestWinnowingEvent.yaml

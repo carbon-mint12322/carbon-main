@@ -1,0 +1,6 @@
+form:
+  uiSchema:
+    'ui:order':
+      - osps
+      - '*'
+    osps: file:~/specs/jsonschemas/src/common/ui/farmerosp.yaml

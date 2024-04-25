@@ -1,0 +1,28 @@
+import {
+  WorkflowDefinition, MappedWorkflowDefinition
+} from "../../../backendlib/workflow/types";
+import { mapToFunctions } from "../../../backendlib/workflow/map-functions";
+
+// schema
+import wfdef from "../../../gen/workflows/{{ wfdef.name }}/wf-schema";
+
+// imported functions
+{{#imports}}
+import {{name}} from "{{{path}}}";
+{{/imports}}
+
+const startStateName = `{{wfdef.startStateName}}`;
+
+// Imported functions - used for mapping processing steps and
+// transition conditions.  This table is passed to mapToFunctions to
+// inject functions into a workflow definition. 
+export const functionTable: Record<string, Function> = {
+{{#imports}}
+  {{name}}: {{name}},
+{{/imports}}
+};
+
+// Insert function pointers inside workflow definition, to
+// make it execution-ready
+export const mappedWfdef: MappedWorkflowDefinition =
+  mapToFunctions(wfdef as WorkflowDefinition, functionTable);

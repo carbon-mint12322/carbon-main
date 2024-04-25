@@ -1,0 +1,173 @@
+type: object
+properties:
+  name:
+    title: Plan name
+    type: string
+  hu:
+    $ref: '#/definitions/HarvestUpdateId'
+    title: Harvest Update
+  cb:
+    $ref: '#/definitions/CertificationBodyRef'
+    title: Certification body
+  startDate:
+    title: Aggregation plan start date
+    type: string
+    format: date
+  endDate:
+    title: Aggregation plan end date
+    type: string
+    format: date
+  crop:
+    title: Crop
+    type: string
+  variety:
+    title: Crop Variety
+    type: string
+  lotNo:
+    title: Lot No
+    type: string
+  ospGrid:
+    type: array
+    items:
+      type: object
+      title: Plan
+      properties:
+        sNo:
+          type: number
+          title: 'S.No.'
+        regNo:
+          type: string
+          title: Tracenet Code No. (Farmer Reg No.)
+        village:
+          type: string
+          title: Vilage
+        mandal:
+          type: string
+          title: Mandal/Tehsil
+        district:
+          type: string
+          title: District
+        state:
+          type: string
+          title: State
+        farmerName:
+          type: string
+          title: Farmer Name
+        totalArea:
+          type: number
+          title: Total Area (Ha)
+        status:
+          type: string
+          title: Organic Status
+        cropArea:
+          title: Crop Area (Ha)
+          type: number
+        estQty:
+          title: Est. Quantity (MT)
+          type: number
+        sowingDate:
+          title: Sowing Date
+          type: string
+          format: date
+        harvestDate:
+          title: Harvest Date
+          type: string
+          format: date
+        dateOfReceipt:
+          title: Date of receipt
+          type: string
+          format: date
+        qtyReceived:
+          title: Quantity Received (MT)
+          type: number
+        lotNo:
+          title: Lot No
+          type: string
+        remarks:
+          type: string
+          title: Remarks
+      required:
+        - sNo
+        - regNo
+        - village
+        - farmerName
+        - cropArea
+        - estQty
+        - sowingDate
+        - harvestDate
+        - dateOfReceipt
+        - qtyReceived
+    columns:
+      - field: sNo
+        headerName: S.No
+        width: 100
+      - field: regNo
+        headerName: Tracenet Code No.
+        width: 200
+      - field: village
+        headerName: Village
+        width: 200
+      - field: mandal
+        headerName: Mandal/Tehsil
+        width: 200
+      - field: district
+        headerName: District
+        width: 200
+      - field: district
+        headerName: District
+        width: 200
+      - field: state
+        headerName: State
+        width: 200
+      - field: farmerName
+        headerName: Farmer Name
+        width: 200
+      - field: fatherName
+        headerName: Farther Name
+        width: 200
+      - field: totalArea
+        headerName: Total Area (Ha)
+        width: 200
+      - field: status
+        headerName: Organic Status
+        width: 200
+      - field: cropArea
+        headerName: Crop Area (Ha)
+        width: 200
+      - field: estQty
+        headerName: Est. Quantity (MT)
+        width: 200
+      - field: sowingDate
+        headerName: Sowing Date
+        width: 200
+      - field: harvestDate
+        headerName: Harvest Date
+        width: 200
+      - field: dateOfReceipt
+        headerName: Date of receipt
+        width: 200
+      - field: qtyReceived
+        headerName: Quantity received (MT)
+        width: 200
+      - field: lotNo
+        headerName: Lot No
+        width: 200
+      - field: remarks
+        headerName: Rekmarks
+        width: 200
+    title: Aggregation Plan
+  attachments:
+    type: array
+    title: Reports
+    items:
+      type: string
+  otherRemarks:
+    type: string
+    title: Other remarks
+required:
+  - name
+  - hu
+  - cb
+  - startDate
+  - endDate
+  - lotNo

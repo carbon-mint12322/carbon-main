@@ -1,0 +1,56 @@
+'ui:order':
+  - cropName
+  - sampleId
+  - sampleFromTracedCrop
+  - crop
+  - farmerName
+  - farmerId
+  - sampleType
+  - seedSource
+  - seedVariety
+  - seedCertificate
+  - authority
+  - natureOfSample
+  - processingType
+  - sampleReceivedDate
+  - sampleQuantity
+  - sampleCondition
+  - sampleQC
+  - sampleNumberPassedByQC
+  - sampleIDPassedByQC
+  - sampleNumberFailedByQC
+  - sampleIDFailedByQC
+  - testStart
+  - testEnd
+  - technicalScientist
+  - qcIncharge
+  - approvedBy
+  - approvalSignature
+  - labReports
+  - laboratory
+  - labCertifiedByNabl
+  - nablCertificationEvidence
+  - totalExpenditure
+  - sampleBTQRCodeUrls
+  - otherRemarks
+otherRemarks:
+  'ui:widget': textarea
+crop:
+  'ui:field': ReferenceField
+  ui:placeholder: Select a crop
+  foreignSchemaId: '/crop'
+  foreignLabelWidget: NameLabelWidget
+  'ui:options':
+    # This key is passed for selecting a field for crop creation
+    filterKey: crop
+labReports:
+  items:
+    labReport:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - labReport
+      - labReportDescription
+nablCertificationEvidence:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+approvalSignature:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'

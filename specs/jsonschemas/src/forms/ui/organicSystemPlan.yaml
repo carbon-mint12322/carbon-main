@@ -1,0 +1,148 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - ospYear
+      - icsDetails
+      - seedDependencies
+      - inputDependencies
+      - bufferCrops
+      - productionSystemOverview
+      - conversionRequirements
+      - postHarvestHandling
+      - soilManagement
+      - waterManagement
+      - organicAwareness
+      - buyBackDetails
+      - internalInspectionstran
+      - records
+      - attachments
+      - otherRemarks
+      - '*'
+    icsDetails:
+      'ui:order':
+        - icsName
+        - icsAddress
+        - totalArea
+        - noOfFarmers
+        - noOfFarmers4Has
+        - icsManager
+        - intent
+        - scope
+        - operationStatus
+        - conversionStatus
+        - '*'
+    seedDependencies:
+      'ui:order':
+        - onFarmPlantingStock
+        - offFarmLocalSeeds
+        - commertialHybrids
+        - icsSupplied
+        - gmo
+        - '*'
+    inputDependencies:
+      'ui:order':
+        - onFarmInputs
+        - offFarmApprovedInputs
+        - icsSupplied
+        - selectivePesticides
+        - offFarmRestrictedInputs
+        - inputsUsed
+        - '*'
+
+    bufferCrops:
+      'ui:order':
+        - bufferCropsExist
+        - bufferCropsUsed
+        - remarks
+        - '*'
+    productionSystemOverview:
+      'ui:order':
+        - psoGrid
+        - '*'
+      psoGrid:
+        ui:field: DgField
+    conversionRequirements:
+      'ui:order':
+        - cropRotation
+        - composting
+        - biomassSource
+        - compostSource
+        - mulching
+        - '*'
+    postHarvestHandling:
+      'ui:order':
+        - na
+        - washWater
+        - sortProducts
+        - gradeProducts
+        - coolProducts
+        - cleaning
+        - packing
+        - drying
+        - others
+        - '*'
+    soilManagement:
+      'ui:order':
+        - soilAnalysis
+        - majorPractices
+        - '*'
+    waterManagement:
+      'ui:order':
+        - waterDependencies
+        - waterAnalysis
+        - '*'
+    organicAwareness:
+      'ui:order':
+        - farmersAware
+        - trainingRecords
+        - '*'
+    buyBackDetails:
+      'ui:order':
+        - buyBack
+        - bbdGrid
+        - '*'
+      bbdGrid:
+        ui:field: DgField
+    internalInspections:
+      'ui:order':
+        - inspectionCompleted
+        - firstInspectionFrom
+        - firstInspectionTo
+        - secondInspectionFrom
+        - secondInspectionTo
+        - '*'
+    records:
+      'ui:order':
+        - farmerApplicationForms
+        - farmeContractAgreement
+        - farmersLegalDocuments
+        - farmersLandDocuments
+        - icsLegalDocuemnts
+        - icsManual
+        - approvedFarmers
+        - farmMaps
+        - overviewMap
+        - farmDiaries
+        - internalInspectionRecords
+        - farmerTrainingRecords
+        - staffTrainingRecord
+        - organizationChart
+        - conflict
+        - staffList
+        - ncSanctionRegister
+        - farmerExitFarms
+        - purchaseRecords
+        - purchaseVouchers
+        - riskAssessment
+        - purchaseRecordsAllInputs
+        - offFarmInputs
+        - compostProduction
+        - testRecords
+        - harvestRecords
+        - storageRecords
+        - salesRecords
+        - others
+    attachments:
+      'ui:widget': 'file'

@@ -1,0 +1,12 @@
+jsonschema:
+  properties:
+    Personal details: file:~/specs/jsonschemas/src/common/person.yaml
+    Organization details: file:~/specs/jsonschemas/src/common/personalOrgDetails.yaml
+    Account status: file:~/specs/jsonschemas/src/common/accountStatus.yaml
+    userId:
+      $ref: '#/definitions/UserId'
+      title: User id
+    organizationId:
+      $ref: '#/definitions/OrganizationId'
+      title: Organization
+uiHints: file:~/specs/jsonschemas/src/domain/ui/technician.yaml

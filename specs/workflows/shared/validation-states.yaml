@@ -1,0 +1,160 @@
+- name: start
+  description: start state
+  triggers:
+    - eventName: userSubmit
+      description: User has submitted data for review
+      roles: ['ADMIN', 'AGENT']
+      inputSchemaName: add_notes
+      processingSteps:
+        - name: updateWorkflowId
+          description: Set workflow ID in domain object
+          importPath: ~/workflows/common/functions/validation/updateWorkflowId
+        - name: setUnderReviewStatus
+          description: Set status in domain object
+          importPath: ~/workflows/common/functions/validation/setUnderReviewStatus
+        - name: sendNotificationForReview
+          description: Send notification to reviewer to review data
+          importPath: ~/workflows/common/functions/validation/sendNotificationForReview
+      transitions:
+        - condition:
+            name: always
+            importPath: ~/workflows/common/functions/always
+          state: waitingForReview
+- name: waitingForReview
+  description: |
+    In this state administrator approves or rejects a submitted data after verification of all the details
+  triggers:
+    - eventName: reviewPass
+      roles:
+        - ADMIN
+        - AGENT
+      inputSchemaName: add_notes
+      processingSteps:
+        - name: reviewPass
+          description: Accept information
+          importPath: ~/workflows/common/functions/validation/reviewPass
+      transitions:
+        - condition:
+            name: always
+            importPath: ~/workflows/common/functions/always
+          state: waitingForValidation
+    - eventName: reviewFail
+      roles:
+        - ADMIN
+        - AGENT
+      inputSchemaName: add_notes
+      processingSteps:
+        - name: reviewFail
+          description: Reject submitted data
+          importPath: ~/workflows/common/functions/validation/reviewFail
+        - name: sendAgentNotification
+          description: Send notification to agent about review failure
+          importPath: ~/workflows/common/functions/validation/sendNotificationForRejection
+      transitions:
+        - condition:
+            name: always
+            importPath: ~/workflows/common/functions/always
+          state: reviewFailed
+- name: reviewFailed
+  description: |
+    Data review failed. Please resubmit
+  triggers:
+    - eventName: resubmit
+      roles: [] # No roles required, ie anyone can do this
+      inputSchemaName: add_notes
+      description: |
+        Resubmit details after corrections
+      processingSteps:
+        - name: setUnderReviewStatus
+          description: Set status in domain object
+          importPath: ~/workflows/common/functions/validation/setUnderReviewStatus
+        - name: sendNotificationForReview
+          description: Send notification to reviewer to review data
+          importPath: ~/workflows/common/functions/validation/sendNotificationForReview
+      transitions:
+        - condition:
+            name: always
+            importPath: ~/workflows/common/functions/always
+          state: waitingForReview
+    - eventName: archive
+      roles: [] # No roles required, ie anyone can do this
+      description: |
+        Archive data
+      inputSchemaName: add_notes
+      transitions:
+        - condition:
+            name: always
+            importPath: ~/workflows/common/functions/always
+          state: archived
+- name: waitingForValidation
+  description: |
+    In this state administrator approves or rejects after verification of all the details
+  triggers:
+    - eventName: validatePass
+      roles:
+        - ADMIN
+        - AGENT
+      inputSchemaName: add_notes
+      processingSteps:
+        - name: dataValidationPass
+          description: Accept information
+          importPath: ~/workflows/common/functions/validation/validationPass
+      transitions:
+        - condition:
+            name: always
+            importPath: ~/workflows/common/functions/always
+          state: validated
+    - eventName: validateFail
+      roles:
+        - ADMIN
+        - AGENT
+      inputSchemaName: add_notes
+      processingSteps:
+        - name: dataValidationFail
+          description: Validation Failed
+          importPath: ~/workflows/common/functions/validation/validationFail
+        - name: sendAgentNotification
+          description: Send notification to agent about rejection
+          importPath: ~/workflows/common/functions/validation/sendNotificationForRejection
+      transitions:
+        - condition:
+            name: always
+            importPath: ~/workflows/common/functions/always
+          state: validationFailed
+- name: validated
+  description: Validation successful
+  isEndState: true
+- name: validationFailed
+  description: Validation failed
+  triggers:
+    - eventName: resubmit
+      roles: [] # No roles required, ie anyone can do this
+      inputSchemaName: add_notes
+      description: |
+        Resubmit details after corrections
+      processingSteps:
+        - name: setUnderReviewStatus
+          description: Set status in domain object
+          importPath: ~/workflows/common/functions/validation/setUnderReviewStatus
+        - name: sendNotificationForReview
+          description: Send notification to reviewer to review data
+          importPath: ~/workflows/common/functions/validation/sendNotificationForReview
+      transitions:
+        - condition:
+            name: always
+            importPath: ~/workflows/common/functions/always
+          state: waitingForReview
+    - eventName: archive
+      roles: [] # No roles required, ie anyone can do this
+      description: |
+        Archive data
+      inputSchemaName: add_notes
+      transitions:
+        - condition:
+            name: always
+            importPath: ~/workflows/common/functions/always
+          state: archived
+- name: archived
+  description: |
+    Data has been archived
+  isEndState: true

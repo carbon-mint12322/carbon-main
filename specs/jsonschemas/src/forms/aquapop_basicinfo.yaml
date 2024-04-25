@@ -1,0 +1,20 @@
+jsonschema:
+  properties:
+    formTitle:
+      type: object
+      title: Edit POP details
+    name:
+      type: string
+      title: POP name
+    description:
+      type: string
+      title: Description
+    aquaPopType:
+      title: Poultry information
+      $ref: '#/definitions/AquaPOPType'
+  required:
+    - name
+    - description
+    - aquaPopType
+    - controlPoints
+uiHints: file:~/specs/jsonschemas/src/forms/ui/aquapop_basicinfo.yaml

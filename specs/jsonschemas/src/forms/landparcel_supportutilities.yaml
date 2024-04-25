@@ -1,0 +1,44 @@
+jsonschema:
+  type: object
+  properties:
+    supportUtilities:
+      type: object
+      title: 'Add support utility'
+      properties:
+        name:
+          title: Name
+          type: string
+        size:
+          title: Size
+          type: number
+        capacity:
+          title: Capacity
+          type: number
+        category:
+          title: Category
+          type: string
+          enum:
+            - Farmhouse
+            - Toilet
+            - Labor quarters
+            - Security house
+            - Scrap shed
+            - Medical assistance
+            - Dining
+            - Attractions
+          default: Farmhouse
+        photoEvidence:
+          title: Upload photo
+          type: string
+          description: 'Upload photo'
+        location:
+          type: string
+          title: Mark the location of the facility
+
+      required:
+        - name
+        - capacity
+        - category
+        - location
+        - photoEvidence
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_supportutilities.yaml

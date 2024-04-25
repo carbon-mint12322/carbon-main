@@ -1,0 +1,154 @@
+{
+  "name": "lint",
+  "ui": {
+    "themeOptions": {
+      "palette": {
+        "primary": {
+          "main": "#1199bb"
+        },
+        "secondary": {
+          "main": "#005aff"
+        },
+        "error": {
+          "main": "#ff1744"
+        }
+      }
+    },
+    "uiSchema": {
+      "testReport": {
+        "ui:widget": "FileWidget",
+        "ui:options": {
+          "accept": "application/pdf",
+          "multiple": false
+        }
+      }
+    }
+  },
+  "schema": {
+    "$id": "@carbonmint/lint-ngmo-schema/v1",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "NGMO Test Locker",
+    "properties": {
+      "sampleNature": {
+        "title": "Nature of sample",
+        "enum": ["Raw", "Pre-Processed", "Processed", "Post-processed"],
+        "default": "Raw"
+      },
+      "processingType": {
+        "title": "Type of Processing",
+        "type": "string",
+        "default": "N/A"
+      },
+      "sampleType": {
+        "title": "Sample type",
+        "enum": ["Leaf", "stem", "root", "Fibre", "Seed", "Lint", "Garment"],
+        "default": "Lint"
+      },
+      "sampleReceiveDate": {
+        "title": "Date sample received",
+        "type": "string",
+        "format": "date"
+      },
+      "sampleQuantity": {
+        "title": "Sample Quantity (gm)",
+        "type": "number"
+      },
+      "sampleCondition": {
+        "title": "Sample Condition",
+        "type": "string",
+        "default": "good"
+      },
+      "testTimestamp": {
+        "title": "Date and time of test",
+        "type": "string",
+        "format": "date-time",
+        "formatMinimum": "2020-01-01T00:00:00.000"
+      },
+      "passedSampleCount": {
+        "title": "Number of samples that passed test",
+        "type": "number"
+      },
+      "passedSampleIds": {
+        "title": "Samples that passed test (comma separated)",
+        "type": "string"
+      },
+      "failedSampleCount": {
+        "title": "Number of samples that failed test",
+        "type": "number"
+      },
+      "failedSampleIds": {
+        "title": "Samples that failed test (comma separated)",
+        "type": "string"
+      },
+      "testStartTimestamp": {
+        "title": "Date and time of test started",
+        "type": "string",
+        "format": "date-time",
+        "formatMinimum": "2020-01-01T00:00:00.000"
+      },
+      "testEndTimestamp": {
+        "title": "Date and time of test ended",
+        "type": "string",
+        "format": "date-time",
+        "formatMinimum": "2020-01-01T00:00:00.000"
+      },
+      "technicalScientistName": {
+        "title": "Technical scientist name",
+        "type": "string"
+      },
+      "qcReviewer": {
+        "title": "QC in-charge & Reviwed by:",
+        "type": "string"
+      },
+      "qcApprover": {
+        "title": "QC Approved by:",
+        "type": "string"
+      },
+      "qcApproverSignature": {
+        "title": "QC Approver signature:",
+        "type": "string"
+      },
+      "labReports": {
+        "title": "Lab Reports (Reports from GMO machine)",
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/data"
+        }
+      }
+    },
+    "required": [
+      "sampleNature",
+      "processingType",
+      "sampleType",
+      "sampleReceiveDate",
+      "sampleQuantity",
+      "sampleCondition",
+      "testTimestamp",
+      "passedSampleCount",
+      "passedSampleIds",
+      "failedSampleCount",
+      "failedSampleIds",
+      "testStartTimestamp",
+      "testEndTimestamp",
+      "technicalScientistName",
+      "qcReviewer",
+      "qcApprover",
+      "qcApproverSignature",
+      "labReports"
+    ],
+    "type": "object",
+    "data": {
+      "properties": {
+        "Report's Name": {
+          "type": "string"
+        },
+        "": {
+          "title": "",
+          "type": "string",
+          "format": "url"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - description
+      - poultryPopType
+      - controlPoints
+      - '*'
+    active:
+      'ui:field': Hidden
+    poultryPopType: file:~/specs/jsonschemas/src/common/ui/poultryPopType.yaml
+    controlPoints: file:~/specs/jsonschemas/src/common/ui/controlPoint.yaml

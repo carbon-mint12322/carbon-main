@@ -1,0 +1,23 @@
+form:
+  uiSchema:
+    'ui:order':
+      - farmEquipments
+      - '*'
+    farmEquipments:
+      'ui:order':
+        - tillageImplements
+        - sowingEquipments
+        - weedingAndInterculturalImplements
+        - plantProtections
+        - harvestingAndThreshing
+        - '*'
+      tillageImplements:
+        'ui:widget': checkboxes
+      sowingEquipments:
+        'ui:widget': checkboxes
+      weedingAndInterculturalImplements:
+        'ui:widget': checkboxes
+      plantProtections:
+        'ui:widget': checkboxes
+      harvestingAndThreshing:
+        'ui:widget': checkboxes

@@ -1,0 +1,370 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Seedlings Info'
+  properties:
+    sourceOfSeedlings:
+      type: string
+      enum:
+        - On-farm nursery
+        - Off-farm nursery
+      title: Source of seedlings
+      default: On-farm nursery
+    recommendedCompetentAuthority:
+      type: string
+      title: Recommended by
+    dateOfPurchase:
+      title: Date of purchase
+      type: string
+      format: date
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - dateOfPurchase
+    - totalExpenditure
+  allOf:
+    - if:
+        properties:
+          sourceOfSeedlings:
+            const: On-farm nursery
+      then:
+        properties:
+          typeOfNursery:
+            type: string
+            enum:
+              - Wet nursery
+              - Dry nursery
+              - Dapog/Mat nursery
+              - Others
+            title: Type of Nursery
+            default: Wet nursery
+          typeOfNurseryBed:
+            type: string
+            enum:
+              - Raised bed
+              - Sunken bed
+              - Level bed
+              - Protrays
+            title: Type of nursery bed
+            default: Raised bed
+          typeOfInHouseNursery:
+            type: string
+            enum:
+              - Open nursery
+              - Greenhouse
+              - Polytunnels
+              - Shade nets
+              - Glasshouse
+              - Plastic film greenhouse
+              - Mist chambers
+              - Others
+            title: Type of in house(framed structures) nursery
+            default: Open nursery
+          soilTreatmentMethod:
+            title: Soil treatment methods
+            type: string
+            enum:
+              - Soil solarization
+              - Steam treatment
+              - Soil treatment by chemicals
+              - Others
+            default: Soil solarization
+          preSowingSeedTreatment:
+            title: Pre-sowing seed treatment
+            type: array
+            minItems: 0
+            items:
+              type: string
+              enum:
+                - scarification
+                - soakingInCoolWater
+                - soakingInHotWater
+                - alternateWetting
+                - soakingInChemicals
+                - otherPreSowingTreatmentMethod
+              enumNames:
+                - Scarification
+                - Soaking in cool water
+                - Soaking in hot water
+                - Alternate wetting and drying treatments
+                - Soaking in chemicals
+                - Others
+            uniqueItems: true
+          varietyHybridName:
+            type: string
+            title: Variety/ybrid Name
+          cropDuration:
+            type: number
+            title: Crop duration (days)
+          seedRate:
+            title: Seed rate(kg/ha)
+            type: number
+            default: 0
+          methodOfSowing:
+            type: string
+            title: Method of sowing
+            enum:
+              - Broadcasting
+              - Line sowing
+              - Sowing in pro-trays
+              - Others
+            default: Broadcasting
+          methodOfIrrigation:
+            title: Method of irrigation
+            type: string
+            enum:
+              - Flooding
+              - Sprinkler irrigation
+              - Rose can irrigation
+              - Pipe irrigation
+              - Drip irrigation
+              - Foggers
+              - Others
+            default: Flooding
+          interculturalOperationsInNursery:
+            title: Intercultural operations in nursery
+            type: string
+            enum:
+              - Weeding
+              - Gap filling
+              - Thinning
+              - Mulching
+              - Others
+            default: Weeding
+          insectPestsObserved:
+            title: Insects/Pests observed
+            type: array
+            minItems: 0
+            items:
+              type: string
+              enum:
+                - cutworm
+                - grasshoppers
+                - aphids
+                - thrips
+                - scales
+                - mealyBugs
+                - mites
+                - leafMiner
+                - termites
+                - otherInsects
+              enumNames:
+                - Cutworm
+                - Grasshoppers
+                - Aphids
+                - Thrips
+                - Scales
+                - Mealybugs
+                - Mites
+                - Leaf miner
+                - Termites
+                - Other insects/pests
+            uniqueItems: true
+          diseasesObserved:
+            title: Diseases observed
+            type: array
+            minItems: 0
+            items:
+              type: string
+              enum:
+                - blast
+                - seedlingBlight
+                - dampingOff
+                - wilt
+                - leafSpot
+                - rootRot
+                - otherDiseases
+              enumNames:
+                - Blast
+                - Seedling blight
+                - Damping off
+                - Wilt
+                - Leaf spot
+                - Root rot
+                - Other diseases
+            uniqueItems: true
+        allOf:
+          - if:
+              properties:
+                diseasesObserved:
+                  contains:
+                    type: string
+                    const: otherDiseases
+            then:
+              properties:
+                otherDiseasesObserved:
+                  type: string
+                  title: Other diseases observed
+          - if:
+              properties:
+                insectPestsObserved:
+                  contains:
+                    type: string
+                    const: otherInsects
+            then:
+              properties:
+                otherInsectsPests:
+                  type: string
+                  title: Other insects/pests observed
+          - if:
+              properties:
+                preSowingSeedTreatment:
+                  contains:
+                    type: string
+                    const: otherPreSowingTreatmentMethod
+            then:
+              properties:
+                otherPreSowingTreatment:
+                  title: Other pre-sowing seed treatment method
+                  type: string
+          - if:
+              properties:
+                typeOfNursery:
+                  const: Others
+            then:
+              properties:
+                otherTypeOfNursery:
+                  type: string
+                  title: Other type of nursery
+          - if:
+              properties:
+                typeOfInHouseNursery:
+                  const: Others
+            then:
+              properties:
+                otherTypeOfInHouseNursery:
+                  type: string
+                  title: Other framed structure
+          - if:
+              properties:
+                soilTreatmentMethod:
+                  const: Soil treatment by chemicals
+            then:
+              properties:
+                soilTreatmentMethodByChemicals:
+                  type: string
+                  enum:
+                    - Formalin
+                    - Chlorpyriphos
+                    - Mancozeb
+                    - Others
+                  title: Chemicals applied
+                  default: Formalin
+                quantityApplied:
+                  type: number
+                  minimum: 0
+                  title: Chemicals quantity applied (gm or ml)
+              if:
+                properties:
+                  soilTreatmentMethodByChemicals:
+                    const: Others
+              then:
+                properties:
+                  otherChemicals:
+                    type: string
+                    title: Other chemical used for soil treatment
+          - if:
+              properties:
+                methodOfSowing:
+                  const: Others
+            then:
+              properties:
+                otherMethodOfSowing:
+                  type: string
+                  title: Other method of sowing
+          - if:
+              properties:
+                methodOfIrrigation:
+                  const: Others
+            then:
+              properties:
+                otherMethodOfIrrigation:
+                  type: string
+                  title: Other method of irrigation
+          - if:
+              properties:
+                interculturalOperationsInNursery:
+                  const: Others
+            then:
+              properties:
+                otherInterculturalOperationsInNursery:
+                  type: string
+                  title: Other intercultural operations in nursery
+      else:
+        properties:
+          purchaseReceipt:
+            title: Seedlings purchase receipt
+            type: array
+            description: Seedlings purchase receipt
+            items:
+              type: string
+          offFarmVarietyHybridName:
+            type: string
+            title: Variety/Hybrid Name
+          OffFarmCropDuration:
+            type: string
+            title: Crop duration (days)
+          noOfSeedlingsPurchased:
+            title: Number of seedlings purchased
+            type: number
+            default: 0
+            minimum: 0
+          ageOfSeedlings:
+            title: Age of the seedlings (Days)
+            type: number
+            default: 0
+            minimum: 0
+          specialCharecteristics:
+            title: Special characteristics
+            type: array
+            minItems: 0
+            items:
+              type: string
+              enum:
+                - freeFromWeedSeedsAndForeignMaterials
+                - freeFromPestsAndDiseasesResidues
+                - draughtTolerant
+                - submergenceTolerant
+                - highStorageCapacity
+                - highYield
+                - goodSizeAndShape
+                - moreSweetness
+                - goodAroma
+                - attractiveColor
+                - goodTexturer
+                - otherCharacter
+              enumNames:
+                - Free from weed seeds and Foreign materials
+                - Free from Pests and Diseases residues
+                - Draught tolerance
+                - Submergence tolerant
+                - High storage capacity
+                - High yield
+                - Good size and shape
+                - More sweetness
+                - Good aroma
+                - Attractive color
+                - Good texture
+                - Other character
+            uniqueItems: true
+          varietalResistanceOnPestsAndDiseases:
+            type: string
+            title: Varietal resistance on pests and diseases
+        allOf:
+          - if:
+              properties:
+                specialCharecteristics:
+                  contains:
+                    type: string
+                    const: otherCharacter
+            then:
+              properties:
+                otherCharacterName:
+                  type: string
+                  title: Other seedlings character
+uiHints: file:~/specs/jsonschemas/src/forms/ui/seedlingsInfo.yaml

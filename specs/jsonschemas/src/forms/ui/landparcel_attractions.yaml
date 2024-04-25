@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    attractions: file:~/specs/jsonschemas/src/common/ui/attraction.yaml

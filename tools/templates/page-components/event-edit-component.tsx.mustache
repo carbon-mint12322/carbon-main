@@ -1,0 +1,47 @@
+import React from 'react';
+import EventDetailPageWrapper from '~/components/lib/Events/details';
+import { useRouter } from 'next/router';
+import { useOperator } from '~/contexts/OperatorContext';
+import CircularLoader from '~/components/common/CircularLoader';
+import useFetch from 'hooks/useFetch';
+import * as titleBarRenderLib from "~/entitylib/{{modelName}}/event-edit/titlebar";
+
+export default function {{modelNameCapitalized}}EventDetails(props: any) {
+  const router = useRouter();
+  const { getAPIPrefix } = useOperator();
+  const { org, id: entityId, eventId } = router.query;
+
+  const API_URL = getAPIPrefix() + `/{{modelName}}/${entityId}?simple=true`;
+  const { isLoading: loading, data } = useFetch<any>(API_URL);
+  const ctx = { props, data }; // mustache render context
+
+  const titleBarConfig: any = {
+    
+    showTitlebar: titleBarRenderLib.showTitlebar(ctx),
+    showTitlebarTitle: titleBarRenderLib.showTitle(ctx),
+    showTitlebarSubTitle: titleBarRenderLib.showSubtitle(ctx),
+    showTitlebarSearch: titleBarRenderLib.showTitlebarSearch(ctx),
+    showTitlebarMainBtn: titleBarRenderLib.showTitlebarMainBtn(ctx),
+    showTitlebarSubBtn: titleBarRenderLib.showTitlebarSubBtn(ctx),
+    showTitlebarDelBtn: titleBarRenderLib.showTitlebarDelBtn(ctx),
+
+    pageTitle: titleBarRenderLib.renderTitle(ctx),
+    subTitle: titleBarRenderLib.renderSubTitle(ctx),
+    mainBtnTitle: titleBarRenderLib.renderMainBtnTitle(ctx),
+    subBtnTitle: titleBarRenderLib.renderSubBtnTitle(ctx),
+  };
+
+  return (
+    <CircularLoader value={loading}>
+      <EventDetailPageWrapper
+        titleBarConfig={titleBarConfig}
+        org={org}
+        eventId={eventId}
+        entityId={entityId}
+        evidenceUrl={`${getAPIPrefix()}/event?productionSystemId=${
+          data?.productionSystem
+        }&category=Submission`}
+      />
+    </CircularLoader>
+  );
+}

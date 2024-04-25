@@ -1,0 +1,31 @@
+// Generated backend code
+// The exported default function is intended to be
+// imported as getServerSideProps in a pages/**/*.jsx file
+//
+// This file needs to be in a separate file from the UI React
+// component, or nextjs build will fail.
+import { getPageConfig } from "~/static/page-config";
+import { withPermittedRolesGssp } from "~/backendlib/middleware/rbac";
+import { {{importedFunc}} as datasource } from "{{{importPath}}}"
+
+const permittedRoles = {{{ roles }}}
+const roleCheckWrapper = withPermittedRolesGssp(permittedRoles)
+const datasourceWithAuth = roleCheckWrapper(datasource)
+
+export default async function getServerSideProps(context: any) {
+  const pageConfigProps = getPageConfig(context)
+
+  // Invoke data source. The datasource function must check
+  // user session and permissions. Datasource functions must
+  // take context as parameter and look up query parameters
+  const data = await datasourceWithAuth(context)
+  if (data.redirect) {
+    return data;
+  }
+  return {
+    props: {
+      ...pageConfigProps.props,
+      data,
+    },
+  }
+}

@@ -1,0 +1,30 @@
+extends: ./aquacropNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Growth Measurement'
+  properties:
+    startDate:
+      title: Growth measurement start date
+      type: string
+      format: date
+    endDate:
+      title: Growth measurement end date
+      type: string
+      format: date
+    shrimpSize:
+      title: Size
+      type: number
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - shrimpSize
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/aquacropGrowthMeasurement.yaml

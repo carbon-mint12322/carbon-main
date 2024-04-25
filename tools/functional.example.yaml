@@ -1,0 +1,47 @@
+tag: root
+props: {}
+children:
+  - tag: topArea
+    props: {}
+    children:
+      - tag: img
+        props:
+          src: /logo.png
+          width: 64
+          alt: $p.title
+        children: []
+      - tag: title
+        props: {}
+        children: []
+      - tag: toprightMenu
+        props: {}
+        children:
+          - tag: $M.Menu
+            props: {}
+            children:
+              - tag: item1
+                props: {}
+                children: []
+              - tag: item2
+                props: {}
+                children: []
+  - tag: Middle
+    props: {}
+    children:
+      - tag: LeftMenu
+        props: {}
+        children: []
+      - tag: ContentArea
+        props: {}
+        children: []
+  - tag: Footer
+    props: {}
+    children:
+      - tag: PlainText
+        props:
+          text: copyright 2022
+        children: []
+      - tag: poweredby
+        props: {}
+        children: []
+

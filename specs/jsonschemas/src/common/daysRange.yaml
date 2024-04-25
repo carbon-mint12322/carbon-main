@@ -1,0 +1,13 @@
+type: object
+properties:
+  start:
+    title: Start
+    type: number
+    default: 0
+  end:
+    title: End
+    type: number
+    default: 0
+required:
+  - start
+  - end

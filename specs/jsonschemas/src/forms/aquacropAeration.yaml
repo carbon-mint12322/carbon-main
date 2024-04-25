@@ -1,0 +1,28 @@
+extends: ./aquacropNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Aeration'
+  properties:
+    startDate:
+      title: Aeration start date
+      type: string
+      format: date
+    endDate:
+      title: Aeration end date
+      type: string
+      format: date
+    method:
+      title: Aeration mthod
+      type: string
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - totalExpenditure
+uiHints: file:~/specs/jsonschemas/src/forms/ui/aquacropAeration.yaml

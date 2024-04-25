@@ -1,0 +1,22 @@
+form:
+  uiSchema:
+    remarks:
+      'ui:widget': textarea
+    'ui:order':
+      - year
+      - totalArea
+      - latitude
+      - longitude
+      - crops
+      - remarks
+      - '*'
+    crops:
+      items:
+        'ui:order':
+          - crop
+          - cropType
+          - cropArea
+          - estQty
+          - variety
+          - sowingDate
+          - '*'

@@ -1,0 +1,267 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Integrated Crop Nutrition Fertilizer Event'
+  properties:
+    timeOfApplication:
+      title: Time of application
+      type: string
+      enum:
+        - Before preparatory cultivation
+        - Before last ploughing
+        - Sowing/Planting time
+        - On standing crop
+        - Others
+      default: Before preparatory cultivation
+    fertilizersApplied:
+      type: object
+      title: Fertilizers applied
+      properties:
+        urea:
+          type: boolean
+          title: Urea
+          default: false
+        dap:
+          type: boolean
+          title: DAP
+          default: false
+        mop:
+          type: boolean
+          title: MOP
+          default: false
+        ssp:
+          type: boolean
+          title: SSP
+          default: false
+        lime:
+          type: boolean
+          title: Lime
+          default: false
+        gypsum:
+          type: boolean
+          title: Gypsum
+          default: false
+        rockPhosphate:
+          type: boolean
+          title: Rock phosphate
+          default: false
+        zincSulphate:
+          type: boolean
+          title: Zinc sulphate
+          default: false
+        borax:
+          type: boolean
+          title: Borax
+          default: false
+        '28:28:00':
+          type: boolean
+          title: '28:28:00'
+          default: false
+        '17:17:17':
+          type: boolean
+          title: '17:17:17'
+          default: false
+        '16:16:16':
+          type: boolean
+          title: '16:16:16'
+          default: false
+        '19:19:19':
+          type: boolean
+          title: '19:19:19'
+          default: false
+        others:
+          type: boolean
+          title: Others
+          default: false
+      allOf:
+        - if:
+            properties:
+              urea:
+                const: true
+          then:
+            properties:
+              ureaFertilizersApplication:
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              dap:
+                const: true
+          then:
+            properties:
+              dapFertilizersApplication:
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              mop:
+                const: true
+          then:
+            properties:
+              mopFertilizersApplication:
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              ssp:
+                const: true
+          then:
+            properties:
+              sspFertilizersApplication:
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              lime:
+                const: true
+          then:
+            properties:
+              limeFertilizersApplication:
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              gypsum:
+                const: true
+          then:
+            properties:
+              gypsumFertilizersApplication:
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              rockPhosphate:
+                const: true
+          then:
+            properties:
+              rockPhosphateFertilizersApplication:
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              zincSulphate:
+                const: true
+          then:
+            properties:
+              zincSulphateFertilizersApplication:
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              borax:
+                const: true
+          then:
+            properties:
+              boraxFertilizersApplication:
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              '28:28:00':
+                const: true
+          then:
+            properties:
+              '28:28:00FertilizersApplication':
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              '17:17:17':
+                const: true
+          then:
+            properties:
+              '17:17:17FertilizersApplication':
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              '16:16:16':
+                const: true
+          then:
+            properties:
+              '16:16:16FertilizersApplication':
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              '19:19:19':
+                const: true
+          then:
+            properties:
+              '19:19:19FertilizersApplication':
+                title: ''
+                '$ref': '#/fertilizersData'
+        - if:
+            properties:
+              others:
+                const: true
+          then:
+            properties:
+              otherFertilizers:
+                type: string
+                title: Other fertilizers applied
+              otherFertilizersApplication:
+                title: ''
+                '$ref': '#/fertilizersData'
+    methodOfApplication:
+      title: Method of application
+      type: string
+      enum:
+        - Soil application
+        - Foliar application
+        - Fertigation
+        - Others
+      default: Soil application
+    nutrientCompositionAnalysisReport:
+      title: Nutrient composition analysis report
+      type: array
+      description: Nutrient composition analysis report
+      items:
+        type: string
+
+    recommendedBy:
+      title: Recommended by
+      type: string
+    totalFertilizersCost:
+      type: number
+      title: Total fertilizers cost
+      minimum: 0
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          timeOfApplication:
+            const: Others
+      then:
+        properties:
+          otherTimeOfApplication:
+            type: string
+            title: Other time of application
+    - if:
+        properties:
+          methodOfApplication:
+            const: Others
+      then:
+        properties:
+          otherMethodOfApplication:
+            type: string
+            title: Other method of application
+
+  fertilizersData:
+    properties:
+      purchaseReceipt:
+        type: string
+        title: Purchase receipt
+
+        description: Purchase receipt
+      quantityOfApplication:
+        type: number
+        title: Quantity of application (kg/acre)
+        minimum: 0
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/nutritionFertilizerEvent.yaml

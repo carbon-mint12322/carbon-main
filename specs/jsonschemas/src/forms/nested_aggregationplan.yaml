@@ -1,0 +1,4 @@
+jsonschema:
+  title: Aggregation Plan Details
+  $ref: '#/definitions/AggregationPlan'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/nested_aggregationplan.yaml

@@ -1,0 +1,9 @@
+
+type Context = {
+  props:any;
+  data:any;
+  }
+
+const renderSubTitle = ({data}:Context) => data?.[0]?.name || "";
+
+export default renderSubTitle;

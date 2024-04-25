@@ -1,0 +1,65 @@
+otherRemarks:
+  'ui:widget': textarea
+evidence:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+'ui:order':
+  - outputProcessingUnit
+  - productBatch
+  - inputMaterials
+  - processSteps
+  - outputs
+  - durationAndExpenses
+  - otherRemarks
+  - '*'
+
+inputMaterials:
+  items:
+    photoEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - inputName
+      - inputQuantity
+      - inputUnits
+      - inputCost
+      - photoEvidence
+      - qrCodeUrl
+      - qrCodeInfo
+      - '*'
+
+processSteps:
+  items:
+    photoEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - processName
+      - processInformation     
+      - photoEvidence 
+      - '*'
+outputs:
+  items:
+    photoEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - outputName
+      - outputMaterial
+      - outputQuantity
+      - outputUnits   
+      - photoEvidence  
+      - '*'
+durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml
+outputProcessingUnit:
+  'ui:field': ReferenceField
+  ui:placeholder: Select an output processing unit
+  foreignSchemaId: '/landparcel'
+  'ui:options':
+    # This key is passed for selecting a cropping system for crop creation
+    filterKey: processingunit
+  foreignLabelWidget: NameLabelWidget
+productBatch:
+  'ui:field': ReferenceField
+  ui:placeholder: Select a product batch
+  foreignSchemaId: '/productbatch'
+  'ui:options':
+    # This key is passed for selecting a cropping system for crop creation
+    filterKey: productbatch
+  foreignLabelWidget: BatchLabelWidget

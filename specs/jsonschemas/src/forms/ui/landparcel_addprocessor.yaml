@@ -1,0 +1,12 @@
+form:
+  uiSchema:
+    'ui:order':
+      - processor
+      - '*'
+    processor:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a processor
+      foreignSchemaId: '/farmer'
+      'ui:options':
+        filterKey: processor
+      foreignLabelWidget: UserNameWidget

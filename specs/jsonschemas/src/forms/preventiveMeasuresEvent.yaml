@@ -1,0 +1,119 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Preventative Measures Event'
+  properties:
+    preventiveMeasuresFollowed:
+      title: Preventive measures followed
+      type: array
+      minItems: 1
+      items:
+        type: string
+        title: ''
+        enum:
+          - nightFires
+          - catchCrops
+          - trapCrops
+          - pheromoneTraps
+          - cropRotation
+          - summerPloughing
+          - roguing
+          - flooding
+          - alleyWays
+          - earthingUp
+          - trashMulching
+          - barrierTrenches
+          - soilSterlization
+          - lightTraps
+          - stickyTraps
+          - insectBaites
+          - handPicking
+          - baggignWrapping
+          - bandingAroundTheTreeTrunks
+          - systematicShaking
+          - birdPerches
+          - soakingSeedsWithSalineSolution
+          - useDiseaseAndPestFreeSeeds
+          - soilAmendments
+          - othersPreventive
+        enumNames:
+          - Night fires
+          - Catch crops
+          - Trap crops
+          - Pheromone traps
+          - Crop rotation
+          - Summer ploughing
+          - Roguing(Removing infested plants)
+          - Flooding
+          - Alley ways
+          - Earthing up
+          - Trash mulching
+          - Barrier trenches
+          - Soil Sterilization
+          - Light traps
+          - Sticky traps
+          - Insect baits
+          - Hand picking
+          - Bagging / wrapping
+          - Banding around the tree trunks
+          - Systematic shaking
+          - Bird perches
+          - Soaking seeds with saline solution
+          - Use disease and pest free seeds
+          - Soil amendments (Oil cakes, soil dusts, Straw)
+          - Others
+      uniqueItems: true
+    otherPreventiveMeasure:
+      type: string
+      title: Other preventive measure applied
+    naturalEnemiesObserved:
+      title: Natural enemies observed
+      type: array
+      minItems: 1
+      items:
+        type: string
+        title: ''
+        enum:
+          - preyingMantids
+          - spiders
+          - wasps
+          - dragonFly
+          - damselFly
+          - hoverFly
+          - robberFly
+          - coccinellids
+          - laceWings
+          - trichogrammaSps
+          - telenomusRemus
+          - braconids
+          - ichneumonids
+          - encarsiaFormosa
+          - othersNaturalEnemies
+        enumNames:
+          - Preying mantids
+          - Spiders
+          - Wasps
+          - Dragon fly
+          - Damselfly
+          - Hoverfly
+          - Robber fly
+          - Coccinellids
+          - Lacewings
+          - Trichogramma sps
+          - Telenomus remus
+          - Braconids
+          - Ichneumonids
+          - Encarsia formosa
+          - Others
+      uniqueItems: true
+    otherNaturalEnemiesObserved:
+      type: string
+      title: Other natural enemies observed
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/preventiveMeasuresEvent.yaml

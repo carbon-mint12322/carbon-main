@@ -1,0 +1,15 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - stockingDate
+      - stockingQuanity
+      - stockingMethod
+      - stockingSize
+      - stockingDensity
+      - acclimatization
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

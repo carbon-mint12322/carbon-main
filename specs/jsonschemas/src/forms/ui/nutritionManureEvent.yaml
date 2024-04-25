@@ -1,0 +1,137 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - manure
+      - usedWellDecomposedManure
+      - sourceOfManure
+      - manuresApplied
+      - timeOfApplication
+      - otherTimeOfApplication
+      - methodOfApplication
+      - otherMethodOfApplication
+      - nutrientCompositionAnalysisReport
+      - recommondedBy
+      - totalManuresCost
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    nutrientCompositionAnalysisReport:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    manuresApplied:
+      'ui:order':
+        - fym
+        - fymManuresApplication
+        - vermiCompost
+        - vermiCompostManuresApplication
+        - neemCake
+        - neemCakeManuresApplication
+        - compost
+        - compostManuresApplication
+        - soilIncorporationOfGreenManures
+        - soilIncorporationOfGreenManuresManuresApplication
+        - soilIncorporationOfGreenLeafManures
+        - soilIncorporationOfGreenLeafManuresManuresApplication
+        - rhizobium
+        - rhizobiumManuresApplication
+        - azolla
+        - azollaManuresApplication
+        - blueGreenAlgae
+        - blueGreenAlgaeManuresApplication
+        - zinkSolubilisingBacteria
+        - zinkSolubilisingBacteriaManuresApplication
+        - phosporousSolubilisingBacteria
+        - phosporousSolubilisingBacteriaManuresApplication
+        - ghanajeevamrutham
+        - ghanajeevamruthamManuresApplication
+        - bioChar
+        - bioCharManuresApplication
+        - Others
+        - otherManures
+        - otherManuresManuresApplication
+      fymManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      vermiCompostManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      neemCakeManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      compostManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      soilIncorporationOfGreenManuresManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      soilIncorporationOfGreenLeafManuresManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      rhizobiumManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      azollaManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      blueGreenAlgaeManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      zinkSolubilisingBacteriaManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      phosporousSolubilisingBacteriaManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      ghanajeevamruthamManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      bioCharManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      otherManuresManuresApplication:
+        'ui:order':
+          - purchaseReceipt
+          - quantityOfApplication
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

@@ -1,0 +1,30 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Name
+    category:
+      type: string
+      enum:
+        - Standard
+        - Raised Beds
+        - Nursery
+        - Container
+        - Multi-tiered
+        - Hydroponic
+      default: Standard
+      title: Category
+    field:
+      $ref: '#/definitions/FieldId'
+      title: Field
+    area:
+      title: Area (sqyd)
+      type: number
+    map:
+      title: Field map
+      type: string
+  required:
+    - name
+    - category
+    - field
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_plot.yaml

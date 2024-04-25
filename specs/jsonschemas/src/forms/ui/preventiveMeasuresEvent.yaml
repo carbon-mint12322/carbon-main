@@ -1,0 +1,17 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    preventiveMeasuresFollowed:
+      'ui:widget': checkboxes
+    naturalEnemiesObserved:
+      'ui:widget': checkboxes
+    'ui:order':
+      - preventiveMeasuresFollowed
+      - otherPreventiveMeasure
+      - naturalEnemiesObserved
+      - otherNaturalEnemiesObserved
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

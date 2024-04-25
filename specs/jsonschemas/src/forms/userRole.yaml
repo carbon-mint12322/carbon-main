@@ -1,0 +1,6 @@
+jsonschema:
+  properties:
+    roles:
+      title: User Roles
+      $ref: '#/definitions/UserRoles'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/userRole.yaml

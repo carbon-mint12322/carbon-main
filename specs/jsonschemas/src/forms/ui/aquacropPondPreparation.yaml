@@ -1,0 +1,16 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - preparationDate
+      - operation
+      - cleaningMethod
+      - dryingPeriod
+      - limeQuantity
+      - limeType
+      - waterSource
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

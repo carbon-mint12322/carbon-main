@@ -1,0 +1,14 @@
+type: object
+properties:
+  verifiedBy:
+    $ref: '#/definitions/UserId'
+  notes:
+    type: string
+    title: Notes
+  verifiedOn:
+    type: string
+    format: date
+required:
+  - verifiedBy
+  - notes
+  - verifiedOn

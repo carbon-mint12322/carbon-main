@@ -1,0 +1,22 @@
+jsonschema:
+  properties:
+    organizationDetails:
+      title: Organization Details
+      $ref: '#/definitions/Organization'
+
+    claims:
+      title: Product Claims
+      $ref: '#/definitions/Claims'
+
+    cropMessages:
+      title: Crop Messages
+      $ref: '#/definitions/CropMessages'
+
+    cfaMesssage:
+      title: Call for action message
+      type: string
+
+  required:
+    - organizationDetails
+   
+uiHints: file:~/specs/jsonschemas/src/domain/ui/client.yaml

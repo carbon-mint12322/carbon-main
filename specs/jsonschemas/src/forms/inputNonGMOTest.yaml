@@ -1,0 +1,52 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Input Non GMO Test'
+  properties:
+    inputNonGMOTestReport:
+      title: Test report
+      type: string
+      description: Upload test report
+    labCertifiedByNabl:
+      title: Lab certified by NABL
+      type: string
+      enum:
+        - 'Yes'
+
+        - 'No'
+      default: 'Yes'
+    startDate:
+      type: string
+      format: date
+      title: Start date
+    endDate:
+      type: string
+      format: date
+      title: End date
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - inputNonGMOTestReport
+    - startDate
+    - endDate
+    - totalExpenditure
+  allOf:
+    - if:
+        properties:
+          labCertifiedByNabl:
+            const: 'Yes'
+      then:
+        properties:
+          nablCertificationEvidence:
+            title: NABL certification evidence
+            type: array
+            description: NABL certification evidence
+            items:
+              type: string
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/inputNonGMOTest.yaml

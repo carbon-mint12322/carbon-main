@@ -1,0 +1,17 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    photoEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - startDate
+      - endDate
+      - feedType
+      - feedAmount
+      - feedUsageRate
+      - totalExpenditure
+      - photoEvidence
+      - otherRemarks
+
+      - '*'

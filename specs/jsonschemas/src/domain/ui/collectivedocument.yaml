@@ -1,0 +1,14 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - documentType
+      - otherType
+      - description
+      - documentDate
+      - documentOwner
+      - status
+      - attachments
+      - '*'
+    attachments:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

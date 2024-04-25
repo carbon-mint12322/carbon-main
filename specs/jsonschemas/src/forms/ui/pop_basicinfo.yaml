@@ -1,0 +1,9 @@
+form:
+  uiSchema:
+    'ui:order':
+      - formTitle
+      - name
+      - description
+      - cropPopType
+      - '*'
+    cropPopType: file:~/specs/jsonschemas/src/common/ui/cropPopType.yaml

@@ -1,0 +1,6 @@
+jsonschema:
+  properties:
+    addCP:
+      type: object
+      title: Add control point
+      '$ref': '#/definitions/AquaControlPoint'

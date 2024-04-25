@@ -1,0 +1,5 @@
+jsonschema:
+  type: object
+  properties:
+    scrapSheds: file:~/specs/jsonschemas/src/common/scrapShed.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_scrapSheds.yaml

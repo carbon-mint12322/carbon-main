@@ -1,0 +1,38 @@
+jsonschema:
+  type : object
+  properties:
+    farmTools:
+      title: 'Tools'
+      properties:
+        toolType:
+          title: 'Tool type'
+          type: string
+          enum:
+            - Axe
+            - Rake
+            - Spade
+            - Hand hoe
+          default: Axe
+        quantity:
+          type: number
+          title: Quantity
+        toolDetails:
+          type: string
+          title: Tool details
+        toolEvidence:
+          type: string
+          title: Tool document
+          description: 'Document evidence'
+        toolDate:
+          type: string
+          title: Purchase date
+          format: date
+          description: 'Purchase date'
+
+      required:
+        - toolType
+        - quantity
+        - toolDetails
+        - toolEvidence
+        - toolDate
+uiHints: file:~/specs/jsonschemas/src/forms/ui/farmTools.yaml

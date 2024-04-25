@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    compostingUnits: file:~/specs/jsonschemas/src/common/ui/compostingUnit.yaml

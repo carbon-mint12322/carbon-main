@@ -1,0 +1,16 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+    map:
+      $ref: '#/definitions/Map'
+    collective:
+      type: string
+    active:
+      type: boolean
+    audit:
+      $ref: '#/definitions/Audit'
+  required:
+    - name
+    - map
+    - active

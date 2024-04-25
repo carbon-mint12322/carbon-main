@@ -1,0 +1,6 @@
+jsonschema:
+  properties:
+    ngmoTestRecords:
+      title: NGMO Test Details
+      $ref: '#/definitions/NgmoTestRecord'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_collectivengmotestrecord.yaml

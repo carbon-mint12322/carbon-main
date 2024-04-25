@@ -1,0 +1,39 @@
+form:
+  otherRemarks:
+    'ui:widget': textarea
+  'ui:order':
+    - aggregationPlan
+    - cb
+    - issuedDate
+    - lotNo
+    - attachments
+    - ngmoRecords
+    - otherRemarks
+    - '*'
+  attachments:
+    'ui:widget': 'UploadFilesWithAttachmentsWidget'
+  ngmoRecords:
+    'ui:field': ReferenceField
+    ui:placeholder: Select ngmo test record
+    foreignSchemaId: '/collective'
+    foreignNameField: 'sampleId'
+    foreignLabelWidget: NameLabelWidget
+    'ui:options':
+      # This key is passed for selecting a field for crop creation
+      filterKey: ngmoRecords
+  aggregationPlan:
+    'ui:field': ReferenceField
+    ui:placeholder: Select an aggregation plan
+    foreignSchemaId: '/collective'
+    foreignLabelWidget: NameLabelWidget
+    'ui:options':
+      # This key is passed for selecting a field for crop creation
+      filterKey: aggregationPlan
+  cb:
+    'ui:field': ReferenceField
+    ui:placeholder: Select a certification body
+    foreignSchemaId: '/certificationbody'
+    foreignLabelWidget: NameLabelWidget
+    'ui:options':
+      # This key is passed for selecting a field for crop creation
+      filterKey: certificationBody

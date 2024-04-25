@@ -1,0 +1,4 @@
+jsonschema:
+  title: Sampling Details
+  $ref: '#/definitions/CollectiveSampling'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/nested_collectivesampling.yaml

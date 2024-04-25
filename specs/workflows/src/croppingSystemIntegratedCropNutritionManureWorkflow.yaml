@@ -1,0 +1,25 @@
+name: croppingSystemIntegratedCropNutritionManureWorkflow
+startStateName: start
+description: Integrated Crop Nutrition Manure Event
+domainSchemaId: /farmbook/croppingsystem
+testScenariosFiles: []
+states:
+  - name: start
+    description: The Workflow starts in this state.
+    triggers:
+      - eventName: nutritionManureEvent
+        description: Inter Crop Nutrition Manure Event
+        roles: ['AGENT', 'ADMIN'] # No roles required, ie anyone can do this
+        inputSchemaName: nutritionManureEvent
+        processingSteps:
+          - name: createCroppingSystemEvent
+            description: Create event object for cropping system
+            importPath: ../../../workflows/farmbook/functions/createCroppingSystemEvent
+        transitions:
+          - condition:
+              name: always
+              importPath: ../../../workflows/common/functions/always
+            state: end
+  - name: end
+    description: End state
+    isEndState: true

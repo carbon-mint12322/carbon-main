@@ -1,0 +1,90 @@
+import assert from 'assert';
+import { v4 as uuid } from 'uuid';
+import dotenv from "dotenv";
+import * as T from "../../types";
+
+import { loadInstance, startWf, processEvent, loadDomainObject } from "../../engine";
+import { mapToFunctions } from "../../map-functions";
+import { setDbAdapter, getModel } from "../../../db/adapter";
+import makeJsonDbAdapter from "../../../db/JsonAdapter";
+
+dotenv.config();
+
+setDbAdapter(makeJsonDbAdapter("backendlib/db/fake-db.json"));
+
+import { getWfDbApi } from "../../db";
+import makeLogger from "../../../logger";
+
+import { mappedWfdef } from  "../../../../gen/workflows/{{wfdef.name}}/api-handler";
+
+const logger = makeLogger("{{wfdef.name}}-{{scenarioData.name}}");
+
+describe("{{wfdef.name}} - {{scenarioData.name}}", () => {
+  const { create, get } = getModel(mappedWfdef.domainSchemaId);
+  const wfDbApi = getWfDbApi();
+
+  const assertState = async (instId:string, expectedState:string) => {
+    const inst = (await wfDbApi.dbLoadInstance(instId)).data;
+    logger.debug("Verifying state - expecting " + expectedState + " actual: " + inst.state.name);
+    assert.equal(expectedState, inst.state.name);
+  };
+
+  const assertDomainObject = async (objectId:string, props:any = {}) => {
+    const domainObject = (await get(objectId)).data;
+    const numNonMatchingProps = Object.keys(props).filter((key) => 
+      (domainObject[key] !== props[key])).length;
+    assert.equal(numNonMatchingProps, 0,
+      "Some expected properties of domain object dont match");
+  };
+
+{{#scenarioData.scenarios}}
+  // scenario: {{ name }}
+  it("{{name}}", async () => {
+    const domainObjectData = {{{domainObject}}};
+    const domainObjectId = uuid();
+    const wfInstanceId = uuid();
+    const createInput = {id: domainObjectId, ...domainObjectData};
+    logger.debug("creating domain object for testing", createInput);
+    const domainObject = await create(createInput);
+    const instanceData = {
+      id: wfInstanceId,
+      domainSchemaId: "{{{ wfdef.domainSchemaId }}}",
+      domainObjectId,
+      state: { name: "{{startInState}}", data: {{domainObject}} },
+    };
+    logger.debug(`creating WF instance `, instanceData)
+    const dbSession = await wfDbApi.startSession();
+    await wfDbApi.dbCreateInstance(instanceData, dbSession);
+
+    // Steps
+    {{#steps}}
+    await {{functionName}}();
+    {{/steps}}
+
+    
+    // Functions for each of the steps
+    {{#steps}}
+
+    async function {{functionName}}() {
+      const eventName = "{{{trigger.eventName}}}";
+      const data = {{{trigger.data}}};
+      const session = {
+        userId: uuid(),
+        ...({{{ session }}})
+      };
+      const event : T.WorkflowEvent = {
+        eventName, wfInstanceId, data
+      };
+      logger.info(eventName);
+      logger.debug("injecting event", event);
+      await processEvent(session, mappedWfdef, event);
+
+      await assertState(wfInstanceId, "{{expect.stateName}}");
+      await assertDomainObject(domainObjectId, {{{expect.domainObject}}});
+    }
+    {{/steps}}    
+
+  });
+{{/scenarioData.scenarios}}
+
+});

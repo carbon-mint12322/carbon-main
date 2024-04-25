@@ -1,0 +1,77 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Master crop name
+    cropName:
+      $ref: '#/definitions/CropName'
+      title: Crop Name
+    cropType:
+      type: string
+      title: Crop sub type
+    plantingMaterial:
+      type: string
+      enum:
+        - Seeds
+        - Cuttings
+        - Layers
+        - Grafts
+        - Budded plants
+        - Clones
+        - Splits
+        - Suckers
+        - Slips
+        - Tissue culture plants
+        - Bulbs
+        - Corms
+        - Ratoon
+        - Saplings
+        - Other
+      default: Seeds
+      title: Planting material
+    seedVariety:
+      type: string
+      title: Planting material variety
+    seedSource:
+      type: string
+      title: Planting material source
+    seedPurchaseReceipt:
+      type: string
+      title: Planting material purchase receipt
+      description: Planting material purchase receipt
+    seedCertificate:
+      type: string
+      title: Planting material certificate
+      description: Planting material certificate evidence
+    season:
+      type: string
+      enum:
+        - Rabi
+        - Kharif
+        - Summer
+        - Biennial
+        - Annual
+        - Perennial crop
+        - Other
+      default: Rabi
+      title: Growing season
+  allOf:
+    - if:
+        properties:
+          season:
+            type: string
+            const: Other
+      then:
+        properties:
+          otherGrowingSeason:
+            title: Other growing season
+            type: string
+  required:
+    - name
+    - cropName
+    - plantingMaterial
+    - seedVariety
+    - seedSource
+    - cropType
+    - season
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_mastercrop.yaml

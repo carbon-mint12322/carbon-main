@@ -1,0 +1,78 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Water test'
+  properties:
+    waterTestReport:
+      title: Water test report
+      type: array
+      items:
+        type: string
+      description: Upload water test report
+    labCertifiedByNabl:
+      title: Lab certified by NABL
+      type: string
+      enum:
+        - 'Yes'
+        - 'No'
+      default: 'Yes'
+    ph:
+      title: pH(0 to 14)
+      type: number
+      minimum: 0
+      maximum: 14
+      description: Potential of Hydrogen
+    waterHeavyMetalsContaminationReport:
+      title: Heavy metals contamination report
+      type: array
+      description: Heavy metals contamination report
+      items:
+        type: string
+    heavyMetals:
+      title: Heavy metals
+      type: string
+    waterPesticideHerbicideResiduesReport:
+      title: Pesticide & herbicide residues report
+      type: array
+      description: Pesticide & herbicide residues report
+      items:
+        type: string
+    chemicalResidues:
+      title: Chemical residues
+      type: string
+    startDate:
+      type: string
+      format: date
+      title: Test start date
+    endDate:
+      type: string
+      format: date
+      title: Test end date
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - waterTestReport
+    - startDate
+    - endDate
+    - totalExpenditure
+  allOf:
+    - if:
+        properties:
+          labCertifiedByNabl:
+            const: 'Yes'
+      then:
+        properties:
+          nablCertificationEvidence:
+            title: NABL certification evidence
+            type: array
+
+            description: NABL certification evidence
+            items:
+              type: string
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/waterTest.yaml

@@ -1,0 +1,7 @@
+'ui:order':
+  - aquaType
+  - variety
+  - region
+  - durationDays
+  - scheme
+  - '*'

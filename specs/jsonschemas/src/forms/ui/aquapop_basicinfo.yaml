@@ -1,0 +1,9 @@
+form:
+  uiSchema:
+    'ui:order':
+      - formTitle
+      - name
+      - description
+      - aquaPopType
+      - '*'
+    aquaPopType: file:~/specs/jsonschemas/src/common/ui/aquaPopType.yaml

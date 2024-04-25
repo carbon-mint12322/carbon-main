@@ -1,0 +1,59 @@
+type: object
+properties:
+  firstName:
+    type: string
+    title: First name
+    pattern: '^[a-zA-Z\s]+$'
+  lastName:
+    type: string
+    title: Last name
+  fathersHusbandsName:
+    type: string
+    title: 'Father’s/Husband’s name'
+  primaryPhone:
+    type: string
+    title: Primary phone number
+    pattern: ^\+91\d{10}$
+  secondaryPhone:
+    type: string
+    title: Secondary phone number
+    pattern: ^\+91\d{10}$
+  email:
+    $ref: '#/definitions/Email'
+    pattern: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+  address:
+    $ref: '#/definitions/Address'
+    title: Personal address
+  identityDetails:
+    title: Identity details
+    type: object
+    properties:
+      identityDocument:
+        $ref: '#/definitions/IdentityDocument'
+        title: 'Identity document name (ex: aadhar, passport, etc)'
+      identityNumber:
+        type: string
+        title: Identification number
+        pattern: '^[a-zA-Z0-9_]*$'
+      identityDocumentFile:
+        type: string
+        title: Upload identity document
+        description: 'Identification document proof'
+      panCardNumber:
+        type: string
+        title: PAN card number
+        pattern: '^[a-zA-Z0-9_]*$'
+      panCardFile:
+        type: string
+        title: Upload PAN card
+        description: 'PAN card proof'
+  profilePicture:
+    type: string
+    title: Upload profile picture
+    description: 'Profile picture'
+  educationalQualification:
+    type: string
+    title: Educational qualification
+required:
+  - firstName
+  - address

@@ -1,0 +1,15 @@
+type: object
+properties:
+  name:
+    type: string
+    title: Name
+  variety:
+    type: string
+    title: Variety
+  season:
+    type: string
+    title: Season
+required:
+  - name
+  - variety
+  - season

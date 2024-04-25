@@ -1,0 +1,27 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Land Use'
+  properties:
+    startDate:
+      title: Record start date
+      type: string
+      format: date
+    endDate:
+      title: Record end date
+      type: string
+      format: date
+    landUse:
+      type: number
+      title: Amount of land used for poultry operation
+    changesInLand:
+      type: string
+      title: Any changes in land use over time
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - landUse
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryLandUse.yaml

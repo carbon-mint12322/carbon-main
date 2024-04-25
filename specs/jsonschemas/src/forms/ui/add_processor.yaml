@@ -1,0 +1,29 @@
+form:
+  uiSchema:
+    'ui:order':
+      - personalDetails
+      - gender
+      - dob
+      - operatorDetails
+      - '*'
+    operatorDetails:
+      'ui:order':
+        - processorID
+        - joiningDate
+        - identityDocument
+        - subgroup
+      identityDocument:
+        'ui:widget': 'file'
+      subgroup:
+        'ui:field': ReferenceField
+        ui:placeholder: Select a processor subgroup
+        foreignSchemaId: '/collective'
+        foreignLabelWidget: NameLabelWidget
+        'ui:options':
+          filterKey: subgroup
+    bankDetails:
+      'ui:order':
+        - '*'
+      bankDocument:
+        'ui:widget': 'file'
+    personalDetails: file:~/specs/jsonschemas/src/common/ui/person.yaml

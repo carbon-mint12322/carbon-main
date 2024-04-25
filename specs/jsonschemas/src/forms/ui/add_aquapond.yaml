@@ -1,0 +1,31 @@
+form:
+  uiSchema:
+    additionalInf:
+      'ui:widget': textarea
+    'ui:order':
+      - productionSystem
+      - name
+      - pondType
+      - area
+      - depth
+      - shape
+      - waterSource
+      - infra
+      - aerationSystem
+      - feedingArea
+      - autoFeeders
+      - waterInlet
+      - waterOutlet
+      - shadeStructures
+      - otherInfra
+      - constructionDate
+      - additionalInfo
+      - '*'
+    productionSystem:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a production system
+      foreignSchemaId: '/productionsystem'
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: productionSystem
+      foreignLabelWidget: NameLabelWidget

@@ -1,0 +1,4 @@
+name: validation
+startStateName: start
+domainSchemaId: /farmbook/event
+states: file:../shared/validation-states.yaml

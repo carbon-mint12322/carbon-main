@@ -1,0 +1,25 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Aquaculture POP name
+    description:
+      type: string
+      title: Description
+    recommendedBy:
+      title: Recommended by
+      type: string
+    aquaPopType:
+      title: Aquaculture information
+      $ref: '#/definitions/AquaPOPType'
+    controlPoints:
+      title: Control points
+      type: array
+      items:
+        $ref: '#/definitions/AquaControlPoint'
+  required:
+    - name
+    - description
+    - aquaPopType
+    - controlPoints
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_aquapop.yaml

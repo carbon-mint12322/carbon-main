@@ -1,0 +1,9 @@
+jsonschema:
+  type: object
+  properties:
+    Company details: file:~/specs/jsonschemas/src/common/organization.yaml
+    Account status: file:~/specs/jsonschemas/src/common/accountStatus.yaml
+    customerId:
+      $ref: '#/definitions/customerId'
+      title: Customer id
+uiHints: file:~/specs/jsonschemas/src/domain/ui/customer.yaml

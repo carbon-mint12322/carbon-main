@@ -1,0 +1,40 @@
+jsonschema:
+  properties:
+    productionSystem:
+      $ref: '#/definitions/ProductionSystemId'
+      title: Production system
+    age:
+      type: number
+      title: Age (days)
+    goatSource:
+      type: string
+      title: Goat source
+    breed:
+      type: string
+      title: Breed
+    gender:
+      type: string
+      enum:
+        - Male
+        - Female
+      default: Male
+    tagId:
+      type: string
+      title: Tag ID
+    pedigree:
+      type: string
+      title: Pedigree
+    acquisitionDay:
+      type: string
+      format: date
+      title: Acquisition Day
+  required:
+    - productionSystem
+    - age
+    - goatSource
+    - breed
+    - gender
+    - tagId
+    - pedigree
+    - acquisitionDay
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_goat.yaml

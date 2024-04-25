@@ -1,0 +1,14 @@
+form:
+  uiSchema:
+    groups:
+      'ui:order':
+        - name
+        - description
+        - groupType
+        - groupLeader
+        - groupContact
+        - status
+        - creationDate
+        - attachments
+      attachments:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'

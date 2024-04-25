@@ -1,0 +1,27 @@
+type: object
+properties:
+  houseNo:
+    type: string
+    title: House number
+  street:
+    type: string
+    title: Street
+  village:
+    type: string
+    title: Village
+    pattern: '^[a-zA-Z\s]+$'
+  mandal:
+    type: string
+    title: Mandal
+  state:
+    type: string
+    title: State
+    pattern: '^[a-zA-Z\s]+$'
+  pincode:
+    type: string
+    title: Pin Code
+    pattern: '^[0-9]+$'
+required:
+  - village
+  - state
+  - pincode

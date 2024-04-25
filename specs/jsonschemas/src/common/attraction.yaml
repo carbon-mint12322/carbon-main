@@ -1,0 +1,37 @@
+type: object
+title: Attraction
+properties:
+  name:
+    type: string
+    title: Name
+  description:
+    type: string
+    title: Description
+  accessibility:
+    type: string
+    title: Accessibility
+  size:
+    type: number
+    title: Size (sqyd)
+  capacity:
+    type: number
+    title: Capacity
+  condition:
+    type: string
+    title: Condition
+  equipment:
+    type: string
+    title: Equipment
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+  map:
+    title: Attractions map
+    type: string
+required:
+  - name
+  - description
+  - photoEvidence
+  - map

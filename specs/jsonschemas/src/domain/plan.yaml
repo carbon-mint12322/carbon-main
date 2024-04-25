@@ -1,0 +1,41 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+    popId:
+      $ref: '#/definitions/PoPId'
+    events:
+      type: array
+      items:
+        $ref: '#/definitions/ControlPoint'
+    category:
+      type: string
+      enum:
+        - Planned
+        - Reconciled
+      default: Planned
+    createdBy:
+      $ref: '#/definitions/UserId'
+      description: 'User id of person creating the plan.'
+    validationWorkflowId:
+      type: string
+      format: hidden
+    statusNotes:
+      type: string
+      format: hidden
+    status:
+      type: string
+      enum:
+        - Draft
+        - Under validation
+        - Under review
+        - Review failed
+        - Validation failed
+        - Approved
+      default: Draft
+    active:
+      type: boolean
+    audit:
+      $ref: '#/definitions/Audit'
+  required:
+    - category

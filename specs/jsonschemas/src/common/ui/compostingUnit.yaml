@@ -1,0 +1,26 @@
+photoEvidence:
+ 'ui:widget': 'UploadFilesWithAttachmentsWidget'
+'ui:order':
+  - processingSystem
+  - name
+  - type
+  - compostingType
+  - size
+  - bedSize
+  - inputs
+  - capacity
+  - duration
+  - outputs
+  - maintenance
+  - monitoring
+  - method
+  - photoEvidence
+  - '*'
+processingSystem:
+  'ui:widget': ReferenceSelectorWidget
+  ui:placeholder: Select a processing system
+  foreignSchemaId: '/processingsystem'
+  'ui:options':
+    # This key is passed for selecting a field for crop creation
+    filterKey: processingSystem
+  foreignLabelWidget: NameLabelWidget

@@ -1,0 +1,48 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Name
+    address:
+      $ref: '#/definitions/Address'
+      title: Address
+    email:
+      type: string
+      title: Email
+    poc:
+      type: string
+      title: Contact person
+    phone:
+      type: string
+      title: Phone
+    registrationId:
+      type: string
+      title: Registration ID
+    registrationDocumentFile:
+      type: string
+      description: Upload registration document proof
+      title: Registration document
+    certificationAuthority:
+      type: string
+      title: Certification Authority Name
+    schemes:
+      title: 'Schemes'
+      type: array
+      minItems: 0
+      items:
+        type: string
+        enum:
+          - NPOP
+          - NOP
+          - IndGAP
+          - GlobalGAP
+          - FairTrade
+        default: NPOP
+      uniqueItems: true
+  required:
+    - name
+    - address
+    - email
+    - phone
+    - schemes
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_certificationbody.yaml

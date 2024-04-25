@@ -1,0 +1,3 @@
+jsonschema:
+  title: Add control point
+  '$ref': '#/definitions/ControlPoint'

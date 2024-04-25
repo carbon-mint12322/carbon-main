@@ -1,0 +1,101 @@
+jsonschema:
+  properties:
+    name:
+      $ref: '#/definitions/CropName'
+      title: Name
+    cropType:
+      type: string
+      title: Crop sub type
+    plantingMaterial:
+      type: string
+      enum:
+        - Seeds
+        - Cuttings
+        - Layers
+        - Grafts
+        - Budded plants
+        - Clones
+        - Splits
+        - Suckers
+        - Slips
+        - Tissue culture plants
+        - Bulbs
+        - Corms
+        - Ratoon
+        - Saplings
+        - Other
+      default: Seeds
+      title: Planting material
+    seedVariety:
+      type: string
+      title: Planting material variety
+      pattern: '^[a-zA-Z][a-zA-Z0-9\s]*$'
+    seedSource:
+      type: string
+      title: Planting material source
+      pattern: '^[a-zA-Z][a-zA-Z0-9\s]*$'
+    season:
+      type: string
+      enum:
+        - Rabi
+        - Kharif
+        - Summer
+        - Biennial
+        - Annual
+        - Perennial crop
+        - Other
+      default: Rabi
+      title: Growing season    
+    cropTag:
+      type: string
+      title: Crop tag name
+    areaInAcres:
+      type: number
+      title: Cultivated area (in acres)
+    category:
+      type: string
+      enum:
+        - Main
+        - Inter
+        - Border
+        - Cover
+        - Mixed
+      default: Main
+      title: Cropping system type
+    estimatedPopulation:
+      type: number
+      title: Estimated population
+    estimatedYieldTonnes:
+      type: number
+      title: Estimated yield (in tonnes)
+      min: 0
+      exclusiveMinimum: 0
+    plannedSowingDate:
+      type: string
+      format: date
+      title: Planned plantation date
+    estHarvestDate:
+      type: string
+      format: date
+      title: Estimated harvest date
+   
+  if:
+    properties:
+      season:
+        type: string
+        const: Other
+  then:
+    properties:
+      otherGrowingSeason:
+        title: Other growing season
+        type: string
+
+  required:
+    - areaInAcres
+    - category
+    - estimatedYieldTonnes
+    - plannedSowingDate
+    - estHarvestDate
+
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/register_crop.yaml

@@ -1,0 +1,17 @@
+'ui:order':
+  - pumpType
+  - brand
+  - model
+  - capacity
+  - suctionHoseDia
+  - pumpEnergySource
+  - maxDailyRunningHours
+  - minDailyRunningHours
+  - maxDelivery
+  - minDelivery
+  - '*'
+pumpEnergySource:
+  'ui:widget': ReferenceSelectorWidget
+  ui:placeholder: Select a power source
+  foreignSchemaId: '/powerSource'
+  foreignLabelWidget: NameLabelWidget

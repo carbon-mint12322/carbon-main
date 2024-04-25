@@ -1,0 +1,6 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  $ref: '#/definitions/Observations'
+  title: 'Observations'
+uiHints: file:~/specs/jsonschemas/src/common/ui/observations.yaml
+

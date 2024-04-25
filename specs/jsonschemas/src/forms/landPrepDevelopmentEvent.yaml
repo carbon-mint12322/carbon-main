@@ -1,0 +1,663 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Land Preparation Development Event'
+  properties:
+    landDevelopmentMethod:
+      title: 'Land development method'
+      type: string
+      enum:
+        - Bush clearance
+        - Stubble clearance
+        - Stone clearance
+        - Land levelling
+        - Bund formation
+        - Forming drainage channels & fixing pipe lines
+      default: Bush clearance
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+
+  allOf:
+    - if:
+        properties:
+          landDevelopmentMethod:
+            const: Bush clearance
+      then:
+        properties:
+          bushClearanceMachineriesUsed:
+            title: 'Machinery used'
+            '$ref': '#/clearanceMachineriesUsedData'
+    - if:
+        properties:
+          landDevelopmentMethod:
+            const: Stubble clearance
+      then:
+        properties:
+          stubbleClearanceMachineriesUsed:
+            title: 'Machinery used'
+            '$ref': '#/clearanceMachineriesUsedData'
+    - if:
+        properties:
+          landDevelopmentMethod:
+            const: Stone clearance
+      then:
+        properties:
+          stoneClearanceMachineriesUsed:
+            title: 'Machinery used'
+            '$ref': '#/clearanceMachineriesUsedData'
+    - if:
+        properties:
+          landDevelopmentMethod:
+            const: Land levelling
+      then:
+        properties:
+          landLevellingMachineriesUsed:
+            title: 'Machinery used'
+            '$ref': '#/levellingMachineriesUsedData'
+    - if:
+        properties:
+          landDevelopmentMethod:
+            const: Bund formation
+      then:
+        properties:
+          bundFormationMachineriesUsed:
+            title: 'Machinery used'
+            '$ref': '#/formationMachineriesUsedData'
+    - if:
+        properties:
+          landDevelopmentMethod:
+            const: Forming drainage channels & fixing pipe lines
+      then:
+        properties:
+          formingDrainageMachineriesUsed:
+            title: 'Machinery used'
+            '$ref': '#/formationMachineriesUsedData'
+
+  clearanceMachineriesUsedData:
+    properties:
+      clearanceTractor:
+        title: Tractor
+        type: boolean
+        default: false
+      clearancePowertiller:
+        title: Power tiller
+        type: boolean
+        default: false
+      clearanceDozer:
+        title: Dozer
+        type: boolean
+        default: false
+      clearancePowerweeder:
+        title: Power weeder
+        type: boolean
+        default: false
+      clearanceBrushcutter:
+        title: Brush cutter
+        type: boolean
+        default: false
+      clearanceBullock:
+        title: Bullock
+        type: boolean
+        default: false
+      clearanceManual:
+        title: Manual
+        type: boolean
+        default: false
+      clearanceBurning:
+        title: Burning
+        type: boolean
+        default: false
+      clearanceOther:
+        title: Other
+        type: boolean
+        default: false
+    allOf:
+      - if:
+          properties:
+            clearanceTractor:
+              const: true
+        then:
+          properties:
+            clearanceTractorImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            clearanceTractorImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              clearanceTractorImplements:
+                const: Other
+          then:
+            properties:
+              clearanceTractorOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            clearancePowertiller:
+              const: true
+        then:
+          properties:
+            clearancePowertillerImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            clearancePowertillerImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              clearancePowertillerImplements:
+                const: Other
+          then:
+            properties:
+              clearancePowertillerOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            clearanceDozer:
+              const: true
+        then:
+          properties:
+            clearanceDozerImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            clearanceDozerImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              clearanceDozerImplements:
+                const: Other
+          then:
+            properties:
+              clearanceDozerOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            clearancePowerweeder:
+              const: true
+        then:
+          properties:
+            clearancePowerweederImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+      - if:
+          properties:
+            clearanceBrushcutter:
+              const: true
+        then:
+          properties:
+            clearanceBrushcutterImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+      - if:
+          properties:
+            clearanceBullock:
+              const: true
+        then:
+          properties:
+            clearanceBullockImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            clearanceBullockImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              clearanceBullockImplements:
+                const: Other
+          then:
+            properties:
+              clearanceBullockOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            clearanceManual:
+              const: true
+        then:
+          properties:
+            clearanceManualMethod:
+              title: Manual method
+              type: string
+            clearanceManualTotalHoursOfOperation:
+              title: Total hours of operation
+              type: number
+              minimum: 0
+              default: 0
+            clearanceManualExpensesMet:
+              title: Expenses met
+              type: number
+              minimum: 0
+      - if:
+          properties:
+            clearanceBurning:
+              const: true
+        then:
+          properties:
+            clearanceBurningTotalHoursOfOperation:
+              title: Total hours of operation
+              type: number
+              minimum: 0
+              default: 0
+            clearanceBurningExpensesMet:
+              title: Expenses met
+              type: number
+              minimum: 0
+      - if:
+          properties:
+            clearanceOther:
+              const: true
+        then:
+          properties:
+            clearanceOtherMethod:
+              title: Other machineries used
+              type: string
+            clearanceOtherImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+  levellingMachineriesUsedData:
+    properties:
+      levellingTractor:
+        title: Tractor
+        type: boolean
+        default: false
+      levellingDozer:
+        title: Dozer
+        type: boolean
+        default: false
+      levellingEarthmover:
+        title: Earth mover
+        type: boolean
+        default: false
+      levellingBullock:
+        title: Bullock
+        type: boolean
+        default: false
+      levellingManual:
+        title: Manual
+        type: boolean
+        default: false
+      levellingOther:
+        title: Other
+        type: boolean
+        default: false
+    allOf:
+      - if:
+          properties:
+            levellingTractor:
+              const: true
+        then:
+          properties:
+            levellingTractorImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            levellingTractorImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              levellingTractorImplements:
+                const: Other
+          then:
+            properties:
+              levellingTractorOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            levellingDozer:
+              const: true
+        then:
+          properties:
+            levellingDozerImplements:
+              title: Implement used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            levellingDozerImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              levellingDozerImplements:
+                const: Other
+          then:
+            properties:
+              levellingDozerOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            levellingEarthmover:
+              const: true
+        then:
+          properties:
+            levellingEarthmoverImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              levellingEarthmoverImplements:
+                const: Other
+          then:
+            properties:
+              levellingEarthmoverOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            levellingBullock:
+              const: true
+        then:
+          properties:
+            levellingBullockImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            levellingBullockImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              levellingBullockImplements:
+                const: Other
+          then:
+            properties:
+              levellingBullockOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            levellingManual:
+              const: true
+        then:
+          properties:
+            levellingManualMethod:
+              title: Manual method
+              type: string
+            levellingManualTotalHoursOfOperation:
+              title: Total hours of operation
+              type: number
+              minimum: 0
+              default: 0
+            levellingManualExpensesMet:
+              title: Expenses met
+              type: number
+              minimum: 0
+      - if:
+          properties:
+            levellingOther:
+              const: true
+        then:
+          properties:
+            levellingOtherMethod:
+              title: Other machineries used
+              type: string
+            levellingOtherImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+
+  formationMachineriesUsedData:
+    properties:
+      formationTractor:
+        title: Tractor
+        type: boolean
+        default: false
+      formationPowertiller:
+        title: Powertiller
+        type: boolean
+        default: false
+      formationDozer:
+        title: Dozer
+        type: boolean
+        default: false
+      formationPowerweeder:
+        title: Power weeder
+        type: boolean
+        default: false
+      formationBrushcutter:
+        title: Brush cutter
+        type: boolean
+        default: false
+      formationBullock:
+        title: Bullock
+        type: boolean
+        default: false
+      formationManual:
+        title: Manual
+        type: boolean
+        default: false
+      formationOther:
+        title: Other
+        type: boolean
+        default: false
+    allOf:
+      - if:
+          properties:
+            formationTractor:
+              const: true
+        then:
+          properties:
+            formationTractorImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            formationTractorImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              formationTractorImplements:
+                const: Other
+          then:
+            properties:
+              formationTractorOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            formationPowertiller:
+              const: true
+        then:
+          properties:
+            formationPowertillerImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            formationPowertillerImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              formationPowertillerImplements:
+                const: Other
+          then:
+            properties:
+              formationPowertillerOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            formationDozer:
+              const: true
+        then:
+          properties:
+            formationDozerImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            formationDozerImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              formationDozerImplements:
+                const: Other
+          then:
+            properties:
+              formationDozerOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            formationPowerweeder:
+              const: true
+        then:
+          properties:
+            formationPowerweederImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+      - if:
+          properties:
+            formationBrushcutter:
+              const: true
+        then:
+          properties:
+            formationBrushcuterImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+      - if:
+          properties:
+            formationBullock:
+              const: true
+        then:
+          properties:
+            formationBullockImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            formationBullockImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              formationPowerBullockImplements:
+                const: Other
+          then:
+            properties:
+              formationBullockOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            formationManual:
+              const: true
+        then:
+          properties:
+            formationManualMethod:
+              title: Manual method
+              type: string
+            formationManualTotalHoursOfOperation:
+              title: Total hours of operation
+              type: number
+              minimum: 0
+              default: 0
+            formationManualExpensesMet:
+              title: Expenses met
+              type: number
+              minimum: 0
+      - if:
+          properties:
+            formationOther:
+              const: true
+        then:
+          properties:
+            formationOtherMethod:
+              title: Other machineries used
+              type: string
+            formationOtherImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+  Implements: file:../common/implements.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landPrepDevelopmentEvent.yaml

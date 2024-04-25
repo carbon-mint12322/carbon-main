@@ -1,0 +1,35 @@
+extends: ./sheepPSNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Breeding Event'
+  properties:
+    dateOfBreeding:
+      type: string
+      format: date
+      title: Breeding date
+    method:
+      type: string
+      title: Breeding method
+      enum:
+        - Artificial insemination
+        - Natural service
+      default: Artificial insemination
+    bullIdentificationNumber:
+      type: string
+      title: Bull identification number
+    pregnencyConfirmationDate:
+      type: string
+      format: date
+      title: Pregnency confirmation date
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - dateOfBreeding
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/sheepBreeding.yaml

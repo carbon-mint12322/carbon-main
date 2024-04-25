@@ -1,0 +1,43 @@
+jsonschema:
+  type: object
+  title: 'Add field'
+  properties:
+    name:
+      title: Name
+      type: string
+    areaInAcres:
+      title: Area (acres)
+      type: number
+    fieldType:
+      title: Field type
+      enum:
+        - Open Field
+        - Nursery
+        - Poly House
+        - Netted House
+        - Enclosed House
+        - Fence Buffer
+        - Allied Activity Unit
+        - Processing Unit
+      default: Open Field
+      type: string
+    landParcelMap:
+      title: Adopt Land Parcel map
+      type: boolean
+      default: true
+
+  required:
+    - name
+    - areaInAcres
+  allOf:
+    - if:
+        properties:
+          landParcelMap:
+            const: false
+      then:
+        properties:
+          map:
+            title: Field map
+            type: string
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_fields.yaml

@@ -1,0 +1,35 @@
+jsonschema:
+  properties:
+    aggregationPlan:
+      $ref: '#/definitions/AggregationPlanId'
+      title: Aggregation Plan
+    cb:
+      $ref: '#/definitions/CertificationBodyRef'
+      title: Certification body
+    issuedDate:
+      title: Issued date
+      type: string
+      format: date
+    lotNo:
+      title: Lot No
+      type: string
+    attachments:
+      type: array
+      title: Transaction certificate
+      items:
+        type: string
+    ngmoRecords:
+      type: array
+      items:
+        $ref: '#/definitions/NGMOTestRecordId'
+      title: NGMO Test Records
+      foreignNameField: 'sampleId'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - aggregationPlan
+    - cb
+    - issuedDate
+    - attachments
+uiHints: file:~/specs/jsonschemas/src/domain/ui/transactioncertificate.yaml

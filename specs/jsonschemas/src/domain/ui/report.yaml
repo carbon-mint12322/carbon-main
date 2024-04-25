@@ -1,0 +1,86 @@
+form:
+  uiSchema:
+    summary:
+      'ui:widget': textarea
+    'ui:order':
+      - customerName
+      - sampleId
+      - natureOfSample
+      - processingType
+      - sampleType
+      - sampleReceivedDate
+      - sampleQuantity
+      - sampleCondition
+      - sampleQC
+      - sampleNumberPassedByQC
+      - sampleIDPassedByQC
+      - sampleNumberFailedByQC
+      - sampleIDFailedByQC
+      - testStart
+      - testEnd
+      - technicalScientist
+      - qcIncharge
+      - approvedBy
+      - approvalSignature
+      - labReports
+      - summary
+      - '*'
+    approvalSignature:
+      'ui:widget': 'file'
+    labReports:
+      reportDocument:
+        'ui:widget': 'file'
+
+table:
+  # Options to be passed to MUI's datagrid component
+  # See Data Grid documentation for details
+  # components:
+  #   Checkbox: $p.customCheckbox
+  dataGridOptions:
+    checkboxSelection: true
+    pageSize: 10
+    autoHeight: true
+    rowHeight: 64
+    # components:
+    #   BaseCheckbox: $p.checkbox
+    sx: $p.datagridSx
+    onRowClick: $p.handleRowClick
+    columns:
+      - field: organizationDetails.customerName
+        headerName: Customer Name
+        minWidth: 300
+        flex: 1
+        renderCell: $p.renderReportCell
+      - field: organizationDetails.identityNumber
+        headerName: Sample ID
+        minWidth: 150
+        flex: 1
+      - field: organizationDetails.natureOfSample
+        headerName: Nature of sample
+        minWidth: 150
+        flex: 1
+      - field: organizationDetails.sampleType
+        headerName: Sample type
+        minWidth: 150
+        flex: 1
+      - field: organizationDetails.sampleReceivedDate
+        headerName: Received
+        minWidth: 150
+        flex: 1
+      - field: organizationDetails.sampleQC
+        headerName: Sample QC
+        minWidth: 150
+        flex: 1
+      - field: organizationDetails.testStart
+        headerName: Test start date
+        minWidth: 150
+        flex: 1
+      - field: organizationDetails.testEnd
+        headerName: Test end date
+        minWidth: 150
+        flex: 1
+      - field: Actions
+        headerName: Actions
+        renderCell: $p.renderActionCell
+        width: 100
+        flex: 1

@@ -1,0 +1,42 @@
+jsonschema:  
+  properties:
+    personalDetails:
+      $ref: "#/definitions/Person"
+    uid:
+      type: string
+    provider:
+      type: string
+    wallet:
+      $ref: "#/definitions/Wallet"
+    tenant:
+      $ref: "#/definitions/TenantId"
+    roles:
+      type: array
+      items:
+        type: string
+        enum:
+          - AGENT
+          - FIELD_OFFICER
+          - FARMER
+          - MANAGER
+          - EXECUTIVE
+          - INTERNAL_INSPECTOR
+          - WAREHOUSE_MANAGER
+          - PROCESSING_MANAGER
+          - COORDINATOR
+          - CERTIFICATION_COMMITTEE_MEMBER
+          - TRAINER
+          - ADMIN
+        default: AGENT
+    acceptedTerms:
+      type: boolean
+    acceptedTermsIP:
+      type: string
+    active:
+      type: boolean
+    audit:
+      $ref: '#/definitions/Audit'
+  required:
+    - personalDetails
+    - uid
+    - roles

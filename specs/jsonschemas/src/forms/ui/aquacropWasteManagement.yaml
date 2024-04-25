@@ -1,0 +1,13 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - startDate
+      - endDate
+      - wastageType
+      - method
+      - quantity
+      - totalExpenditure
+      - otherRemarks
+      - '*'

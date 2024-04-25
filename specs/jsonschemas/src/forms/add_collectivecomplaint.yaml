@@ -1,0 +1,57 @@
+jsonschema:
+  properties:
+    compliantDetails:
+      title: Compliant Details
+      type: object
+      properties:
+        complaintDate:
+          title: Complaint date
+          type: string
+          format: date
+        complaintName:
+          title: Name of the individual
+          type: string
+        contact:
+          title: Contact
+          type: string
+        description:
+          title: Description
+          type: string
+        location:
+          title: Location
+          type: string
+        complaintType:
+          title: Complaint type
+          type: string
+          enum:
+            - Quality
+            - Delivery
+            - Compliance
+          default: Quality
+        assignedTo:
+          title: Assigned to
+          type: string
+        priorityLevel:
+          title: Priority level
+          type: string
+        status:
+          title: Status
+          type: string
+          enum:
+            - Open
+            - In progress
+            - Closed
+          default: Open
+        closureConfirmation:
+          title: Closure confirmation
+          type: string
+        attachments:
+          type: array
+          title: Attachements
+          items:
+            type: string
+      required:
+        - complaintDate
+        - complaintName
+        - description
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_collectivecomplaint.yaml

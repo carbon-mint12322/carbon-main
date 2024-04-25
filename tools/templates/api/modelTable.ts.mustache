@@ -1,0 +1,19 @@
+import { ModelDef } from '~/frontendlib/types';
+
+{{#schemaList}}
+import {{modelName}}Schema from '~/gen/jsonschemas/{{modelName}}.json';
+{{/schemaList}}
+
+const modelDefs: ModelDef[] = [
+
+{{#schemaList}}
+  {
+    name: "{{modelName}}",
+    schema: {{modelName}}Schema,
+    createSchema: {{modelName}}Schema,
+  },
+{{/schemaList}}
+
+];
+
+export default modelDefs;

@@ -1,0 +1,319 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Inter Cultural Operations Weeding Event'
+  properties:
+    weeding:
+      type: object
+      title: 'Intercultural operations - weeding'
+    weedControlMethods:
+      title: Weed control methods
+      type: string
+      enum:
+        - Physical and mechanical
+        - Cultural
+        - Biological and mycoherbicides
+        - Chemical
+      default: 'Physical and mechanical'
+    inputQuantity:
+      title: Input quantity (weedicide)
+      type: number
+      minimum: 0
+    costPerUnit:
+      title: Cost per unit
+      type: number
+      minimum: 0
+    expensesMet:
+      title: Expenses met
+      type: number
+      minimum: 0
+    recommondedBy:
+      title: Recommended by
+      type: string
+    observedWeedList:
+      type: array
+      title: 'Observed weeds in the fields'
+      minItems: 1
+      items:
+        title: ''
+        '$ref': '#/observedWeedData'
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/definitions/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+
+  allOf:
+    - if:
+        properties:
+          weedControlMethods:
+            const: Physical and mechanical
+      then:
+        properties:
+          physicalAndMechancalControlMethods:
+            title: Physical and mechanical control methods
+            type: string
+            enum:
+              - Hand Weeding
+              - Cultivator
+              - Rotovator
+              - Mulching
+              - Sickling
+              - Hand Hoeing
+              - Tillage
+              - Digging
+              - Cheeling
+              - Dredging
+              - Chaining
+              - Others
+            default: Hand Weeding
+        if:
+          properties:
+            physicalAndMechancalControlMethods:
+              const: Others
+        then:
+          properties:
+            otherPhysicalAndMechancalControlMethods:
+              type: string
+              title: Other physical and mechanical control method
+    - if:
+        properties:
+          weedControlMethods:
+            const: Cultural
+      then:
+        properties:
+          culturalMethods:
+            title: Cultural methods
+            type: array
+            minItems: 1
+            items:
+              type: string
+              title: ''
+              enum:
+                - flooding
+                - buruningOfFields
+                - maintainProperCropStand
+                - cropRotation
+                - staleSeedbed
+                - cultivationOfSmotherCrops
+                - cultivationOfInterCrops
+                - liveMulch
+                - allelopathicCoverCrop
+                - minimumTillage
+                - tolerantVarieties
+                - others
+              enumNames:
+                - Flooding
+                - Burning of fields
+                - Maintain proper crop stand
+                - Crop rotation
+                - Stale seedbed
+                - Cultivation of smother crops
+                - Cultivation of inter crops
+                - Live mulch
+                - Allelopathic cover crop
+                - Minimum tillage
+                - Tolerant varieties
+                - Others
+            uniqueItems: true
+        if:
+          properties:
+            culturalMethods:
+              contains:
+                type: string
+                const: others
+        then:
+          properties:
+            otherCulturalMethod:
+              title: Other cultural method
+              type: string
+    - if:
+        properties:
+          weedControlMethods:
+            const: Biological and mycoherbicides
+      then:
+        properties:
+          biologicalAndMycoHerbicidalControlMethod:
+            title: Biological & Myco herbicidal control method
+            type: string
+            enum:
+              - Zygogramma bicolarata
+              - Crocidosema lantana
+              - Carp fish
+              - Neochetina bruchii
+              - Neochetina eichorniae
+              - Bactra verutana
+              - Flea beetle
+              - Puccinia chrondrillana
+              - Dactylopius tomentosus
+              - Seed predation (grainivores)
+              - Others
+            default: Others
+        if:
+          properties:
+            biologicalAndMycoHerbicidalControlMethod:
+              const: Others
+        then:
+          properties:
+            otherBiologicalAndMycoHerbicidalControlMethod:
+              type: string
+              title: Other biological and myco herbicidal control method
+    - if:
+        properties:
+          weedControlMethods:
+            const: Chemical
+      then:
+        properties:
+          chemicalControlMethod:
+            title: Chemical control method (applied chemicals)
+            type: string
+            enum:
+              - Atrazine
+              - Propazine
+              - Prometryne
+              - Simazine
+              - '2'
+              - 4-D
+              - Pendimethalin
+              - Paraquat
+              - Diquat
+              - Others
+            default: Others
+        allOf:
+          - if:
+              properties:
+                chemicalControlMethod:
+                  const: Others
+            then:
+              properties:
+                otherChemicalControlMethod:
+                  type: string
+                  title: Other chemical control method
+                otherChemicalControlMethodData:
+                  title: ''
+                  '$ref': '#/chemicalData'
+          - if:
+              properties:
+                chemicalControlMethod:
+                  const: Atrazine
+            then:
+              properties:
+                altrazineChemicalControlMethod:
+                  title: ''
+                  '$ref': '#/chemicalData'
+          - if:
+              properties:
+                chemicalControlMethod:
+                  const: Propazine
+            then:
+              properties:
+                propazineChemicalControlMethod:
+                  title: ''
+                  '$ref': '#/chemicalData'
+          - if:
+              properties:
+                chemicalControlMethod:
+                  const: Prometryne
+            then:
+              properties:
+                prometryneChemicalControlMethod:
+                  title: ''
+                  '$ref': '#/chemicalData'
+          - if:
+              properties:
+                chemicalControlMethod:
+                  const: Simazine
+            then:
+              properties:
+                simazineChemicalControlMethod:
+                  title: ''
+                  '$ref': '#/chemicalData'
+          - if:
+              properties:
+                chemicalControlMethod:
+                  const: '2'
+            then:
+              properties:
+                '2ChemicalControlMethod':
+                  title: ''
+                  '$ref': '#/chemicalData'
+          - if:
+              properties:
+                chemicalControlMethod:
+                  const: '4-D2'
+            then:
+              properties:
+                '4DChemicalControlMethod':
+                  title: ''
+                  '$ref': '#/chemicalData'
+          - if:
+              properties:
+                chemicalControlMethod:
+                  const: Pendimethalin
+            then:
+              properties:
+                pendimethalinChemicalControlMethod:
+                  title: ''
+                  '$ref': '#/chemicalData'
+          - if:
+              properties:
+                chemicalControlMethod:
+                  const: Paraquat
+            then:
+              properties:
+                paraquatChemicalControlMethod:
+                  title: ''
+                  '$ref': '#/chemicalData'
+          - if:
+              properties:
+                chemicalControlMethod:
+                  const: Diquat
+            then:
+              properties:
+                diquatChemicalControlMethod:
+                  title: ''
+                  '$ref': '#/chemicalData'
+
+  chemicalData:
+    properties:
+      purchaseReceipt:
+        title: Purchased receipt or product label
+        type: string
+
+        description: Purchased receipt or product label
+      applicationRate:
+        title: Application rate/ dosage (gm or ml)
+        type: number
+        minimum: 0
+      methodOfApplication:
+        title: Method of application
+        type: string
+        enum:
+          - Soil surface application
+          - Soil incorporation
+          - Subsurface application
+          - Band application
+          - Foliar application
+          - Spot application
+          - Herbigation
+          - Others
+        default: Soil surface application
+    if:
+      properties:
+        methodOfApplication:
+          const: Others
+    then:
+      properties:
+        otherMethodOfApplication:
+          type: string
+          title: Other method of application
+  observedWeedData:
+    properties:
+      localNameOfTheWeed:
+        title: Local name of the weed
+        type: string
+      scientificNameOfTheWeed:
+        title: Scientific name of the weed
+        type: string
+uiHints: file:~/specs/jsonschemas/src/forms/ui/interCulturalOperationsWeedingEvent.yaml

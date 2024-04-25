@@ -1,0 +1,33 @@
+schemaId: /workflow/WfInstance
+jsonschema:
+  type: object
+  properties:
+    def: {}
+    domainContextSchemaId:
+      type: string
+      title: Context object schema id
+    domainContextObjectId:
+      type: string
+      title: Context object id
+    domainSchemaId:
+      type: string
+      title: Domain schema id
+    domainObjectId:
+      type: string
+      title: Domain object id
+    name:
+      type: string
+      title: Name of the workflow
+    state:
+      type: object
+      title: Current state of the workflow
+      name:
+        type: string
+      data: {}
+      history: {}
+  required:
+    - domainSchemaId
+    - domainObjectId
+    - name
+    - state
+uiHints: file:~/specs/jsonschemas/src/domain/ui/wfinstance.yaml

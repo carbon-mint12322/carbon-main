@@ -1,0 +1,8 @@
+type Context = {
+  props:any;
+  data:any;
+  searchValue?: string;
+}
+
+const showTitlebarDelBtn = (_ctx: Context) => !_ctx?.data?.locked;
+export default showTitlebarDelBtn;

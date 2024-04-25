@@ -1,0 +1,27 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Name
+    category:
+      $ref: '#/definitions/CollectiveCategory'
+      title: Category
+
+    email:
+      type: string
+      title: Email
+    poc:
+      type: string
+      title: Contact person
+    phone:
+      type: string
+      title: Phone
+    address:
+      $ref: '#/definitions/Address'
+      title: Address
+  required:
+    - name
+    - category
+    - address
+    - email
+    - phone

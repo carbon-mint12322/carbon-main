@@ -1,0 +1,6 @@
+'ui:order':
+  - name
+  - availability
+  - quantity
+  - pumpUsed
+pumpUsed: file:~/specs/jsonschemas/src/common/ui/pumpUsed.yaml

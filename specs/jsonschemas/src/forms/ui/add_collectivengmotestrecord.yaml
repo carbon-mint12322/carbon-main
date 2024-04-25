@@ -1,0 +1,4 @@
+form:
+  uiSchema:
+    ngmoTestRecords: file:~/specs/jsonschemas/src/common/ui/ngmotestrecord.yaml
+

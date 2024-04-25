@@ -1,0 +1,13 @@
+form:
+  uiSchema:
+    description:
+      'ui:widget': textarea
+    range:
+      'ui:widget': date
+    'ui:order':
+      - name
+      - activityType
+      - range
+      - description
+      - eventStatus
+      - '*'

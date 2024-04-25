@@ -1,0 +1,23 @@
+jsonschema:
+  properties:
+    crop:
+      $ref: '#/definitions/CropId'
+    scheme:
+      $ref: '#/definitions/SchemeId'
+    climateScore:
+      type: number
+      title: Climate score (%)
+      minimum: 0
+      maximum: 100
+    complianceScore:
+      type: number
+      title: Compilance score (%)
+      minimum: 0
+      maximum: 100
+    active:
+      type: boolean
+  required:
+    - crop
+    - climateScore
+    - complianceScore
+    - active

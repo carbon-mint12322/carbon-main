@@ -1,0 +1,29 @@
+jsonschema:
+  properties:
+    farmer:
+      title: Farmer
+      $ref: '#/definitions/FarmerRef'
+      schemaId: /farmbook/farmer
+    processor:
+      title: Processor
+      $ref: '#/definitions/ProcessorId'
+      schemaId: /farmbook/farmer
+    landParcel:
+      title: Land parcel
+      $ref: '#/definitions/LandParcelId'
+      schemaId: /farmbook/landparcel
+    own:
+      type: boolean
+      description: 'Stating if the land is owned(true) or leased(false)'
+    documentRecords:
+      type: array
+      items:
+        $ref: '#/definitions/DocumentRecord'
+    active:
+      type: boolean
+    audit:
+      $ref: '#/definitions/Audit'
+  required:
+    - landParcel
+    - documentRecords
+    - active

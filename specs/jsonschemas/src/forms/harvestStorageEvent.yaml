@@ -1,0 +1,139 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Harvest Storage Event'
+  properties:
+    sourceOfStorageFecility:
+      title: Source of the storage facility
+      type: string
+      enum:
+        - On-farm storage
+        - Off-farm storage
+      default: On-farm storage
+    biocidesAndPlantProtectants:
+      title: Biocides and Plant protectants
+      type: string
+      enum:
+        - Malathion
+        - Parathion
+        - Deltamethrin
+        - Neem oil
+        - Neem leaves
+        - Wood ash
+        - Cow urine
+        - Inert dust
+        - Zinc phosphide
+        - Carbaryl
+        - Dichlorvos
+        - Lindane
+        - Others
+      default: Malathion
+    typeOfTreatment:
+      title: Type of treatment
+      type: string
+      enum:
+        - Spraying
+        - Drenching
+        - Fumigation
+        - Mixing with produce
+        - Poison baiting
+        - Others
+      default: Spraying
+    sourceOfInput:
+      title: Source of input
+      type: string
+      enum:
+        - Own
+        - Purchase
+      default: Own
+    quanityApplied:
+      title: Quantity applied(ml or grams)
+      type: number
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          sourceOfStorageFecility:
+            const: On-farm storage
+      then:
+        properties:
+          onFarmStorageStructures:
+            title: On-farm storage structures
+            type: string
+            enum:
+              - Bamboo Structures
+              - Mud and earthen pots
+              - Underground structures
+              - Barens
+              - Sheds
+              - Others
+            default: Bamboo Structures
+        if:
+          properties:
+            onFarmStorageStructures:
+              const: Others
+        then:
+          properties:
+            otherOnFarmStorageStructures:
+              title: Other storage structures
+              type: string
+    - if:
+        properties:
+          sourceOfStorageFecility:
+            const: Off-farm storage
+      then:
+        properties:
+          offFarmStorageStructures:
+            title: Off-farm storage structures
+            type: string
+            enum:
+              - Silo store houses/Sac store house
+              - Warehouses
+              - Others
+            default: Silo store houses/Sac store house
+        if:
+          properties:
+            offFarmStorageStructures:
+              const: Others
+        then:
+          properties:
+            otherOffFarmStorageStructures:
+              title: Other storage structures
+              type: string
+    - if:
+        properties:
+          biocidesAndPlantProtectants:
+            const: Others
+      then:
+        properties:
+          otherBiocidesAndPlantProtectants:
+            type: string
+            title: Other biocides and plant protectants
+    - if:
+        properties:
+          typeOfTreatment:
+            const: Others
+      then:
+        properties:
+          otherTypeOfTreatment:
+            type: string
+            title: Other type of treatment
+    - if:
+        properties:
+          sourceOfInput:
+            const: Purchase
+      then:
+        properties:
+          inputPurchaseReceipt:
+            title: Input purchase receipt or product label
+            type: string
+
+            description: Input purchase receipt or product label
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/harvestStorageEvent.yaml

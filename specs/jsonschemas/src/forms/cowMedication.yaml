@@ -1,0 +1,37 @@
+extends: ./cowNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Medication Event'
+  properties:
+    dateOfMedication:
+      type: string
+      format: date
+      title: Medication date
+    type:
+      type: string
+      title: Type of medication
+    dose:
+      type: string
+      title: Dose
+    frequency:
+      type: string
+      title: Frequency
+    reason:
+      type: string
+      title: Reason for medication
+    withdrawalPeriod:
+      type: number
+      title: Withdrawal period (Days)
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - dateOfMedication
+    - reason
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/cowMedication.yaml

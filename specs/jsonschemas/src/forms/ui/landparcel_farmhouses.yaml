@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    farmhouses: file:~/specs/jsonschemas/src/common/ui/farmhouse.yaml

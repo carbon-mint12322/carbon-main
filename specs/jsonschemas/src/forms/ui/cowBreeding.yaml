@@ -1,0 +1,12 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - dateOfBreeding
+      - method
+      - bullIdentificationNumber
+      - pregnencyConfirmationDate
+      - totalExpenditure
+      - otherRemarks
+      - '*'

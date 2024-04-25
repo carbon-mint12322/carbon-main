@@ -1,0 +1,17 @@
+type: object
+title: Open well
+properties:
+  name:
+    title: Open well name
+    type: string
+  depth:
+    title: Depth
+    type: number
+  diameter:
+    title: Diameter (inches)
+    type: number
+  pumpUsed: file:~/specs/jsonschemas/src/common/pumpUsed.yaml
+required:
+  - name
+  - depth
+  - diameter

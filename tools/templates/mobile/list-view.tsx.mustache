@@ -1,0 +1,101 @@
+// Replace these with correct imports
+// MOCKS BEGIN
+function Mock(props: any) {
+  return <div>Mock</div>
+}
+
+const Image = Mock;
+const View = Mock;
+const Text = Mock;
+const TouchableOpacity = Mock;
+const FontAwesome = Mock;
+const styles = {
+  foodImgPart: {},
+  farmFood: {},
+  listDetail: {},
+  foodNamePart: {},
+  listField: {},
+  listName: {},
+  cameraPart: {}
+};
+const common = {
+  listItem: {},
+  listDetail: {},
+  listField: {},
+  listName: {}
+};
+const colors = {
+  primary: {}
+};
+const navigation = {
+  navigate: (x: string, y: any) => { }
+};
+const getCropImage = (name: string) => { };
+const showCreateEventModal = (x: any, y: any) => { };
+const eventData = [];
+// MOCKS END
+
+
+type CameraProps = {
+  crop: any
+};
+
+const CropNavTitle = "CropDetails";
+const cropModalName = "crop";
+
+function getCropNavObject(props:any) {
+  const { crop, farm, eventData }:any = props;
+  return {
+    crop: crop,
+    address: farm?.address,
+    eventDetails: eventData.filter(function (item:any) {
+    return item.cropId === crop._id;
+    }),
+    map: farm.map || []
+  }
+}
+
+function Camera(props: CameraProps) {
+  const { crop }: any = props;
+  return (
+    <TouchableOpacity
+      style={styles.cameraPart}
+      onPress={() => showCreateEventModal(crop, cropModalName)}
+    >
+      <FontAwesome
+        name="camera"
+        size={24}
+        color={colors.primary}
+      />
+    </TouchableOpacity>);
+}
+
+export default function {{modelNameCapitalized}}ListView(props:any){
+  const { crop }:any = props;
+
+  return (
+    <TouchableOpacity
+      style={common.listItem}
+      onPress={() => navigation.navigate(CropNavTitle, getCropNavObject(props))}
+    >
+      <View style={styles.foodImgPart}>
+        <Image
+          source={getCropImage(crop.name)}
+          style={styles.farmFood}
+          resizeMode={"contain"}
+        />
+      </View>
+      <View style={common.listDetail}>
+        <View style={styles.foodNamePart}>
+          <Text style={common.listField}>{crop.name}</Text>
+          <Text style={common.listName}>{crop.cropType}</Text>
+        </View>
+
+        <Camera crop={crop} />
+
+      </View>
+    </TouchableOpacity>
+  );
+}
+
+

@@ -1,0 +1,25 @@
+name: croppingSystemInterCulturalOperationsThinningWorkflow
+startStateName: start
+description: Inter Cultural Operations - Thinning Event
+domainSchemaId: /farmbook/croppingsystem
+testScenariosFiles: []
+states:
+  - name: start
+    description: The Workflow starts in this state.
+    triggers:
+      - eventName: interCulturalOperationsThinningEvent
+        description: Inter Cultural Operations - Thinning Event
+        roles: ['AGENT', 'ADMIN'] # No roles required, ie anyone can do this
+        inputSchemaName: interCulturalOperationsThinningEvent
+        processingSteps:
+          - name: createCroppingSystemEvent
+            description: Create event object for cropping system
+            importPath: ../../../workflows/farmbook/functions/createCroppingSystemEvent
+        transitions:
+          - condition:
+              name: always
+              importPath: ../../../workflows/common/functions/always
+            state: end
+  - name: end
+    description: End state
+    isEndState: true

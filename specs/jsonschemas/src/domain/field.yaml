@@ -1,0 +1,22 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+    areaInAcres:
+      type: number
+      minimum: 0
+    map:
+      $ref: '#/definitions/Map'
+    landParcel:
+      $ref: '#/definitions/LandParcelId'
+    collective:
+      type: string
+    active:
+      type: boolean
+    audit:
+      $ref: '#/definitions/Audit'
+  required:
+    - name
+    - areaInAcres
+    - landParcel
+    - active

@@ -1,0 +1,65 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+    planId:
+      $ref: '#/definitions/PlanId'
+    cropId:
+      $ref: '#/definitions/CropId'
+    landParcelId:
+      $ref: '#/definitions/LandParcelId'
+    collectiveId:
+      $ref: '#/definitions/CollectiveId'
+    startDate:
+      type: string
+      format: date
+    endDate:
+      type: string
+      format: date
+    category:
+      type: string
+      enum:
+        - Farmer
+        - Crop
+        - Land Parcel
+        - Submission
+        - Generic
+      default: Generic
+    notes:
+      type: string
+    details:
+      type: object
+    photoRecords:
+      type: array
+      items:
+        type: string
+    audioRecords:
+      type: array
+      items:
+        type: string
+    documentRecords:
+      type: array
+      items:
+        type: string
+    location:
+      $ref: '#/definitions/GeoLocation'
+    createdBy:
+      $ref: '#/definitions/NameID'
+    createdAt:
+      type: string
+      format: date
+    active:
+      type: boolean
+    audit:
+      $ref: '#/definitions/Audit'
+    evidences:
+      type: array
+      items: string
+  required:
+    - name
+    - category
+    - createdBy
+    - createdAt
+    - active
+templates:
+  qr: file:~/tools/templates/html/QR.mustache

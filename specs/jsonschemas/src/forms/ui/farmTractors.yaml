@@ -1,0 +1,28 @@
+form:
+  uiSchema:
+    'ui:order':
+      - farmTractors
+      - '*'
+    farmTractors:    
+      'ui:order':
+        - tractorType
+        - otherTractorType
+        - tractorBrand
+        - tractorModel
+        - usage
+        - fuelType
+        - insurance
+        - insuranceProvider
+        - insurancePremium
+        - tractorDetails
+        - tractorEvidence
+        - tractorDate
+        - tractorPower
+        - tractorRegNumber
+        - ownership
+        - hypothecatedCompany
+        - loanAmout
+        - tractorTrailer
+        - '*'
+      tractorEvidence:
+        'ui:widget': 'file'

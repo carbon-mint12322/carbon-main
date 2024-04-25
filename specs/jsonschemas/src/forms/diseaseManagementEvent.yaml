@@ -1,0 +1,587 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Disease Management Event'
+  properties:
+    diseasesObserved:
+      title: Diseases observed
+      type: array
+      minItems: 1
+      items:
+        type: string
+        title: ''
+        enum:
+          - Blast
+          - Seedling blight
+          - Wilt
+          - FootRot
+          - Downy mildew
+          - Smut
+          - Damping off
+          - Leaf blight
+          - Leaf stripe
+          - Mosaic virus
+          - Leaf streak
+          - Grain mold
+          - Charcoal rot
+          - Anthracnose
+          - Loose smut
+          - Rust
+          - Ergot rot
+          - Top rot
+          - False mildew
+          - Head mold
+          - Others
+        enumNames:
+          - Blast
+          - Seedling blight
+          - Wilt
+          - Footrot
+          - Downy mildew
+          - Smut
+          - Damping-off
+          - Leaf blight
+          - Leaf stripe
+          - Mosaic virus
+          - Leaf streak
+          - Grain mold
+          - Charcoal rot
+          - Anthracnose
+          - Loose smut
+          - Rust
+          - Ergot rot
+          - Top rot
+          - False mildew
+          - Head mold
+          - Others
+      uniqueItems: true
+    otherDiseasesObserved:
+      type: string
+      title: Other diseases observed
+    diseaseManagementMethods:
+      title: Integrated disease management methods
+      '$ref': '#/diseaseManagementMethodsData'
+    recommendedBy:
+      title: Recommended by
+      type: string
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/definitions/DurationAndExpenses'
+    otherRemarks:
+      type: string
+
+  diseaseManagementMethodsData:
+    properties:
+      managementMeasuresFollowed:
+        title: Management measures followed
+        type: string
+        enum:
+          - Biological control
+          - Organic preparations
+          - Chemical control
+        default: Biological control
+    allOf:
+      - if:
+          properties:
+            managementMeasuresFollowed:
+              const: Biological control
+        then:
+          properties:
+            biologicalControlManagementMeasuresFollowed:
+              type: object
+              title: Biological control agents applied
+              properties:
+                trichoderma:
+                  title: Trichoderma
+                  type: boolean
+                  default: false
+                pseudomonas:
+                  title: Pseudomonas
+                  type: boolean
+                  default: false
+                bacillusSubtilis:
+                  title: Bacillus subtilis
+                  type: boolean
+                  default: false
+                ampelomycesQuisqualis:
+                  title: Ampelomyces quisqualis
+                  type: boolean
+                  default: false
+                otherBiologicalControlAgent:
+                  title: Others
+                  type: boolean
+                  default: false
+              allOf:
+                - if:
+                    properties:
+                      trichoderma:
+                        const: true
+                  then:
+                    properties:
+                      trichodermaApplicationData:
+                        title: ''
+                        '$ref': '#/biologicalAgentData'
+                - if:
+                    properties:
+                      pseudomonas:
+                        const: true
+                  then:
+                    properties:
+                      pseudomonasApplicationData:
+                        title: ''
+                        '$ref': '#/biologicalAgentData'
+                - if:
+                    properties:
+                      bacillusSubtilis:
+                        const: true
+                  then:
+                    properties:
+                      bacillusSubtilisApplicationData:
+                        title: ''
+                        '$ref': '#/biologicalAgentData'
+                - if:
+                    properties:
+                      ampelomycesQuisqualis:
+                        const: true
+                  then:
+                    properties:
+                      ampelomycesQuisqualisApplicationData:
+                        title: ''
+                        '$ref': '#/biologicalAgentData'
+                - if:
+                    properties:
+                      otherBiologicalControlAgent:
+                        const: true
+                  then:
+                    properties:
+                      otherBiologicalControlAgentApplied:
+                        type: string
+                        title: Other biological control agents applied
+                      otherBiologicalControlAgentApplicationData:
+                        title: ''
+                        '$ref': '#/biologicalAgentData'
+      - if:
+          properties:
+            managementMeasuresFollowed:
+              const: Organic preparations
+        then:
+          properties:
+            organicPreparationsManagementMeasuresFollowed:
+              type: object
+              title: Organic preparations applied
+              properties:
+                asafoetida:
+                  title: Asafoetida
+                  type: boolean
+                  default: false
+                butterMilk:
+                  title: Butter milk
+                  type: boolean
+                  default: false
+                horseComposeExtract:
+                  title: Horse compost extract
+                  type: boolean
+                  default: false
+                spentMushroomCompostExtract:
+                  title: Spent mushroom compost extract
+                  type: boolean
+                  default: false
+                otherOrganicPreparation:
+                  title: Others
+                  type: boolean
+                  default: false
+              allOf:
+                - if:
+                    properties:
+                      asafoetida:
+                        const: true
+                  then:
+                    properties:
+                      asafoetidaApplicationData:
+                        title: ''
+                        '$ref': '#/organicAgentData'
+                - if:
+                    properties:
+                      butterMilk:
+                        const: true
+                  then:
+                    properties:
+                      butterMilkApplicationData:
+                        title: ''
+                        '$ref': '#/organicAgentData'
+                - if:
+                    properties:
+                      horseComposeExtract:
+                        const: true
+                  then:
+                    properties:
+                      horseComposeExtractApplicationData:
+                        title: ''
+                        '$ref': '#/organicAgentData'
+                - if:
+                    properties:
+                      spentMushroomCompostExtract:
+                        const: true
+                  then:
+                    properties:
+                      spentMushroomCompostExtractApplicationData:
+                        title: ''
+                        '$ref': '#/organicAgentData'
+                - if:
+                    properties:
+                      otherOrganicPreparation:
+                        const: true
+                  then:
+                    properties:
+                      otherOrganicPreparationApplied:
+                        title: Other organic preparation applied
+                        type: string
+                      otherOrganicPreparationApplicationData:
+                        title: ''
+                        '$ref': '#/organicAgentData'
+      - if:
+          properties:
+            managementMeasuresFollowed:
+              const: Chemical control
+        then:
+          properties:
+            chemicalControlManagementMeasuresFollowed:
+              type: object
+              title: Chemicals applied
+              properties:
+                copperOxychloride:
+                  title: Copper oxychloride
+                  type: boolean
+                  default: false
+                carbendazim:
+                  title: Carbendazim
+                  type: boolean
+                  default: false
+                thiram:
+                  title: Thiram
+                  type: boolean
+                  default: false
+                mancozeb:
+                  title: Mancozeb
+                  type: boolean
+                  default: false
+                carbendazimMancozeb:
+                  title: Carbendazim + mancozeb
+                  type: boolean
+                  default: false
+                carboxin:
+                  title: Carboxin
+                  type: boolean
+                  default: false
+                metalaxylMancozeb:
+                  title: Metalaxyl + mancozeb
+                  type: boolean
+                  default: false
+                metalaxyl:
+                  title: Metalaxyl
+                  type: boolean
+                  default: false
+                wettableSulphur:
+                  title: Wettable sulphur
+                  type: boolean
+                  default: false
+                captan:
+                  title: Captan
+                  type: boolean
+                  default: false
+                bordeauxMixture:
+                  title: Bordeaux mixture
+                  type: boolean
+                  default: false
+                dithaneM45:
+                  title: Dithane M 45
+                  type: boolean
+                  default: false
+                methylDematon:
+                  title: Methyl dematon (for mosaic)
+                  type: boolean
+                  default: false
+                otherChemicalAgent:
+                  title: Others
+                  type: boolean
+                  default: false
+              allOf:
+                - if:
+                    properties:
+                      copperOxychloride:
+                        const: true
+                  then:
+                    properties:
+                      copperOxychlorideApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      carbendazim:
+                        const: true
+                  then:
+                    properties:
+                      carbendazimApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      thiram:
+                        const: true
+                  then:
+                    properties:
+                      thiramApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      mancozeb:
+                        const: true
+                  then:
+                    properties:
+                      mancozebApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      carbendazimMancozeb:
+                        const: true
+                  then:
+                    properties:
+                      carbendazimMancozebApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      carboxin:
+                        const: true
+                  then:
+                    properties:
+                      carboxinApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      metalaxylMancozeb:
+                        const: true
+                  then:
+                    properties:
+                      metalaxylMancozebApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      metalaxyl:
+                        const: true
+                  then:
+                    properties:
+                      metalaxylApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      wettableSulphur:
+                        const: true
+                  then:
+                    properties:
+                      wettableSulphurApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      captan:
+                        const: true
+                  then:
+                    properties:
+                      captanApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      bordeauxMixture:
+                        const: true
+                  then:
+                    properties:
+                      bordeauxMixtureApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      dithaneM45:
+                        const: true
+                  then:
+                    properties:
+                      dithaneM45ApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      methylDematon:
+                        const: true
+                  then:
+                    properties:
+                      methylDematonApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+                - if:
+                    properties:
+                      otherChemicalAgent:
+                        const: true
+                  then:
+                    properties:
+                      otherChemicalAgentApplied:
+                        title: Other chemical agents applied
+                        type: string
+                      otherChemicalAgentApplicationData:
+                        title: ''
+                        '$ref': '#/chemicalAgentData'
+
+  chemicalAgentData:
+    properties:
+      inputPurchaseReceipt:
+        title: Chemical purchase receipt or product label
+        type: string
+
+        description: Chemical purchase receipt or product label
+      dosageApplied:
+        title: Dosage appiled (g or ml/Acre)
+        type: number
+        minimum: 0
+      applicationMethod:
+        title: Application method followed
+        type: string
+        enum:
+          - Dusting
+          - Foliar spray
+          - Poison baiting
+          - Soil drenching
+          - Broadcasting
+          - Fumigation
+          - Leaf whorl application
+          - Irrigation water (Drip)
+          - Fogging
+          - Others
+        default: Dusting
+      productFormulation:
+        type: string
+
+        title: Product formulation test report
+        description: Product formulation test report
+    allOf:
+      - if:
+          properties:
+            applicationMethod:
+              const: Others
+        then:
+          properties:
+            otherApplicationMethod:
+              title: Other application method
+              type: string
+  organicAgentData:
+    properties:
+      sourceOfInput:
+        title: Source of input
+        type: string
+        enum:
+          - Own
+          - Purchase
+        default: Purchase
+      dosageApplied:
+        title: Dosage applied (g or ml/Acre)
+        type: number
+        minimum: 0
+      applicationMethod:
+        title: Application method followed
+        type: string
+        enum:
+          - Dusting
+          - Foliar spray
+          - Poison baiting
+          - Soil drenching
+          - Broadcasting
+          - Fumigation
+          - Leaf whorl application
+          - Irrigation water (Drip)
+          - Fogging
+          - Others
+        default: Dusting
+    productFormulation:
+      type: string
+
+      title: Product formulation test report
+      description: Product formulation test report
+    allOf:
+      - if:
+          properties:
+            sourceOfInput:
+              const: Purchase
+        then:
+          properties:
+            inputPurchaseReceipt:
+              title: Input purchased receipt or product label
+              type: array
+
+              description: Input purchased receipt or product label
+              items:
+                type: string
+      - if:
+          properties:
+            applicationMethod:
+              const: Others
+        then:
+          properties:
+            otherApplicationMethod:
+              title: Other application method
+              type: string
+  biologicalAgentData:
+    properties:
+      sourceOfBiologicalAgent:
+        title: Source of biological agent
+        type: string
+        enum:
+          - Own
+          - Purchase
+        default: Purchase
+      dosageApplied:
+        title: Dosage applied (g or ml/Acre)
+        type: number
+        minimum: 0
+      applicationMethod:
+        title: Application method followed
+        type: string
+        enum:
+          - Dusting
+          - Foliar spray
+          - Poison baiting
+          - Soil drenching
+          - Broadcasting
+          - Fumigation
+          - Leaf whorl application
+          - Irrigation water (Drip)
+          - Fogging
+          - Others
+        default: Dusting
+    allOf:
+      - if:
+          properties:
+            sourceOfBiologicalAgent:
+              const: Purchase
+        then:
+          properties:
+            inputPurchaseReceipt:
+              title: Input purchased receipt or product label
+              type: array
+
+              description: Input purchased receipt or product label
+              items:
+                type: string
+      - if:
+          properties:
+            applicationMethod:
+              const: Others
+        then:
+          properties:
+            otherApplicationMethod:
+              title: Other application method
+              type: string
+uiHints: file:~/specs/jsonschemas/src/forms/ui/diseaseManagementEvent.yaml

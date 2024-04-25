@@ -1,0 +1,41 @@
+extends: ./sheepPSNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Vaccination Event'
+  properties:
+    sheep:
+      type: array
+      items:
+        $ref: '#/definitions/SheepId'
+      title: Sheep
+      foreignNameField: 'tagId'
+    dateOfVaccination:
+      type: string
+      format: date
+      title: Vaccination date
+    type:
+      type: string
+      title: Type of vaccination
+    route:
+      type: string
+      title: Route of administration
+    dose:
+      type: string
+      title: Dose
+    adverseReactions:
+      type: string
+      title: Any adverse reactions
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - sheep
+    - dateOfVaccination
+    - type
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/sheepVaccinationPS.yaml

@@ -1,0 +1,21 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - goats
+      - dateOfMedication
+      - type
+      - dose
+      - frequency
+      - reason
+      - withdrawalPeriod
+      - totalExpenditure
+      - otherRemarks
+      - '*'
+    goats:
+      'ui:field': ReferenceField
+      ui:placeholder: Select goats
+      foreignSchemaId: '/goat'
+      foreignNameField: 'tagId'
+      foreignLabelWidget: NameLabelWidget

@@ -1,0 +1,9 @@
+'ui:order':
+  - name
+  - address
+  - website
+  - email
+  - poc
+  - phone
+  - '*'
+

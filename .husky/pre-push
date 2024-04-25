@@ -1,0 +1,7 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+echo '🏗️👷 Checking files before pushing to remote'
+
+# yarn pre-push
+
+echo '✅✅✅✅ Pushing code to remote. ✅✅✅✅'

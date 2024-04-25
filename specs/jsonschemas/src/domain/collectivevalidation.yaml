@@ -1,0 +1,49 @@
+jsonschema:
+  properties:
+    validationType:
+      title: Validation type
+      type: string
+      enum:
+        - Legal entity registration
+        - Governance documentation
+        - Intent
+        - Organization structure
+        - Other
+      default: Legal entity registration
+    description:
+      title: Description
+      type: string
+    validationDate:
+      title: Validation date
+      type: string
+      format: date
+    doneBy:
+      title: Validation done by
+      type: string
+    outcome:
+      title: Validation outcome
+      type: string
+    attachments:
+      type: array
+      title: Attachements
+      items:
+        type: string
+  allOf:
+    - if:
+        properties:
+          validationType:
+            const: Other
+      then:
+        properties:
+          otherType:
+            title: Other validation type
+            type: string
+  required:
+    - validationType
+    - description
+    - validationDate
+    - doneBy
+    - outcome
+    - attachments
+
+uiHints: file:~/specs/jsonschemas/src/domain/ui/collectivevalidation.yaml

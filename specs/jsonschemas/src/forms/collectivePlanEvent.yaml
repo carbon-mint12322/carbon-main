@@ -1,0 +1,36 @@
+jsonschema:
+  title: Schedule Event
+  type: object
+  properties:
+    name:
+      title: Activity name
+      type: string
+    activityType:
+      title: Activity type
+      type: string
+      enum:
+        - Internal inspection
+        - External inspection
+        - Sampling
+        - Training
+
+      default: Internal inspection
+    range:
+      title: Date Range
+      $ref: '#/definitions/DateRange'
+    description:
+      title: Description
+      type: string
+    eventStatus:
+      type: string
+      title: Status
+      enum:
+        - Pending
+        - Completed
+      default: Pending
+  required:
+    - name
+    - activityType
+    - range
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/collectivePlanEvent.yaml

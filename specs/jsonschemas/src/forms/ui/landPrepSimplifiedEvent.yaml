@@ -1,0 +1,13 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - preparationMethod
+      - machineriesUsed
+      - preparationImplements
+      - durationAndExpenses
+      - otherRemarks
+    preparationImplements: file:~/specs/jsonschemas/src/common/ui/implements.yaml
+
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

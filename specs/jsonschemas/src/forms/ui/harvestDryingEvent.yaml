@@ -1,0 +1,17 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - drying
+      - preTreatmentForDrying
+      - otherPreTreatment
+      - quantityApplied
+      - dryingMethod
+      - otherDryingMethod
+      - temparatureOfFinalProduce
+      - humidityOfFinalProduce
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

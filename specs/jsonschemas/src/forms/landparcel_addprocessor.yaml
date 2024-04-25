@@ -1,0 +1,8 @@
+jsonschema:
+  properties:
+    processor:
+      $ref: '#/definitions/LinkProcessorId'
+      title: Processor
+  required:
+    - processor
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_addprocessor.yaml

@@ -1,0 +1,35 @@
+type: object
+properties:
+  name:
+    title: Activity name
+    type: string
+  description:
+    title: Activity description
+    type: string
+  severity:
+    title: Severity
+    type: string
+    enum:
+      - Critical
+      - Major
+      - Moderate  
+      - Minor
+      - Negligible
+    default: Critical
+  score:
+    type: number
+    title: Score
+    default: 0
+  days:
+    title: Days range
+    $ref: '#/definitions/DaysRange'
+  repeated:
+    title: Repeated compliance point
+    type: boolean
+    default: false
+
+required:
+  - name
+  - days
+  - score
+

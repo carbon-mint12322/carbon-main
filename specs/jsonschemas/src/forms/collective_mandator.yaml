@@ -1,0 +1,7 @@
+jsonschema:
+  properties:
+    mandator:
+      type: object
+      title: Mandator details
+      $ref: '#/definitions/Mandator'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/collective_mandator.yaml

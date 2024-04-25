@@ -1,0 +1,13 @@
+items:
+  description:
+    'ui:widget': textarea
+  'ui:order':
+    - name
+    - description  
+    - severity
+    - score
+    - days  
+    - repeated
+    - frequency
+    - ends
+    - '*'

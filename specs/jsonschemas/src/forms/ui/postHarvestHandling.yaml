@@ -1,0 +1,42 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - postHarvest
+      - primaryProcessing
+      - method
+      - waterUsed
+      - otherWaterUsed
+      - dippingMethod
+      - otherDippingProducts
+      - otherCleaningProcess
+      - grading
+      - gradingStandards
+      - otherProcesses
+      - otherHandlingProcesses
+      - packaging
+      - unitSize
+      - material
+      - state
+      - grade
+      - transport
+      - mode
+      - ownership
+      - otherTransport
+      - price
+      - marketPrice
+      - totalQuantity
+      - inputs
+      - inputQuantity
+      - costPerUnit
+      - expensesMet
+      - postProcessingTitle
+      - postProcessingOperation
+      - handlingEvidence
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    handlingEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

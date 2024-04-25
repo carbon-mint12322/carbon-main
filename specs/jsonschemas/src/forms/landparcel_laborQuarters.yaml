@@ -1,0 +1,5 @@
+jsonschema:
+  type: object
+  properties:
+    laborQuarters: file:~/specs/jsonschemas/src/common/laborQuarter.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_laborQuarters.yaml

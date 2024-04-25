@@ -1,0 +1,23 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Land Preparation Other Event'
+  properties:
+    otherPreparationMethod:
+      type: string
+      title: Other land preparation method
+    otherMachineriesUsed:
+      type: string
+      title: Other machineries used
+    otherPreparationImplements:
+      title: ''
+      '$ref': '#/Implements'
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+  Implements: file:../common/implements.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landPrepOtherEvent.yaml

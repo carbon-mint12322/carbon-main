@@ -1,0 +1,27 @@
+jsonschema:
+  properties:
+    identityDetails:
+      title: Identity details
+      type: object
+      properties:
+        identityNumber:
+          type: string
+          title: Identification number
+          pattern: '^[a-zA-Z0-9]*$'
+        identityDocument:
+          $ref: '#/definitions/IdentityDocument'
+          title: 'Identity document name (ex: aadhar, passport, etc)'
+        identityDocumentFile:
+          type: string
+          title: Upload identity document
+          description: 'Identification document proof'
+        panCardNumber:
+          type: string
+          title: PAN card number
+          pattern: '^[a-zA-Z0-9]*$'
+        panCardFile:
+          type: string
+          title: Upload PAN card
+          description: 'PAN card proof'
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/farmerIdentityVerification.yaml

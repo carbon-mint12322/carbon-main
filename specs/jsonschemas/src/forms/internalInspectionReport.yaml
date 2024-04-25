@@ -1,0 +1,28 @@
+extends: ./lpEventNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: Internal inspection report
+  properties:
+    inspectionReport:
+      title: Inspection report
+      type: string
+      description: Upload inspection report
+    startDate:
+      title: Inspection start date
+      type: string
+      format: date
+    endDate:
+      title: Inspection end date
+      type: string
+      format: date
+    inspectionDoneBy:
+      title: Inspection done by
+      type: string
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - inspectionReport
+    - startDate
+    - endDate
+uiHints: file:~/specs/jsonschemas/src/forms/ui/internalInspectionReport.yaml

@@ -1,0 +1,19 @@
+form:
+  uiSchema:
+    'ui:order':
+      - farmMachineries
+      - '*'
+    farmMachineries:
+      'ui:order':
+        - machineryType
+        - machineryBrand
+        - machineryModel
+        - usage
+        - fuelType
+        - machineryDetails
+        - machineryEvidence
+        - machineryDate
+        - machineryPower
+        - '*'
+      machineryEvidence:
+        'ui:widget': 'file'

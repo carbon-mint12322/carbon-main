@@ -1,0 +1,88 @@
+jsonschema:
+  properties:
+    evaluationDetails:
+      title: Evaluation Details
+      type: object
+      properties:
+        evaluationType:
+          title: Evaluation type
+          type: string
+          enum:
+            - Structural conflict
+            - 'Yield estimate for farmer'
+            - Internal inspector competency
+            - Farmer proximity
+            - Other
+          default: Structural conflict
+        description:
+          title: Description
+          type: string
+        evaluationDate:
+          title: Evaluation date
+          type: string
+          format: date
+        evaluator:
+          title: Evaluator
+          type: string
+        outcome:
+          title: Evaluation outcome
+          type: string
+        comments:
+          title: Comments
+          type: string
+        attachments:
+          type: array
+          title: Attachements
+          items:
+            type: string
+      allOf:
+        - if:
+            properties:
+              evaluationType:
+                const: Other
+          then:
+            properties:
+              otherType:
+                title: Other evaluation type
+                type: string
+        - if:
+            properties:
+              evaluationType:
+                const: 'Yield estimate for farmer'
+          then:
+            properties:
+              farmerName:
+                title: Farmer name
+                type: string
+              farmerId:
+                title: Farmer ID
+                type: string
+              crop:
+                title: Crop
+                type: string
+              variety:
+                title: Variety
+                type: string
+              area:
+                title: Area (Ha)
+                type: number
+              spacing:
+                title: Spacing (Mitres)
+                type: number
+              averageYield:
+                title: Average yield per plant / unit area
+                type: string
+              totalYieldPerAcre:
+                title: Total yield per acre (MT)
+                type: number
+              totalYield:
+                title: Total yield (MT)
+                type: number
+      required:
+        - evaluationType
+        - description
+        - evaluationDate
+        - evaluator
+        - outcome
+        - attachments
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_collectiveevaluation.yaml

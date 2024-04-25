@@ -1,0 +1,33 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Inter Cultural Operations Thinning Event'
+  properties:
+    thinningDate:
+      title: Date of thinning
+      type: string
+      format: date
+    seedlingsDisposal:
+      title: Thinning seedlings disposal method
+      type: string
+      enum:
+        - Gap filling
+        - Compost it
+        - Thrown Away
+        - Fed to cattle
+      default: Gap filling
+    expensesMet:
+      title: Expenses met
+      type: number
+      minimum: 0
+    recommondedBy:
+      title: Recommended by
+      type: string
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/interCulturalOperationsThinningEvent.yaml

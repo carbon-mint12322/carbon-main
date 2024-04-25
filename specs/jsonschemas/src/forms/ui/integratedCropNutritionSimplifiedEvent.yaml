@@ -1,0 +1,24 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - nutritionsApplied
+      - recommondedBy
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    nutritionsApplied:
+      items:
+        purchaseReceipt:
+          'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        'ui:order':
+          - nutrition
+          - brand
+          - quantity
+          - dosage
+          - purchaseReceipt
+          - expensesMet
+          - '*'
+
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

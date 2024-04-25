@@ -1,0 +1,25 @@
+title: 'Duration and Expenses'
+type: object
+properties:
+  startDate:
+    type: string
+    format: date
+    title: Start date
+  endDate:
+    type: string
+    format: date
+    title: End date  
+  totalExpenditure:
+    type: number
+    minimum: 0
+    title: Total expenditure  
+  photoEvidenceBeforeAfter:
+    type: array
+    title: Photo evidence (before & after)
+    items:
+      type: string
+    description: Photo evidence (before & after)
+required:
+  - startDate
+  - endDate
+

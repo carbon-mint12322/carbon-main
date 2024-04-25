@@ -1,0 +1,5 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  title: 'Poultry Input Log'
+  $ref: '#/definitions/InputLog'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/inputLog.yaml

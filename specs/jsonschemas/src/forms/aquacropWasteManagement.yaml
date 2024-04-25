@@ -1,0 +1,36 @@
+extends: ./aquacropNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Waste Management'
+  properties:
+    startDate:
+      title: Record start date
+      type: string
+      format: date
+    endDate:
+      title: Record end date
+      type: string
+      format: date
+    wastageType:
+      type: string
+      title: Type of waste generated (e.g. litter)
+    method:
+      type: string
+      title: Waster management method
+    quantity:
+      type: number
+      title: Amount of waste generated per day
+    totalExpenditure:
+      type: number
+      title: Any associated costs for waste management
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - wastageType
+    - method
+    - quantity
+    - totalExpenditure
+uiHints: file:~/specs/jsonschemas/src/forms/ui/aquacropWasteManagement.yaml

@@ -1,0 +1,21 @@
+form:
+  uiSchema:
+    observationRemarks:
+      'ui:widget': textarea
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - observationsTitle
+      - observationName
+      - observationType
+      - observedBy
+      - observationRemarks
+      - dateOfObservation
+      - observationEvidence
+      - startDate
+      - endDate
+      - totalExpenditure
+      - otherRemarks
+      - '*'
+    observationEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

@@ -1,0 +1,6 @@
+jsonschema:
+  properties:
+    aggregationPlanDetails:
+      title: Aggregation Plan Details
+      $ref: '#/definitions/AggregationPlan'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_aggregationplan.yaml

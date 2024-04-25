@@ -1,0 +1,202 @@
+validationLifecycle: true
+readableName: Poultry Batch
+readableNamePlural: Poultry Batches
+jsonschema:
+  properties:
+    productionSystem:
+      $ref: "#/definitions/ProductionSystemId"
+      title: Production system
+    batchIdName:
+      type: string
+      title: Batch ID/Name
+    basicInfo:
+      type: object
+      properties:
+        poultryType:
+          type: string
+          title: Name
+          enum:
+            - Broiler Chicken
+            - Country Chicken
+            - Breeder Chicken
+            - Duck
+            - Turkey
+            - Quail
+          default: Broiler
+        purpose:
+          type: string
+          title: Purpose
+          enum:
+            - layers
+            - rearing
+          default: layers
+        breed:
+          type: string
+          title: Breed
+    chickData:
+      type: object
+      properties:
+        risk:
+          type: string
+          title: Risk
+          enum:
+            - Low
+            - Medium
+            - High
+          default: Low
+        chickSource:
+          type: string
+          title: Chick source
+        size:
+          type: number
+          title: Size
+    pedigreeData:
+      type: object
+      properties:
+        pedigree:
+          type: string
+          title: Pedigree
+    chickPlacementDay:
+      type: string
+      format: date
+      title: Chick placement date
+    actualChickPlacementDay:
+      type: string
+      format: date
+      title: Actual chick placement date
+    estHarvestDate:
+      type: string
+      format: date
+      title: Estimated harvest date
+    actualHarvestDate:
+      type: string
+      format: date
+      title: Actual harvest date
+    chickSource:
+      type: string
+      title: Chick source
+    climateScore:
+      type: number
+      title: Climate score
+    complianceScore:
+      type: number
+      title: Compliance score
+    photoEvidence:
+      type: string
+      title: Photo evidence
+    dayMortality:
+      type: number
+      title: Today mortality
+    mortalityDate:
+      type: string
+      format: date
+      title: Mortality record date
+    cumulativeMortality:
+      type: number
+      title: Cumulative mortality
+    mortalityPercentage:
+      type: number
+      title: Mortality percentage
+      minumum: 0
+      maximum: 100
+    weightGain:
+      type: number
+      title: Weight gain
+      minimum: 0
+    risk:
+      type: string
+      title: Risk
+      enum:
+        - Low
+        - Medium
+        - High
+      default: Low
+    feedStock:
+      type: number
+      title: Feed stock (Kgs)
+      minimum: 0
+    feedExpiry:
+      type: string
+      formate: date
+      title: Feed expiry
+    field:
+      $ref: "#/definitions/FieldId"
+      title: Field
+    landParcel:
+      $ref: "#/definitions/NameID"
+      title: Land parcel
+    farmer:
+      $ref: "#/definitions/NameID"
+      title: Farmer
+    collective:
+      $ref: "#/definitions/CollectiveId"
+      title: Collective
+    poultrypops:
+      $ref: "#/definitions/PoPId"
+    documents:
+      type: array
+      title: Document
+      items:
+        type: object
+        properties:
+          link:
+            type: string
+            title: Link
+          name:
+            type: string
+            title: Name
+          issuedBy:
+            type: string
+            title: Issued by
+          docNumber:
+            type: string
+            title: Document number
+          category:
+            type: string
+            enum:
+              - Reports
+              - Certificates
+              - Supporting documents
+            default: Reports
+            title: Category
+    validationWorkflowId:
+      type: string
+      format: hidden
+    statusNotes:
+      type: string
+      format: hidden
+    status:
+      type: string
+      enum:
+        - Draft
+        - Under validation
+        - Under review
+        - Review failed
+        - Validation failed
+        - Approved
+        - In progress
+        - Completed
+      default: Draft
+      title: Status
+    active:
+      type: boolean
+      title: Active
+  required:
+    - productionSystem
+    - batchIdName
+    - poultryType
+    - purpose
+    - size
+    - pop
+    - chickPlacementDay
+    - chickSource
+    - breed
+    - field
+    - landParcel
+    - farmer
+    - collective
+    - active
+    - pedigree
+uiHints: file:~/specs/jsonschemas/src/domain/ui/poultry.yaml
+templates:
+  qr: file:~/tools/templates/html/QR.poultry.mustache

@@ -1,0 +1,58 @@
+// Generated code
+const Ajv = require("ajv")
+
+import { NextApiRequest, NextApiResponse } from 'next'
+import { getCreateRoles, withPermittedRoles } from "~/backendlib/rbac"
+
+import { httpPostHandler } from "~/backendlib/middleware/post-handler"
+import withMongo from "~/backendlib/middleware/with-mongo"
+import withDebug from "~/backendlib/middleware/with-debug"
+import { getModel } from "~/backendlib/db/adapter";
+
+import {{ modelName }}Schema from "~/gen/jsonschemas/{{modelName}}.json"
+
+const schemaId = `{{{ schemaId }}}`;
+const permittedRoles = getCreateRoles(schemaId)
+const modelApi = getModel(schemaId);
+
+const ajv = new Ajv() // options can be passed, e.g. {allErrors: true}
+
+ajv.addFormat('data-url', {
+  type: 'string',
+  validate: (dataUrl: any) => {
+    if (typeof dataUrl === 'string') {
+      return true;
+    }
+    return false; // any test that returns true/false
+  },
+});
+
+const validator = ajv.compile({{ modelName }}Schema);
+
+export const create{{ modelName }} = (data: any, userId: string) => {
+  const isValid = validator(data);
+  if (!isValid) {
+    throw new Error(JSON.stringify(validator.errors));
+  }
+  return modelApi.create(data, userId);
+}
+
+const extractRequestFromHttpReq = (req: any) => req.body;
+
+const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<any> => {
+  const createRequest = extractRequestFromHttpReq(req);
+  res.setHeader('Content-Type', 'application/json');
+  try {
+    const result = await create{{ modelName }}(createRequest, (req as any)?.carbonMintUser?._id?.toString());
+    res.status(200).json(result);
+  } catch (error: any) {
+    res.status(400).json({ error: JSON.parse(error.message) });
+  }
+}
+
+// Enforces role check
+const wrap = withPermittedRoles(permittedRoles)
+
+// Wrap in post-handler, which permits http posts only 
+export default withDebug(wrap(httpPostHandler(withMongo(handler))));
+

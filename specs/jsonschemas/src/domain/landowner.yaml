@@ -1,0 +1,91 @@
+extends: ./entityValidationLifecycle.yaml
+readableName: Landowner
+readableNamePlural: Landowners
+jsonschema:
+  title: "Add Landowner"
+  properties:
+    personalDetails:
+      $ref: "#/definitions/Person"
+      title: "Basic details"
+    gender:
+      title: Gender
+      type: string
+      enum:
+        - Male
+        - Female
+        - Others
+      default: Male
+    dob:
+      title: Date of birth
+      type: string
+      format: date
+    bankDetails:
+      title: "Bank details"
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name of the bank
+        branch:
+          type: string
+          title: Branch name
+        accountNumber:
+          type: string
+          title: Bank account number
+        ifsc:
+          type: string
+          title: IFSC code
+        swift:
+          type: string
+          title: SWIFT code
+        bankDocument:
+          type: string
+          title: Upload document proof of the account
+    
+    additionalDetails:
+      title: Additional details
+      type: object
+      properties:
+        subClassification:
+          type: string
+          title: Sub-Classification of landowner
+          enum:
+            - Active
+            - Non-Active
+            - NRI
+            - Absentee
+            - Migrated
+          default: Active
+      allOf:
+        - if:
+            properties:
+              subClassification:
+                const: NRI
+          then:
+            properties:
+              address:
+                type: string
+                title: Address
+              city_town:
+                type: string
+                title: City/Town
+              state_province:
+                type: string
+                title: State/Province
+              zip_postal_code:
+                type: string
+                title: Zip/Postal Code
+              country:
+                type: string
+                title: Country
+              overseas_mobile_no:
+                type: string
+                title: Mobile Number
+              overseas_email:
+                type: string
+                title: Email-ID     
+
+
+  required:
+    - personalDetails
+uiHints: file:~/specs/jsonschemas/src/domain/ui/landowner.yaml

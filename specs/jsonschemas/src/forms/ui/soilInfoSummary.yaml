@@ -1,0 +1,27 @@
+form:
+  uiSchema:
+    'ui:order':
+      - soilInfo
+      - '*'
+    soilInfo:
+      otherRemarks:
+        'ui:widget': textarea
+      'ui:order':
+        - 'n'
+        - p
+        - k
+        - soilTexture
+        - soilColor
+        - depthOfSurfaceSoil
+        - ca
+        - mg
+        - s
+        - otherMicroNutrients
+        - ph
+        - ec
+        - organicCarbon
+        - otherRemarks
+        - soilTestReport
+        - '*'
+      soilTestReport:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'

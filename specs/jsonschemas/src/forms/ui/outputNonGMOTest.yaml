@@ -1,0 +1,19 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - nonGMOTest
+      - testTitle
+      - nonGMOTestReport
+      - labCertifiedByNabl
+      - nablCertificationEvidence
+      - startDate
+      - endDate
+      - totalExpenditure
+      - otherRemarks
+      - '*'
+    nonGMOTestReport:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    nablCertificationEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

@@ -1,0 +1,16 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - supplierName
+      - supplierContact
+      - quantity
+      - type
+      - orderDate
+      - arrivalDate
+      - condition
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

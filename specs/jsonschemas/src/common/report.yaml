@@ -1,0 +1,9 @@
+type: object
+properties:
+  reportName:
+    type: string
+    title: Report name
+  reportDocument:
+    title: Report document
+    type: string
+    description: Upload report document

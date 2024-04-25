@@ -1,0 +1,65 @@
+import { time, loadFixture } from "@nomicfoundation/hardhat-network-helpers";
+import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
+import { expect } from "chai";
+import { ethers } from "hardhat";
+
+
+describe("EvidenceRecord", function () {
+  // We define a fixture to reuse the same setup in every test.
+  // We use loadFixture to run this setup once, snapshot that state,
+  // and reset Hardhat Network to that snapshot in every test.
+  async function deployEvidenceRecordFixture() {
+		const input = {
+			uri: "/evidence/12345"+ nextId(),
+			userId: "user1234",
+			latitude: 123, longitude: 456,
+			ts: 1234567,
+			hash: "123123123324234sdfdf"
+		};
+    console.log(input)
+    // Contracts are deployed using the first signer/account by default
+    const [owner, otherAccount] = await ethers.getSigners();
+    const tokenFactory = await ethers.getContractFactory("CeeToken");
+    const token = await tokenFactory.deploy(1000000000);
+    const factory = await ethers.getContractFactory("EvidenceRecord");
+    const evidence = await factory.deploy(token.address)
+    await evidence.createRecord(1,
+			input.uri,
+			input.userId,
+			input.latitude,
+			input.longitude,
+			input.ts,
+			input.hash);
+		await evidence.deployed();
+    const verifyResults = await evidence.verify(input.uri);
+    return { evidence: await evidence.verify(input.uri), input };
+  }
+
+  describe("Deployment", function () {
+    it("Should set the right uri etc metadata", async function () {
+			const {
+				evidence, input
+			} = await loadFixture(deployEvidenceRecordFixture);
+      expect(await evidence.uri).to.equal(input.uri);
+      expect(await evidence.userId).to.equal(input.userId);
+      expect(await evidence.longitude).to.equal(input.longitude);
+      expect(await evidence.latitude).to.equal(input.latitude);
+      expect(await evidence.ts).to.equal(input.ts);
+      expect(await evidence.hash).to.equal(input.hash);
+		});
+  });
+
+	describe("Events", function () {
+  });
+});
+
+const idgenerator = function*(start = new Date().getTime()) {
+  var id;
+  id = start + 1;
+  while (true) {
+    yield id;
+    id += 1;
+  }
+};
+const generator = idgenerator();
+export const nextId = (): number => generator.next().value;

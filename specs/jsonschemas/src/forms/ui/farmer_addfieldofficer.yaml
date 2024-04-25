@@ -1,0 +1,13 @@
+form:
+  uiSchema:
+    'ui:order':
+      - fieldOffice
+      - '*'
+    fieldOfficer:
+      'ui:field': ReferenceField
+      ui:placeholder: Select field officer
+      foreignSchemaId: '/agent'
+      foreignLabelWidget: NameLabelWidget
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: fieldOfficers

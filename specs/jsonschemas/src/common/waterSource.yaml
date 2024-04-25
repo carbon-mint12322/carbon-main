@@ -1,0 +1,21 @@
+type: object
+properties:
+  name:
+    type: string
+  size:
+    type: number
+  capacity:
+    type: number
+  depth:
+    type: number
+    description: "In case of type - borewell, the depth of the well"
+  photoEvidence:
+    type: string
+  location:
+    $ref: "#/definitions/GeoLocation"
+  active:
+    type: boolean
+required:
+  - name
+  - capacity
+  - active

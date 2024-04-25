@@ -1,0 +1,31 @@
+form:
+  uiSchema:
+    "ui:order":
+      - name
+      - id
+      - domainSchemaId
+      - domainObjectId
+      - state.name
+      - "*"
+table:
+  # Options to be passed to MUI's datagrid component
+  # See Data Grid documentation for details
+  title: Workflows
+  detailPage: /private/workflow/[id]
+  dataGridOptions:
+    columns:
+      - field: def.name
+        headerName: Name
+        width: 200
+      - field: id
+        headerName: ID
+        width: 400
+      - field: domainSchemaId
+        headerName: Domain Schema
+        width: 250
+      - field: domainObjectId
+        headerName: Object ID
+        width: 250
+      - field: state.name
+        headerName: State
+        width: 200

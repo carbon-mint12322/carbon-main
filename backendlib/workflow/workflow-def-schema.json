@@ -1,0 +1,145 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "domainSchemaId": {
+      "type": "string",
+      "description": "The schema ID of the objects we will be dealing with in this\nworkflow. Object IDs will be passed into workflow\nprocessEvent. Objects matching schema and ID are automatically\nloaded when workflow events are processed.\n"
+    },
+    "startState": {
+      "type": "string"
+    },
+    "states": {
+      "type": "array",
+      "item": {
+        "$ref": "#/definitions/StateType"
+      }
+    }
+  },
+  "required": ["name", "states", "startState", "domainSchemaId"],
+  "definitions": {
+    "StateType": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "isStartState": {
+          "type": "boolean"
+        },
+        "isEndState": {
+          "type": "boolean"
+        },
+        "triggers": {
+          "type": "array",
+          "item": {
+            "$ref": "#/definitions/Trigger"
+          }
+        }
+      }
+    },
+    "Trigger": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "item": {
+            "type": "string"
+          }
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "properties": {
+              "type": "object"
+            }
+          }
+        },
+        "processingSteps": {
+          "type": "array",
+          "item": {
+            "$ref": "#/definitions/ProcessingStep"
+          }
+        },
+        "transitions": {
+          "type": "array",
+          "item": {
+            "$ref": "#/definitions/Transition"
+          }
+        }
+      },
+      "required": ["name", "roles", "inputSchema", "processingSteps", "transitions"]
+    },
+    "Condition": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "importPath": {
+          "type": "string"
+        }
+      }
+    },
+    "ProcessingStep": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "importPath": {
+          "type": "string"
+        },
+        "schemes": {
+          "type": "array",
+          "item": {
+            "$ref": "#/definitions/SchemeId"
+          }
+        }
+      }
+    },
+    "SchemeId": {
+      "type": "string"
+    },
+    "Transition": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "condition": {
+          "$ref": "#/definitions/Condition"
+        },
+        "stateName": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

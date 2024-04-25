@@ -1,0 +1,14 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - postProcessingTitle
+      - postProcessingOperation
+      - postProcessingEvidence
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    postProcessingEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

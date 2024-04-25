@@ -1,0 +1,75 @@
+jsonschema:
+  type : object
+  properties:
+    farmMachineries:
+      title: 'Machineries'
+      properties:
+        machineryType:
+          title: 'Machinery type'
+          type: string
+          enum:
+            - Tractor Drawn Disc Plough
+            - Tractor Mounted Disc Harrow
+            - Spring Tyne Cultivator
+            - Tractor Drawn Ridger
+            - Post Hole Digger for Plantation
+            - Rotovator
+            - Seed Cum Fertilizer Drill
+            - Manually Operated Fertilizer Broadcaster
+            - Wheel Hoe
+            - Hand Operated Sprayers/ Dusters
+            - Power Tiller Mounted Orchard Sprayer
+            - Hand Rotary Duster
+            - Foot Sprayer
+            - Improved Sickles of Different Designs
+            - Bhendi Plucker
+            - Power Operated Coconut Dehusker
+            - Manual Fruit Harvester
+            - Seed Treating Drum
+          default: Tractor Drawn Disc Plough
+        machineryBrand:
+          type: string
+          title: Brand
+        machineryModel:
+          type: string
+          title: Model
+        usage:
+          type: number
+          title: Usage (hrs)
+        fuelType:
+          type: string
+          title: Fuel Type
+          enum:
+            - Petrol
+            - Diesel
+            - Electic
+            - Solar
+            - Not applicable
+          default: Petrol
+        machineryDetails:
+          type: string
+          title: Machinery Details
+        machineryEvidence:
+          type: string
+          title: Machinery document
+          description: 'Document evidence'
+        machineryDate:
+          type: string
+          title: Purchase date
+          format: date
+          description: 'Purchase date'
+        machineryPower:
+          type: number
+          title: Power (hp)
+          description: 'Machinery power (hp)'
+
+      required:
+        - machineryType
+        - machineryBrand
+        - machineryModel
+        - usage
+        - machineryDetails
+        - machineryEvidence
+        - machineryDate
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/farmMachineries.yaml

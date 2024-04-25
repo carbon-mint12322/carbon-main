@@ -1,0 +1,30 @@
+form:
+  uiSchema:
+    description:
+      'ui:widget': textarea
+      "ui:readonly": true
+    range:
+      'ui:widget': date
+    name:
+      "ui:readonly": true
+    severity:
+      "ui:readonly": true
+    score:
+      "ui:readonly": true
+    repeated:
+      "ui:readonly": true
+    frequency:
+      "ui:readonly": true
+    ends:
+      "ui:readonly": true
+    'ui:order':
+      - name
+      - description
+      - severity
+      - score
+      - range
+      - repeated
+      - frequency
+      - ends
+      - eventStatus
+      - '*'

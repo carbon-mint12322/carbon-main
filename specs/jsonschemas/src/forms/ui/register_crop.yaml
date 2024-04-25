@@ -1,0 +1,18 @@
+form:
+  uiSchema:
+    'ui:order':    
+      - name
+      - cropType
+      - cropTag
+      - plantingMaterial
+      - seedVariety
+      - seedSource
+      - areaInAcres
+      - category
+      - season
+      - otherGrowingSeason
+      - estimatedPopulation
+      - estimatedYieldTonnes
+      - plannedSowingDate
+      - estHarvestDate
+      - '*'

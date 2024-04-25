@@ -1,0 +1,14 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - address
+      - email
+      - poc
+      - phone
+      - registrationId
+      - registrationDocumentFile
+      - certificationAuthority
+      - '*'
+    registrationDocumentFile:
+      'ui:widget': 'file'

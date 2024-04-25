@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - farmingExperience
+      - '*'

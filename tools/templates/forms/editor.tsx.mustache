@@ -1,0 +1,33 @@
+// Generated from editor.tsx.mustache
+import dynamic from 'next/dynamic';
+import jsonSchema from "~/gen/jsonschemas/{{modelName}}.json";
+import uiSchema from "~/gen/ui-schemas/{{modelName}}-ui-schema.json";
+
+const ReactJsonSchemaForm = dynamic(() => import("~/components/lib/ReactJsonSchemaForm"));
+
+function Editor{{modelName}}(props) {
+  return (
+    <ReactJsonSchemaForm
+       modelName="{{modelName}}"
+       schema={jsonSchema}
+       uiSchema={uiSchema}
+       formData={props.formData}
+       formContext={props.formContext}
+       onSubmit={props.onSubmit}
+       onSuccess={props.onSuccess}
+       onChange={props.onChange}
+       onError={props.onError}
+       onSettled={props.onSettled}
+       hideSubmitButton={props.hideSubmitButton}
+       onSubmitAttempt={props.onSubmitAttempt}
+       onFormError={props.onFormError}
+       mainBtnLabel={props.mainBtnLabel}
+       onCancelBtnClick={props.onCancelBtnClick}
+       readonly={props.readonly}
+       transformErrors={props.transformErrors}
+    /> 
+  );
+}
+
+export default Editor{{modelName}};
+

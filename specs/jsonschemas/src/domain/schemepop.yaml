@@ -1,0 +1,70 @@
+readableName: Scheme POP
+readableNamePlural: Scheme POPs
+jsonschema:
+  title: "Add Scheme POP" 
+  properties:
+    schemeName:
+      type: string
+      title: Scheme name
+      enum:
+        - NPOP
+        - NOP
+        - IndGAP
+        - GlobalGAP
+        - FairTrade
+        - None
+      default: None
+    description:
+      type: string
+      title: Description
+    responsibleParty:
+      type: string
+      title: Responsible party
+      enum:
+        - Operator
+        - Farmer
+        - Processor
+      default: Operator   
+    duration:
+      type: number
+      title: Duration (months) 
+      default: 0
+    certificationAuthority:
+      type: string
+      title: Certification authority
+
+    compliancePoints:
+      title: Compliance points
+      type: array
+      minItems: 1
+      items:    
+        title: ''    
+        $ref: '#/definitions/CompliancePoint'
+
+  allOf:
+    - if:
+        properties:
+          schemeName:
+            const: NPOP
+      then:
+        properties:
+          scope:
+            type: string
+            title: Scope
+            enum:
+              - 'Crop production and wild harvest'
+              - Livestock and Sericulture 
+              - Apiculture 
+              - Aquaculture 
+              - 'Organic Food processing and Handling'
+              - 'Organic Animal Feed Processing and Handling'
+              - 'Organic Mushroom'
+              - 'Seaweeds, Aquatic Plants and Green House Crop Production'            
+            default: 'Crop production and wild harvest'
+
+  required:
+    - schemeName
+    - description
+
+
+uiHints: file:~/specs/jsonschemas/src/domain/ui/schemepop.yaml

@@ -1,0 +1,289 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Sowing Raising Nursery Event'
+  properties:
+    nursery:
+      type: object
+      title: Nursery
+    raisingMethod:
+      title: Raising method
+      type: string
+      enum:
+        - Nursery
+        - 'Grow bag / Protray nursery'
+      default: Nursery
+    plantingMaterial:
+      title: Planting material
+      '$ref': '#/plantingMaterial'
+    seedTreatment:
+      title: Seed treatment
+      '$ref': '#/seedTreatmentData'
+    sowingRate:
+      title: Sowing rate
+      '$ref': '#/sowingRateData'
+    durationAndExpenses:
+      title: 'Duration and Expenses'
+      '$ref': '#/durationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          raisingMethod:
+            const: Nursery
+      then:
+        properties:
+          nurseryArea:
+            title: Nursery area (Sq m)
+            description: Nursery area (Sq m)
+            type: string
+          landPreparationType:
+            title: Land preparation type
+            type: string
+            enum:
+              - Flat bed
+              - Raised bed
+              - Other
+            default: Flat bed
+          evidenceOfNursery:
+            type: string
+
+            title: Evidence of the nursery
+            description: Evidence of the nursery
+        allOf:
+          - if:
+              properties:
+                landPreparationType:
+                  const: Other
+            then:
+              properties:
+                otherLandPreparationType:
+                  type: string
+                  title: Other land preparation type
+                  description: Other land preparation type
+
+    - if:
+        properties:
+          raisingMethod:
+            const: 'Grow bag / Protray nursery'
+      then:
+        properties:
+          noOfProtrays:
+            title: No of Protrays
+            type: number
+            minimum: 0
+          potholesPerTray:
+            title: Potholes per tray
+            type: number
+            minimum: 0
+          sizeOfPothole:
+            title: Size of the pothole / Nursery bag
+            type: number
+            minimum: 0
+          mediaUsed:
+            type: string
+            title: Media used
+            description: Media used (Combinations to be entered in ratio)
+          evidenceOfProtrays:
+            type: string
+
+            title: Evidence of the protrays
+            description: Evidence of the protrays
+
+  sowingRateData:
+    properties:
+      rowToRowSpacing:
+        title: Row to row spacing (mitres)
+        type: number
+        minimum: 0
+      plantToPlanSpacing:
+        title: Plant to plan spacing (mitres)
+        type: number
+        minimum: 0
+      noOfSeedsPerHill:
+        title: No of seeds per hill
+        type: number
+        minimum: 0
+      plantPopulation:
+        title: Plant population per Ha
+        type: number
+        minimum: 0
+      sowingDepth:
+        title: Sowing depth (Cms)
+        type: number
+        minimum: 0
+        description: Depth of sowing in Cms (zero in case of broadcasting)
+      durationOfNursery:
+        title: Duration of nursery
+        type: number
+        minimum: 0
+      daysOfTransplanting:
+        title: Days to transplanting
+        type: number
+        minimum: 0
+      seedlingGrowthParameters:
+        title: Seedling growth parameters for transplantation
+        type: string
+
+  plantingMaterial:
+    properties:
+      plantingMaterialUsed:
+        title: Planting material used
+        type: string
+        enum:
+          - Seed
+          - Vegetative propagule
+        default: Seed
+    allOf:
+      - if:
+          properties:
+            plantingMaterialUsed:
+              const: Seed
+        then:
+          properties:
+            classOfSeed:
+              title: Class of seed
+              enum:
+                - Breeder
+                - Foundation
+                - Certified
+                - Truthfully labelled
+                - Genetically Modified
+                - From other conventional farmers
+                - From other organic farmers
+                - Own seed
+                - Other
+              default: Breeder
+            seedsInformation:
+              title: ''
+              '$ref': '#/seedsInformationData'
+          allOf:
+            - if:
+                properties:
+                  classOfSeed:
+                    const: Other
+              then:
+                properties:
+                  otherClassOfSeed:
+                    type: string
+                    title: Other type of seed
+
+      - if:
+          properties:
+            plantingMaterialUsed:
+              const: Vegetative propagule
+        then:
+          properties:
+            natureOfProagule:
+              type: string
+              title: Nature of propagule
+              description: Nature of propagule (Eg. Stem cuttings, Leaf cuttings, Runners, etc.,)
+            seedsInformation:
+              title: ''
+              '$ref': '#/seedsInformationData'
+
+  seedTreatmentData:
+    properties:
+      typeOfproductUsed:
+        type: string
+        title: Type of product used
+        enum:
+          - Biofertilizers
+          - Biocontrol agents
+          - Onfarm inputs
+          - Off farm certified inputs
+          - Off farm conventional inputs
+          - Chemicals
+          - Plant Growth Regulators
+        default: Biofertilizers
+      product:
+        title: Seed treatment product
+        type: string
+        desciption: Seed treatment product (Single or Combination of product to be entered)
+      dosage:
+        title: Dosage
+        type: string
+        description: Dosage / Kg (or number or other units)
+      sequenceOfTreatment:
+        title: Sequence of treatment (By drag down method)
+        type: string
+      methodOfTreatment:
+        title: Method of treatment
+        type: string
+        enum:
+          - Blending
+          - Soaking
+          - Other
+        default: Blending
+      totalTimeUnderSeedTreatment:
+        type: number
+        title: Total time under seed treatment (Hrs)
+    allOf:
+      - if:
+          properties:
+            methodOfTreatment:
+              const: Other
+        then:
+          properties:
+            otherMethodOfTreatment:
+              title: Other method of treatment
+              type: string
+
+  seedsInformationData:
+    properties:
+      quantityInKgs:
+        title: Quantity in Kgs
+        type: number
+        minimum: 0
+      organicCertificationOfSeed:
+        title: Organic certification of seed
+        type: string
+        enum:
+          - Certified
+          - Not certified and not available in the market
+        default: Certified
+      sourceOfSeed:
+        title: Seed source
+        description: Name of the seed dealer with place / Name of the Farmer from whom received with place
+        type: string
+      treatedSeed:
+        type: string
+        title: Treated seeds
+        enum:
+          - 'Yes'
+          - 'No'
+        default: 'Yes'
+      seedInvoice:
+        type: string
+
+        title: Seeds invoice
+        description: Upload seeds invoice
+      seedTag:
+        type: string
+
+        title: Seeds tag
+        description: Upload seeds tag
+      seedPicture:
+        type: string
+
+        title: Seeds picture
+        description: Seeds picture evidence
+    allOf:
+      - if:
+          properties:
+            treatedSeed:
+              const: 'Yes'
+        then:
+          properties:
+            productUsed:
+              type: string
+              title: Product used
+              description: Seed treatment product used
+            dosage:
+              type: string
+              title: Dosage
+              description: Seed treatment product dosage
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/sowingRaisingNursery.yaml

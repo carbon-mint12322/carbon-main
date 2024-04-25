@@ -1,0 +1,40 @@
+jsonschema:
+  type: object
+  properties:
+    processingUnits:
+      type: object
+      title: 'Add processing unit'
+      properties:
+        name:
+          title: Name
+          type: string
+        size:
+          title: Size
+          type: number
+        capacity:
+          title: Capacity
+          type: number
+        category:
+          title: Category
+          type: string
+          enum:
+            - Composting
+            - Seed processing
+            - Input processing
+            - Drying yard
+            - Output processing
+            - Store
+          default: Store
+        photoEvidence:
+          title: Upload photo
+          type: string
+          description: 'Upload photo'
+        location:
+          title: Mark the location of the facility
+          type: string
+      required:
+        - name
+        - capacity
+        - category
+        - location
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_processingunits.yaml

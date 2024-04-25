@@ -1,0 +1,72 @@
+type: object
+properties:
+  waterTestReport:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Water test report
+    description: Upload water test report
+    default: []
+  labCertifiedByNabl:
+    title: Lab certified by NABL
+    type: string
+    enum:
+      - 'Yes'
+      - 'No'
+    default: 'Yes'
+  ph:
+    title: pH(0 to 14)
+    type: number
+    minimum: 0
+    maximum: 14
+    description: Potential of hydrogen
+  waterHeavyMetalsContaminationReport:
+    title: Heavy metals contamination report
+    description: Heavy metals contamination report
+    type: array
+    items:
+      type: string
+  heavyMetals:
+    title: Heavy metals
+    type: string
+  waterPesticideHerbicideResiduesReport:
+    title: Pesticide & herbicide residues report
+    description: Pesticide & herbicide residues report
+    type: array
+    items:
+      type: string
+  chemicalResidues:
+    title: Chemical residues
+    type: string
+  startDate:
+    type: string
+    format: date
+    title: Start date
+  endDate:
+    type: string
+    format: date
+    title: End date
+  totalExpenditure:
+    type: number
+    minimum: 0
+    title: Total expenditure
+  otherRemarks:
+    type: string
+    title: Other remarks
+required:
+  - waterTestReport
+  - startDate
+  - endDate
+  - totalExpenditure
+allOf:
+  - if:
+      properties:
+        labCertifiedByNabl:
+          const: 'Yes'
+    then:
+      properties:
+        nablCertificationEvidence:
+          title: NABL certification evidence
+          description: NABL certification evidence
+          type: array
+          items:
+            type: string
+uiHints: file:~/specs/jsonschemas/src/common/ui/waterTest.yaml

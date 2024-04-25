@@ -1,0 +1,42 @@
+extends: ./poultryPSNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Shed Preparation'
+  properties:
+    preparationDate:
+      title: Preparation date
+      type: string
+      format: date
+    cleaningMethod:
+      type: string
+      title: Cleaning method
+    sanitationMethod:
+      type: string
+      title: Sanitation method
+    sanitationAgent:
+      type: string
+      title: Sanitation agent used
+    temparatureReading:
+      type: number
+      title: Temparature reading (Celsius)
+    humidityReading:
+      type: number
+      title: Humidity reading (%)
+      minimum: 0
+      maximum: 100
+    beddingDepth:
+      type: number
+      title: Bedding depth (cms)
+    beddingMaterial:
+      type: string
+      title: Bedding material
+    flooringCondition:
+      type: string
+      title: Flooring condition
+    durationAndExpenses: file:../common/durationAndExpensesComp.yaml
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - preparationDate
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryShedPreparation.yaml

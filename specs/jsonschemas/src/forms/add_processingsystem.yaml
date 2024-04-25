@@ -1,0 +1,24 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Name
+    category:
+      type: string
+      enum:
+        - Composting
+        - Seed processing
+        - Input processing
+        - Drying yard
+        - Output processing
+        - Store
+      default: Composting
+      title: Category
+    field:
+      $ref: '#/definitions/FieldId'
+      title: Field
+  required:
+    - name
+    - category
+    - field
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_processingsystem.yaml

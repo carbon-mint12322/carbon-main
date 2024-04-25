@@ -1,0 +1,44 @@
+{
+  "include": [
+    "gen/workflows/**/*.ts",
+    "backendlib/workflow/**/*.ts",
+    "backendlib/db/**/*.ts",
+    "smart-contracts/src"
+  ],
+  "compilerOptions": {
+    "outDir": "build",
+    "target": "esnext",
+    "allowJs": true,
+    "lib": ["es5"],
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/backendlib/*": ["backendlib/*"],
+      "~/frontendlib/*": ["frontendlib/*"],
+      "~/gen-pages/*": ["gen-pages/*"],
+      "~/gen/*": ["gen/*"],
+      "~/components/*": ["components/*"],
+      "~/styles/*": ["styles/*"],
+      "~/contexts/*": ["contexts/*"],
+      "~/lib/*": ["lib/*"],
+      "~/plugins/*": ["plugins/*"],
+      "~/rbac/*": ["rbac/*"],
+      "~/specs/*": ["specs/*"],
+      "~/static/*": ["static/*"],
+      "~/utility/*": ["utility/*"],
+      "~/utils/*": ["utils/*"],
+      "~/workflows/*": ["workflows/*"],
+      "~/container/*": ["container/*"]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+jsonschema:
+  properties:
+    farmingExperience:
+      type: object
+      title: Farming experience
+      properties:
+        totalFarmingExperienceYears:
+          type: number
+          title: 'Total years of experience in farming'
+          minimum: 0
+        organicFarmingExperienceYears:
+          type: number
+          title: 'Total years of experience in organic farming'
+          minimum: 0
+        cropsWithOrganicFarmingExperience:
+          type: string
+          pattern: ^[a-zA-Z,]+$
+          title: 'Crops with organic farming experience'
+        livestockExperience:
+          type: string
+          title: 'Experience with livestock'
+        agriAlliedActivitiesExperience:
+          type: string
+          title: 'Experience with allied activities'
+
+  uiHints: file:~/specs/jsonschemas/src/forms/ui/farmerFarmingExperience.yaml

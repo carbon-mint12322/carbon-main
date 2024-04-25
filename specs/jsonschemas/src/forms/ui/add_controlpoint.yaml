@@ -1,0 +1,6 @@
+form:
+  uiSchema:
+    'ui:order':
+      - addCP
+      - '*'
+    addCP: file:~/specs/jsonschemas/src/common/ui/controlPointObj.yaml

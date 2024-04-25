@@ -1,0 +1,33 @@
+jsonschema:
+  properties:
+    documents:
+      title: 'Farmer additional documents'
+      type: array
+      items:
+        type: object
+        title: ''
+        properties:
+          documentType:
+            title: 'Document type'
+            type: string
+            enum:
+              - Training certificate
+              - Education certificate
+              - Agreement
+              - Other
+            default: Training certificate
+          documentDetails:
+            type: string
+            title: Document information
+          documentEvidence:
+            type: string
+            title: Upload document
+            description: 'Additional document proof'
+        required:
+          - documentType
+          - documentDetails
+          - documentEvidence
+      minItems: 0
+      uniqueItems: true
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/farmerAdditionalDocuments.yaml

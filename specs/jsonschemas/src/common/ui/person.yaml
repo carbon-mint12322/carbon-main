@@ -1,0 +1,27 @@
+'ui:order':
+  - firstName
+  - lastName
+  - fathersHusbandsName
+  - primaryPhone
+  - secondaryPhone
+  - email
+  - address
+  - identityDetails
+  - panCardFile
+  - profilePicture
+  - educationalQualification
+  - '*'
+identityDetails:
+  'ui:order':
+    - identityDocument
+    - identityNumber
+    - identityDocumentFile
+    - panCardNumber
+    - panCardFile
+  identityDocumentFile:
+    'ui:widget': 'file'
+  panCardFile:
+    'ui:widget': 'file'
+profilePicture:
+  'ui:widget': 'file'
+  

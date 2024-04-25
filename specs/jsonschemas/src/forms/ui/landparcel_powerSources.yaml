@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    powerSources: file:~/specs/jsonschemas/src/common/ui/powerSource.yaml

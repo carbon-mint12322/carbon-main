@@ -1,0 +1,66 @@
+jsonschema:
+  type: object
+  properties:
+    basicUtilities:
+      type: object
+      title: Add basic utilities
+      properties:
+        waterSources:
+          title: Add water sources
+          type: array
+          items:
+            type: object
+            title: ''
+            properties:
+              name:
+                title: Name
+                type: string
+              size:
+                title: Size
+                type: number
+              capacity:
+                title: Capacity
+                type: number
+              depth:
+                title: Depth
+                type: number
+                description: 'In case of type - borewell, the depth of the well'
+              photoEvidence:
+                title: Upload photo
+                type: string
+                description: 'Upload photo'
+              location:
+                title: Mark the location of the water source
+                $ref: '#/definitions/GeoLocation'
+            required:
+              - name
+              - capacity
+              - location
+        powerSources:
+          title: Add power sources
+          type: array
+          items:
+            type: object
+            title: ''
+            properties:
+              name:
+                title: Name
+                type: string
+              capacity:
+                title: Capacity
+                type: number
+              limitation:
+                title: Limitation
+                type: number
+              photoEvidence:
+                title: Upload photo
+                type: string
+                description: 'Upload photo'
+              location:
+                title: Mark the location of the power source
+                $ref: '#/definitions/GeoLocation'
+            required:
+              - name
+              - capacity
+              - location
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_basicutilities.yaml

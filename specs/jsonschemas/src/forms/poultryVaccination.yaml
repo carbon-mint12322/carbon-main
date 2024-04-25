@@ -1,0 +1,41 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Vaccination'
+  properties:
+    vaccinationType:
+      type: string
+      title: Type of vaccination
+    vaccineSource:
+      type: string
+      title: Vaccine Source
+    dosage:
+      type: string
+      title: Dosage
+    administration:
+      type: string
+      title: Route of administration
+    noOfBirds:
+      title: Number of birds vaccinated
+      type: number
+      minimum: 0
+    reactions:
+      title: Any adverse reactions
+      type: string
+    vaccinationReceipt:
+      title: Vaccine purchase receipt
+      type: array
+      items:
+        type: string  
+    durationAndExpenses: file:../common/durationAndExpensesComp.yaml
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - vaccinationType
+    - vaccineSource
+    - dosage
+    - administration
+    - noOfBirds
+  # DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryVaccination.yaml

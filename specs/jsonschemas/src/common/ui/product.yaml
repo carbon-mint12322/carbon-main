@@ -1,0 +1,40 @@
+compliance:
+  'ui:widget': 'file'
+complianceNotes:
+  'ui:widget': textarea
+allergensAndGMOStatus:
+  'ui:widget': 'file'
+allergensAndGMOStatusNotes:
+  'ui:widget': textarea
+ingredientComposition:
+  'ui:widget': 'file'
+ingredientCompositionNotes:
+  'ui:widget': textarea
+nutritionalInformation:
+  'ui:widget': 'file'
+nutritionalInformationNotes:
+  'ui:widget': textarea
+documentation:
+  'ui:widget': 'file'
+description:
+  'ui:widget': textarea
+'ui:order':
+  - name
+  - productId
+  - category
+  - type
+  - description
+  - documentation
+  - complianceRequirements
+  - compliance
+  - complianceNotes
+  - allergensAndGMOStatusLabel
+  - allergensAndGMOStatusNotes
+  - allergensAndGMOStatus
+  - ingredientCompositionLabel
+  - ingredientComposition
+  - ingredientCompositionNotes
+  - nutritionalInformationLabel
+  - nutritionalInformation
+  - nutritionalInformationNotes
+  - '*'

@@ -1,0 +1,14 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - dateOfWeighing
+      - weight
+      - healthIssues
+      - averageWeightGain
+      - evidence
+      - otherRemarks
+      - '*'
+    evidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

@@ -1,0 +1,40 @@
+jsonschema:
+  properties:
+    productionSystem:
+      $ref: '#/definitions/ProductionSystemId'
+      title: Production system
+    age:
+      type: number
+      title: Age (days)
+    sheepSource:
+      type: string
+      title: Sheep source
+    breed:
+      type: string
+      title: Breed
+    gender:
+      type: string
+      enum:
+        - Male
+        - Female
+      default: Male
+    tagId:
+      type: string
+      title: Tag ID
+    acquisitionDay:
+      type: string
+      format: date
+      title: Acquisition Day
+    pedigree:
+      type: string
+      title: Pedigree
+  required:
+    - productionSystem
+    - age
+    - sheepSource
+    - breed
+    - gender
+    - tagId
+    - pedigree
+    - acquisitionDay
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_sheep.yaml

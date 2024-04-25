@@ -1,0 +1,11 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    govtSurvey:
+      info:
+        'ui:field': GovtMoreInfoField
+      applicationNumber:
+        'ui:field': GovtApplicationInputField
+      report:
+        'ui:field': GovtUploadInputField

@@ -1,0 +1,3441 @@
+{
+ "type": "object",
+ "properties": {
+  "name": {
+   "title": "Land parcel name",
+   "type": "string"
+  },
+  "surveyNumber": {
+   "title": "Unique land parcel identification number(s)/land parcel survey no(s)",
+   "type": "string"
+  },
+  "areaInAcres": {
+   "title": "Area (acres)",
+   "type": "number",
+   "minimum": 0
+  },
+  "passbookNumber": {
+   "title": "Land parcel official document/pattadar passbook number",
+   "type": "string"
+  },
+  "landOwnershipDocument": {
+   "title": "Upload land parcel official document/pattadar passbook",
+   "type": "string",
+   "description": "Upload land parcel official document/pattadar passbook"
+  },
+  "landGovtMap": {
+   "title": "Upload land parcel map document by govt.",
+   "type": "string",
+   "description": "Upload land parcel map document by govt."
+  },
+  "landSupportDocument": {
+   "title": "Upload land parcel support documents",
+   "type": "string",
+   "description": "Upload land parcel support documents"
+  },
+  "address": {
+   "title": "Land parcel address",
+   "$ref": "#/definitions/LandParcelAddress"
+  },
+  "adjacentLands": {
+   "title": "Adjacent lands",
+   "type": "object",
+   "properties": {
+    "north": {
+     "title": "North",
+     "type": "string"
+    },
+    "east": {
+     "title": "East",
+     "type": "string"
+    },
+    "west": {
+     "title": "West",
+     "type": "string"
+    },
+    "south": {
+     "title": "South",
+     "type": "string"
+    }
+   }
+  },
+  "distanceFromServiceRoad": {
+   "title": "Distance from the service road (in km)",
+   "type": "number"
+  },
+  "map": {
+   "$ref": "#/definitions/Map"
+  },
+  "location": {
+   "$ref": "#/definitions/GeoLocation"
+  },
+  "landOwner": {
+   "$ref": "#/definitions/Person"
+  },
+  "climateScore": {
+   "type": "number",
+   "title": "Climate score (%)",
+   "minimum": 0,
+   "maximum": 100
+  },
+  "complianceScore": {
+   "type": "number",
+   "title": "Compilance score (%)",
+   "minimum": 0,
+   "maximum": 100
+  },
+  "collective": {
+   "type": "string"
+  },
+  "agent": {
+   "type": "string"
+  },
+  "basicUtilities": {
+   "type": "object",
+   "properties": {
+    "waterSources": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/WaterSource"
+     }
+    },
+    "powerSources": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/PowerSource"
+     }
+    }
+   }
+  },
+  "supportUtilities": {
+   "type": "array",
+   "items": {
+    "$ref": "#/definitions/Facility"
+   }
+  },
+  "processingUnits": {
+   "type": "array",
+   "items": {
+    "$ref": "#/definitions/Facility"
+   }
+  },
+  "alliedActivities": {
+   "type": "array",
+   "items": {
+    "$ref": "#/definitions/AlliedActivity"
+   }
+  },
+  "validationWorkflowId": {
+   "type": "string",
+   "format": "hidden"
+  },
+  "statusNotes": {
+   "type": "string",
+   "format": "hidden"
+  },
+  "status": {
+   "type": "string",
+   "enum": [
+    "Draft",
+    "Under validation",
+    "Under review",
+    "Review failed",
+    "Validation failed",
+    "Approved"
+   ],
+   "default": "Draft"
+  },
+  "active": {
+   "type": "boolean"
+  },
+  "audit": {
+   "$ref": "#/definitions/Audit"
+  }
+ },
+ "required": [
+  "name",
+  "surveyNumber",
+  "areaInAcres",
+  "address"
+ ],
+ "$id": "/farmbook/landparcel",
+ "definitions": {
+  "Person": {
+   "type": "object",
+   "properties": {
+    "firstName": {
+     "type": "string",
+     "title": "First name",
+     "pattern": "^[a-zA-Z\\s]+$"
+    },
+    "lastName": {
+     "type": "string",
+     "title": "Last name"
+    },
+    "fathersHusbandsName": {
+     "type": "string",
+     "title": "Father’s/Husband’s name"
+    },
+    "primaryPhone": {
+     "type": "string",
+     "title": "Primary phone number",
+     "pattern": "^\\+91\\d{10}$"
+    },
+    "secondaryPhone": {
+     "type": "string",
+     "title": "Secondary phone number",
+     "pattern": "^\\+91\\d{10}$"
+    },
+    "email": {
+     "$ref": "#/definitions/Email",
+     "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+    },
+    "address": {
+     "$ref": "#/definitions/Address",
+     "title": "Personal address"
+    },
+    "identityDetails": {
+     "title": "Identity details",
+     "type": "object",
+     "properties": {
+      "identityDocument": {
+       "$ref": "#/definitions/IdentityDocument",
+       "title": "Identity document name (ex: aadhar, passport, etc)"
+      },
+      "identityNumber": {
+       "type": "string",
+       "title": "Identification number",
+       "pattern": "^[a-zA-Z0-9_]*$"
+      },
+      "identityDocumentFile": {
+       "type": "string",
+       "title": "Upload identity document",
+       "description": "Identification document proof"
+      },
+      "panCardNumber": {
+       "type": "string",
+       "title": "PAN card number",
+       "pattern": "^[a-zA-Z0-9_]*$"
+      },
+      "panCardFile": {
+       "type": "string",
+       "title": "Upload PAN card",
+       "description": "PAN card proof"
+      }
+     }
+    },
+    "profilePicture": {
+     "type": "string",
+     "title": "Upload profile picture",
+     "description": "Profile picture"
+    },
+    "educationalQualification": {
+     "type": "string",
+     "title": "Educational qualification"
+    }
+   },
+   "required": [
+    "firstName",
+    "address"
+   ]
+  },
+  "LandParcelId": {
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "string",
+     "title": "Id"
+    },
+    "name": {
+     "type": "string",
+     "title": "Name"
+    }
+   },
+   "required": [
+    "name",
+    "string"
+   ],
+   "schemaId": "/farmbook/landparcel",
+   "title": "Land parcel"
+  },
+  "UserId": {
+   "type": "string",
+   "format": "hidden",
+   "schemaId": "/farmbook/user"
+  },
+  "FieldId": {
+   "type": "string",
+   "schemaId": "/farmbook/field"
+  },
+  "LinkFarmerId": {
+   "type": "string",
+   "title": "Farmer"
+  },
+  "FarmerId": {
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "string",
+     "title": "Id"
+    },
+    "name": {
+     "type": "string",
+     "title": "Name"
+    }
+   },
+   "required": [
+    "name",
+    "string"
+   ],
+   "title": "Farmer",
+   "format": "hidden",
+   "schemaId": "/farmbook/farmer"
+  },
+  "SchemeId": {
+   "type": "string",
+   "schemaId": "/farmbook/scheme"
+  },
+  "PoPId": {
+   "type": "string"
+  },
+  "PoultryPoPId": {
+   "type": "string",
+   "schemaId": "/farmbook/poultrypops"
+  },
+  "MasterCropId": {
+   "type": "string",
+   "schemaId": "/farmbook/mastercrop"
+  },
+  "SolarDryerId": {
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "string",
+     "title": "Id"
+    },
+    "name": {
+     "type": "string",
+     "title": "Name"
+    }
+   },
+   "required": [
+    "name",
+    "id"
+   ],
+   "schemaId": "/farmbook/landparcel",
+   "title": "Solar Dryer"
+  },
+  "CompostingUnitId": {
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "string",
+     "title": "Id"
+    },
+    "name": {
+     "type": "string",
+     "title": "Name"
+    }
+   },
+   "required": [
+    "name",
+    "id"
+   ],
+   "schemaId": "/farmbook/landparcel"
+  },
+  "OutputProcessingUnitId": {
+   "type": "string",
+   "schemaId": "/farmbook/landparcel"
+  },
+  "CropId": {
+   "type": "string",
+   "schemaId": "/farmbook/crop"
+  },
+  "PlanId": {
+   "type": "string",
+   "schemaId": "/farmbook/plan"
+  },
+  "CroppingSystemId": {
+   "type": "string"
+  },
+  "PlotId": {
+   "type": "string"
+  },
+  "ProductId": {
+   "type": "string",
+   "schemaId": "/farmbook/product"
+  },
+  "ProductBatchId": {
+   "type": "string",
+   "schemaId": "/farmbook/productbatch"
+  },
+  "ProductionSystemId": {
+   "type": "string",
+   "schemaId": "/farmbook/productionsystem",
+   "title": "Production System"
+  },
+  "ProcessingSystemId": {
+   "type": "string",
+   "schemaId": "/farmbook/processingsystem"
+  },
+  "FarmerIdForOperator": {
+   "type": "string",
+   "schemaId": "/farmbook/farmer"
+  },
+  "PhoneNumber": {
+   "type": "string",
+   "title": "Phone number"
+  },
+  "CropName": {
+   "type": "string",
+   "title": "Name",
+   "enum": [
+    "Amaranthus",
+    "Ash Gourd",
+    "Ashwagandha",
+    "Banana",
+    "Basil",
+    "Beetroot",
+    "Bitter Gourd",
+    "Black Gram",
+    "Blueberry",
+    "Bok Choy",
+    "Bottle Gourd",
+    "Brinjal",
+    "Broccoli",
+    "Butterhead Lettuce",
+    "Cabbage",
+    "Capsicum",
+    "Carrot",
+    "Cauliflower",
+    "Celery",
+    "Cherry Tomato",
+    "Chilli",
+    "Cluster Beans",
+    "Coconut",
+    "Coffee",
+    "Coriander",
+    "Corn",
+    "Cotton",
+    "Cowpea",
+    "Cucumber",
+    "Cucurbits",
+    "Cumin",
+    "Curry Leaves",
+    "Drumstick",
+    "Fennel",
+    "Finger Millet",
+    "Foxtail Millet",
+    "Garlic",
+    "Ginger",
+    "Grapes",
+    "Green Chilli",
+    "Green Gram",
+    "Green Peas",
+    "Groundnut",
+    "Guava",
+    "Hibiscus",
+    "Iceberg Lettuce",
+    "Kidney Bean",
+    "Lemon",
+    "Lemongrass",
+    "Little Millet",
+    "Maize",
+    "Mango",
+    "Methi",
+    "Mint",
+    "Moringa",
+    "Mushroom",
+    "Okra",
+    "Onion",
+    "Palak",
+    "Papaya",
+    "Pepper",
+    "Peppermint",
+    "Potato",
+    "Pumpkin",
+    "Radish",
+    "Red Gram",
+    "Rice",
+    "Ridge Gourd",
+    "Snake Gourd",
+    "Sorghum",
+    "Spinach",
+    "Spring Onion",
+    "Strawberry",
+    "Sugarcane",
+    "Tomato",
+    "Turmeric",
+    "Vallarai Keerai",
+    "Watermelon",
+    "Wheat"
+   ],
+   "default": "Cotton"
+  },
+  "Email": {
+   "type": "string",
+   "title": "Email address"
+  },
+  "Wallet": {
+   "type": "string",
+   "title": "Wallet Address"
+  },
+  "OrganizationId": {
+   "type": "string",
+   "format": "hidden"
+  },
+  "TenantId": {
+   "type": "string"
+  },
+  "CollectiveId": {
+   "type": "string",
+   "schemaId": "/farmbook/collective"
+  },
+  "CertificationBodyId": {
+   "type": "string"
+  },
+  "IdentityDocument": {
+   "type": "string",
+   "title": "Identification document name"
+  },
+  "NeighborDescription": {
+   "type": "string"
+  },
+  "LandOwnerId": {
+   "type": "string"
+  },
+  "NameID": {
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "string",
+     "title": "Id"
+    },
+    "name": {
+     "type": "string",
+     "title": "Name"
+    }
+   }
+  },
+  "Map": {
+   "type": "string"
+  },
+  "DocumentRecord": {
+   "$ref": "#/definitions/FileRecord"
+  },
+  "PhotoRecord": {
+   "$ref": "#/definitions/FileRecord"
+  },
+  "AudioRecord": {
+   "$ref": "#/definitions/FileRecord"
+  },
+  "LandFeature": {
+   "type": "string"
+  },
+  "Address": {
+   "type": "object",
+   "properties": {
+    "houseNo": {
+     "type": "string",
+     "title": "House number"
+    },
+    "street": {
+     "type": "string",
+     "title": "Street"
+    },
+    "village": {
+     "type": "string",
+     "title": "Village",
+     "pattern": "^[a-zA-Z\\s]+$"
+    },
+    "mandal": {
+     "type": "string",
+     "title": "Mandal"
+    },
+    "state": {
+     "type": "string",
+     "title": "State",
+     "pattern": "^[a-zA-Z\\s]+$"
+    },
+    "pincode": {
+     "type": "string",
+     "title": "Pin Code",
+     "pattern": "^[0-9]+$"
+    }
+   },
+   "required": [
+    "village",
+    "state",
+    "pincode"
+   ]
+  },
+  "CropType": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string",
+     "title": "Name"
+    },
+    "variety": {
+     "type": "string",
+     "title": "Variety"
+    },
+    "season": {
+     "type": "string",
+     "title": "Season"
+    }
+   },
+   "required": [
+    "name",
+    "variety",
+    "season"
+   ]
+  },
+  "CropPOPType": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "$ref": "#/definitions/CropName",
+     "title": "Crop name"
+    },
+    "variety": {
+     "type": "string",
+     "title": "Crop variety"
+    },
+    "season": {
+     "type": "string",
+     "title": "Crop season",
+     "enum": [
+      "Kharif",
+      "Rabi",
+      "Summer",
+      "Biennial",
+      "Annual",
+      "Perennial crop"
+     ],
+     "default": "Kharif"
+    },
+    "region": {
+     "type": "string",
+     "title": "Region"
+    },
+    "durationDays": {
+     "title": "Crop duration (days)",
+     "type": "number",
+     "minimum": 0
+    },
+    "scheme": {
+     "title": "Scheme",
+     "type": "string",
+     "enum": [
+      "NPOP",
+      "NOP",
+      "IndGAP",
+      "GlobalGAP",
+      "FairTrade",
+      "None"
+     ],
+     "default": "None"
+    }
+   },
+   "required": [
+    "name",
+    "variety",
+    "season",
+    "region",
+    "durationDays"
+   ],
+   "allOf": [
+    {
+     "if": {
+      "properties": {
+       "season": {
+        "const": "Kharif"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "durationType": {
+        "type": "string",
+        "title": "Duration type",
+        "enum": [
+         "Long",
+         "Short"
+        ],
+        "default": "Long"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "season": {
+        "const": "Rabi"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "durationType": {
+        "type": "string",
+        "title": "Duration type",
+        "enum": [
+         "Long",
+         "Short"
+        ],
+        "default": "Long"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "season": {
+        "const": "Summer"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "durationType": {
+        "type": "string",
+        "title": "Duration type",
+        "enum": [
+         "Long",
+         "Short"
+        ],
+        "default": "Long"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "ProductInfo": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string",
+     "title": "Product name"
+    },
+    "productId": {
+     "type": "string",
+     "title": "Product ID"
+    },
+    "category": {
+     "type": "string",
+     "title": "Product Category"
+    },
+    "type": {
+     "type": "string",
+     "title": "Product type"
+    },
+    "description": {
+     "type": "string",
+     "title": "Product description"
+    },
+    "documentation": {
+     "type": "string",
+     "title": "Production documentation"
+    },
+    "complianceRequirements": {
+     "type": "object",
+     "title": "Product Compliance Requirements"
+    },
+    "compliance": {
+     "type": "string",
+     "title": "Compliance documents"
+    },
+    "complianceNotes": {
+     "type": "string",
+     "title": "Compliance Notes"
+    },
+    "allergensAndGMOStatusLabel": {
+     "type": "object",
+     "title": "Allergens and GMO Status"
+    },
+    "allergensAndGMOStatusNotes": {
+     "type": "string",
+     "title": "Notes"
+    },
+    "allergensAndGMOStatus": {
+     "type": "string",
+     "title": "Allergens and GMO status document/s"
+    },
+    "ingredientCompositionLabel": {
+     "type": "object",
+     "title": "Ingredient Composition"
+    },
+    "ingredientComposition": {
+     "type": "string",
+     "title": "Ingredient composition document/s"
+    },
+    "ingredientCompositionNotes": {
+     "type": "string",
+     "title": "Notes"
+    },
+    "nutritionalInformationLabel": {
+     "type": "object",
+     "title": "Nutritional Information per 100 g"
+    },
+    "nutritionalInformation": {
+     "type": "string",
+     "title": "Nutritional information document/s"
+    },
+    "nutritionalInformationNotes": {
+     "type": "string",
+     "title": "Notes"
+    }
+   },
+   "required": [
+    "name",
+    "productId",
+    "category"
+   ]
+  },
+  "BatchInfo": {
+   "type": "object",
+   "properties": {
+    "product": {
+     "$ref": "#/definitions/ProductId",
+     "title": "Product"
+    },
+    "batchId": {
+     "type": "string",
+     "title": "Batch ID",
+     "description": "The unique identifier for the product batch"
+    },
+    "information": {
+     "type": "string",
+     "title": "Batch information"
+    },
+    "startDate": {
+     "type": "string",
+     "format": "date",
+     "title": "Batch start date"
+    },
+    "endDate": {
+     "type": "string",
+     "format": "date",
+     "title": "Batch finish date"
+    },
+    "documents": {
+     "type": "string",
+     "title": "Batch documents"
+    }
+   },
+   "required": [
+    "product",
+    "batchId",
+    "startDate"
+   ]
+  },
+  "PoultryPOPType": {
+   "type": "object",
+   "properties": {
+    "poultryType": {
+     "type": "string",
+     "title": "Poultry Type",
+     "enum": [
+      "Broiler Chicken",
+      "Country Chicken",
+      "Breeder Chicken",
+      "Duck",
+      "Turkey",
+      "Quail"
+     ],
+     "default": "Broiler Chicken"
+    },
+    "variety": {
+     "type": "string",
+     "title": "Poultry variety"
+    },
+    "region": {
+     "type": "string",
+     "title": "Region"
+    },
+    "durationDays": {
+     "title": "Poultry duration (days)",
+     "type": "number",
+     "minimum": 0
+    },
+    "scheme": {
+     "title": "Scheme",
+     "type": "string",
+     "enum": [
+      "NPOP",
+      "NOP",
+      "IndGAP",
+      "GlobalGAP",
+      "FairTrade",
+      "None"
+     ],
+     "default": "None"
+    }
+   },
+   "required": [
+    "poultryType",
+    "variety",
+    "region",
+    "durationDays"
+   ]
+  },
+  "Mandator": {
+   "type": "object",
+   "properties": {
+    "operatedBy": {
+     "title": "Mandator name",
+     "type": "string"
+    },
+    "mandatorPoc": {
+     "title": "Mandator contact person",
+     "type": "string"
+    },
+    "mandatorPhone": {
+     "type": "string",
+     "title": "Mandator phone"
+    },
+    "iecNumber": {
+     "type": "string",
+     "title": "Importer-exporter code"
+    },
+    "iecDocumentFile": {
+     "type": "string",
+     "format": "data-url",
+     "title": "Upload importer-exporter code document proof"
+    },
+    "gstNumber": {
+     "type": "string",
+     "title": "GST number"
+    },
+    "gstDocumentFile": {
+     "type": "string",
+     "format": "data-url",
+     "title": "GST document proof"
+    },
+    "panNumber": {
+     "type": "string",
+     "title": "PAN number"
+    },
+    "panDocumentFile": {
+     "type": "string",
+     "format": "data-url",
+     "title": "PAN document proof"
+    },
+    "registeredBankName": {
+     "type": "string",
+     "title": "Registered bank"
+    },
+    "registeredBankACNumber": {
+     "type": "string",
+     "title": "Registered bank account number"
+    }
+   }
+  },
+  "FpoDetails": {
+   "type": "object",
+   "properties": {
+    "fpRegistrationId": {
+     "type": "string",
+     "title": "Registration id"
+    },
+    "fpoRegistrationDate": {
+     "type": "string",
+     "formate": "date",
+     "title": "Registration date"
+    },
+    "fpRegistrationDocumentFile": {
+     "type": "string",
+     "format": "data-url",
+     "title": "Upload Registration document proof"
+    },
+    "gstNumber": {
+     "type": "string",
+     "title": "GST number"
+    },
+    "gstDocumentFile": {
+     "type": "string",
+     "format": "data-url",
+     "title": "GST document proof"
+    },
+    "panNumber": {
+     "type": "string",
+     "title": "PAN number"
+    },
+    "panDocumentFile": {
+     "type": "string",
+     "format": "data-url",
+     "title": "PAN document proof"
+    },
+    "registeredBankName": {
+     "type": "string",
+     "title": "Registered bank"
+    },
+    "registeredBankACNumber": {
+     "type": "string",
+     "title": "Registered bank account number"
+    },
+    "msmeRegistration": {
+     "type": "string",
+     "title": "MSME Registration"
+    },
+    "msmeRegistrationDocumentFile": {
+     "type": "string",
+     "format": "data-url",
+     "title": "Upload MSME registration document proof"
+    },
+    "businessActivity": {
+     "type": "string",
+     "title": "Business activity"
+    },
+    "shareCapital": {
+     "type": "string",
+     "title": "Authorised share capital (Rs in lakhs)"
+    },
+    "paidCapital": {
+     "type": "string",
+     "title": "Paid up share capital (Rs in lakhs)"
+    },
+    "turnover": {
+     "type": "string",
+     "title": "Turnover since last 2 years"
+    },
+    "marketPlace": {
+     "type": "string",
+     "title": "Marketplace",
+     "description": "Market Place, where farm output is presently sold"
+    },
+    "ecNumber": {
+     "type": "string",
+     "title": "APEDA exporter code"
+    },
+    "ecDocumentFile": {
+     "type": "string",
+     "format": "data-url",
+     "title": "Upload exporter code document proof"
+    },
+    "noOfFarmers": {
+     "type": "number",
+     "title": "No of farmers"
+    },
+    "cropsCovered": {
+     "type": "string",
+     "title": "Crops covered"
+    },
+    "villagesCovered": {
+     "type": "string",
+     "title": "Villages covered"
+    }
+   },
+   "required": [
+    "fpRegistrationId"
+   ]
+  },
+  "GeoLocation": {
+   "type": "object",
+   "properties": {
+    "lat": {
+     "title": "Latitude",
+     "type": "number"
+    },
+    "lng": {
+     "title": "Longitude",
+     "type": "number"
+    }
+   },
+   "required": [
+    "lat",
+    "lng"
+   ]
+  },
+  "DaysRange": {
+   "type": "object",
+   "properties": {
+    "start": {
+     "title": "Start",
+     "type": "number"
+    },
+    "end": {
+     "title": "End",
+     "type": "number"
+    }
+   },
+   "required": [
+    "start",
+    "end"
+   ]
+  },
+  "DateRange": {
+   "type": "object",
+   "properties": {
+    "start": {
+     "title": "Start Date",
+     "type": "string",
+     "format": "date"
+    },
+    "end": {
+     "title": "End Date",
+     "type": "string",
+     "format": "date"
+    }
+   },
+   "required": [
+    "start",
+    "end"
+   ]
+  },
+  "WaterSource": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "size": {
+     "type": "number"
+    },
+    "capacity": {
+     "type": "number"
+    },
+    "depth": {
+     "type": "number",
+     "description": "In case of type - borewell, the depth of the well"
+    },
+    "photoEvidence": {
+     "$ref": "#/definitions/PhotoRecord"
+    },
+    "location": {
+     "$ref": "#/definitions/GeoLocation"
+    },
+    "active": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "name",
+    "capacity",
+    "active"
+   ]
+  },
+  "PowerSource": {
+   "type": "object",
+   "title": "Power source",
+   "properties": {
+    "name": {
+     "type": "string",
+     "title": "Power source name"
+    },
+    "source": {
+     "type": "string",
+     "title": "Source",
+     "enum": [
+      "Grid connection",
+      "Solar power",
+      "Biogas",
+      "Wind energy",
+      "Generator",
+      "Other sources"
+     ],
+     "default": "Grid connection"
+    },
+    "photoEvidence": {
+     "title": "Upload photo evidence",
+     "type": "array",
+     "description": "Upload photo evidence",
+     "items": {
+      "type": "string"
+     }
+    },
+    "location": {
+     "title": "Mark the location of the power source",
+     "$ref": "#/definitions/GeoLocation"
+    }
+   },
+   "allOf": [
+    {
+     "if": {
+      "properties": {
+       "source": {
+        "const": "Grid connection"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "gridPowerSource": {
+        "type": "string",
+        "title": "Grid connection source",
+        "enum": [
+         "Commercial",
+         "Agricultural connection",
+         "Industrial connection",
+         "Domestic connection",
+         "Others"
+        ],
+        "default": "Commercial"
+       },
+       "gridPowerCapacity": {
+        "type": "number",
+        "title": "Grid power source capacity"
+       }
+      },
+      "if": {
+       "properties": {
+        "gridPowerSource": {
+         "const": "Others"
+        }
+       }
+      },
+      "then": {
+       "properties": {
+        "otherGridPowerSource": {
+         "title": "Other grid power source",
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "source": {
+        "const": "Solar power"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "solarPowerCapacity": {
+        "type": "number",
+        "title": "Solar power source capacity"
+       },
+       "solarPowerAvailability": {
+        "type": "number",
+        "title": "Hours of availability"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "source": {
+        "const": "Biogas"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "bioGasProdCapacity": {
+        "title": "Daily production capacity",
+        "type": "number"
+       },
+       "bioGasStorageCapacity": {
+        "title": "Storage capacity",
+        "type": "number"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "source": {
+        "const": "Wind energy"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "windEnergyProdCapacity": {
+        "title": "Daily production capacity",
+        "type": "number"
+       },
+       "windEnergyStorageCapacity": {
+        "title": "Storage capacity",
+        "type": "number"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "source": {
+        "const": "Generator"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "generatorProdCapacity": {
+        "title": "Daily production capacity",
+        "type": "number"
+       },
+       "generatorStorageCapacity": {
+        "title": "Storage capacity",
+        "type": "number"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "source": {
+        "const": "Other sources"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "otherAvailability": {
+        "title": "Daily availability",
+        "type": "string"
+       },
+       "otherStorageCapacity": {
+        "title": "Storage capacity",
+        "type": "number"
+       }
+      }
+     }
+    }
+   ],
+   "required": [
+    "name",
+    "source",
+    "location"
+   ]
+  },
+  "Facility": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "size": {
+     "type": "number"
+    },
+    "capacity": {
+     "type": "number"
+    },
+    "category": {
+     "type": "string",
+     "enum": [
+      "Composting",
+      "Seed processing",
+      "Input processing",
+      "Drying yard",
+      "Output processing",
+      "Store",
+      "Farmhouse",
+      "Toilet",
+      "Labor quarters",
+      "Security house",
+      "Scrap shed",
+      "Medical assistance",
+      "Dining",
+      "Attractions"
+     ],
+     "default": "Store"
+    },
+    "photoEvidence": {
+     "type": "string"
+    },
+    "location": {
+     "$ref": "#/definitions/GeoLocation"
+    },
+    "active": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "name",
+    "size",
+    "capacity",
+    "photoEvidence",
+    "location"
+   ]
+  },
+  "AlliedActivity": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "size": {
+     "type": "number"
+    },
+    "capacity": {
+     "type": "number"
+    },
+    "category": {
+     "type": "string",
+     "enum": [
+      "Aquaculture",
+      "Apiculture",
+      "Livestock",
+      "Poultry",
+      "Sericulture",
+      "Mushrooms"
+     ],
+     "default": "Aquaculture"
+    },
+    "photoEvidence": {
+     "type": "string"
+    },
+    "location": {
+     "$ref": "#/definitions/GeoLocation"
+    },
+    "active": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "name",
+    "photoEvidence"
+   ]
+  },
+  "CropDetails": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "areaInAcres": {
+     "type": "number",
+     "minimum": 0
+    },
+    "startDate": {
+     "type": "string",
+     "format": "date"
+    },
+    "sowingDate": {
+     "type": "string",
+     "format": "date"
+    },
+    "harvestDate": {
+     "type": "string",
+     "format": "date"
+    },
+    "category": {
+     "type": "string",
+     "description": "Type of crop - Main, Inter, Border, Mixed, etc."
+    },
+    "seedType": {
+     "type": "string"
+    },
+    "seedVariety": {
+     "type": "string"
+    },
+    "seedSource": {
+     "type": "string"
+    },
+    "photoEvidence": {
+     "$ref": "#/definitions/PhotoRecord"
+    },
+    "active": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "name",
+    "areaInAcres",
+    "category",
+    "seedVariety",
+    "seedType",
+    "seedSource",
+    "photoEvidence",
+    "active"
+   ]
+  },
+  "ControlPoint": {
+   "type": "object",
+   "title": "",
+   "properties": {
+    "name": {
+     "title": "Activity name",
+     "type": "string"
+    },
+    "activityType": {
+     "title": "Activity type",
+     "type": "string",
+     "enum": [
+      "Land preparation",
+      "Space preparation",
+      "Seedlings preparation",
+      "Planting material procurement",
+      "Planting material treatment",
+      "Plantation",
+      "Intercultural operations",
+      "Irrigation",
+      "Integrated crop nutrition",
+      "Integrated crop care",
+      "Harvest",
+      "Post harvest handling",
+      "Storage",
+      "Post processing"
+     ],
+     "default": "Land preparation"
+    },
+    "period": {
+     "title": "Period",
+     "type": "string"
+    },
+    "technicalAdvice": {
+     "title": "Technical advice",
+     "type": "string"
+    },
+    "ccp": {
+     "title": "Crtitical control point",
+     "type": "boolean"
+    },
+    "repeated": {
+     "title": "Repeated control point",
+     "type": "boolean",
+     "default": false
+    }
+   },
+   "allOf": [
+    {
+     "if": {
+      "properties": {
+       "repeated": {
+        "const": true
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "frequency": {
+        "title": "Frequency (Days)",
+        "type": "number",
+        "minimum": 0
+       },
+       "ends": {
+        "title": "Ends (Days)",
+        "type": "number",
+        "minimum": 0
+       }
+      },
+      "required": [
+       "frequency",
+       "ends"
+      ]
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "activityType": {
+        "const": "Land preparation"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "days": {
+        "title": "Days range",
+        "$ref": "#/definitions/DaysRange"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "activityType": {
+        "const": "Planting material procurement"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "days": {
+        "title": "Days range",
+        "$ref": "#/definitions/DaysRange"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "activityType": {
+        "const": "Planting material treatment"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "days": {
+        "title": "Days range",
+        "$ref": "#/definitions/DaysRange"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "activityType": {
+        "const": "Intercultural operations"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "days": {
+        "title": "Days range",
+        "$ref": "#/definitions/DaysRange"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "activityType": {
+        "const": "Irrigation"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "days": {
+        "title": "Days range",
+        "$ref": "#/definitions/DaysRange"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "activityType": {
+        "const": "Integrated crop nutrition"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "days": {
+        "title": "Days range",
+        "$ref": "#/definitions/DaysRange"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "activityType": {
+        "const": "Integrated crop care"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "days": {
+        "title": "Days range",
+        "$ref": "#/definitions/DaysRange"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "activityType": {
+        "const": "Harvest"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "days": {
+        "title": "Days range",
+        "$ref": "#/definitions/DaysRange"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "activityType": {
+        "const": "Post harvest handling"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "days": {
+        "title": "Days range",
+        "$ref": "#/definitions/DaysRange"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "activityType": {
+        "const": "Storage"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "days": {
+        "title": "Days range",
+        "$ref": "#/definitions/DaysRange"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "activityType": {
+        "const": "Post processing"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "days": {
+        "title": "Days range",
+        "$ref": "#/definitions/DaysRange"
+       }
+      }
+     }
+    },
+    {
+     "if": {
+      "properties": {
+       "activityType": {
+        "const": "Seedlings preparation"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "days": {
+        "title": "Days range",
+        "$ref": "#/definitions/DaysRange"
+       }
+      }
+     }
+    }
+   ],
+   "required": [
+    "name",
+    "activityType"
+   ]
+  },
+  "PoultryControlPoint": {
+   "type": "object",
+   "title": "",
+   "properties": {
+    "name": {
+     "title": "Activity name",
+     "type": "string"
+    },
+    "activityType": {
+     "title": "Activity type",
+     "type": "string",
+     "enum": [
+      "Health Management",
+      "Production Management",
+      "Environmental Impact"
+     ],
+     "default": "Health Management"
+    },
+    "period": {
+     "title": "Period",
+     "type": "string"
+    },
+    "days": {
+     "title": "Days range",
+     "$ref": "#/definitions/DaysRange"
+    },
+    "technicalAdvice": {
+     "title": "Technical advice",
+     "type": "string"
+    },
+    "ccp": {
+     "title": "Crtitical control point",
+     "type": "boolean"
+    },
+    "repeated": {
+     "title": "Repeated control point",
+     "type": "boolean",
+     "default": false
+    }
+   },
+   "allOf": [
+    {
+     "if": {
+      "properties": {
+       "repeated": {
+        "const": true
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "frequency": {
+        "title": "Frequency (Months)",
+        "type": "number",
+        "minimum": 0
+       },
+       "ends": {
+        "title": "Ends (Months)",
+        "type": "number",
+        "minimum": 0
+       }
+      }
+     }
+    }
+   ],
+   "required": [
+    "name",
+    "activityType",
+    "days"
+   ]
+  },
+  "WFStateType": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "description": {
+     "type": "string"
+    },
+    "isStartState": {
+     "type": "boolean"
+    },
+    "isEndState": {
+     "type": "boolean"
+    }
+   },
+   "if": {
+    "properties": {
+     "isEndState": {
+      "const": false
+     }
+    }
+   },
+   "then": {
+    "properties": {
+     "triggers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "$ref": "#/definitions/WFTrigger"
+      }
+     }
+    },
+    "required": [
+     "triggers"
+    ]
+   }
+  },
+  "WFTrigger": {
+   "type": "object",
+   "properties": {
+    "eventName": {
+     "type": "string"
+    },
+    "description": {
+     "type": "string"
+    },
+    "roles": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "inputSchema": {
+     "oneOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "object",
+       "properties": {
+        "type": {
+         "type": "string"
+        },
+        "properties": {
+         "type": "object"
+        }
+       }
+      }
+     ]
+    },
+    "processingSteps": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/WFProcessingStep"
+     }
+    },
+    "transitions": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/WFTransition"
+     }
+    }
+   },
+   "required": [
+    "eventName",
+    "inputSchema"
+   ]
+  },
+  "WFCondition": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "description": {
+     "type": "string"
+    },
+    "importPath": {
+     "type": "string"
+    }
+   }
+  },
+  "WFProcessingStep": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "description": {
+     "type": "string"
+    },
+    "importPath": {
+     "type": "string"
+    },
+    "schemes": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/SchemeId"
+     }
+    }
+   }
+  },
+  "WFTransition": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "description": {
+     "type": "string"
+    },
+    "condition": {
+     "$ref": "#/definitions/WFCondition"
+    },
+    "stateName": {
+     "type": "string"
+    }
+   }
+  },
+  "DurationAndExpenses": {
+   "type": "object",
+   "properties": {
+    "startDate": {
+     "type": "string",
+     "format": "date",
+     "title": "Start date"
+    },
+    "endDate": {
+     "type": "string",
+     "format": "date",
+     "title": "End date"
+    },
+    "totalMenLabourDays": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Total men's labour (days)"
+    },
+    "menLaborDailyWage": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Men's labour daily wage"
+    },
+    "totalWomenLabourDays": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Total women's labour (days)"
+    },
+    "womenLabourDailyWage": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Women's labour daily wage"
+    },
+    "totalLabourExpenditure": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Total labour expenditure"
+    },
+    "miscellaneousExpenses": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Miscellaneous expenses"
+    },
+    "totalExpenditure": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Total expenditure"
+    },
+    "contributor": {
+     "type": "string",
+     "enum": [
+      "Mandator",
+      "Co-mandator",
+      "Other"
+     ],
+     "defauult": "Mandator",
+     "title": "Contributor"
+    },
+    "contribution": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Contributor's contribution"
+    },
+    "photoEvidenceBeforeAfter": {
+     "type": "array",
+     "title": "Photo evidence (before & after)",
+     "items": {
+      "type": "string"
+     }
+    },
+    "documentEvidenceInvoice": {
+     "type": "array",
+     "title": "Document evidence (invoice / others)",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "if": {
+    "properties": {
+     "contributor": {
+      "const": "Other"
+     }
+    }
+   },
+   "then": {
+    "properties": {
+     "otherContributor": {
+      "type": "string",
+      "title": "Other contributor"
+     }
+    }
+   },
+   "required": [
+    "startDate",
+    "endDate",
+    "totalExpenditure"
+   ]
+  },
+  "PersonalOrgDetails": {
+   "type": "object",
+   "properties": {
+    "orgName": {
+     "type": "string",
+     "title": "Organization name"
+    },
+    "identificationNumber": {
+     "type": "string",
+     "title": "Organization id"
+    },
+    "identificationDocumentFile": {
+     "type": "string",
+     "format": "data-url",
+     "title": "Identification document file"
+    },
+    "orgRole": {
+     "type": "string",
+     "title": "Role"
+    },
+    "joiningDate": {
+     "type": "string",
+     "format": "date",
+     "title": "Joining Date"
+    }
+   },
+   "required": [
+    "orgName",
+    "identificationNumber",
+    "joiningDate"
+   ]
+  },
+  "FileRecord": {
+   "type": "object",
+   "properties": {
+    "link": {
+     "type": "string",
+     "format": "uri",
+     "title": "Link"
+    },
+    "metadata": {
+     "type": "object",
+     "title": "Meta data",
+     "properties": {
+      "location": {
+       "$ref": "#/definitions/GeoLocation",
+       "title": "Location"
+      },
+      "timestamp": {
+       "type": "string",
+       "format": "date",
+       "title": "Date"
+      }
+     }
+    }
+   },
+   "required": [
+    "link"
+   ]
+  },
+  "LandParcelDetails": {
+   "jsonschema": {
+    "properties": {
+     "id": {
+      "$ref": "#/definitions/LandParcelId"
+     },
+     "name": {
+      "type": "string"
+     },
+     "surveyNumber": {
+      "type": "string"
+     },
+     "areaInAcres": {
+      "type": "number",
+      "minimum": 0
+     },
+     "estimatedYieldTones": {
+      "type": "number"
+     },
+     "address": {
+      "$ref": "#/definitions/Address"
+     },
+     "farmer": {
+      "$ref": "#/definitions/NameID"
+     },
+     "crops": {
+      "type": "array",
+      "items": {
+       "$ref": "#/definitions/CropDetails"
+      }
+     },
+     "map": {
+      "$ref": "#/definitions/Map"
+     },
+     "location": {
+      "$ref": "#/definitions/GeoLocation"
+     },
+     "climateScore": {
+      "type": "object",
+      "properties": {
+       "score": {
+        "type": "number"
+       },
+       "scheme": {
+        "type": "string"
+       }
+      }
+     },
+     "complianceScore": {
+      "type": "object",
+      "properties": {
+       "score": {
+        "type": "number"
+       },
+       "scheme": {
+        "type": "string"
+       }
+      }
+     },
+     "own": {
+      "type": "string"
+     },
+     "landOwner_id": {
+      "type": "string"
+     },
+     "landOwner_identityNumber": {
+      "type": "string"
+     },
+     "landOwner_firstName": {
+      "type": "string"
+     },
+     "landOwner_lastName": {
+      "type": "string"
+     },
+     "landOwner_primaryPhone": {
+      "type": "string"
+     },
+     "landOwner_village": {
+      "type": "string"
+     },
+     "landOwner_state": {
+      "type": "string"
+     },
+     "location_lat": {
+      "type": "number"
+     },
+     "location_lng": {
+      "type": "number"
+     },
+     "address_village": {
+      "type": "string"
+     },
+     "address_mandal": {
+      "type": "string"
+     },
+     "address_state": {
+      "type": "string"
+     },
+     "address_pincode": {
+      "type": "string"
+     },
+     "adjacentLands_north": {
+      "type": "string"
+     },
+     "adjacentLands_south": {
+      "type": "string"
+     },
+     "adjacentLands_east": {
+      "type": "string"
+     },
+     "adjacentLands_west": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "name",
+     "areaInAcres",
+     "climateScore",
+     "complianceScore",
+     "farmer_id",
+     "cropType",
+     "field",
+     "farmer",
+     "surveyNumber"
+    ]
+   }
+  },
+  "Field": {
+   "type": "object",
+   "title": "Field details",
+   "properties": {
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "areaInAcres": {
+     "title": "Area (acres)",
+     "type": "number"
+    },
+    "map": {
+     "$ref": "#/definitions/Map"
+    }
+   },
+   "required": [
+    "name",
+    "areaInAcres",
+    "map"
+   ]
+  },
+  "VerificationDetails": {
+   "type": "object",
+   "properties": {
+    "verifiedBy": {
+     "$ref": "#/definitions/UserId"
+    },
+    "notes": {
+     "type": "string",
+     "title": "Notes"
+    },
+    "verifiedOn": {
+     "type": "string",
+     "format": "date"
+    }
+   },
+   "required": [
+    "verifiedBy",
+    "notes",
+    "verifiedOn"
+   ]
+  },
+  "Farmer": {
+   "jsonschema": {
+    "properties": {
+     "personalDetails": {
+      "$ref": "#/definitions/Person",
+      "title": "Basic details"
+     },
+     "gender": {
+      "title": "Gender",
+      "type": "string",
+      "enum": [
+       "Male",
+       "Female",
+       "Others"
+      ],
+      "default": "Male"
+     },
+     "dob": {
+      "title": "Date of birth",
+      "type": "string",
+      "format": "date"
+     },
+     "userId": {
+      "$ref": "#/definitions/UserId"
+     },
+     "farmingExperience": {
+      "type": "object",
+      "title": "Farming experience",
+      "properties": {
+       "totalFarmingExperienceYears": {
+        "type": "number",
+        "title": "Total years of experience in farming",
+        "minimum": 0
+       },
+       "organicFarmingExperienceYears": {
+        "type": "number",
+        "title": "Total years of experience in organic farming",
+        "minimum": 0
+       },
+       "cropsWithOrganicFarmingExperience": {
+        "type": "string",
+        "title": "Crops with organic farming experience"
+       },
+       "livestockExperience": {
+        "type": "string",
+        "title": "Experience with livestock"
+       },
+       "agriAlliedActivitiesExperience": {
+        "type": "string",
+        "title": "Experience with allied activities"
+       }
+      }
+     },
+     "operatorDetails": {
+      "title": "Operator details",
+      "type": "object",
+      "properties": {
+       "farmerID": {
+        "type": "string",
+        "title": "Farmer id"
+       },
+       "joiningDate": {
+        "type": "string",
+        "format": "date",
+        "title": "Joining date"
+       },
+       "identityDocument": {
+        "type": "string",
+        "title": "Operator registration document",
+        "description": "Upload operator registration document"
+       }
+      }
+     },
+     "bankDetails": {
+      "title": "Bank Details",
+      "type": "object",
+      "properties": {
+       "name": {
+        "type": "string",
+        "title": "Name of the bank"
+       },
+       "branch": {
+        "type": "string",
+        "title": "Branch name"
+       },
+       "accountNumber": {
+        "type": "string",
+        "title": "Bank account number"
+       },
+       "ifsc": {
+        "type": "string",
+        "title": "IFSC code"
+       },
+       "swift": {
+        "type": "string",
+        "title": "SWIFT code"
+       },
+       "bankDocument": {
+        "type": "string",
+        "title": "Upload document proof of the account"
+       }
+      }
+     },
+     "organization": {
+      "$ref": "#/definitions/OrganizationId"
+     },
+     "operator": {
+      "type": "string",
+      "format": "hidden"
+     },
+     "collectives": {
+      "format": "hidden",
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "validationWorkflowId": {
+      "type": "string",
+      "format": "hidden"
+     },
+     "statusNotes": {
+      "type": "string",
+      "format": "hidden"
+     },
+     "agents": {
+      "format": "hidden",
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "status": {
+      "type": "string",
+      "format": "hidden",
+      "enum": [
+       "Draft",
+       "Under validation",
+       "Under review",
+       "Review failed",
+       "Validation failed",
+       "Approved"
+      ],
+      "default": "Draft"
+     },
+     "active": {
+      "type": "string",
+      "format": "hidden"
+     },
+     "audit": {
+      "$ref": "#/definitions/Audit"
+     }
+    },
+    "required": [
+     "personalDetails"
+    ]
+   },
+   "uiHints": {
+    "form": {
+     "uiSchema": {
+      "ui:order": [
+       "personalDetails",
+       "gender",
+       "dob",
+       "operatorDetails",
+       "*"
+      ],
+      "operatorDetails": {
+       "ui:order": [
+        "farmerID",
+        "joiningDate",
+        "identityDocument"
+       ],
+       "identityDocument": {
+        "ui:widget": "file"
+       }
+      },
+      "bankDetails": {
+       "ui:order": [
+        "*"
+       ],
+       "bankDocument": {
+        "ui:widget": "file"
+       }
+      },
+      "personalDetails": {
+       "ui:order": [
+        "firstName",
+        "lastName",
+        "fathersHusbandsName",
+        "primaryPhone",
+        "secondaryPhone",
+        "email",
+        "address",
+        "identityDetails",
+        "panCardFile",
+        "profilePicture",
+        "educationalQualification",
+        "*"
+       ],
+       "identityDetails": {
+        "ui:order": [
+         "identityDocument",
+         "identityNumber",
+         "identityDocumentFile",
+         "panCardNumber",
+         "panCardFile"
+        ],
+        "identityDocumentFile": {
+         "ui:widget": "file"
+        },
+        "panCardFile": {
+         "ui:widget": "file"
+        }
+       },
+       "profilePicture": {
+        "ui:widget": "file"
+       }
+      },
+      "collectives": {
+       "ui:field": "Hidden"
+      },
+      "agents": {
+       "ui:field": "Hidden"
+      },
+      "verificationDetails": {
+       "ui:field": "Hidden"
+      },
+      "status": {
+       "ui:field": "Hidden"
+      },
+      "active": {
+       "ui:field": "Hidden"
+      }
+     }
+    }
+   }
+  },
+  "LandParcel": {
+   "jsonschema": {
+    "type": "object",
+    "properties": {
+     "name": {
+      "title": "Land parcel name",
+      "type": "string"
+     },
+     "surveyNumber": {
+      "title": "Unique land parcel identification number(s)/land parcel survey no(s)",
+      "type": "string"
+     },
+     "areaInAcres": {
+      "title": "Area (acres)",
+      "type": "number",
+      "minimum": 0
+     },
+     "passbookNumber": {
+      "title": "Land parcel official document/pattadar passbook number",
+      "type": "string"
+     },
+     "landOwnershipDocument": {
+      "title": "Upload land parcel official document/pattadar passbook",
+      "type": "string",
+      "description": "Upload land parcel official document/pattadar passbook"
+     },
+     "landGovtMap": {
+      "title": "Upload land parcel map document by govt.",
+      "type": "string",
+      "description": "Upload land parcel map document by govt."
+     },
+     "landSupportDocument": {
+      "title": "Upload land parcel support documents",
+      "type": "string",
+      "description": "Upload land parcel support documents"
+     },
+     "address": {
+      "title": "Land parcel address",
+      "$ref": "#/definitions/Address"
+     },
+     "adjacentLands": {
+      "title": "Adjacent lands",
+      "type": "object",
+      "properties": {
+       "north": {
+        "title": "North",
+        "type": "string"
+       },
+       "east": {
+        "title": "East",
+        "type": "string"
+       },
+       "west": {
+        "title": "West",
+        "type": "string"
+       },
+       "south": {
+        "title": "South",
+        "type": "string"
+       }
+      }
+     },
+     "distanceFromServiceRoad": {
+      "title": "Distance from the service road (in km)",
+      "type": "number"
+     },
+     "map": {
+      "$ref": "#/definitions/Map"
+     },
+     "location": {
+      "$ref": "#/definitions/GeoLocation"
+     },
+     "landOwner": {
+      "$ref": "#/definitions/Person"
+     },
+     "climateScore": {
+      "type": "number",
+      "title": "Climate score (%)",
+      "minimum": 0,
+      "maximum": 100
+     },
+     "complianceScore": {
+      "type": "number",
+      "title": "Compilance score (%)",
+      "minimum": 0,
+      "maximum": 100
+     },
+     "collective": {
+      "type": "string"
+     },
+     "agent": {
+      "type": "string"
+     },
+     "basicUtilities": {
+      "type": "object",
+      "properties": {
+       "waterSources": {
+        "type": "array",
+        "items": {
+         "$ref": "#/definitions/WaterSource"
+        }
+       },
+       "powerSources": {
+        "type": "array",
+        "items": {
+         "$ref": "#/definitions/PowerSource"
+        }
+       }
+      }
+     },
+     "supportUtilities": {
+      "type": "array",
+      "items": {
+       "$ref": "#/definitions/Facility"
+      }
+     },
+     "processingUnits": {
+      "type": "array",
+      "items": {
+       "$ref": "#/definitions/Facility"
+      }
+     },
+     "alliedActivities": {
+      "type": "array",
+      "items": {
+       "$ref": "#/definitions/AlliedActivity"
+      }
+     },
+     "validationWorkflowId": {
+      "type": "string",
+      "format": "hidden"
+     },
+     "statusNotes": {
+      "type": "string",
+      "format": "hidden"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "Draft",
+       "Under validation",
+       "Under review",
+       "Review failed",
+       "Validation failed",
+       "Approved"
+      ],
+      "default": "Draft"
+     },
+     "active": {
+      "type": "boolean"
+     },
+     "audit": {
+      "$ref": "#/definitions/Audit"
+     }
+    },
+    "required": [
+     "name",
+     "surveyNumber",
+     "areaInAcres",
+     "address"
+    ]
+   },
+   "uiHints": {
+    "form": {
+     "uiSchema": {
+      "ui:order": [
+       "name",
+       "surveyNumber",
+       "areaInAcres",
+       "landOwner",
+       "location",
+       "address",
+       "map",
+       "adjacentLands",
+       "*"
+      ],
+      "location": {
+       "ui:widget": "GeoLocationWidget"
+      },
+      "waterSources": {
+       "ui:widget": "WaterSourceTableWidget"
+      },
+      "powerSources": {
+       "ui:widget": "PowerSourceTableWidget"
+      },
+      "facilities": {
+       "ui:widget": "FacilityTableWidget"
+      },
+      "alliedActivities": {
+       "ui:widget": "AlliedActivityTableWidget"
+      }
+     }
+    }
+   }
+  },
+  "Audit": {
+   "type": "object",
+   "properties": {
+    "createdById": {
+     "type": "string"
+    },
+    "createdByName": {
+     "type": "string"
+    },
+    "createdAt": {
+     "type": "string"
+    },
+    "updatedById": {
+     "type": "string"
+    },
+    "updatedByName": {
+     "type": "string"
+    },
+    "updatedAt": {
+     "type": "string"
+    }
+   }
+  },
+  "UserRoles": {
+   "type": "array",
+   "default": [
+    {}
+   ],
+   "items": {
+    "type": "object",
+    "title": "",
+    "properties": {
+     "operator": {
+      "title": "Operator",
+      "type": "string"
+     },
+     "rolesList": {
+      "title": "Roles",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "string",
+       "enum": [
+        "AGENT",
+        "FIELD_OFFICER",
+        "MANAGER",
+        "EXECUTIVE",
+        "INTERNAL_INSPECTOR",
+        "WAREHOUSE_MANAGER",
+        "PROCESSING_MANAGER",
+        "COORDINATOR",
+        "CERTIFICATION_COMMITTEE_MEMBER",
+        "TRAINER",
+        "ADMIN"
+       ],
+       "default": "AGENT"
+      },
+      "uniqueItems": true
+     }
+    },
+    "required": [
+     "operator"
+    ]
+   }
+  },
+  "InputLog": {
+   "type": "object",
+   "properties": {
+    "materialName": {
+     "type": "string",
+     "title": "Material name"
+    },
+    "brandName": {
+     "type": "string",
+     "title": "Brand name"
+    },
+    "inputType": {
+     "type": "string",
+     "title": "Input type"
+    },
+    "dateOfPurchase": {
+     "title": "Date of purchase",
+     "type": "string",
+     "format": "date"
+    },
+    "purpose": {
+     "title": "Purpose",
+     "type": "string"
+    },
+    "billingInformation": {
+     "title": "Billing information",
+     "description": "Billing information evidence",
+     "type": "array",
+     "default": "undefined",
+     "items": {
+      "type": "string"
+     }
+    },
+    "labelInformation": {
+     "title": "Label information",
+     "description": "Label information",
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "specificationsAndSafety": {
+     "title": "Specification and safety",
+     "description": "Specification and safety",
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "sourceOfPurchase": {
+     "type": "string",
+     "title": "Source of purchase"
+    },
+    "sourceContact": {
+     "type": "string",
+     "title": "Source contact"
+    },
+    "totalExpenditure": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Total expenditure"
+    },
+    "otherRemarks": {
+     "type": "string",
+     "title": "Other remarks"
+    }
+   },
+   "required": [
+    "materialName",
+    "brandName",
+    "inputType",
+    "dateOfPurchase",
+    "purpose",
+    "billingInformation",
+    "totalExpenditure"
+   ],
+   "uiHints": {
+    "form": {
+     "uiSchema": {
+      "otherRemarks": {
+       "ui:widget": "textarea"
+      },
+      "ui:order": [
+       "materialName",
+       "brandName",
+       "inputType",
+       "dateOfPurchase",
+       "purpose",
+       "billingInformation",
+       "labelInformation",
+       "specificationsAndSafety",
+       "sourceOfPurchase",
+       "sourceContact",
+       "totalExpenditure",
+       "*"
+      ],
+      "billingInformation": {
+       "ui:widget": "UploadFilesWithAttachmentsWidget"
+      },
+      "labelInformation": {
+       "ui:widget": "UploadFilesWithAttachmentsWidget"
+      },
+      "specificationsAndSafety": {
+       "ui:widget": "UploadFilesWithAttachmentsWidget"
+      }
+     }
+    }
+   }
+  },
+  "Observations": {
+   "type": "object",
+   "title": "Observations",
+   "properties": {
+    "observationsTitle": {
+     "type": "object",
+     "title": "Observations report"
+    },
+    "observationName": {
+     "type": "string",
+     "title": "Observation name"
+    },
+    "observationType": {
+     "type": "string",
+     "title": "Observation type"
+    },
+    "observedBy": {
+     "title": "Observed by",
+     "type": "string"
+    },
+    "observationRemarks": {
+     "title": "Observation remarks",
+     "type": "string"
+    },
+    "dateOfObservation": {
+     "title": "Date of observation",
+     "type": "string",
+     "format": "date"
+    },
+    "observationEvidence": {
+     "title": "Observation evidence",
+     "type": "array",
+     "description": "Observation evidence",
+     "items": {
+      "type": "string"
+     }
+    },
+    "startDate": {
+     "type": "string",
+     "format": "date",
+     "title": "Start date"
+    },
+    "endDate": {
+     "type": "string",
+     "format": "date",
+     "title": "End date"
+    },
+    "totalExpenditure": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Total expenditure"
+    },
+    "otherRemarks": {
+     "type": "string",
+     "title": "Other remarks"
+    }
+   },
+   "required": [
+    "observationName",
+    "observationType",
+    "observedBy",
+    "observationRemarks",
+    "dateOfObservation",
+    "startDate",
+    "endDate"
+   ],
+   "uiHints": {
+    "form": {
+     "uiSchema": {
+      "observationRemarks": {
+       "ui:widget": "textarea"
+      },
+      "otherRemarks": {
+       "ui:widget": "textarea"
+      },
+      "ui:order": [
+       "observationsTitle",
+       "observationName",
+       "observationType",
+       "observedBy",
+       "observationRemarks",
+       "dateOfObservation",
+       "observationEvidence",
+       "startDate",
+       "endDate",
+       "totalExpenditure",
+       "otherRemarks",
+       "*"
+      ],
+      "observationEvidence": {
+       "ui:widget": "UploadFilesWithAttachmentsWidget"
+      }
+     }
+    }
+   }
+  },
+  "SoilInfo": {
+   "type": "object",
+   "properties": {
+    "soilTestReport": {
+     "title": "Soil test report",
+     "description": "Upload soil test report",
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "labCertifiedByNabl": {
+     "title": "Lab certified by NABL",
+     "type": "string",
+     "enum": [
+      "Yes",
+      "No"
+     ],
+     "default": "Yes"
+    },
+    "soilTexture": {
+     "title": "Soil texture (soil type)",
+     "type": "string"
+    },
+    "soilColor": {
+     "title": "Soil color",
+     "type": "string"
+    },
+    "depthOfSurfaceSoil": {
+     "title": "Depth of surface soil (cm)",
+     "type": "number"
+    },
+    "n": {
+     "title": "N",
+     "type": "number",
+     "description": "Nitrogen",
+     "minimum": 0
+    },
+    "p": {
+     "title": "P",
+     "type": "number",
+     "description": "Phosphorus",
+     "minimum": 0
+    },
+    "k": {
+     "title": "K",
+     "type": "number",
+     "description": "Potassium",
+     "minimum": 0
+    },
+    "ca": {
+     "title": "Ca",
+     "type": "number",
+     "description": "Calcium",
+     "minimum": 0
+    },
+    "mg": {
+     "title": "Mg",
+     "type": "number",
+     "description": "Magnesium",
+     "minimum": 0
+    },
+    "s": {
+     "title": "S",
+     "type": "number",
+     "minimum": 0,
+     "description": "Sulfur"
+    },
+    "otherMicroNutrients": {
+     "title": "Other micronutrients",
+     "type": "string"
+    },
+    "ph": {
+     "title": "pH(0 to 14)",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 14,
+     "description": "Potential of hydrogen"
+    },
+    "ec": {
+     "title": "Ec (dsm/m)",
+     "type": "number",
+     "minimum": 0,
+     "description": "Electrical conductivity"
+    },
+    "organicCarbon": {
+     "title": "Organic carbon (%)",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 100,
+     "description": "Soil organic carbon"
+    },
+    "soilHeavyMetalsContamincationReport": {
+     "title": "Soil heavy metals contamination report",
+     "description": "Soil heavy metals contamination report",
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "soilPesticideHerbcideResiduesReport": {
+     "title": "Soil pesticide & herbicide residues report",
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "Soil pesticide & herbicide residues report"
+    },
+    "soilBenficialHarmfulMicrobialMassReport": {
+     "title": "Soil beneficial and harmful microbial mass report",
+     "description": "Soil beneficial and harmful microbial mass report",
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "startDate": {
+     "type": "string",
+     "format": "date",
+     "title": "Start date"
+    },
+    "endDate": {
+     "type": "string",
+     "format": "date",
+     "title": "End date"
+    },
+    "totalExpenditure": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Total expenditure"
+    },
+    "otherRemarks": {
+     "type": "string",
+     "title": "Other remarks"
+    }
+   },
+   "required": [
+    "soilTestReport",
+    "startDate",
+    "endDate",
+    "totalExpenditure",
+    "n",
+    "p",
+    "k"
+   ],
+   "allOf": [
+    {
+     "if": {
+      "properties": {
+       "labCertifiedByNabl": {
+        "const": "Yes"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "nablCertificationEvidence": {
+        "title": "NABL certification evidence",
+        "description": "NABL certification evidence",
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    }
+   ],
+   "uiHints": {
+    "otherRemarks": {
+     "ui:widget": "textarea"
+    },
+    "ui:order": [
+     "soilTestReport",
+     "labCertifiedByNabl",
+     "nablCertificationEvidence",
+     "soilTexture",
+     "soilColor",
+     "depthOfSurfaceSoil",
+     "n",
+     "p",
+     "k",
+     "ca",
+     "mg",
+     "s",
+     "otherMicroNutrients",
+     "ph",
+     "ec",
+     "organicCarbon",
+     "soilHeavyMetalsContamincationReport",
+     "soilPesticideHerbcideResiduesReport",
+     "soilBenficialHarmfulMicrobialMassReport",
+     "startDate",
+     "endDate",
+     "totalExpenditure",
+     "otherRemarks",
+     "*"
+    ],
+    "soilTestReport": {
+     "ui:widget": "UploadFilesWithAttachmentsWidget"
+    },
+    "nablCertificationEvidence": {
+     "ui:widget": "UploadFilesWithAttachmentsWidget"
+    },
+    "soilHeavyMetalsContamincationReport": {
+     "ui:widget": "UploadFilesWithAttachmentsWidget"
+    },
+    "soilPesticideHerbcideResiduesReport": {
+     "ui:widget": "UploadFilesWithAttachmentsWidget"
+    },
+    "soilBenficialHarmfulMicrobialMassReport": {
+     "ui:widget": "UploadFilesWithAttachmentsWidget"
+    }
+   }
+  },
+  "WaterTest": {
+   "type": "object",
+   "properties": {
+    "waterTestReport": {
+     "title": "Water test report",
+     "description": "Upload water test report",
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "default": "undefined"
+    },
+    "labCertifiedByNabl": {
+     "title": "Lab certified by NABL",
+     "type": "string",
+     "enum": [
+      "Yes",
+      "No"
+     ],
+     "default": "Yes"
+    },
+    "ph": {
+     "title": "pH(0 to 14)",
+     "type": "number",
+     "minimum": 0,
+     "maximum": 14,
+     "description": "Potential of hydrogen"
+    },
+    "waterHeavyMetalsContaminationReport": {
+     "title": "Heavy metals contamination report",
+     "description": "Heavy metals contamination report",
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "heavyMetals": {
+     "title": "Heavy metals",
+     "type": "string"
+    },
+    "waterPesticideHerbicideResiduesReport": {
+     "title": "Pesticide & herbicide residues report",
+     "description": "Pesticide & herbicide residues report",
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "chemicalResidues": {
+     "title": "Chemical residues",
+     "type": "string"
+    },
+    "startDate": {
+     "type": "string",
+     "format": "date",
+     "title": "Start date"
+    },
+    "endDate": {
+     "type": "string",
+     "format": "date",
+     "title": "End date"
+    },
+    "totalExpenditure": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Total expenditure"
+    },
+    "otherRemarks": {
+     "type": "string",
+     "title": "Other remarks"
+    }
+   },
+   "required": [
+    "waterTestReport",
+    "startDate",
+    "endDate",
+    "totalExpenditure"
+   ],
+   "allOf": [
+    {
+     "if": {
+      "properties": {
+       "labCertifiedByNabl": {
+        "const": "Yes"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "nablCertificationEvidence": {
+        "title": "NABL certification evidence",
+        "description": "NABL certification evidence",
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    }
+   ],
+   "uiHints": {
+    "otherRemarks": {
+     "ui:widget": "textarea"
+    },
+    "ui:order": [
+     "waterInfo",
+     "waterTestReport",
+     "labCertifiedByNabl",
+     "nablCertificationEvidence",
+     "ph",
+     "waterHeavyMetalsContamincationReport",
+     "heavyMetals",
+     "waterPesticideHerbcideResiduesReport",
+     "chemicalResidues",
+     "startDate",
+     "endDate",
+     "totalExpenditure",
+     "otherRemarks",
+     "*"
+    ],
+    "waterTestReport": {
+     "ui:widget": "UploadFilesWithAttachmentsWidget"
+    },
+    "nablCertificationEvidence": {
+     "ui:widget": "UploadFilesWithAttachmentsWidget"
+    },
+    "waterHeavyMetalsContamincationReport": {
+     "ui:widget": "UploadFilesWithAttachmentsWidget"
+    },
+    "waterPesticideHerbcideResiduesReport": {
+     "ui:widget": "UploadFilesWithAttachmentsWidget"
+    }
+   }
+  },
+  "OtherTest": {
+   "type": "object",
+   "title": "Farm resources - others test report",
+   "properties": {
+    "resources": {
+     "type": "string",
+     "title": "Other farm resources"
+    },
+    "farmResourcesOthersTestReport": {
+     "title": "Test report",
+     "description": "Upload test report",
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "labCertifiedByNabl": {
+     "title": "Lab certified by NABL",
+     "type": "string",
+     "enum": [
+      "Yes",
+      "No"
+     ],
+     "default": "Yes"
+    },
+    "startDate": {
+     "type": "string",
+     "format": "date",
+     "title": "Start date"
+    },
+    "endDate": {
+     "type": "string",
+     "format": "date",
+     "title": "End date"
+    },
+    "totalExpenditure": {
+     "type": "number",
+     "minimum": 0,
+     "title": "Total expenditure"
+    },
+    "otherRemarks": {
+     "type": "string",
+     "title": "Other remarks"
+    }
+   },
+   "required": [
+    "resources",
+    "farmResourcesOthersTestReport",
+    "startDate",
+    "endDate",
+    "totalExpenditure"
+   ],
+   "allOf": [
+    {
+     "if": {
+      "properties": {
+       "labCertifiedByNabl": {
+        "const": "Yes"
+       }
+      }
+     },
+     "then": {
+      "properties": {
+       "nablCertificationEvidence": {
+        "title": "NABL certification evidence",
+        "type": "array",
+        "description": "NABL certification evidence",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "OutputProcessing": {
+   "type": "object",
+   "title": "Output processing event",
+   "properties": {
+    "outputProcessingUnit": {
+     "$ref": "#/definitions/OutputProcessingUnitId",
+     "title": "Output processing unit"
+    },
+    "productBatch": {
+     "$ref": "#/definitions/ProductBatchId",
+     "title": "Product batch"
+    },
+    "evidence": {
+     "title": "Output processing evidence",
+     "type": "string",
+     "description": "Output processing evidence"
+    },
+    "durationAndExpenses": {
+     "title": "Duration and Expenses",
+     "$ref": "#/definitions/DurationAndExpenses"
+    },
+    "otherRemarks": {
+     "type": "string",
+     "title": "Other remarks"
+    }
+   },
+   "required": [
+    "outputProcessingUnit"
+   ]
+  }
+ }
+}

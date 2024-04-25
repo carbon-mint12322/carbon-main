@@ -1,0 +1,61 @@
+jsonschema:
+  properties:
+    inputLogs:
+      title: Input Log
+      type: object
+      properties:
+        materialName:
+          type: string
+          title: Material name
+        brandName:
+          type: string
+          title: Brand name
+        inputType:
+          type: string
+          title: Input type
+        dateOfPurchase:
+          title: Date of purchase
+          type: string
+          format: date
+        purpose:
+          title: Purpose
+          type: string
+        billingInformation:
+          $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+          title: Billing information
+          description: Billing information evidence
+          default: []
+        labelInformation:
+          title: Label information
+          description: Label information
+          type: array
+          items:
+            type: string
+        specificationsAndSafety:
+          title: Specification and safety
+          description: Specification and safety
+          type: array
+          items:
+            type: string
+        sourceOfPurchase:
+          type: string
+          title: Source of purchase
+        sourceContact:
+          type: string
+          title: Source contact
+        totalExpenditure:
+          type: number
+          minimum: 0
+          title: Total expenditure
+        otherRemarks:
+          type: string
+          title: Other remarks
+      required:
+        - materialName
+        - brandName
+        - inputType
+        - dateOfPurchase
+        - purpose
+        - billingInformation
+        - totalExpenditure
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_collectiveinputlog.yaml

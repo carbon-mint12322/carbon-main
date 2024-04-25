@@ -1,0 +1,13 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - auditingReport
+      - startDate
+      - endDate
+      - auditingDoneBy
+      - otherRemarks
+      - '*'
+    auditingReport:
+      'ui:widget': 'file'

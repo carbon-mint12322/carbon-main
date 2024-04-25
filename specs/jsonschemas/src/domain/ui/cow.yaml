@@ -1,0 +1,25 @@
+form:
+  uiSchema:
+    'ui:order':
+      - productionSystem
+      - age
+      - cowSource
+      - breed
+      - field
+      - landParcel
+      - farmer
+      - collective
+      - active
+      - pedigree
+      - gender
+      - lactionaPeriodDays
+      - averageMilkProduction
+      - tagId
+      - acquisitionDay
+      - lactationPeriods
+      - '*'
+    productionSystem:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a production system
+      foreignSchemaId: '/productionsystem'
+      foreignLabelWidget: UserNameWidget

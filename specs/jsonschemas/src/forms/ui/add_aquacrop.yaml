@@ -1,0 +1,36 @@
+form:
+  uiSchema:
+    seedEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    seedCertificate:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - productionSystem
+      - aquaPop
+      - cropType
+      - cropSubType
+      - quantity
+      - plannedStockingDate
+      - estHarvestDate
+      - estimatedYieldTonnes
+      - seedVariety
+      - seedSource
+      - seedEvidence
+      - seedCertificate
+      - '*'
+    productionSystem:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a production system
+      foreignSchemaId: '/productionsystem'
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: productionSystem
+      foreignLabelWidget: NameLabelWidget
+    aquaPop:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select Aquaculture Crop POP
+      foreignSchemaId: '/aquapop'
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: aquapop
+      foreignLabelWidget: NameLabelWidget

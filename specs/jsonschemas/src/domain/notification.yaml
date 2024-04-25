@@ -1,0 +1,49 @@
+jsonschema:
+  properties:
+    sender:
+      $ref: '#/definitions/NameID'
+    receiver:
+      $ref: '#/definitions/NameID'
+    category:
+      type: string
+      enum:
+        - Submission
+        - Report
+      default: Submission
+    status:
+      type: string
+      enum:
+        - Unread
+        - Read
+        - In progress
+        - Closed
+        - Archived
+      default: Unread
+    message:
+      type: string
+      description: 'The summary of the notification which is to be shown on the notifications pane'
+    link:
+      type: string
+      description: 'The url to which the receiver needs to be directed to on click'
+    relatedTo:
+      type: object
+      properties:
+        objectId:
+          type: string
+          description: 'The id of the object that the notification is about'
+        collectionName:
+          type: string
+          description: 'The name of the collection where the object resides'
+    createdAt:
+      type: Date
+    readAt:
+      type: Date
+    active:
+      type: boolean
+  required:
+    - sender
+    - status
+    - message
+    - relatedTo
+    - createdAt
+    - active

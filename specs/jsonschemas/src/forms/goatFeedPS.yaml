@@ -1,0 +1,38 @@
+extends: ./goatPSNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Feed Event'
+  properties:
+    goats:
+      type: array
+      items:
+        $ref: '#/definitions/GoatId'
+      title: Goats
+      foreignNameField: 'tagId'
+    dateOfFeeding:
+      type: string
+      format: date
+      title: Feeding date
+    typeOfFeed:
+      type: string
+      title: Type of feed
+    quantity:
+      type: number
+      title: Feed quantity (Kgs)
+    feedConversionRatio:
+      type: number
+      title: Feed conversion ratio
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - goats
+    - dateOfFeeding
+    - quantity
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/goatFeedPS.yaml

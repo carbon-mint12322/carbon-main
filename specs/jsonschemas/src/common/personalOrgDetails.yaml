@@ -1,0 +1,22 @@
+type: object
+properties:
+  orgName:
+    type: string
+    title: Organization name
+  identificationNumber:
+    type: string
+    title: Organization id
+  identificationDocumentFile:
+    type: string
+    title: Identification document file
+  orgRole:
+    type: string
+    title: Role
+  joiningDate:
+    type: string
+    format: date
+    title: Joining Date
+required:
+  - orgName
+  - identificationNumber
+  - joiningDate

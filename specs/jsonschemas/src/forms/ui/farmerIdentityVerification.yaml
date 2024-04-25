@@ -1,0 +1,10 @@
+form:
+  uiSchema:
+    'ui:order':
+      - identityDetails
+      - '*'
+    identityDetails:
+      identityDocumentFile:
+        'ui:widget': 'file'
+      panCardFile:
+        'ui:widget': 'file'

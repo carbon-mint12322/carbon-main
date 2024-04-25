@@ -1,0 +1,9 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    processingUnits:
+      photoEvidence:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      location:
+        'ui:field': MapLocationField

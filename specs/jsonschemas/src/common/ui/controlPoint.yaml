@@ -1,0 +1,17 @@
+items:
+  technicalAdvice:
+    'ui:widget': textarea
+  'ui:order':
+    - name
+    - activityType
+    - period
+    - days
+    - technicalAdvice
+    - ccp
+    - repeated
+    - frequency
+    - ends
+    - serviceCatalogIds
+    - impactParameters
+    - inputs
+    - '*'

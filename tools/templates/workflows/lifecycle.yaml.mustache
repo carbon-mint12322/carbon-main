@@ -1,0 +1,366 @@
+name: {{modelName}}Lifecycle
+startStateName: start
+domainSchemaId: /{{appName}}/{{modelName}}
+testScenariosFiles: []
+description: |
+    ## Lifecycle workflow for {{modelName}}
+
+    The workflow starts when an object is created. To create the object,
+    a create function supplied in schema YAML is used.  Once created, the
+    workflow goes to editable state.  
+
+    In editable state, the object may be modified any number of times. Each 
+    update will result in the object going back to editable state. Once it's 
+    out of editable state, the object may not be modified. 
+
+    If the object has validation workflow (specified in schema YAML), then 
+    in editable state, the object may be submitted for review. If review fails, 
+    the object goes back to editable state, but with validationStatus set to 
+    reviewFailed. Once reviewed successfully, the object is validated. Validation
+    failure results in the object going back to editable state.
+    
+    Once validation is successful, the object is marked validated, and is 
+    considered locked. In this state, the object will have block chain data 
+    containing the lock information.
+
+    It is possible to edit the object back into editable state, from 
+    validated state, by creating a new version of the object. This will 
+    bump up version number and put the object in editable state; however,
+    the locked record ("QR view") is stored on the object for reference.
+states:
+  - name: start
+    description: {{description}}
+    triggers:
+      - eventName: {{modelName}}
+        description: {{description}}
+        roles:
+        {{#lifecycle.createRoles}}
+          - {{.}}
+        {{/lifecycle.createRoles}}
+        inputSchemaName: {{modelName}}
+        processingSteps:
+        {{#lifecycle.createSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.createSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ../../../workflows/common/functions/always
+            state: editable
+      - eventName: migrate
+        description: Migrate object
+        roles:
+        {{#lifecycle.migrateRoles}}
+            - {{.}}
+        {{/lifecycle.migrateRoles}}
+        inputSchemaName: add_notes
+        processingSteps:
+        {{#lifecycle.migrateSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.migrateSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ../../../workflows/common/functions/always
+            state: editable
+  - name: editable
+    description: |
+      Object can be edited any number of times in this state
+    triggers:
+      - eventName: update
+        description: Modify object
+        roles:
+        {{#lifecycle.updateRoles}}
+          - {{.}}
+        {{/lifecycle.updateRoles}}
+        inputSchemaName: {{modelName}}
+        processingSteps:
+        {{#lifecycle.updateSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.updateSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: editable
+      - eventName: deleteRequest
+        description: Delete request
+        roles:
+        {{#lifecycle.deleteRoles}}
+          - {{.}}
+        {{/lifecycle.deleteRoles}}
+        inputSchema:
+          type: object
+          properties:
+            reason:
+              type: string
+              description: Reason for deletion
+        processingSteps:
+        {{#lifecycle.deleteSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.deleteSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: deleted
+      {{#lifecycle.validationWorkflow}}
+      - eventName: userSubmit
+        description: User has submitted data for review
+        roles:
+        {{#lifecycle.updateRoles}}
+          - {{.}}
+        {{/lifecycle.updateRoles}}
+        inputSchemaName: add_notes
+        processingSteps:
+        {{#lifecycle.userSubmitSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.userSubmitSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: waitingForReview
+      {{/lifecycle.validationWorkflow}}
+{{#lifecycle.validationWorkflow}}      
+  - name: waitingForReview
+    description: |
+      In this state administrator approves or rejects a submitted data after verification of all the details
+    triggers:
+      - eventName: reviewPass
+        roles:
+        {{#lifecycle.reviewRoles}}
+          - {{.}}
+        {{/lifecycle.reviewRoles}}
+        inputSchemaName: {{lifecycle.reviewPassSchemaName}}
+        processingSteps:
+        {{#lifecycle.reviewPassSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.reviewPassSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: waitingForValidation
+      - eventName: reviewFail
+        roles:
+        {{#lifecycle.reviewRoles}}
+          - {{.}}
+        {{/lifecycle.reviewRoles}}
+        inputSchemaName: {{lifecycle.reviewFailSchemaName}}
+        processingSteps:
+        {{#lifecycle.reviewFailSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.reviewFailSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: reviewFailed
+  - name: reviewFailed
+    description: Data review failed
+    triggers:
+      - eventName: update
+        description: Modify object
+        roles:
+        {{#lifecycle.updateRoles}}
+          - {{.}}
+        {{/lifecycle.updateRoles}}
+        inputSchemaName: {{modelName}}
+        processingSteps:
+        {{#lifecycle.updateSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.updateSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: editable
+      - eventName: deleteRequest
+        description: Delete request
+        roles:
+        {{#lifecycle.deleteRoles}}
+          - {{.}}
+        {{/lifecycle.deleteRoles}}
+        inputSchema:
+          type: object
+          properties:
+            reason:
+              type: string
+              description: Reason for deletion
+        processingSteps:
+        {{#lifecycle.deleteSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.deleteSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: deleted
+      - eventName: resubmit
+        description: User has submitted data for review
+        roles:
+        {{#lifecycle.updateRoles}}
+          - {{.}}
+        {{/lifecycle.updateRoles}}
+        inputSchemaName: add_notes
+        processingSteps:
+        {{#lifecycle.userSubmitSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.userSubmitSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: waitingForReview
+  - name: waitingForValidation
+    description: |
+      In this state administrator approves or rejects a data after verification of all the details
+    triggers:
+      - eventName: validatePass
+        roles:
+        {{#lifecycle.validateRoles}}
+          - {{.}}
+        {{/lifecycle.validateRoles}}
+        inputSchemaName: {{lifecycle.validatePassSchemaName}}
+        processingSteps:
+        {{#lifecycle.validatePassSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.validatePassSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: validated
+      - eventName: validateFail
+        roles:
+        {{#lifecycle.validateRoles}}
+          - {{.}}
+        {{/lifecycle.validateRoles}}
+        inputSchemaName: {{lifecycle.validateFailSchemaName}}
+        processingSteps:
+        {{#lifecycle.validateFailSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.validateFailSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: validateFailed
+  - name: validateFailed
+    description: Data validation failed
+    triggers:
+      - eventName: update
+        description: Modify object
+        roles:
+        {{#lifecycle.updateRoles}}
+          - {{.}}
+        {{/lifecycle.updateRoles}}
+        inputSchemaName: {{modelName}}
+        processingSteps:
+        {{#lifecycle.updateSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.updateSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: editable
+      - eventName: deleteRequest
+        description: Delete request
+        roles:
+        {{#lifecycle.deleteRoles}}
+          - {{.}}
+        {{/lifecycle.deleteRoles}}
+        inputSchema:
+          type: object
+          properties:
+            reason:
+              type: string
+              description: Reason for deletion
+        processingSteps:
+        {{#lifecycle.deleteSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.deleteSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: deleted
+      - eventName: resubmit
+        description: User has submitted data for review
+        roles:
+        {{#lifecycle.updateRoles}}
+          - {{.}}
+        {{/lifecycle.updateRoles}}
+        inputSchemaName: add_notes
+        processingSteps:
+        {{#lifecycle.userSubmitSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.userSubmitSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: waitingForReview
+  - name: validated
+    description: Data validation successful
+    triggers:
+      - eventName: createVersion
+        roles:
+        {{#lifecycle.updateRoles}}
+          - {{.}}
+        {{/lifecycle.updateRoles}}
+        inputSchemaName: add_notes
+        processingSteps:
+        {{#lifecycle.createVersionSteps}}
+          - name: {{name}}
+            description: {{description}}
+            importPath: {{{importPath}}}
+        {{/lifecycle.createVersionSteps}}
+        transitions:
+          - condition:
+              name: always
+              importPath: ~/workflows/common/functions/always
+            state: editable
+  {{/lifecycle.validationWorkflow}}
+  - name: archived
+    description: |
+      Data has been archived
+    isEndState: true
+  - name: end
+    description: End state
+    isEndState: true
+  - name: deleted
+    description: End state
+    isEndState: true

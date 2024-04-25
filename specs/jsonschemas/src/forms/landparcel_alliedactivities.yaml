@@ -1,0 +1,40 @@
+jsonschema:
+  type: object
+  properties:
+    alliedActivities:
+      type: object
+      title: 'Add allied activities'
+      properties:
+        name:
+          title: Name
+          type: string
+        size:
+          title: Size
+          type: number
+        capacity:
+          title: Capacity
+          type: number
+        category:
+          title: Category
+          type: string
+          enum:
+            - Aquaculture
+            - Apiculture
+            - Livestock
+            - Poultry Batches
+            - Sericulture
+            - Mushrooms
+          default: Aquaculture
+        photoEvidence:
+          title: Upload photo
+          type: string
+          description: 'Upload photo'
+        location:
+          title: Mark the location
+          $ref: '#/definitions/GeoLocation'
+      required:
+        - name
+        - category
+        - location
+        - photoEvidence
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_alliedactivities.yaml

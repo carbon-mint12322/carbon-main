@@ -1,0 +1,25 @@
+name: operatorInternalAuditingReportWorkflow
+startStateName: start
+description: Operator - Internal Auditing Report Event
+domainSchemaId: /farmbook/collective
+testScenariosFiles: []
+states:
+  - name: start
+    description: The Workflow starts in this state.
+    triggers:
+      - eventName: operatorInternalAuditingReportEvent
+        description: Operator - Internal Auditing Report Event
+        roles: ['AGENT', 'ADMIN'] # No roles required, ie anyone can do this
+        inputSchemaName: internalAuditingReport
+        processingSteps:
+          - name: createCollectiveEvent
+            description: Create event object for collective
+            importPath: ../../../workflows/farmbook/functions/createCollectiveEvent
+        transitions:
+          - condition:
+              name: always
+              importPath: ../../../workflows/common/functions/always
+            state: end
+  - name: end
+    description: End state
+    isEndState: true

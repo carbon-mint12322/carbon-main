@@ -1,0 +1,40 @@
+extends: ./lpEventNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Composting Harvest Event'
+  properties:
+    compostingUnit:
+      type: array
+      minItems: 1
+      items:
+        $ref: '#/definitions/CompostingUnitId'
+      title: Composting unit
+    quantity:
+      type: number
+      title: Harvesting quantity (kgs)
+      minimum: 0
+    method:
+      type: string
+      title: Harvesting method
+      description: Harvesting method (Sieving, mechanical separation, etc)
+    qualityMethod:
+      type: string
+      title: Quality Assessment
+      description: Quality Assessment (Texture, color, smell, maturity, etc.)
+    evidence:
+      title: Composting unit input evidence
+      type: array
+      items:
+        type: string
+      description: Composting unit input evidence
+    durationAndExpenses:
+      title: 'Duration and Expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - compostingUnit
+    - quantity
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/compostingHarvestEvent.yaml

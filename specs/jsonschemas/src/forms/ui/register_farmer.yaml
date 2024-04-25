@@ -1,0 +1,23 @@
+form:
+  uiSchema:
+    'ui:order':
+      - personalDetails
+      - gender  
+      - areaInAcres
+      - surveyNumber
+      - '*'
+    personalDetails:
+      'ui:order':
+        - firstName
+        - lastName
+        - primaryPhone
+        - address
+        - profilePicture
+        - '*'
+      profilePicture:
+        'ui:widget': 'file'
+      address:
+        - village
+        - state
+        - pincode
+        - '*'

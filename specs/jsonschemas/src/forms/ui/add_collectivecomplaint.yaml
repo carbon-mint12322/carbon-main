@@ -1,0 +1,19 @@
+form:
+  uiSchema:
+    compliantDetails:
+      'ui:order':
+        - complaintDate
+        - complaintName
+        - contact
+        - description
+        - location
+        - complaintType
+        - assignedTo
+        - priorityLevel
+        - status
+        - closureConfirmation
+        - attachments
+      description:
+        'ui:widget': textarea
+      attachments:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'

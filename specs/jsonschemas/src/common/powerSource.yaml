@@ -1,0 +1,120 @@
+type: object
+title: Power source
+properties:
+  name:
+    type: string
+    title: Power source name
+  source:
+    type: string
+    title: Source
+    enum:
+      - Grid connection
+      - Solar power
+      - Biogas
+      - Wind energy
+      - Generator
+      - Other sources
+    default: Grid connection
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+  location:
+    title: Mark the location of the power source
+    $ref: '#/definitions/GeoLocation'
+allOf:
+  - if:
+      properties:
+        source:
+          const: Grid connection
+    then:
+      properties:
+        gridPowerSource:
+          type: string
+          title: Grid connection source
+          enum:
+            - Commercial
+            - Agricultural connection
+            - Industrial connection
+            - Domestic connection
+            - Others
+          default: Commercial
+        gridPowerCapacity:
+          type: number
+          title: Grid power source capacity
+      if:
+        properties:
+          gridPowerSource:
+            const: Others
+      then:
+        properties:
+          otherGridPowerSource:
+            title: Other grid power source
+            type: string
+  - if:
+      properties:
+        source:
+          const: Solar power
+    then:
+      properties:
+        solarPowerCapacity:
+          type: number
+          title: Solar power source capacity
+        solarPowerAvailability:
+          type: number
+          title: Hours of availability
+  - if:
+      properties:
+        source:
+          const: Biogas
+    then:
+      properties:
+        bioGasProdCapacity:
+          title: Daily production capacity
+          type: number
+        bioGasStorageCapacity:
+          title: Storage capacity
+          type: number
+  - if:
+      properties:
+        source:
+          const: Wind energy
+    then:
+      properties:
+        windEnergyProdCapacity:
+          title: Daily production capacity
+          type: number
+        windEnergyStorageCapacity:
+          title: Storage capacity
+          type: number
+  - if:
+      properties:
+        source:
+          const: Generator
+    then:
+      properties:
+        generatorProdCapacity:
+          title: Daily production capacity
+          type: number
+        generatorStorageCapacity:
+          title: Storage capacity
+          type: number
+  - if:
+      properties:
+        source:
+          const: Other sources
+    then:
+      properties:
+        otherAvailability:
+          title: Daily availability
+          type: string
+        otherStorageCapacity:
+          title: Storage capacity
+          type: number
+
+required:
+  - name
+  - source
+  - photoEvidence
+  - location

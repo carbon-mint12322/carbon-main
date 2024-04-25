@@ -1,0 +1,112 @@
+jsonschema:
+  properties:
+    personalDetails:
+      type: object
+      properties:
+        firstName:
+          type: string
+          title: First name
+          pattern: '^[a-zA-Z\s]+$'
+        lastName:
+          type: string
+          title: Last name
+        fathersHusbandsName:
+          type: string
+          title: 'Father’s/Husband’s name'
+        primaryPhone:
+          type: string
+          title: Primary phone number
+          pattern: ^\+91\d{10}$
+        address:
+          title: ''
+          type: object
+          properties:
+            village:
+              type: string
+              title: Village
+              pattern: '^[a-zA-Z\s]+$'
+            mandal:
+              type: string
+              title: Mandal
+            state:
+              type: string
+              title: State
+              pattern: '^[a-zA-Z\s]+$'
+            pincode:
+              type: string
+              title: Pin Code
+              pattern: '^[0-9]+$'
+        identityDetails:
+          title: Identity details
+          type: object
+          properties:
+            identityNumber:
+              type: string
+              title: Identification number
+              pattern: '^[a-zA-Z0-9_]*$'
+            panCardNumber:
+              type: string
+              title: PAN card number
+              pattern: '^[a-zA-Z0-9_]*$'
+    landParcels:
+      type: string
+      title: Land Parcels
+    crops:
+      type: string
+      title: Crops
+    gender:
+      title: Gender
+      type: string
+      enum:
+        - Male
+        - Female
+        - Others
+      default: Male
+    dob:
+      title: Date of birth
+      type: string
+      format: date
+    farmingExperience:
+      type: object
+      title: Farming experience
+      properties:
+        totalFarmingExperienceYears:
+          type: number
+          title: 'Total years of experience in farming'
+          minimum: 0
+        organicFarmingExperienceYears:
+          type: number
+          title: 'Total years of experience in organic farming'
+          minimum: 0
+        cropsWithOrganicFarmingExperience:
+          type: string
+          title: 'Crops with organic farming experience'
+        livestockExperience:
+          type: string
+          title: 'Experience with livestock'
+        agriAlliedActivitiesExperience:
+          type: string
+          title: 'Experience with allied activities'
+    operatorDetails:
+      title: 'Operator details'
+      type: object
+      properties:
+        farmerID:
+          type: string
+          title: Farmer id
+    personalOrgDetails:
+      type: object
+      properties:
+        joiningDate:
+          type: string
+          format: date
+          title: Joining Date
+    collective:
+      type: string
+      title: Operator Name
+    active:
+      type: string
+      title: Status
+    createdAt:
+      type: string
+      title: Created At

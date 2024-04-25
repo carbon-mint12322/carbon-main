@@ -1,0 +1,164 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Land Preparation Basic Tillage Event'
+  properties:
+    basicTillageMethod:
+      type: string
+      enum:
+        - Primary tillage
+        - Secondary tilage
+      default: Primary tillage
+      title: Basic tillage method
+    machineriesUsed:
+      title: Machinery used
+      '$ref': '#/machineriesUsedData'
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  machineriesUsedData:
+    properties:
+      basicTillageTractor:
+        type: boolean
+        title: Tractor
+        default: false
+      basicTillageDozer:
+        type: boolean
+        title: Dozer
+        default: false
+      basicTillageBullock:
+        type: boolean
+        title: Bullock
+        default: false
+      basicTillageManual:
+        type: boolean
+        title: Manual
+        default: false
+      basicTillageOther:
+        type: boolean
+        title: Other
+        default: false
+    allOf:
+      - if:
+          properties:
+            basicTillageTractor:
+              const: true
+        then:
+          properties:
+            basicTillageTractorImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            basicTillageTractorImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              basicTillageTractorImplements:
+                const: Other
+          then:
+            properties:
+              basicTillageTractorOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            basicTillageBullock:
+              const: true
+        then:
+          properties:
+            basicTillageBullockImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            basicTillageBullockImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              basicTillageBullockImplements:
+                const: Other
+          then:
+            properties:
+              basicTillageBullockOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            basicTillageDozer:
+              const: true
+        then:
+          properties:
+            basicTillageDozerImplements:
+              title: Implement Used
+              type: string
+              enum:
+                - Chisel plough
+                - Disc plough
+                - Mould board plough
+                - Cultivator
+                - Rotovator
+                - Other
+              default: Chisel plough
+            basicTillageDozerImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+          if:
+            properties:
+              basicTillageDozerImplements:
+                const: Other
+          then:
+            properties:
+              basicTillageDozerOtherImplmentUsed:
+                type: string
+                title: 'Other implements used'
+      - if:
+          properties:
+            basicTillageManual:
+              const: true
+        then:
+          properties:
+            basicTillageManualMethod:
+              title: Manual method
+              type: string
+            totalHoursOfOperation:
+              title: Total hours of operation
+              type: number
+              minimum: 0
+              default: 0
+            expensesMet:
+              title: Expenses met
+              type: number
+              minimum: 0
+      - if:
+          properties:
+            basicTillageOther:
+              const: true
+        then:
+          properties:
+            basicTillageOtherMethod:
+              title: Other machineries used
+              type: string
+            basicTillageOtherImplementsData:
+              title: ''
+              '$ref': '#/Implements'
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+  Implements: file:../common/implements.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landPrepBasicTillageEvent.yaml

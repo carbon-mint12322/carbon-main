@@ -1,0 +1,26 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: POP name
+    description:
+      type: string
+      title: Description
+    recommendedBy:
+      title: Recommended by
+      type: string
+    cropPopType:
+      title: Crop information
+      $ref: '#/definitions/CropPOPType'
+    controlPoints:
+      title: Control points
+      type: array
+      items:
+        title: ''
+        $ref: '#/definitions/ControlPoint'
+  required:
+    - name
+    - description
+    - cropPopType
+    - controlPoints
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_pop.yaml

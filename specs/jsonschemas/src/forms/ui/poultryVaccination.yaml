@@ -1,0 +1,19 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - vaccinationType
+      - vaccineSource
+      - dosage
+      - administration
+      - noOfBirds
+      - reactions
+      - vaccinationReceipt
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    vaccinationReceipt:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+  
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpensesComp.yaml

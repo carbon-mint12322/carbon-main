@@ -1,0 +1,27 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Water Usage'
+  properties:
+    startDate:
+      title: Record start date
+      type: string
+      format: date
+    endDate:
+      title: Record end date
+      type: string
+      format: date
+    waterAmount:
+      type: number
+      title: Amount of water used per bird or per batch
+    changesInWater:
+      type: string
+      title: Notable changes in water usage
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - waterAmount
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryWaterUsage.yaml

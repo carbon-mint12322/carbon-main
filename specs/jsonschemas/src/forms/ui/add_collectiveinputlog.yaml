@@ -1,0 +1,24 @@
+form:
+  uiSchema:
+    inputLogs:
+      'ui:order':
+        - materialName
+        - brandName
+        - inputType
+        - dateOfPurchase
+        - purpose
+        - billingInformation
+        - labelInformation
+        - specificationsAndSafety
+        - sourceOfPurchase
+        - sourceContact
+        - totalExpenditure
+        - otherRemarks
+      otherRemarks:
+        'ui:widget': textarea
+      billingInformation:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      labelInformation:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      specificationsAndSafety:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'

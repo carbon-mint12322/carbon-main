@@ -1,0 +1,22 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - cropSpecific
+      - operation
+      - pinchingDate
+      - pinchingApplication
+      - tippingDate
+      - tippingApplication
+      - flowerThinningDate
+      - flowerThinningApplication
+      - fruitThinningDate
+      - fruitThinningApplication
+      - otherOperation
+      - expensesMet
+      - recommondedBy
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

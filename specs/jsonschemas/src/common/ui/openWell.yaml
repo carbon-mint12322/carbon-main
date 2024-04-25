@@ -1,0 +1,6 @@
+'ui:order':
+  - name
+  - depth
+  - diameter
+  - pumpUsed
+pumpUsed: file:~/specs/jsonschemas/src/common/ui/pumpUsed.yaml

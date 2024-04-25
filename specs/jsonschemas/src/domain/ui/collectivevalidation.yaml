@@ -1,0 +1,13 @@
+form:
+  uiSchema:
+    'ui:order':
+      - validationType
+      - otherType
+      - description
+      - validationDate
+      - doneBy
+      - outcome
+      - attachments
+      - '*'
+    attachments:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

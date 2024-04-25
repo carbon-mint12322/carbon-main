@@ -1,0 +1,51 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Output Heavy Metal Test'
+  properties:
+    outputHeavyMetalsTestReport:
+      title: Test report
+      type: string
+      description: Upload test report
+    labCertifiedByNabl:
+      title: Lab certified by NABL
+      type: string
+      enum:
+        - 'Yes'
+        - 'No'
+      default: 'Yes'
+    startDate:
+      type: string
+      format: date
+      title: Start date
+    endDate:
+      type: string
+      format: date
+      title: End date
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - outputHeavyMetalsTestReport
+    - startDate
+    - endDate
+    - totalExpenditure
+  allOf:
+    - if:
+        properties:
+          labCertifiedByNabl:
+            const: 'Yes'
+      then:
+        properties:
+          nablCertificationEvidence:
+            title: NABL certification evidence
+            type: array
+            description: NABL certification evidence
+            items:
+              type: string
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/outputHeavyMetalsTest.yaml

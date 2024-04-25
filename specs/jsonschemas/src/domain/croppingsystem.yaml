@@ -1,0 +1,62 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Name
+    category:
+      type: string
+      enum:
+        - Mono Cropping
+        - Inter Cropping
+        - Mixed Cropping
+      default: Monocropping
+      title: Category
+    field:
+      $ref: '#/definitions/FieldId'
+      title: Field
+    landParcel:
+      $ref: '#/definitions/LandParcelId'
+      title: Land parcel
+    season:
+      type: string
+      enum:
+        - Rabi
+        - Kharif
+        - Summer
+        - Perennial crop
+        - Other
+      default: Rabi
+      title: Season
+    collective:
+      $ref: '#/definitions/CollectiveId'
+      title: Collective
+    validationWorkflowId:
+      type: string
+      format: hidden
+    statusNotes:
+      type: string
+      format: hidden
+    status:
+      type: string
+      enum:
+        - Draft
+        - Under validation
+        - Under review
+        - Review failed
+        - Validation failed
+        - Approved
+        - In progress
+        - Completed
+      default: Draft
+      title: Status
+    active:
+      type: boolean
+      title: Active
+    audit:
+      $ref: '#/definitions/Audit'
+  required:
+    - name
+    - category
+    - field
+    - collective
+    - active

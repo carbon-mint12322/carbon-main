@@ -1,0 +1,35 @@
+jsonschema:
+  properties:
+    externalInspectionDetails:
+      title: Inspection Details
+      type: object
+      properties:
+        startDate:
+          title: Inspection start date
+          type: string
+          format: date
+        endDate:
+          title: Inspection end date
+          type: string
+          format: date
+        cb:
+          $ref: '#/definitions/CertificationBodyRef'
+          title: Certification body
+        inspectionDoneBy:
+          title: Inspection done by
+          type: string
+        reports:
+          type: array
+          title: Report
+          items:
+            type: string
+        notes:
+          title: Remarks
+          type: string
+      required:
+        - startDate
+        - endDate
+        - cb
+        - inspectionDoneBy
+        - reports
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_collectiveinspection.yaml

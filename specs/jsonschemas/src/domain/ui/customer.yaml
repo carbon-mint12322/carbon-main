@@ -1,0 +1,53 @@
+form:
+  uiSchema:
+    "ui:order":
+      - Company details
+      - customerId
+      - organizationId
+      - Account status
+      - "*"
+table:
+  # Options to be passed to MUI's datagrid component
+  # See Data Grid documentation for details
+  # components:
+  #   Checkbox: $p.customCheckbox
+  dataGridOptions:
+    checkboxSelection: true
+    pageSize: 10
+    autoHeight: true
+    rowHeight: 64
+    # components:
+    #   BaseCheckbox: $p.checkbox
+    sx: $p.datagridSx
+    onRowClick: $p.handleRowClick
+    columns:
+      - field: organizationDetails.name
+        headerName: Name
+        minWidth: 300
+        flex: 1
+        renderCell: $p.renderCustomerCell
+      - field: organizationDetails.address.villageOrTown
+        headerName: Location
+        minWidth: 150
+        flex: 1
+      - field: organizationDetails.email
+        headerName: Email
+        minWidth: 200
+        flex: 1
+      - field: organizationDetails.contactPerson
+        headerName: Contact person
+        minWidth: 200
+        flex: 1
+      - field: organizationDetails.contactPhoneNo
+        headerName: Contact phone no
+        minWidth: 300
+        flex: 1
+      - field: organizationDetails.website
+        headerName: Website
+        minWidth: 100
+        flex: 1
+      - field: Actions
+        headerName: Actions
+        renderCell: $p.renderActionCell
+        width: 100
+        flex: 1

@@ -1,0 +1,20 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - goats
+      - dateOfVaccination
+      - type
+      - route
+      - dose
+      - adverseReactions
+      - totalExpenditure
+      - otherRemarks
+      - '*'
+    goats:
+      'ui:field': ReferenceField
+      ui:placeholder: Select goats
+      foreignSchemaId: '/goat'
+      foreignNameField: 'tagId'
+      foreignLabelWidget: NameLabelWidget

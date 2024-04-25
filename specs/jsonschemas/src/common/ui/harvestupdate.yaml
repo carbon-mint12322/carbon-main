@@ -1,0 +1,14 @@
+'ui:order':
+  - name
+  - startDate
+  - endDate
+  - ospYear
+  - ospGrid
+  - attachments
+  - otherRemarks
+otherRemarks:
+  'ui:widget': textarea
+ospGrid:
+  ui:field: DgField
+attachments:
+  'ui:widget': 'file'

@@ -1,0 +1,129 @@
+type: object
+properties:
+  soilTestReport:
+    title: Soil test report
+    description: Upload soil test report
+    minItems: 1
+    type: array
+    items:
+      type: string
+  labCertifiedByNabl:
+    title: Lab certified by NABL
+    type: string
+    enum:
+      - 'Yes'
+      - 'No'
+    default: 'Yes'
+  soilTexture:
+    title: Soil texture (soil type)
+    type: string
+  soilColor:
+    title: Soil color
+    type: string
+  depthOfSurfaceSoil:
+    title: Depth of surface soil (cm)
+    type: number
+  n:
+    title: N
+    type: number
+    description: Nitrogen
+    minimum: 0
+  p:
+    title: P
+    type: number
+    description: Phosphorus
+    minimum: 0
+  k:
+    title: K
+    type: number
+    description: Potassium
+    minimum: 0
+  ca:
+    title: Ca
+    type: number
+    description: Calcium
+    minimum: 0
+  mg:
+    title: Mg
+    type: number
+    description: Magnesium
+    minimum: 0
+  s:
+    title: S
+    type: number
+    minimum: 0
+    description: Sulfur
+  otherMicroNutrients:
+    title: Other micronutrients
+    type: string
+  ph:
+    title: pH(0 to 14)
+    type: number
+    minimum: 0
+    maximum: 14
+    description: Potential of hydrogen
+  ec:
+    title: Ec (dsm/m)
+    type: number
+    minimum: 0
+    description: Electrical conductivity
+  organicCarbon:
+    title: Organic carbon (%)
+    type: number
+    minimum: 0
+    maximum: 100
+    description: Soil organic carbon
+  soilHeavyMetalsContamincationReport:
+    title: Soil heavy metals contamination report
+    description: Soil heavy metals contamination report
+    type: array
+    items:
+      type: string
+  soilPesticideHerbcideResiduesReport:
+    title: Soil pesticide & herbicide residues report
+    type: array
+    items:
+      type: string
+    description: Soil pesticide & herbicide residues report
+  soilBenficialHarmfulMicrobialMassReport:
+    title: Soil beneficial and harmful microbial mass report
+    description: Soil beneficial and harmful microbial mass report
+    type: array
+    items:
+      type: string
+  startDate:
+    type: string
+    format: date
+    title: Start date
+  endDate:
+    type: string
+    format: date
+    title: End date
+  totalExpenditure:
+    type: number
+    minimum: 0
+    title: Total expenditure
+  otherRemarks:
+    type: string
+    title: Other remarks
+required:
+  - startDate
+  - endDate
+  - totalExpenditure
+  - 'n'
+  - p
+  - k
+allOf:
+  - if:
+      properties:
+        labCertifiedByNabl:
+          const: 'Yes'
+    then:
+      properties:
+        nablCertificationEvidence:
+          title: NABL certification evidence
+          description: NABL certification evidence
+          type: array
+          items:
+            type: string
+uiHints: file:~/specs/jsonschemas/src/common/ui/soilInfo.yaml

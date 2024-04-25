@@ -1,0 +1,9 @@
+form:
+  uiSchema:
+    'ui:order':
+      - formTitle
+      - name
+      - description
+      - poultryPopType
+      - '*'
+    poultryPopType: file:~/specs/jsonschemas/src/common/ui/poultryPopType.yaml

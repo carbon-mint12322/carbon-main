@@ -1,0 +1,40 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - priming
+      - primingMethods
+      - otherPrimingMethod
+      - pelleting
+      - pelletingMethod
+      - otherPelletingMethod
+      - treatment
+      - treatmentMethod
+      - otherTreatmentMethod
+      - bleach
+      - bleachMethod
+      - otherBleachMethod
+      - enhancement
+      - enhancementMethod
+      - otherEnhancementMethod
+      - botanical
+      - botanicalMethod
+      - otherBotanicalMethod
+      - protection
+      - protectionMethod
+      - otherProtectionMethod
+      - growth
+      - growthMethod
+      - otherGrowthMethod
+      - bio
+      - bioMethod
+      - otherBioMethod
+      - chemical
+      - chemicalMethod
+      - otherChemicalMethod
+      - otherTreatment
+      - otherTreatmentMethodName
+      - durationAndExpenses
+      - otherRemarks
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

@@ -1,0 +1,204 @@
+form:
+  uiSchema:
+    pop:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a POP
+      foreignSchemaId: '/pop'
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: pop
+      foreignLabelWidget: NameLabelWidget
+    masterCrop:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a master crop
+      foreignSchemaId: '/mastercrop'
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: mastercrop
+      foreignLabelWidget: NameLabelWidget
+    'ui:order':
+      - plot
+      - pop
+      - masterCrop
+      - name
+      - cropType
+      - cropTag
+      - plantingMaterial
+      - seedVariety
+      - seedSource
+      - areaInAcres
+      - category
+      - season
+      - otherGrowingSeason
+      - estimatedPopulation
+      - estimatedYieldTonnes
+      - plannedSowingDate
+      - estHarvestDate
+      - nutritionRequirements
+      - '*'
+    nutritionRequirements:
+      'ui:order':
+        - greenManure
+        - greenManureRequirements
+        - greenLeafManure
+        - greenLeafManureRequirements
+        - fym
+        - fymRequirements
+        - concentrates
+        - concentratesRequirements
+        - bioFertilizer
+        - bioFertilizerRequirements
+        - otherComposts
+        - otherCompostsRequirements
+        - biodynamicPreparations
+        - biodynamicPreparationsRequirements
+        - chemicalFertilizers
+        - chemicalFertilizersRequirements
+        - microNutrients
+        - microNutrientsRequirements
+        - minerals
+        - mineralsRequirements
+        - bioStimulants
+        - bioStimulantsRequirements
+        - plantGrowthRegulators
+        - plantGrowthRegulatorsRequirements
+        - growthRetardants
+        - growthRetardantsRequirements
+        - otherProducts
+        - otherProductsRequirements
+        - '*'
+      greenManureRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      greenLeafManureRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      fymRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      concentratesRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      bioFertilizerRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      biodynamicPreparationsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      microNutrientsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      otherCompostsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      chemicalFertilizersRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      mineralsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+      bioStimulantsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+      plantGrowthRegulatorsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+      growthRetardantsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+      otherProductsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'

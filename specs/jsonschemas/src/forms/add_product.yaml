@@ -1,0 +1,5 @@
+jsonschema:
+  type: object
+  title: Product details
+  $ref: '#/definitions/ProductInfo'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_product.yaml

@@ -1,0 +1,123 @@
+name: agent-signup-example
+startStateName: start
+description: |
+  This is an example workflow illustrating how to specify a workflow with
+  its states, transitions and execution steps.
+# The schema ID of the objects we will be dealing with in this
+# workflow. The object ID will be passed into workflow
+# processEvent. Objects matching schema and ID are automatically
+# loaded when workflow events are processed.
+domainSchemaId: /farmbook/farmer
+states:
+  - name: start
+    description: The Workflow starts in this state.
+    triggers:
+      - eventName: signupFromWeb
+        description: new agent signs up from web site. No roles specified, anyone can invoke this.
+        roles: [] # No roles required, ie anyone can do this
+        inputSchemaName: agent
+        processingSteps:
+          # DB Load and save are done automatically, don't add them
+          # here
+          - name: sendEmail
+            description: Send an email to the user to confirm their email.
+            importPath: ../../../workflows/common/functions/always
+        transitions:
+          - condition:
+              name: always
+              importPath: ../../../workflows/common/functions/always
+            state: waitForEmailVerification
+  - name: waitForEmailVerification
+    description: |
+      In this state we wait for user to confirm their email address
+    triggers:
+      - eventName: verify
+        inputSchema: {}
+        # User details and timestamp are logged for all triggers
+        processingSteps:
+          # DB Load and save are done automatically, don't add them
+          # here
+          - name: verifyCode
+            description: This event verifies the code sent to the user.
+            # If this function rejects the code, an aerror is thrown
+            # back. State machine does not advance
+            importPath: ../../../workflows/common/functions/always
+        transitions:
+          - state: waitForApproval
+  - name: waitForApproval
+    description: |
+      In this state we wait for approval from an authorized person to
+      approve the agent to be added to the system
+    triggers:
+      - eventName: approve
+        roles:
+          - ADMIN
+        # User details and timestamp are logged for all triggers
+        processingSteps:
+          # DB Load and save are done automatically, don't add them
+          # here
+          - name: approveAgent
+            description: This is just an example
+            # If this function rejects the code, an aerror is thrown
+            # back. State machine does not advance
+            importPath: ../../../workflows/common/functions/always
+        inputSchema:
+          type: object
+          properties:
+            # User details and timestamp are logged for all triggers
+            notes:
+              type: string
+        transitions:
+          # condition omitted - implies "always"
+          - state: approved
+      - eventName: reject
+        processingSteps:
+          - name: rejectAgent
+            description: Reject an agent signup
+            importPath: ../../../workflows/common/functions/always
+        inputSchema:
+          type: object
+          properties:
+            # User details and timestamp are logged for all triggers
+            reason:
+              type: string
+        transitions:
+          - state: rejected
+  - name: approved
+    description: |
+      Agent has been approved
+    triggers:
+      - eventName: revoke
+        roles:
+          - ADMIN
+        description: |
+          Revoke an agent account
+        inputSchema:
+          type: object
+          properties:
+            reason:
+              type: string
+        transitions:
+          # condition omitted - implies "always"
+          - state: revoked
+  - name: rejected
+    description: |
+      Agent application has been denied
+    triggers:
+      - eventName: archive
+        roles:
+          - ADMIN
+        description: |
+          Archive data
+        inputSchema:
+          type: object
+          properties:
+            notes:
+              type: string
+        transitions:
+          # condition omitted - implies "always"
+          - state: archived
+  - name: archived
+    description: |
+      Agent application has been denied
+    isEndState: true

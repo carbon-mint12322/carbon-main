@@ -1,0 +1,16 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - startDate
+      - endDate
+      - noOfEggs
+      - averageWeight
+      - qualityIssues
+      - totalExpenditure
+      - evidence
+      - otherRemarks
+      - '*'
+    evidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

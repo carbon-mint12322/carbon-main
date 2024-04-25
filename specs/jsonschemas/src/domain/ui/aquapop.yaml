@@ -1,0 +1,12 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - description
+      - aquaPopType
+      - controlPoints
+      - '*'
+    active:
+      'ui:field': Hidden
+    aquaPopType: file:~/specs/jsonschemas/src/common/ui/aquaPopType.yaml
+    controlPoints: file:~/specs/jsonschemas/src/common/ui/controlPoint.yaml

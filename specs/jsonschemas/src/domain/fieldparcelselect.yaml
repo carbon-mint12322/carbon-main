@@ -1,0 +1,9 @@
+jsonschema:
+  title: Select Field Parcel
+  properties:
+    fieldparcel:
+      $ref: '#/definitions/FieldParcelRef'
+      title: Field Parcel
+  required:
+    - fieldparcel
+uiHints: file:~/specs/jsonschemas/src/domain/ui/fieldparcelselect.yaml

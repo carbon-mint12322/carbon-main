@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    securityHouses: file:~/specs/jsonschemas/src/common/ui/securityHouse.yaml

@@ -1,0 +1,300 @@
+type: object
+properties:
+  name:
+    title: Name
+    type: string
+  startDate:
+    title: Harvest update start date
+    type: string
+    format: date
+  endDate:
+    title: Harvest update end date
+    type: string
+    format: date
+  ospYear:
+    title: Organic system plan year
+    type: number
+    minimum: 2000
+    maximum: 3000
+  ospGrid:
+    type: array
+    items:
+      type: object
+      title: Plan
+      properties:
+        sNo:
+          type: number
+          title: 'S.No.'
+        village:
+          type: string
+          title: Vilage
+        farmerName:
+          type: string
+          title: Farmer Name
+        fatherName:
+          type: string
+          title: Father Name
+        regNo:
+          type: string
+          title: Tracenet Code No. (Farmer Reg No.)
+        totalArea:
+          type: number
+          title: Total Area (Ha)
+        latitude:
+          title: Latitude
+          type: string
+        longitude:
+          title: Longitude
+          type: string
+        crop1:
+          type: string
+          title: Crop
+        cropType1:
+          title: Crop Type (M/I/C/B)
+          type: string
+          enum:
+            - M
+            - I
+            - C
+            - B
+          default: M
+        cropArea1:
+          title: Crop Area (Ha)
+          type: number
+        estQty1:
+          title: Est. Quantity (MT)
+          type: number
+        variety1:
+          title: Variety
+          type: string
+        sowingDate1:
+          title: Sowing Date
+          type: string
+          format: date
+        harvestDate1:
+          title: Harvest Date
+          type: string
+          format: date
+        actualYield1:
+          title: Actual Yield (MT)
+          type: number
+        crop2:
+          type: string
+          title: Crop
+        cropType2:
+          title: Crop Type (M/I/C/B)
+          type: string
+          enum:
+            - M
+            - I
+            - C
+            - B
+          default: M
+        cropArea2:
+          title: Crop Area (Ha)
+          type: number
+        estQty2:
+          title: Est. Quantity (MT)
+          type: number
+        variety2:
+          title: Variety
+          type: string
+        sowingDate2:
+          title: Sowing Date
+          type: string
+          format: date
+        harvestDate2:
+          title: Harvest Date
+          type: string
+          format: date
+        actualYield2:
+          title: Actual Yield (MT)
+          type: number
+        crop3:
+          type: string
+          title: Crop
+        cropType3:
+          title: Crop Type (M/I/C/B)
+          type: string
+          enum:
+            - M
+            - I
+            - C
+            - B
+          default: M
+        cropArea3:
+          title: Crop Area (Ha)
+          type: number
+        estQty3:
+          title: Est. Quantity (MT)
+          type: number
+        variety3:
+          title: Variety
+          type: string
+        sowingDate3:
+          title: Sowing Date
+          type: string
+          format: date
+        harvestDate3:
+          title: Harvest Date
+          type: string
+          format: date
+        actualYield3:
+          title: Actual Yield (MT)
+          type: number
+        crop4:
+          type: string
+          title: Crop
+        cropType4:
+          title: Crop Type (M/I/C/B)
+          type: string
+          enum:
+            - M
+            - I
+            - C
+            - B
+          default: M
+        cropArea4:
+          title: Crop Area (Ha)
+          type: number
+        estQty4:
+          title: Est. Quantity (MT)
+          type: number
+        variety4:
+          title: Variety
+          type: string
+        sowingDate4:
+          title: Sowing Date
+          type: string
+          format: date
+        harvestDate4:
+          title: Harvest Date
+          type: string
+          format: date
+        actualYield4:
+          title: Actual Yield (MT)
+          type: number
+        remarks:
+          type: string
+          title: Remarks
+      required:
+        - sNo
+        - village
+        - farmerName
+        - regNo
+        - totalArea
+        - latitude
+        - longitude
+    columns:
+      - field: sNo
+        headerName: S.No
+        width: 50
+      - field: village
+        headerName: Village
+        width: 100
+      - field: farmerName
+        headerName: Farmer Name
+        width: 100
+      - field: fatherName
+        headerName: Farther Name
+        width: 100
+      - field: regNo
+        headerName: Tracenet Code No.
+        width: 100
+      - field: totalArea
+        headerName: Total Area (Ha)
+        width: 100
+      - field: latitude
+        headerName: Latitude
+        width: 100
+      - field: longitude
+        headerName: Longitude
+        width: 100
+      - field: crop1
+        headerName: Crop
+        width: 100
+      - field: cropType1
+        headerName: Crop Type (M/I/C/B)
+        width: 50
+      - field: cropArea1
+        headerName: Crop Areaw (Ha)
+        width: 50
+      - field: estQty1
+        headerName: Est. Quantity (MT)
+        width: 50
+      - field: variety1
+        headerName: Variety
+        width: 100
+      - field: sowingDate1
+        headerName: Sowing Date
+        width: 100
+      - field: crop2
+        headerName: Crop
+        width: 100
+      - field: cropType2
+        headerName: Crop Type (M/I/C/B)
+        width: 50
+      - field: cropArea2
+        headerName: Crop Areaw (Ha)
+        width: 50
+      - field: estQty2
+        headerName: Est. Quantity (MT)
+        width: 50
+      - field: variety2
+        headerName: Variety
+        width: 100
+      - field: sowingDate2
+        headerName: Sowing Date
+        width: 100
+      - field: crop3
+        headerName: Crop
+        width: 100
+      - field: cropType3
+        headerName: Crop Type (M/I/C/B)
+        width: 50
+      - field: cropArea3
+        headerName: Crop Areaw (Ha)
+        width: 50
+      - field: estQty3
+        headerName: Est. Quantity (MT)
+        width: 50
+      - field: variety3
+        headerName: Variety
+        width: 100
+      - field: sowingDate3
+        headerName: Sowing Date
+        width: 100
+      - field: crop4
+        headerName: Crop
+        width: 100
+      - field: cropType4
+        headerName: Crop Type (M/I/C/B)
+        width: 50
+      - field: cropArea4
+        headerName: Crop Areaw (Ha)
+        width: 50
+      - field: estQty4
+        headerName: Est. Quantity (MT)
+        width: 50
+      - field: variety4
+        headerName: Variety
+        width: 100
+      - field: sowingDate4
+        headerName: Sowing Date
+        width: 100
+      - field: remarks
+        headerName: Rekmarks
+        width: 200
+    title: Harvest Update
+  attachments:
+    title: Reports
+    type: string
+    description: Upload any reports
+  otherRemarks:
+    type: string
+    title: Other remarks
+required:
+  - name
+  - startDate
+  - endDate
+  - ospYear

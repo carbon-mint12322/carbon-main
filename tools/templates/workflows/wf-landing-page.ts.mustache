@@ -1,0 +1,73 @@
+// Generated code (template: tools/templates/workflows/wf-landing-page.tsx.mustache)
+import { useState } from "react";
+import { useRouter } from 'next/router'
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+
+import { getWithRQ } from "~/frontendlib/model-lib/crudRQ";
+
+{{#forms}}
+import {{name}}Form from "{{{ path }}}";
+{{/forms}}
+
+const formTable: Record<string, any> = {
+{{#forms}}
+  {{name}}: {{name}}Form,
+{{/forms}}
+}
+
+const wfInstSchemaId = "/workflow/WfInstance";
+
+function WorkflowPage(props:any) {
+		const [eventIndex, setEventIndex] = useState(0);
+		const {query}:{query:any} = useRouter();
+		if (! query?.params?.id) {
+				return <div>...</div>;
+		}
+
+		const {id}:{id:string} = query.params;// wf instance id
+		
+		const { isLoading, data }:{isLoading:boolean, data:any} = getWithRQ(wfInstSchemaId, id,{});
+		if (isLoading) {
+				return <div>Loading...</div>;
+		}
+		const {
+  		state, def,
+
+			// Use the following to load domain object to show context
+		  // domainSchemaId, domainObjectId,
+    } = data;// WF instance
+    const currentStateName = state.name;
+		const stateDef = def.states.find((st:any) => st.name === currentStateName);
+		// list of possible events in current state
+		const events: string[] = stateDef.triggers.map((tr:any) => tr.eventName);
+		if (events.length === 0) {
+			 return <div>Looks like this workflow reached an end state</div>
+		}
+		const forms: any = events.map((eventName:string):any => {
+				const form: any = formTable[eventName];
+				return { eventName, form };
+		});
+		
+		const Form = forms[eventIndex].form;
+
+		const onSubmit = () => 0;		
+    const onEventIndexChange = (evt: any) => setEventIndex(+evt.target.value);
+
+		return (
+      <>
+        <Select
+            value={eventIndex}
+            label="Event"
+            onChange={onEventIndexChange}
+        >
+				  {events.map((evt, i) => 
+            <MenuItem key={i} value={i}>{evt}</MenuItem>
+					)}
+        </Select>
+				<Form onSubmit={onSubmit}/>
+      </>
+		);
+}
+
+export default WorkflowPage;

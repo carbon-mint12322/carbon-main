@@ -1,0 +1,9 @@
+jsonschema:
+  title: Select Land Parcel
+  properties:
+    landparcel:
+      $ref: '#/definitions/LandParcelRef'
+      title: Land Parcel
+  required:
+    - landparcel
+uiHints: file:~/specs/jsonschemas/src/domain/ui/landparcelselect.yaml

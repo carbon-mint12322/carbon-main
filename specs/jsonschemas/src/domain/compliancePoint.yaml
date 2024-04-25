@@ -1,0 +1,4 @@
+jsonschema:
+  title: Add compliance point
+  '$ref': '#/definitions/CompliancePoint'
+

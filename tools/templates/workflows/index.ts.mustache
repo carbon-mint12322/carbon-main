@@ -1,0 +1,18 @@
+// Generated code (template: tools/templates/workflows/index.tsx.mustache)
+import {
+  WorkflowEvent, WorkflowDefinition, MappedWorkflowDefinition
+} from "../../backendlib/workflow/types";
+
+/* Workflow definition lookup table */
+const index : Record<string, () => Promise<MappedWorkflowDefinition>> = {
+{{#workflows}}
+  "{{name}}":  async () => (await import("../../gen/workflows/{{name}}/api-handler")).mappedWfdef,
+{{/workflows}}
+};
+
+ const getWorkflowDef = (name: string): Promise<any> => {
+  const loader = index[name];
+  return loader();
+}
+
+export default getWorkflowDef;

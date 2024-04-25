@@ -1,0 +1,111 @@
+jsonschema:
+  type: object
+  title: 'Water sources information event'
+  properties:
+    waterSource:
+      title: Source of water for irrigation, farm activities and daily needs
+      type: array
+      minItems: 1
+      items:
+        type: string
+        enum:
+          - borewell
+          - openWell
+          - canal
+          - river
+          - pond
+          - reservoir
+          - others
+        enumNames:
+          - Borewell
+          - Open well
+          - Canal
+          - River
+          - Pond
+          - Reservoir
+          - Others
+      uniqueItems: true
+    evidenceRequired:
+      title: Upload evidence
+      type: string
+
+      description: Upload water source evidence
+    waterAnalysisReport:
+      title: Water analysis report pH, Heavy metals & Chemical residues
+      type: string
+
+      description: Water analysis report pH, Heavy metals & Chemical residues
+    dataSensors:
+      title: Real-time data sensors & weather data capturing instruments facilities at the farm
+      type: array
+      minItems: 1
+      items:
+        type: string
+        enum:
+          - transmissometers
+          - yygrometers
+          - Thermometers
+          - barometers
+          - rainGauges
+          - windVanes
+          - anemometers
+          - iotDevices
+          - others
+        enumNames:
+          - Transmissometers
+          - Hygrometers
+          - Thermometers
+          - Barometers
+          - Rain gauges
+          - Wind vanes
+          - Anemometers
+          - IoT ‘s data management system
+          - Others
+      uniqueItems: true
+    dataSensorsEvidence:
+      title: Evidence for data sensors at the farm
+      type: string
+
+      description: Evidence for data sensors at the farm
+    weatherRecordData:
+      title: Do you recorded weather data from the past three years in your farm
+      type: string
+      enum:
+        - 'Yes'
+        - 'No'
+      default: 'No'
+  allOf:
+    - if:
+        properties:
+          waterSource:
+            contains:
+              type: string
+              const: others
+      then:
+        properties:
+          otherWaterSource:
+            title: Other water source
+            type: string
+    - if:
+        properties:
+          dataSensors:
+            contains:
+              type: string
+              const: others
+      then:
+        properties:
+          otherDataSensors:
+            title: Other data sensor & measuring instruments
+            type: string
+    - if:
+        properties:
+          weatherRecordData:
+            const: 'Yes'
+      then:
+        properties:
+          weatherRecordDataEvidence:
+            title: Evidence for past weather data
+            type: string
+
+            description: Evidence for past weather data
+uiHints: file:~/specs/jsonschemas/src/forms/ui/waterSourcesInfo.yaml

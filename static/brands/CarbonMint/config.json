@@ -1,0 +1,44 @@
+{
+  "subdomain": "carbonmint",
+  "config": {
+    "name": "ORGOSS",
+    "loginDesc": "ORGOSS is a control-corrective and quantitative-traceables based Organic Cotton Integrity program of Organova Bio-Agriculture Private Limited.",
+    "carousel": [
+      {
+        "mission": "WHY ORGOSS",
+        "missionDesc": "Chain of custody by itself does not guarantee Organic traceability. Organic identity require a traceability system driven by Organic Control Points (OCP) based traces that quantitatively measure integrity unlike a Organic System Plan (OSP) traces, which does not guarantee Organic integrity."
+      },
+      {
+        "mission": "HOW ORGOSS PROGRAM WORKS",
+        "missionDesc": "ORGOSS aims to build a ‘Class F’ system for organic cotton reproductive material in a long term perspective and offers a metrics based control-corrective for the existing supply chain utilizing Event-based GMO testing in a short-term perspective, together ensuring stewardship of organic cotton supply chain ‘authentic & sustainable’."
+      }
+    ],
+    "logo": "/orgoss/logo.png",
+    "logoWidth": "180px",
+    "headerLogo": "/orgoss/logo.png",
+    "headerLogoWidth": "130px",
+    "subdomain": "orgoss",
+    "id": "0242120002125",
+    "organizationId": "orgoss"
+  },
+  "theme": {
+    "organizationId": "carbonmint",
+    "theme": {
+      "palette": {
+        "mode": "light",
+        "primary": {
+          "main": "#F79023",
+          "light": "#f7b323",
+          "dark": "#f77e23",
+          "contrastText": "#FFFFFF"
+        },
+        "secondary": {
+          "main": "#DCE8E1",
+          "light": "#DCE8DE",
+          "dark": "#DCE8E4",
+          "contrastText": "#0E8140"
+        }
+      }
+    }
+  }
+}

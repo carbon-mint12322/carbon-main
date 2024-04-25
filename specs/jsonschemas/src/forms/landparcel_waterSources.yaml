@@ -1,0 +1,110 @@
+jsonschema:
+  type: object
+  properties:
+    waterSources:
+      title: Water source information
+      properties:
+        source:
+          type: string
+          title: Select water source
+          enum:
+            - Borewell
+            - Open well
+            - Canal
+            - Other water source
+          default: Borewell
+        photoEvidence:
+          $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+          title: Upload photo evidence
+          description: Photo Evidence
+          default: []
+        location:
+          title: Mark the location of the water source
+          $ref: '#/definitions/GeoLocation'
+      allOf:
+        - if:
+            properties:
+              source:
+                const: Borewell
+          then:
+            properties:
+              name:
+                title: Borewell name
+                type: string
+              depth:
+                title: Depth
+                type: number
+              diameter:
+                title: Diameter (inches)
+                type: number
+              pumpUsed: file:~/specs/jsonschemas/src/common/pumpUsed.yaml
+            required:
+              - name
+              - depth
+              - diameter
+        - if:
+            properties:
+              source:
+                const: Open well
+          then:
+            properties:
+              name:
+                title: Open well name
+                type: string
+              depth:
+                title: Depth
+                type: number
+              diameter:
+                title: Diameter (inches)
+                type: number
+              pumpUsed: file:~/specs/jsonschemas/src/common/pumpUsed.yaml
+            required:
+              - name
+              - depth
+              - diameter
+        - if:
+            properties:
+              source:
+                const: Canal
+          then:
+            properties:
+              name:
+                title: Canal name
+                type: string
+              availability:
+                title: Available months
+                type: string
+              quantity:
+                title: Potential quantity (Irrigatable water / hour)
+                type: number
+              pumpUsed: file:~/specs/jsonschemas/src/common/pumpUsed.yaml
+            required:
+              - name
+              - availability
+              - quantity
+        - if:
+            properties:
+              source:
+                const: Other water source
+          then:
+            properties:
+              name:
+                title: Name
+                type: string
+              capacity:
+                title: Total capacity in liters
+                type: number
+                minimum: 0
+              availability:
+                title: Availability months
+                type: string
+              pumpUsed: file:~/specs/jsonschemas/src/common/pumpUsed.yaml
+            required:
+              - name
+              - capacity
+              - availability
+      required:
+        - source
+        - photoEvidence
+        - location
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_waterSources.yaml

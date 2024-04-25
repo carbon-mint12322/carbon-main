@@ -1,0 +1,69 @@
+jsonschema:
+  properties:
+    ncDate:
+      title: Non-Confirmity date
+      type: string
+      format: date
+    cb:
+      $ref: '#/definitions/CertificationBodyId'
+      title: Certification body
+    description:
+      title: Description
+      type: string
+    location:
+      title: Location of non-confirmity
+      type: string
+    scope:
+      title: Non-Confirmity scope
+      type: string
+    severity:
+      title: Severity level
+      type: string
+      enum:
+        - Minor
+        - Major
+        - Crtical
+      default: Minor
+    evidence:
+      type: array
+      title: Attachements
+      items:
+        type: string
+    rca:
+      title: Root cause analysis
+      type: string
+    correctiveActionPlan:
+      title: Corrective action plan
+      type: string
+    targetDate:
+      title: Target resolution date
+      type: string
+      format: date
+    status:
+      title: Status of resolution
+      type: string
+      enum:
+        - In progress
+        - Completed
+        - Delayed
+    verification:
+      title: Verification of resolution
+      type: string
+    notes:
+      title: Comments or notes
+      type: string
+    closureConfirmation:
+      title: Closure confirmation
+      type: string
+
+  required:
+    - ncDate
+    - cb
+    - description
+    - location
+    - scope
+    - severity
+    - evidence
+    - targetDate
+
+uiHints: file:~/specs/jsonschemas/src/domain/ui/collectivenonconfirmity.yaml

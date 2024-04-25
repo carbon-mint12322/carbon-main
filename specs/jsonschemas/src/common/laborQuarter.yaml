@@ -1,0 +1,33 @@
+type: object
+title: Labor Quarter
+properties:
+  name:
+    type: string
+    title: Name
+  type:
+    type: string
+    title: type
+    enum:
+      - Shared
+      - Individual
+      - Other
+    default: Shared
+  condition:
+    type: string
+    title: Condition
+  capacity:
+    type: string
+    title: Capacity
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+  map:
+    title: Labor quarters map
+    type: string
+required:
+  - name
+  - type
+  - photoEvidence
+  - map

@@ -1,0 +1,55 @@
+form:
+  uiSchema:
+    "ui:order":
+      - Personal details
+      - Organization details
+      - userId
+      - organizationId
+      - Account status
+      - "*"
+table:
+  # Options to be passed to MUI's datagrid component
+  # See Data Grid documentation for details
+  # components:
+  #   Checkbox: $p.customCheckbox
+  dataGridOptions:
+    checkboxSelection: true
+    pageSize: 10
+    autoHeight: true
+    rowHeight: 64
+    # components:
+    #   BaseCheckbox: $p.checkbox
+    sx: $p.datagridSx
+    onRowClick: $p.handleRowClick
+    columns:
+      - field: technicianName
+        headerName: Name
+        minWidth: 300
+        flex: 1
+        renderCell: $p.renderTechnicianCell
+      - field: personalDetails.primaryPhone
+        headerName: Phone Number
+        minWidth: 150
+        flex: 1
+      - field: personalDetails.email
+        headerName: Email
+        minWidth: 200
+        flex: 1
+      - field: personalOrgDetails.orgRole
+        headerName: Role
+        minWidth: 200
+        flex: 1
+      - field: personalOrgDetails.identificationDocumentFile
+        headerName: ID Proof
+        renderCell: $p.renderIdproofCell
+        minWidth: 300
+        flex: 1
+      - field: personalOrgDetails.joiningDate
+        headerName: Joining Date
+        minWidth: 100
+        flex: 1
+      - field: Actions
+        headerName: Actions
+        renderCell: $p.renderActionCell
+        width: 100
+        flex: 1

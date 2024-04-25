@@ -1,0 +1,56 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Other Test'
+  properties:
+    othersTest:
+      type: object
+      title: 'Output - Others test report'
+    outputOthers:
+      type: string
+      title: Other type of test from output
+    outputOthersTestReport:
+      title: Test report
+      type: string
+      description: Upload test report
+    labCertifiedByNabl:
+      title: Lab certified by NABL
+      type: string
+      enum:
+        - 'Yes'
+        - 'No'
+      default: 'Yes'
+    startDate:
+      type: string
+      format: date
+      title: Test start date
+    endDate:
+      type: string
+      format: date
+      title: Test end date
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - outputOthersTestReport
+    - startDate
+    - endDate
+    - totalExpenditure
+  allOf:
+    - if:
+        properties:
+          labCertifiedByNabl:
+            const: 'Yes'
+      then:
+        properties:
+          nablCertificationEvidence:
+            title: NABL certification evidence
+            type: string
+
+            description: NABL certification evidence
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/outputOthersTest.yaml

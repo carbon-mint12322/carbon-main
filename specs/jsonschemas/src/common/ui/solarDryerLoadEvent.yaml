@@ -1,0 +1,24 @@
+otherRemarks:
+  'ui:widget': textarea
+'ui:order':
+  - solarDryer
+  - inputMaterials
+  - inputCost
+  - quantity
+  - dryingHours
+  - weightAfterDrying
+  - energyConsumption
+  - waterConsumption
+  - wastage
+  - dryingEvidence
+  - durationAndExpenses
+  - otherRemarks
+  - '*'
+dryingEvidence:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml
+solarDryer:
+  'ui:field': ReferenceField
+  ui:placeholder: Select solar dryers
+  foreignSchemaId: '/landparcel'
+  foreignLabelWidget: NameLabelWidget

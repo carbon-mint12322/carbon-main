@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    dinings: file:~/specs/jsonschemas/src/common/ui/dining.yaml

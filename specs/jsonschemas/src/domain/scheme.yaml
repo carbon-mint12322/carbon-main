@@ -1,0 +1,65 @@
+extends: ./entityValidationLifecycle.yaml
+readableName: Scheme
+readableNamePlural: Schemes
+jsonschema:
+  properties:
+    certificationBodyId:
+      $ref: '#/definitions/CertificationBodyRefId'
+      title: Certification body
+    scheme:
+      title: 'Scheme'
+      type: string
+      enum:
+        - NPOP
+        - NOP
+        - IndGAP
+        - GlobalGAP
+        - FairTrade
+        - BAP
+        - ASC
+      default: NPOP
+    registrationDate:
+      title: Registration date
+      type: string
+      format: date 
+    conversionStatus:
+      title: Conversion status
+      type: string
+      enum:
+        - C1
+        - C2
+        - C3
+        - NA
+      default: C1
+    certificationStatus:
+      title: Organic certification status
+      type: string
+      enum:
+        - Valid
+        - Suspended
+        - Withdrawn
+        - Expired
+        - In-progress
+      default: In-progress
+    certificationDocument:
+      title: Certification document
+      type: array
+      items:
+        type: string
+    validityStartDate:
+      title: Certification validity start date
+      type: string
+      format: date
+    validityEndDate:
+      title: Certification validity end date
+      type: string
+      format: date
+    certificationAuthority:
+      type: string
+      title: Certification Authority Name
+
+  required:
+    - certificationBodyId
+    - scheme
+    - registrationDate
+uiHints: file:~/specs/jsonschemas/src/domain/ui/scheme.yaml

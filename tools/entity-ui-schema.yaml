@@ -1,0 +1,241 @@
+type: 'object'
+properties:
+  form:
+    title: Form Schema
+    type: object
+    properties:
+      uiSchema:
+        type: object
+        properties:
+          'ui:order':
+            title: Field Order
+            type: array
+            items:
+              type: string
+  createPage:
+    type: object
+    title: Create Page
+    properties:
+      titleBar:
+        title: Title Bar
+        type: object
+        properties:
+          pageTitle:
+            title: Page Title
+            type: string
+          pageSubTitle:
+            title: Page Subtitle
+            type: string
+      schema:
+        type: string
+  detailPage:
+    title: Detail Page
+    type: object
+    properties:
+      showMap:
+        type: boolean
+      titleBar:
+        title: Title Bar
+        type: object
+        properties:
+          pageTitle:
+            title: Page Title
+            type: string
+          pageSubTitle:
+            title: Page Subtitle
+            type: string
+      overviewFields:
+        title: Overview Field List
+        type: array
+        items:
+          type: object
+          properties:
+            title:
+              type: string
+            field:
+              type: string
+      tabs:
+        title: Tabs
+        type: array
+        items:
+          type: object
+          title: Tab
+          properties:
+            type:
+              title: Tab Type
+              enum:
+                - overview
+                - info
+                - entityProgress
+                - events
+                - documents
+                - history
+                - impact
+                - landparcels
+                - schemepopevents
+                - tasks
+                - list
+                - serviceRequests
+                - farmerSubmissions
+            title:
+              type: string
+        default:
+          - type: overview
+            title: Overview
+          - type: info
+            title: Info
+          - type: entityProgress
+            title: Entity Progress
+          - type: events
+            title: Events
+          - type: documents
+            title: Documents
+          - type: history
+            title: History
+          - type: impact
+            title: Impact
+  listPage:
+    title: List Page
+    required:
+      - colDefs
+    type: object
+    properties:
+      titleBar:
+        title: Title Bar
+        type: object
+        properties:
+          pageTitle:
+            title: Page Title
+            type: string
+          pageSubTitle:
+            title: Page Subtitle
+            type: string
+      showInactiveDefault:
+        title: Show Inactive Default
+        type: boolean
+      isMultiSelect:
+        title: Multi-select
+        type: boolean
+      customFilterKeys:
+        title: Custom Filter Keys
+        type: array
+        items:
+          type: string
+      bulkActions:
+        title: Bulk Actions
+        type: array
+        items:
+          type: object
+          properties:
+            label:
+              type: string
+            operation:
+              type: string
+      colDefs:
+        title: Column Definitions
+        type: array
+        items:
+          type: object
+          properties:
+            field:
+              title: Field Name
+              type: string
+            headerName:
+              title: Column Header
+              type: string
+            sortable:
+              title: Sortable
+              type: boolean
+            filter:
+              type: string
+            maxWidth:
+              title: Max Width
+              type: number
+            flex:
+              type: number
+            renderCell:
+              type: string
+            valueGetter:
+              type: string
+  eventCreatePage:
+    title: Event Create Page
+    type: object
+    properties:
+      titleBar:
+        title: Title Bar
+        type: object
+        properties:
+          pageTitle:
+            title: Page Title
+            type: string
+          pageSubTitle:
+            title: Page Subtitle
+            type: string
+      eventContextSchema:
+        type: string
+      workflowNames:
+        type: array
+        items:
+          type: array
+          items:
+            type: string
+      eventTitles:
+        titles: Event Titles
+        type: array
+        items:
+          type: string
+        default:
+          - 'Health Management'
+          - 'Production Management'
+          - 'Environmental Impact'
+          - 'Reports'
+          - 'Input Log'
+          - 'Observations'
+      eventSubtitles:
+        title: Event Subtitles
+        type: array
+        items:
+          title: Subtitle
+          type: array
+          items:
+            type: string
+        default:
+          - - 'Vaccination'
+            - 'Medication'
+            - 'Mortality'
+            - 'Diagnostic Test'
+
+          - - 'Feed'
+            - 'Culling'
+            - 'Harvest'
+            - 'Egg Collection'
+            - 'Shed Preparation'
+            - 'Chicks Procurement'
+            - 'Chicks Placement'
+
+          - - 'Feed Efficiency'
+            - 'Water Usage'
+            - 'Waste Management'
+            - 'Energy Usage'
+            - 'Land Use'
+
+          - - 'Water Test'
+            - 'Others Test'
+            - 'Audit Report'
+            - 'Inspection Report'
+          - - 'None'
+          - - 'None'
+  eventEditPage:
+    title: Event Edit Page
+    type: object
+    properties:
+      titleBar:
+        title: Title Bar
+        type: object
+        properties:
+          pageTitle:
+            title: Page Title
+            type: string
+          pageSubTitle:
+            title: Page Subtitle
+            type: string

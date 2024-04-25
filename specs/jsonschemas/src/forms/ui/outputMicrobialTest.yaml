@@ -1,0 +1,19 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - microbialTest
+      - testTitle
+      - outputMicrobialTestReport
+      - labCertifiedByNabl
+      - nablCertificationEvidence
+      - startDate
+      - endDate
+      - totalExpenditure
+      - otherRemarks
+      - '*'
+    outputMicrobialTestReport:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    nablCertificationEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

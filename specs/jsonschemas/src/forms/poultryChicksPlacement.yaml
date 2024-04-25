@@ -1,0 +1,31 @@
+extends: ./poultryChickPlacmentNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Chicks Placement'
+  properties:
+    placementDate:
+      title: Placement date
+      type: string
+      format: date
+    chicksAge:
+      title: Chicks age (Days)
+      type: number
+    quantity:
+      title: Chicks quantity
+      type: number
+    placementTeam:
+      title: Placement team
+      type: string
+    density:
+      title: Placement density (Chicks per sqm)
+      type: number
+    durationAndExpenses: file:../common/durationAndExpensesComp.yaml
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - placementDate
+    - chicksAge
+    - quantity
+  # DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryChicksPlacement.yaml

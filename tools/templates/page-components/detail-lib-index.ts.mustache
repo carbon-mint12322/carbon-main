@@ -1,0 +1,6 @@
+// render cell functions
+{{#renderFunctions}}
+export { default as {{.}} } from '~/entitylib/{{modelName}}/detail/{{.}}';
+{{/renderFunctions}}
+
+export * as titlebar from "~/entitylib/{{modelName}}/detail/titlebar";

@@ -1,0 +1,105 @@
+type: object
+title: Solar Dryer Unit
+properties:
+  processingSystem:
+    $ref: '#/definitions/ProcessingSystemId'
+    title: Processing system
+  name:
+    type: string
+    title: Solar dryer unit name
+  length:
+    type: number
+    title: Length (metres)
+    minimum: 0
+  width:
+    type: number
+    title: Width (metres)
+    minimum: 0
+  height:
+    type: number
+    title: Height (metres)
+  area:
+    type: number
+    title: Collector area (Square metres)
+    minimum: 0
+  brand:
+    type: string
+    title: Brand (Manufacturer)
+  dryingTime:
+    type: number
+    title: Drying time (hours)
+  tempRange:
+    type: number
+    title: Temparature range
+  humidityRange:
+    type: number
+    title: Humidity range
+  material:
+    type: string
+    title: Construction material
+    enum:
+      - Metal
+      - Plastic
+      - Wood
+    default: Metal
+  dryerType:
+    type: string
+    title: Solar dryer type
+    enum:
+      - Natural convection
+      - Forced convection
+    default: Natural convection
+  collectorType:
+    type: string
+    title: Collector type
+    enum:
+      - Flat plate
+      - Evaculated tube
+      - Concentrating
+    default: Flat plate
+  capacity:
+    type: number
+    title: Storage capacity (kgs)
+    minimum: 0
+  orientation:
+    type: string
+    title: Orientation
+    enum:
+      - North
+      - South
+      - East
+      - West
+    default: North
+  insulation:
+    type: string
+    title: Insulation used
+  glazingMaterial:
+    type: string
+    title: Glazing material used (e.g glass, plastic)
+  ventilation:
+    type: string
+    title: Ventilation system used
+  fanMotor:
+    type: string
+    title: Type of fan and motor used for air circulation
+  energyStorage:
+    type: string
+    title: Energy storage type (e.g thermal mass, phase change materials)
+  heatingBackup:
+    type: string
+    title: Backup heating source (e.g electric heater, biomass burner)
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+required:
+  - processingSystem
+  - name
+  - length
+  - width
+  - height
+  - area
+  - dryingTime
+  - capacity
+  - photoEvidence

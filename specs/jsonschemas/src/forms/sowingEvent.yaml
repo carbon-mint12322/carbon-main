@@ -1,0 +1,190 @@
+extends: ./sowingNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Plantation Event'
+  properties:
+    sowingEventLabel:
+      type: object
+      title: Sowing Event
+    sowingPlantingMaterial:
+      type: string
+      enum:
+        - Seeds
+        - Cuttings
+        - Layers
+        - Grafts
+        - Budded plants
+        - Clones
+        - Splits
+        - Suckers
+        - Slips
+        - Tissue culture plants
+        - Bulbs
+        - Corms
+        - Ratoon
+        - Saplings
+        - Other
+      default: Seeds
+      title: Sowing/Planting material
+    classOfPlantingMaterial:
+      title: Class of sowing/planting material
+      type: array
+      minItems: 1
+      items:
+        type: string
+        enum:
+          - classBreeder
+          - classFoundation
+          - classCertified
+          - classTruthfullyLabelled
+          - classVegetativelyPropogated
+          - classOther
+        enumNames:
+          - Breeder
+          - Foundation
+          - Certified
+          - Truthfully labeled
+          - Vegetatively propagated
+          - Other
+      uniqueItems: true
+    seedRateUnits:
+      type: string
+      enum:
+        - Kgs
+        - Numbers
+      default: Kgs
+      title: Seed rate/ No of planting material used (Units)
+    seedRate:
+      type: number
+      title: 'Seed rate/No of planting materials used'
+    seedSeedlingTreatment:
+      type: string
+      enum:
+        - Biofertilizer
+        - Biocontrol agents,
+        - On farm preaprations
+        - Off-farm certified products
+        - Other
+      default: Biofertilizer
+      title: Seed/Seedling treatment
+    natureOfSowing:
+      type: string
+      enum:
+        - Direct sown
+        - Nursery
+        - Transplanting
+        - Gap filling in a ratoon crop
+        - Other
+      default: Direct sown
+      title: Nature of sowing
+    rowToRowSpacing:
+      type: number
+      minimum: 0
+      title: Row to row spacing (cm)
+    plantToPlantSpacing:
+      type: number
+      minimum: 0
+      title: Plant to plant spacing (cm)
+    plantPopulation:
+      type: number
+      minimum: 0
+      title: Plant population
+    depthOfSowingPlanting:
+      type: number
+      minimum: 0
+      title: Depth of sowing/planting (cm)
+    useCleanedPlantingMaterial:
+      type: string
+      enum:
+        - 'Yes'
+        - 'No'
+      default: 'Yes'
+      title: Use cleaned & uncontaminated planting material
+    ratePerKgNo:
+      type: number
+      minimum: 0
+      title: Rate per Kg / Number
+    expensesMet:
+      type: number
+      minimum: 0
+      title: Expenses met
+    seedPlantingMaterialSource:
+      type: string
+      enum:
+        - Own
+        - Sourced
+      default: Own
+      title: Seed / Planting material source
+    durationAndExpenses:
+      title: 'Duration and Expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          sowingPlantingMaterial:
+            const: Other
+      then:
+        properties:
+          sowingPlantingOtherMaterial:
+            type: string
+            title: 'Other sowing/planting material'
+    - if:
+        properties:
+          classOfPlantingMaterial:
+            contains:
+              type: string
+              const: classOther
+      then:
+        properties:
+          otherClassOfPlantingMaterial:
+            type: string
+            title: 'Other class of sowing/planting material'
+    - if:
+        properties:
+          seedSeedlingTreatment:
+            const: Other
+      then:
+        properties:
+          otherSeedSeedlingTreatment:
+            type: string
+            title: 'Other seed/seedling treatment'
+
+    - if:
+        properties:
+          natureOfSowing:
+            const: Other
+      then:
+        properties:
+          otherNatureOfSowing:
+            type: string
+            title: 'Other method of sowing'
+    - if:
+        properties:
+          useCleanedPlantingMaterial:
+            const: 'Yes'
+      then:
+        properties:
+          evidenceOfOperation:
+            type: array
+            title: Evidence of the operation
+            description: Evidence of the operation
+            items:
+              type: string
+    - if:
+        properties:
+          seedPlantingMaterialSource:
+            const: 'Sourced'
+      then:
+        properties:
+          seedPurchaseReceipt:
+            type: array
+            title: Seeds purchase receipt
+            description: Seeds purchase receipt
+            items:
+              type: string
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/sowingEvent.yaml

@@ -1,0 +1,13 @@
+form:
+  uiSchema:
+    "ui:order":
+      - name
+      - areaInAcres
+      - category
+      - landParcel
+      - "*"
+    landParcel:
+      "ui:widget": ReferenceSelectorWidget
+      ui:placeholder: Select a land parcel
+      foreignSchemaId: "/farmbook/landparcel"
+      foreignLabelWidget: NameLabelWidget

@@ -1,0 +1,73 @@
+type: object
+title: Composting unit
+properties:
+  processingSystem:
+    $ref: '#/definitions/ProcessingSystemId'
+    title: Processing system
+  name:
+    type: string
+    title: Name
+  type:
+    type: string
+    title: Unit type
+    enum:
+      - Stationary
+      - Portable
+    default: Stationary
+  compostingType:
+    type: string
+    title: Composting type
+    enum:
+      - Traditional or Backyard Composting
+      - Vermicomposting
+      - Windrow Composting
+      - Sheet or Pit Composting
+      - Bokashi Composting
+      - Anaerobic Composting
+      - Hot Composting (Thermophilic Composting)
+    default: Traditional or Backyard Composting
+  size:
+    type: number
+    title: Size (sqyd)
+    minimum: 0
+  bedSize:
+    type: number
+    title: Number of beds
+    minimum: 0
+  inputs:
+    type: string
+    title: Composting inputs
+  capacity:
+    type: number
+    title: Capacity (kgs/litres)
+    minimum: 0
+  duration:
+    type: number
+    title: Duration (days)
+    minimum: 0
+  outputs:
+    type: string
+    title: Composting outputs
+  maintenance:
+    type: string
+    title: Maintenance requirements
+  monitoring:
+    type: string
+    title: Monitoring requirements
+  method:
+    type: string
+    title: Method used
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+required:
+  - processingSystem
+  - name
+  - size
+  - inputs
+  - capacity
+  - type
+  - compostingType
+

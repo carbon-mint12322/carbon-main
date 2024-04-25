@@ -1,0 +1,168 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Harvest Drying Event'
+  properties:
+    drying:
+      type: object
+      title: 'Haravest - drying'
+    preTreatmentForDrying:
+      title: Pre-treatments for drying(Chemicals used)
+      type: string
+      enum:
+        - Citric acid
+        - Malic acid
+        - Phosphoric acid
+        - Ascorbic acid
+        - Sodium chloride
+        - Calcium chloride
+        - Lactic acid
+        - Sugar
+        - Water soaking
+        - Others
+        - None
+      default: None
+    dryingMethod:
+      title: Drying method
+      type: string
+      enum:
+        - Field drying
+        - Sun drying
+        - Solar drying (solar dryer)
+        - Freeze drying
+        - Oven drying
+        - Osmotic dehydration
+        - Others
+      default: Field drying
+    temparatureOfFinalProduce:
+      title: Temperature of final produce (centigrade)
+      type: number
+      minimum: 0
+      maximum: 100
+    humidityOfFinalProduce:
+      title: Humidity of final produce (%)
+      type: number
+      minimum: 0
+      maximum: 100
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          preTreatmentForDrying:
+            const: Others
+      then:
+        properties:
+          otherPreTreatment:
+            type: string
+            title: Other pre treatment method used
+          quantityApplied:
+            title: Quantity applied(kilograms)
+            type: number
+            minimum: 0
+    - if:
+        properties:
+          preTreatmentForDrying:
+            const: Citric acid
+      then:
+        properties:
+          quantityApplied:
+            title: Quantity applied(kilograms)
+            type: number
+            minimum: 0
+    - if:
+        properties:
+          preTreatmentForDrying:
+            const: Malic acid
+      then:
+        properties:
+          quantityApplied:
+            title: Quantity applied(kilograms)
+            type: number
+            minimum: 0
+    - if:
+        properties:
+          preTreatmentForDrying:
+            const: Phosphoric acid
+      then:
+        properties:
+          quantityApplied:
+            title: Quantity applied(kilograms)
+            type: number
+            minimum: 0
+    - if:
+        properties:
+          preTreatmentForDrying:
+            const: Ascorbic acid
+      then:
+        properties:
+          quantityApplied:
+            title: Quantity applied(kilograms)
+            type: number
+            minimum: 0
+    - if:
+        properties:
+          preTreatmentForDrying:
+            const: Sodium chloride
+      then:
+        properties:
+          quantityApplied:
+            title: Quantity applied(kilograms)
+            type: number
+            minimum: 0
+    - if:
+        properties:
+          preTreatmentForDrying:
+            const: Calcium chloride
+      then:
+        properties:
+          quantityApplied:
+            title: Quantity applied(kilograms)
+            type: number
+            minimum: 0
+    - if:
+        properties:
+          preTreatmentForDrying:
+            const: Lactic acid
+      then:
+        properties:
+          quantityApplied:
+            title: Quantity applied(kilograms)
+            type: number
+            minimum: 0
+    - if:
+        properties:
+          preTreatmentForDrying:
+            const: Sugar
+      then:
+        properties:
+          quantityApplied:
+            title: Quantity applied(kilograms)
+            type: number
+            minimum: 0
+    - if:
+        properties:
+          preTreatmentForDrying:
+            const: Water soaking
+      then:
+        properties:
+          quantityApplied:
+            title: Quantity applied(kilograms)
+            type: number
+            minimum: 0
+    - if:
+        properties:
+          dryingMethod:
+            const: Others
+      then:
+        properties:
+          otherDryingMethod:
+            title: Other drying method
+            type: string
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/harvestDryingEvent.yaml

@@ -1,0 +1,263 @@
+jsonschema:
+  properties:
+    inputPermissionDetails:
+      title: Input Permission Details
+      type: object
+      properties:
+        cb:
+          $ref: '#/definitions/CertificationBodyRef'
+          title: Certification body
+        applicationDate:
+          type: string
+          title: Application date
+          format: date
+        seedsApproval:
+          title: 1. Seeds to be approved
+          type: object
+          properties:
+            saGrid:
+              type: array
+              items:
+                type: object
+                title: Seeds
+                properties:
+                  crop:
+                    type: string
+                    title: Crop
+                  variety:
+                    title: Seed Variety
+                    type: string
+                  origin:
+                    title: Seed	Origin (Address of the supplier)
+                    type: string
+                  quantity:
+                    title: Quantity to be used
+                    type: string
+                  period:
+                    title: Period of application
+                    type: string
+                required:
+                  - crop
+                  - variety
+                  - origin
+                  - quantity
+                  - period
+              columns:
+                - field: crop
+                  headerName: Crop
+                  width: 200
+                - field: variety
+                  headerName: Seed Variety
+                  width: 200
+                - field: origin
+                  headerName: Seed	Origin (Address of the supplier)
+                  width: 200
+                - field: quantity
+                  headerName: Quantity to be used
+                  width: 200
+                - field: period
+                  headerName: Period of Application
+                  width: 200
+              title: Seeds to be approved
+        fertilizerApproval:
+          title: 2. Fertilizer to be approved
+          type: object
+          properties:
+            faGrid:
+              type: array
+              items:
+                type: object
+                title: Fertilizers to be approved
+                properties:
+                  type:
+                    type: string
+                    title: Fertilizer type
+                  name:
+                    title: Fertlizer name
+                    type: string
+                  origin:
+                    title: Seed	Origin (Address of the supplier)
+                    type: string
+                  quantity:
+                    title: Quantity to be used
+                    type: string
+                  period:
+                    title: Period of application
+                    type: string
+                required:
+                  - type
+                  - name
+                  - origin
+                  - quantity
+                  - period
+              columns:
+                - field: type
+                  headerName: Fertilizer type
+                  width: 200
+                - field: name
+                  headerName: Fertilizer name
+                  width: 200
+                - field: origin
+                  headerName: Seed	Origin (Address of the supplier)
+                  width: 200
+                - field: quantity
+                  headerName: Quantity to be used
+                  width: 200
+                - field: period
+                  headerName: Period of Application
+                  width: 200
+              title: Fertilizers to be approved
+        areas:
+          title: 3. Areas
+          type: object
+          properties:
+            areasGrid:
+              type: array
+              items:
+                type: object
+                title: Areas
+                properties:
+                  fieldNo:
+                    type: string
+                    title: Field no
+                  fieldName:
+                    title: Field name
+                    type: string
+                  crop:
+                    title: Crop
+                    type: string
+                  fertilizerName:
+                    title: Fertilizer name
+                    type: string
+                  fertilizerType:
+                    title: Fertilizer type
+                    type: string
+                  application:
+                    title: Application (Kg/Ha)
+                    type: number
+                  applicationTime:
+                    title: Time of application
+                    type: string
+
+                required:
+                  - fieldNo
+                  - crop
+
+              columns:
+                - field: fieldNo
+                  headerName: Field No
+                  width: 200
+                - field: fieldType
+                  headerName: Field Type
+                  width: 200
+                - field: crop
+                  headerName: Crop
+                  width: 200
+                - field: fertilizerName
+                  headerName: Fertilizer Name
+                  width: 200
+                - field: fertilizerType
+                  headerName: Fertilizer Type
+                  width: 200
+              title: Areas
+        soilAnalysis:
+          title: 4. Soil Analysis
+          type: object
+          properties:
+            saGrid:
+              type: array
+              items:
+                type: object
+                title: Soil Analysis
+                properties:
+                  analysisDate:
+                    type: string
+                    format: date
+                    title: Date
+                  fieldName:
+                    title: Field
+                    type: string
+                  lab:
+                    title: Laboratory
+                    type: string
+                  N:
+                    title: 'N'
+                    type: string
+                  P:
+                    title: 'P'
+                    typ: string
+                  K:
+                    title: 'K'
+                    type: string
+                  Mg:
+                    title: 'Mg'
+                    type: string
+                  Ca:
+                    title: 'Ca'
+                    type: string
+                required:
+                  - anaylysisDate
+                  - fieldName
+                  - lab
+              columns:
+                - field: analysisDate
+                  headerName: Analysis Date
+                  width: 200
+                - field: fieldName
+                  headerName: Field
+                  width: 200
+                - field: lab
+                  headerName: Laboratory
+                  width: 200
+                - field: 'N'
+                  headerName: 'N'
+                  width: 200
+                - field: 'P'
+                  headerName: 'P'
+                  width: 200
+                - field: 'K'
+                  headerName: 'K'
+                  width: 200
+                - field: 'Mg'
+                  headerName: 'Mg'
+                  width: 200
+                - field: 'Ca'
+                  headerName: 'Ca'
+                  width: 200
+              title: Soil Analysis
+        assessorRecommondation:
+          type: string
+          title: Recommendation of the assessor
+        assessorName:
+          type: string
+          title: Assessor name
+        assessorDate:
+          type: string
+          format: date
+          title: Assessment date
+        cbApproval:
+          type: string
+          title: CB Approval
+          enum:
+            - Approved
+            - Not approved
+          default: Approved
+        qualityManager:
+          type: string
+          title: Quality manager
+        approvalDate:
+          type: string
+          format: date
+          title: Approval date
+        attachments:
+          type: array
+          title: Attachements
+          items:
+            type: string
+        otherRemarks:
+          type: string
+          title: Other remarks
+      required:
+        - cb
+        - applicationDate
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_collectiveinputpermission.yaml

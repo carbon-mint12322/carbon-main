@@ -1,0 +1,11 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - areaInAcres
+      - fieldType
+      - landParcelMap
+      - map
+      - '*'
+    map:
+      'ui:field': MapLandBoundariesField

@@ -1,0 +1,59 @@
+type: object
+title: Seed Processing Unit
+properties:
+  processingSystem:
+    $ref: '#/definitions/ProcessingSystemId'
+    title: Processing system
+  name:
+    type: string
+    title: Name
+  type:
+    type: string
+    title: Type
+    enum:
+      - Cold Storage
+      - Warehouse
+      - Retail Store
+      - Other
+    default: Warehouse
+  capacity:
+    type: number
+    title: Capacity (sq. meters/cubic meters)
+    minimum: 0
+  facilities:
+    type: string
+    title: Facilities
+    description: Facilities (e.g., storage rooms, refrigeration)
+
+  certifications:
+    type: string
+    title: Certifications
+  certificationsEvidence:
+    title: Upload certifications evidence
+    type: array
+    description: 'Upload certifications evidence'
+    items:
+      type: string
+  services:
+    type: string
+    title: Services
+    description: Services (e.g., distribution, inventory management)
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+if:
+  properties:
+    type:
+      const: Other
+then:
+  properties:
+    otherStore:
+      type: string
+      title: Other Store Type
+required:
+  - processingSystem
+  - name
+  - type
+  - photoEvidence

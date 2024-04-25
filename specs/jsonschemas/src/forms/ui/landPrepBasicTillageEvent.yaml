@@ -1,0 +1,83 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - basicTillageMethod
+      - machineriesUsed
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    machineriesUsed:
+      'ui:order':
+        - basicTillageTractor
+        - basicTillageTractorImplements
+        - basicTillageTractorOtherImplmentUsed
+        - basicTillageTractorImplementsData
+        - basicTillageDozer
+        - basicTillageDozerImplements
+        - basicTillageDozerOtherImplmentUsed
+        - basicTillageDozerImplementsData
+        - basicTillageBullock
+        - basicTillageBullockImplements
+        - basicTillageBullockOtherImplmentUsed
+        - basicTillageBullockImplementsData
+        - basicTillageManual
+        - basicTillageManualMethod
+        - totalHoursOfOperation
+        - expensesMet
+        - basicTillageOther
+        - basicTillageOtherMethod
+        - basicTillageOtherImplementsData
+        - '*'
+      basicTillageTractorImplementsData: file:~/specs/jsonschemas/src/common/ui/implements.yaml
+
+      basicTillageDozerImplementsData: file:~/specs/jsonschemas/src/common/ui/implements.yaml
+
+      basicTillageBullockImplementsData: file:~/specs/jsonschemas/src/common/ui/implements.yaml
+
+      basicTillageOtherImplementsData: file:~/specs/jsonschemas/src/common/ui/implements.yaml
+
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml
+excel:
+  columnHeaders:
+    - key: cropName
+      header: Crop Name
+
+    - key: workflowName
+      header: Workflow Name
+
+    - key: fbId
+      header: Crop Id
+
+    - key: basicTillageMethod
+      header: Basic Tillage Method
+
+    - key: durationAndExpenses
+      header: Duration and Expenses
+      child:
+        - key: startDate
+          header: Start Date
+        - key: endDate
+          header: End Date
+        - key: totalMenLabourDays
+          header: Total men's labour (days)
+        - key: menLaborDailyWage
+          header: Men's labour daily wage
+        - key: totalWomenLabourDays
+          header: Total women's labour (days)
+        - key: womenLabourDailyWage
+          header: Women's labour daily wage
+        - key: totalLabourExpenditure
+          header: Total labour expenditure
+        - key: miscellaneousExpenses
+          header: Miscellaneous expenses
+        - key: totalExpenditure
+          header: Total expenditure
+        - key: contributor
+          header: Contributor
+        - key: contribution
+          header: Contributor's contribution
+
+    - key: otherRemarks
+      header: Other remarks    

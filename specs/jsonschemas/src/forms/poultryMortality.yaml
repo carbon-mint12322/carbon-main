@@ -1,0 +1,41 @@
+extends: ./poultryMortalityNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Mortality'
+  properties:
+    startDate:
+      title: Mortality record start date
+      type: string
+      format: date
+    endDate:
+      title: Mortality record end date
+      type: string
+      format: date
+    noOfBirds:
+      title: Number of birds affected
+      type: number
+      minimum: 1
+    cause:
+      title: Cause of mortality
+      type: string    
+    noOfBirdsCulled:
+      type: number
+      title: Number of birds culled
+    reasonForCulling:
+      type: string
+      title: Reason for culling
+    evidence:
+      title: Evidence
+      type: array
+      description: Attach evidence
+      items:
+        type: string
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - noOfBirds
+    - cause
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryMortality.yaml

@@ -1,0 +1,5 @@
+jsonschema:
+  type: object
+  properties:
+    solarDryerUnits: file:~/specs/jsonschemas/src/common/solarDryerUnit.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_solarDryerUnits.yaml

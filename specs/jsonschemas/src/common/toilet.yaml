@@ -1,0 +1,39 @@
+type: object
+title: Toilet
+properties:
+  name:
+    type: string
+    title: Toilet name
+  type:
+    type: string
+    title: type
+    enum:
+      - Flush
+      - Pit
+      - Composting
+    default: Flush
+  condition:
+    type: string
+    title: Condition
+  accessibility:
+    type: string
+    title: Accessibility
+  capacity:
+    type: string
+    title: Capacity
+  maintenance:
+    type: string
+    title: Maintenance
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+  map:
+    title: Toilets map
+    type: string
+required:
+  - name
+  - type
+  - photoEvidence
+  - map

@@ -1,0 +1,80 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Harvest Threshing Event'
+  properties:
+    threshingDoneBy:
+      title: Threshing done by
+      type: string
+      enum:
+        - Manual
+        - By bullock and tractors
+        - Machinery
+      default: Manual
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          threshingDoneBy:
+            const: Manual
+      then:
+        properties:
+          manualImplementsUsed:
+            title: Implements used
+            type: string
+            enum:
+              - Beating by stick
+              - Pedal thresher
+              - Manual trampling
+              - By using threshing rack
+              - Others
+            default: Beating by stick
+        if:
+          properties:
+            manualImplementsUsed:
+              const: Others
+        then:
+          properties:
+            otherManualImplementsUsed:
+              title: Other Implements used
+              type: string
+    - if:
+        properties:
+          threshingDoneBy:
+            const: By bullock and tractors
+      then:
+        properties:
+          bullockImplementsUsed:
+            title: Implements used
+            type: string
+            enum:
+              - Trampling roller
+              - Trampling under the bullock and tractor cage wheels
+              - Others
+            default: Trampling roller
+        if:
+          properties:
+            bullockImplementsUsed:
+              const: Others
+        then:
+          properties:
+            otherBullockImplementsUsed:
+              title: Other implements used
+              type: string
+    - if:
+        properties:
+          threshingDoneBy:
+            const: Machinery
+      then:
+        properties:
+          machineryImplementsUsed:
+            title: Implements used
+            type: string
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/harvestThreshingEvent.yaml

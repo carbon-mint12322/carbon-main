@@ -1,0 +1,25 @@
+extends: ./cowNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Weaning Event'
+  properties:
+    dateOfWeaning:
+      type: string
+      format: date
+      title: Weaning date
+    method:
+      type: string
+      title: Weaning method
+    calfWeight:
+      type: number
+      title: Calf weight at weaning (Kgs)
+    healthIssues:
+      type: string
+      title: Any health issues
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - dateOfWeaning
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/cowWeaning.yaml

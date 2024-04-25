@@ -1,0 +1,80 @@
+type: object
+properties:
+  fpRegistrationId:
+    type: string
+    title: Registration id
+  fpoRegistrationDate:
+    type: string
+    formate: date
+    title: Registration date
+  fpRegistrationDocumentFile:
+    type: array
+    title: Upload Registration document proof
+    items:
+      type: string
+  gstNumber:
+    type: string
+    title: GST number
+  gstDocumentFile:
+    type: array
+    items:
+      type: string
+
+    title: GST document proof
+  panNumber:
+    type: string
+    title: PAN number
+  panDocumentFile:
+    type: array
+    items:
+      type: string
+    title: PAN document proof
+  registeredBankName:
+    type: string
+    title: Registered bank
+  registeredBankACNumber:
+    type: string
+    title: Registered bank account number
+  msmeRegistration:
+    type: string
+    title: MSME Registration
+  msmeRegistrationDocumentFile:
+    type: array
+    items:
+      type: string
+    title: Upload MSME registration document proof
+  businessActivity:
+    type: string
+    title: Business activity
+  shareCapital:
+    type: string
+    title: Authorised share capital (Rs in lakhs)
+  paidCapital:
+    type: string
+    title: Paid up share capital (Rs in lakhs)
+  turnover:
+    type: string
+    title: Turnover since last 2 years
+  marketPlace:
+    type: string
+    title: Marketplace
+    description: Market Place, where farm output is presently sold
+  ecNumber:
+    type: string
+    title: APEDA exporter code
+  ecDocumentFile:
+    type: array
+    items:
+      type: string
+    title: Upload exporter code document proof
+  noOfFarmers:
+    type: number
+    title: No of farmers
+  cropsCovered:
+    type: string
+    title: Crops covered
+  villagesCovered:
+    type: string
+    title: Villages covered
+required:
+  - fpRegistrationId

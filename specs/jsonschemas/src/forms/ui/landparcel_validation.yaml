@@ -1,0 +1,6 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    notes:
+      'ui:widget': textarea

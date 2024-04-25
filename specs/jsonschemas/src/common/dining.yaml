@@ -1,0 +1,38 @@
+type: object
+title: Dining
+properties:
+  name:
+    type: string
+    title: Name
+  type:
+    type: string
+    title: type
+    enum:
+      - Standalone
+      - Part of building
+    default: Standalone
+  size:
+    type: number
+    title: Size (sqyd)
+  capacity:
+    type: number
+    title: Capacity
+  condition:
+    type: string
+    title: Condition
+  equipment:
+    type: string
+    title: Equipment
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+  map:
+    title: Scrap shed map
+    type: string
+required:
+  - name
+  - type
+  - photoEvidence
+  - map

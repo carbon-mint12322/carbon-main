@@ -1,0 +1,57 @@
+jsonschema:
+  properties:
+    productionSystem:
+      $ref: '#/definitions/ProductionSystemId'
+      title: Production system
+    age:
+      type: number
+      title: Age (days)
+    cowSource:
+      type: string
+      title: Cow source
+    breed:
+      type: string
+      title: Breed
+    gender:
+      type: string
+      enum:
+        - Male
+        - Female
+      default: Female
+    tagId:
+      type: string
+      title: Tag ID
+    pedigree:
+      type: string
+      title: Pedigree
+    acquisitionDay:
+      type: string
+      format: date
+      title: Acquisition Day
+  allOf:
+    - if:
+        properties:
+          gender:
+            const: Female
+      then:
+        properties:
+          lactionaPeriodDays:
+            title: Lactation period (Days)
+            type: number
+            minimum: 0
+            default: 365
+          averageMilkProduction:
+            type: number
+            title: Average milk production (Litres)
+            minimum: 0
+            default: 1
+  required:
+    - productionSystem
+    - age
+    - cowSource
+    - breed
+    - gender
+    - tagId
+    - pedigree
+    - acquisitionDay
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_cow.yaml

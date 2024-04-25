@@ -1,0 +1,33 @@
+'ui:order':
+  - fpRegistrationId
+  - fpoRegistrationDate
+  - fpRegistrationDocumentFile
+  - gstNumber
+  - gstDocumentFile
+  - panNumber
+  - panDocumentFile
+  - registeredBankName
+  - registeredBankACNumber
+  - msmeRegistration
+  - msmeRegistrationDocumentFile
+  - businessActivity
+  - shareCapital
+  - paidCapital
+  - turnover
+  - marketPlace
+  - ecNumber
+  - ecDocumentFile
+  - noOfFarmers
+  - cropsCovered
+  - villagesCovered
+  - '*'
+fpRegistrationDocumentFile:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+gstDocumentFile:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+panDocumentFile:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+msmeRegistrationDocumentFile:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+ecDocumentFile:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'

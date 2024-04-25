@@ -1,0 +1,37 @@
+type: object
+properties:
+  aquaType:
+    type: string
+    title: Aquaculture Type
+    enum:
+      - Shrimp
+      - Fish
+    default: Shrimp
+  variety:
+    type: string
+    title: Aquaculture variety
+  region:
+    type: string
+    title: Region
+  durationDays:
+    title: Aquaculture duration (days)
+    type: number
+    minimum: 0
+  scheme:
+    title: Scheme
+    type: string
+    enum:
+      - BAP
+      - ASC
+      - NPOP
+      - NOP
+      - IndGAP
+      - GlobalGAP
+      - FairTrade
+      - None
+    default: None
+required:
+  - aquaType
+  - variety
+  - region
+  - durationDays

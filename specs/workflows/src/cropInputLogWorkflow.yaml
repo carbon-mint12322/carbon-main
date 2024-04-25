@@ -1,0 +1,25 @@
+name: cropInputLogWorkflow
+startStateName: start
+description: Input Log Event
+domainSchemaId: /farmbook/crop
+testScenariosFiles: []
+states:
+  - name: start
+    description: The Workflow starts in this state.
+    triggers:
+      - eventName: cropInputLogEvent
+        description: Input Log Event
+        roles: ['AGENT', 'ADMIN'] # No roles required, ie anyone can do this
+        inputSchemaName: inputLog
+        processingSteps:
+          - name: createCropEvent
+            description: Create event object for crop
+            importPath: ../../../workflows/farmbook/functions/createCropEvent
+        transitions:
+          - condition:
+              name: always
+              importPath: ../../../workflows/common/functions/always
+            state: end
+  - name: end
+    description: End state
+    isEndState: true

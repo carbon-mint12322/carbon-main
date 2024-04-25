@@ -1,0 +1,31 @@
+jsonschema:
+  title: Link farmer with this Land Parcel
+  properties:
+    farmer:
+      $ref: '#/definitions/LinkFarmerId'
+      title: Farmer
+    ownership:
+      title: Owenership
+      type: string
+      enum:
+        - 'Own'
+        - 'Leased'
+      default: 'Own'
+
+  allOf:
+    - if:
+        properties:
+          ownership:
+            const: Leased
+      then:
+        properties:
+          leaseDocuments:
+            title: Lease document
+            description: Attach lease document
+            type: array
+            items:
+              type: string
+
+  required:
+    - farmer
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_addfarmer.yaml

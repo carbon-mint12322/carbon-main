@@ -1,0 +1,32 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Average Weight Growth Event'
+  properties:
+    dateOfWeighing:
+      type: string
+      format: date
+      title: Date of weighing
+    weight:
+      type: number
+      title: Average weight (Kgs)
+    healthIssues:
+      type: string
+      title: Health issues
+    averageWeightGain:
+      type: number
+      title: Average weight gain (Kgs)
+    evidence:
+      title: Evidence
+      type: array
+      description: Attach evidences
+      items:
+        type: string
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - dateOfWeighing
+    - weight
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryWeightGrowth.yaml

@@ -1,0 +1,14 @@
+form:
+  uiSchema:
+    'ui:order':
+      - landownerRef
+      - landowners
+      - landOwner
+      - '*'
+    landOwner: file:~/specs/jsonschemas/src/common/ui/person.yaml
+    landowners:
+      'ui:field': ReferenceField
+      ui:placeholder: Select Landowners
+      foreignSchemaId: '/landowner'
+      foreignNameField: 'fbId' 
+      foreignLabelWidget: NameLabelWidget

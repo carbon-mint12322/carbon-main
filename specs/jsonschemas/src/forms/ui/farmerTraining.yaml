@@ -1,0 +1,19 @@
+form:
+  uiSchema:
+    trainingRemarks:
+      'ui:widget': textarea
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - trainingName
+      - trainingType
+      - conductedBy
+      - trainingRemarks
+      - trainingMaterials
+      - startDate
+      - endDate
+      - totalExpenditure
+      - otherRemarks
+      - '*'
+    trainingMaterials:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

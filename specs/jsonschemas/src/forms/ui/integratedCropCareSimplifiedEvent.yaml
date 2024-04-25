@@ -1,0 +1,77 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    photoEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - cropCareMethods
+      - expensesMet
+      - photoEvidence
+      - recommondedBy
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    cropCareMethods:
+      'ui:order':
+        - mechanicalControl
+        - botanicalPesticide
+        - onFarmPreparations
+        - certifiedOrganicInputs
+        - naturalEnemies
+        - chemicalPesticide
+        - otherMethods
+        - '*'
+      mechanicalControl:
+        items:
+          'ui:order':
+            - controlItem
+            - brandName
+            - details
+            - noOfItems
+            - '*'
+      botanicalPesticide:
+        items:
+          'ui:order':
+            - pesticideName
+            - brandName
+            - pesticideType
+            - concentration
+            - dosage
+            - '*'
+      onFarmPreparations:
+        items:
+          'ui:order':
+            - onFarmItem
+            - dosage
+            - '*'
+      certifiedOrganicInputs:
+        items:
+          'ui:order':
+            - tradeName
+            - brandName
+            - principle
+            - certifiedBy
+            - evidence
+            - '*'
+          evidence:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      naturalEnemies:
+        items:
+          'ui:order':
+            - naturalEnemy
+            - '*'
+      chemicalPesticide:
+        items:
+          'ui:order':
+            - chemicalTradeName
+            - chemicalBrandName
+            - chemicalFormulation
+            - checmicalConcentration
+            - chemicalDosage
+            - chemicalPurchaseEvidence
+            - '*'
+          chemicalPurchaseEvidence:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

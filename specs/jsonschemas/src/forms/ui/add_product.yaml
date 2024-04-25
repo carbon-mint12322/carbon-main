@@ -1,0 +1,4 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'

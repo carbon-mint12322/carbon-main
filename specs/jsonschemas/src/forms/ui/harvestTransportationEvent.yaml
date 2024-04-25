@@ -1,0 +1,17 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - transportation
+      - sourceOfVehicles
+      - wayOfTransporting
+      - cleanVehicles
+      - safetyGuidelines
+      - evidenceDocument
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    evidenceDocument:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

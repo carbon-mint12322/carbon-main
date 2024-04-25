@@ -1,0 +1,110 @@
+jsonschema:
+  type: object
+  properties:
+    farmEquipments:
+      title: 'Farm Equipments/Implements'
+      type: object
+      properties:
+        tillageImplements:
+          title: Tillage implements
+          type: array
+          minItems: 0
+          items:
+            type: string
+            title: ''
+            enum:
+              - Improved Iron Plough
+              - Low Draft Chisel Plough
+              - Para Plough
+              - Tractor Drawn Channel Former
+              - Tractor Drawn Trencher
+              - Tractor Drawn Bed Furrow Former
+              - Power Tiller Mounted Terracer cum Leveller
+              - Power Tiller Operated Slasher
+              - Tractor Operated Pit Digger for Sugar Cane
+              - Tractor Operated Rotary Spading Machine
+          uniqueItems: true
+        sowingEquipments:
+          title: Sowing equipments
+          type: array
+          minItems: 0
+          items:
+            type: string
+            title: ''
+            enum:
+              - Manually Operated Line Marker (Pulses)
+              - Broadcaster
+              - Gorru
+              - Bullock Drawn Seed Planter
+              - Power Tiller Drawn Cup Feed Seeder
+              - Tractor Drawn Ridger Seeder
+              - Basin Lister cum Seeder attachment to Cultivator
+              - Improved Broad Bed Former Cum Seeder
+              - Power Tiller Air Assisted Seed Drill
+              - Tractor Drawn Air Assisted Seed Drill
+              - Improved Direct Paddy Seeder
+              - Rice cum Daincha Seeder
+              - Rice Transplanter- Manual
+              - Tractor Drawn Seed cum Fertilizer Drill for Paddy
+              - Sugarane Sett Cutter
+              - Tractor drawn pulse seeder
+          uniqueItems: true
+
+        weedingAndInterculturalImplements:
+          title: Sowing equipments
+          type: array
+          minItems: 0
+          items:
+            type: string
+            title: ''
+            enum:
+              - Power Rotary Weeder
+              - Weeding cum Earthingup Equipment
+              - Tractor Operated Multi Row Rotary Weeder
+              - Cono Weeder
+              - Two Row Finger Type Paddy Rotary Weeder
+              - Battery Operated Portable Wetland Weeder
+          uniqueItems: true
+
+        plantProtections:
+          title: Plan protections
+          type: array
+          minItems: 0
+          items:
+            type: string
+            title: ''
+            enum:
+              - Foot Wear Operated Sprayer
+              - Battery operated Low Volume Sprayer
+              - Power Tiller Operated Boom Sprayer
+              - Areca Sprayer
+          uniqueItems: true
+        harvestingAndThreshing:
+          title: Harvesting and Threshing
+          type: array
+          minItems: 0
+          items:
+            type: string
+            title: ''
+            enum:
+              - Paddy Repear harvester
+              - Mini Combine Harvester for Paddy
+              - Power Tiller Operated Groundnut Harvester
+              - Tractor Drawn Groundnut Harvester
+              - Impact type Groundnut Stripper
+              - Groundnut Thresher
+              - Power Tiller Operated Turmeric harvester
+              - Tractor Drawn Turmeric Harvester
+              - Tapioca Harvester
+              - Fodder Sorghum Harvester
+              - Maize husk cum sheller
+              - Castor Sheller
+              - Coconut Tree Climber
+              - Oilpalm Harvesting Tool
+              - Tractor operated Fruit Harvester
+              - Mulberry Stem Cutter
+              - Power Tiller Operated Lawn Mower
+              - Lawn/Shrub Mowing attachment to Power Weeder
+              - Sugarcane Detrasher
+          uniqueItems: true
+uiHints: file:~/specs/jsonschemas/src/forms/ui/farmEquipments.yaml

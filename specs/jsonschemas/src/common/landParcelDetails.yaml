@@ -1,0 +1,87 @@
+jsonschema:
+  properties:
+    id:
+      $ref: '#/definitions/LandParcelId'
+    name:
+      type: string
+    surveyNumber:
+      type: string
+    areaInAcres:
+      type: number
+      minimum: 0
+    estimatedYieldTones:
+      type: number
+    address:
+      $ref: '#/definitions/Address'
+    farmer:
+      $ref: '#/definitions/NameID'
+    crops:
+      type: array
+      items:
+        $ref: '#/definitions/CropDetails'
+    map:
+      $ref: '#/definitions/Map'
+    location:
+      $ref: '#/definitions/GeoLocation'
+    climateScore:
+      type: object
+      properties:
+        score:
+          type: number
+        scheme:
+          type: string
+    complianceScore:
+      type: object
+      properties:
+        score:
+          type: number
+        scheme:
+          type: string
+    own:
+      type: string
+    landOwner_id:
+      type: string
+    landOwner_identityNumber:
+      type: string
+    landOwner_firstName:
+      type: string
+    landOwner_lastName:
+      type: string
+    landOwner_primaryPhone:
+      type: string
+    landOwner_village:
+      type: string
+    landOwner_state:
+      type: string
+    location_lat:
+      type: number
+    location_lng:
+      type: number
+    address_village:
+      type: string
+    address_mandal:
+      type: string
+    address_state:
+      type: string
+    address_pincode:
+      type: string
+    adjacentLands_north:
+      type: string
+    adjacentLands_south:
+      type: string
+    adjacentLands_east:
+      type: string
+    adjacentLands_west:
+      type: string
+
+  required:
+    - id
+    - name
+    - areaInAcres
+    - climateScore
+    - complianceScore
+    - farmer_id
+    - cropType
+    - field
+    - farmer
+    - surveyNumber

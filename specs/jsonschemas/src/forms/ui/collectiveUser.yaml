@@ -1,0 +1,17 @@
+form:
+  uiSchema:
+    'ui:order':
+      - personalDetails
+      - pin
+      - reportsTo
+      - rolesList
+      - '*'
+    personalDetails: file:~/specs/jsonschemas/src/common/ui/person.yaml
+    reportsTo:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a manager
+      foreignSchemaId: '/user'
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: reportsTo
+      foreignLabelWidget: UserNameWidget

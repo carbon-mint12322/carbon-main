@@ -1,0 +1,22 @@
+form:
+  uiSchema:
+    'ui:order':
+      - productionSystem
+      - age
+      - goatSource
+      - breed
+      - field
+      - landParcel
+      - farmer
+      - collective
+      - active
+      - pedigree
+      - gender
+      - tagId
+      - acquisitionDay
+      - '*'
+    productionSystem:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a production system
+      foreignSchemaId: '/productionsystem'
+      foreignLabelWidget: UserNameWidget

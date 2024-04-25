@@ -1,0 +1,86 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - irrigation
+      - sourceOfIrrigation
+      - otherSourceOfIrrigation
+      - borewellIrrigationData
+      - openWellIrrigationData
+      - canalIrrigationData
+      - riversIrrigationData
+      - pondIrrigationData
+      - municipalityIrrigationData
+      - lakeIrrigationData
+      - reservoirIrrigationData
+      - otherIrrigationData
+      - criticalCropGrowthStage
+      - othercriticalCropGrowthStage
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    otherIrrigationData:
+      'ui:order':
+        - methodOfIrrigation
+        - otherIrrigationMethod
+        - irrigatedArea
+        - volumeOfWater
+        - '*'
+    borewellIrrigationDat:
+      'ui:order':
+        - methodOfIrrigation
+        - otherIrrigationMethod
+        - irrigatedArea
+        - volumeOfWater
+        - '*'
+    openWellIrrigationData:
+      'ui:order':
+        - methodOfIrrigation
+        - otherIrrigationMethod
+        - irrigatedArea
+        - volumeOfWater
+        - '*'
+    canalIrrigationData:
+      'ui:order':
+        - methodOfIrrigation
+        - otherIrrigationMethod
+        - irrigatedArea
+        - volumeOfWater
+        - '*'
+    riversIrrigationData:
+      'ui:order':
+        - methodOfIrrigation
+        - otherIrrigationMethod
+        - irrigatedArea
+        - volumeOfWater
+        - '*'
+    pondIrrigationData:
+      'ui:order':
+        - methodOfIrrigation
+        - otherIrrigationMethod
+        - irrigatedArea
+        - volumeOfWater
+        - '*'
+    MunicipalityIrrigationData:
+      'ui:order':
+        - methodOfIrrigation
+        - otherIrrigationMethod
+        - irrigatedArea
+        - volumeOfWater
+        - '*'
+    LakeIrrigationData:
+      'ui:order':
+        - methodOfIrrigation
+        - otherIrrigationMethod
+        - irrigatedArea
+        - volumeOfWater
+        - '*'
+    reservoirIrrigationData:
+      'ui:order':
+        - methodOfIrrigation
+        - otherIrrigationMethod
+        - irrigatedArea
+        - volumeOfWater
+        - '*'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

@@ -1,0 +1,7 @@
+form:
+  uiSchema:
+    "ui:order":
+      - qualityGradingParametersTest
+      - cultivarPurityTest
+      - chemicalResidueTest
+        - "*"

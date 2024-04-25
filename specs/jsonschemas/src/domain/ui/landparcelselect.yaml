@@ -1,0 +1,15 @@
+form:
+  uiSchema:
+    'ui:order':
+      - landparcel    
+      - '*'
+
+    landparcel:
+      'ui:field': ReferenceField
+      ui:placeholder: Select a land parcel
+      foreignSchemaId: '/landparcel'
+      foreignLabelWidget: NameLabelWidget
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: landparcel
+    

@@ -1,0 +1,19 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - medicationType
+      - medicationSource
+      - dosage
+      - administration
+      - noOfBirds
+      - reactions
+      - medicationReceipt
+      - reason
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    medicationReceipt:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpensesComp.yaml

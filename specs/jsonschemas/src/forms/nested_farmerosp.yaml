@@ -1,0 +1,4 @@
+jsonschema:
+  title: Organic System Plan Information
+  $ref: '#/definitions/FarmerOsp'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/nested_farmerosp.yaml

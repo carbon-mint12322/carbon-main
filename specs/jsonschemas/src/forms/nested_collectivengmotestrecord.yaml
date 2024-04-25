@@ -1,0 +1,4 @@
+jsonschema:
+  title: NGMO Test Details
+  $ref: '#/definitions/NgmoTestRecord'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/nested_collectivengmotestrecord.yaml

@@ -1,0 +1,17 @@
+'ui:order':
+  - startDate
+  - endDate
+  - totalMenLabourDays
+  - menLaborDailyWage
+  - totalWomenLabourDays
+  - womenLabourDailyWage
+  - totalLabourExpenditure
+  - miscellaneousExpenses
+  - totalExpenditure
+  - photoEvidenceBeforeAfter
+  - documentEvidenceInvoice
+  - '*'
+photoEvidenceBeforeAfter:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+documentEvidenceInvoice:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'

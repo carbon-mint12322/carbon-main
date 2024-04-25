@@ -1,0 +1,64 @@
+jsonschema:
+  properties:
+    inspectionDetails:
+      title: Inspection Details
+      type: object
+      properties:
+        landParcel:
+          $ref: '#/definitions/LandParcelRef'
+          title: Land Parcel
+        year:
+          type: number
+          title: Year of inspection
+          minimum: 2000
+          maximum: 3000
+        inspectionNo:
+          type: number
+          title: Inspection number in year (1,2,3.. etc)
+          minimum: 1
+        inspectionDate:
+          title: Inspection date
+          type: string
+          format: date
+        inspector:
+          title: Internal inspector
+          type: string
+        crops:
+          type: array
+          title: Crops
+          items:
+            type: object
+            title: ''
+            properties:
+              cropName:
+                type: string
+                title: Crop
+              area:
+                type: string
+                title: Area (Ha)
+              estYield:
+                type: string
+                title: Estimated yield (MT)
+            required:
+              - cropName
+              - area
+              - estYield
+        reports:
+          type: array
+          title: Report
+          items:
+            type: string
+        results:
+          type: string
+          title: Results
+        notes:
+          title: Remarks
+          type: string
+      required:
+        - landParcel
+        - year
+        - inspectionNo
+        - inspectionDate
+        - inspector
+        - results
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_farmerinspection.yaml

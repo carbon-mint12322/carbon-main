@@ -1,0 +1,64 @@
+jsonschema:
+  title: Schedule Event
+  type: object
+  properties:
+    name:
+      title: Activity name
+      type: string
+      readonly: true
+    description:
+      title: Activity description
+      type: string
+      readonly: true
+    severity:
+      title: Severity
+      type: string
+      enum:
+        - Critical
+        - Major
+        - Moderate  
+        - Minor
+        - Negligible
+      default: Critical
+      readonly: true
+    score:
+      type: number
+      title: Score
+      default: 0
+      readonly: true
+    range:
+      title: Date Range
+      $ref: '#/definitions/DateRange'
+    repeated:
+      title: Repeated compliance point
+      type: boolean
+      default: false
+      readonly: true
+    eventStatus:
+      type: string
+      title: Status
+      enum:
+        - Pending
+        - Completed
+        - Not Applicable
+      default: Pending  
+  
+  required:
+    - name
+    - range
+  allOf:
+    - if:
+        properties:
+          repeated:
+            const: true
+      then:
+        properties:
+          frequency:
+            title: Frequency (Days)
+            type: number
+            minimum: 0
+          ends:
+            title: Ends (Days)
+            type: number
+            minimum: 0
+uiHints: file:~/specs/jsonschemas/src/domain/ui/schemePlanEvent.yaml

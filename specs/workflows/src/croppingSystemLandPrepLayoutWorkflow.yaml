@@ -1,0 +1,25 @@
+name: croppingSystemLandPrepLayoutWorkflow
+startStateName: start
+description: Land Preparation Layout Event
+domainSchemaId: /farmbook/croppingsystem
+testScenariosFiles: []
+states:
+  - name: start
+    description: The Workflow starts in this state.
+    triggers:
+      - eventName: landPrepLayoutEvent
+        description: Land Preparation Layout Event
+        roles: ['AGENT', 'ADMIN'] # No roles required, ie anyone can do this
+        inputSchemaFile: gen/jsonschemas/landPrepLayoutEvent.json
+        processingSteps:
+          - name: createCroppingSystemEvent
+            description: Create event object for cropping system
+            importPath: ../../../workflows/farmbook/functions/createCroppingSystemEvent
+        transitions:
+          - condition:
+              name: always
+              importPath: ../../../workflows/common/functions/always
+            state: end
+  - name: end
+    description: End state
+    isEndState: true

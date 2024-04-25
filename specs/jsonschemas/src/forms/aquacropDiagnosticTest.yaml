@@ -1,0 +1,40 @@
+extends: ./aquacropNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Diagnostic Test'
+  properties:
+    testType:
+      type: string
+      title: Test type
+    startDate:
+      type: string
+      format: date
+      title: Test start date
+    endDate:
+      type: string
+      format: date
+      title: Test end date
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    testResults:
+      type: string
+      title: Test results
+    testResultsEvidence:
+      type: string
+      title: Test results evidence
+    followUpActions:
+      type: string
+      title: Follow up actions
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - testType
+    - startDate
+    - endDate
+    - totalExpenditure
+    - testResults
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/aquacropDiagnosticTest.yaml

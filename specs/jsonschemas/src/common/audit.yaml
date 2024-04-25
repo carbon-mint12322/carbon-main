@@ -1,0 +1,14 @@
+type: object
+properties:
+  createdById:
+    type: string
+  createdByName:
+    type: string
+  createdAt:
+    type: string
+  updatedById:
+    type: string
+  updatedByName:
+    type: string
+  updatedAt:
+    type: string

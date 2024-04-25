@@ -1,0 +1,9 @@
+jsonschema:
+  type: object
+  properties:
+    map:
+      title: Land parcel map
+      type: string
+  required:
+    - map
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_map.yaml

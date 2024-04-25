@@ -1,0 +1,8 @@
+jsonschema:
+  properties:
+    notes:
+      type: string
+      title: Notes
+  required:
+    - notes
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_notes.yaml

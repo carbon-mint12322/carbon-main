@@ -1,0 +1,36 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - layoutWorkMethod
+      - levelWorkOtherMethod
+      - machineriesUsed
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    machineriesUsed:
+      'ui:order':
+        - levelWorkTractor
+        - levelWorkTractorImplements
+        - levelWorkTractorOtherImplmentUsed
+        - levelWorkTractorImplementsData
+        - implementsData
+        - levelWorkBullock
+        - levelWorkBullockImplements
+        - levelWorkBullockOtherImplmentUsed
+        - levelWorkBulockImplementsData
+        - implementsData
+        - levelWorkManual
+        - levelWorkManualMethod
+        - totalHoursOfOperation
+        - expensesMet
+        - levelWorkOther
+        - levelWorkOtherMethod
+        - levelWorkOtherImplementsData
+        - '*'
+      levelWorkTractorImplementsData: file:~/specs/jsonschemas/src/common/ui/implements.yaml
+      levelWorkBullockImplementsData: file:~/specs/jsonschemas/src/common/ui/implements.yaml
+      levelWorkOtherImplementsData: file:~/specs/jsonschemas/src/common/ui/implements.yaml
+
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

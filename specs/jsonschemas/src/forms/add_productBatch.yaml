@@ -1,0 +1,53 @@
+extends: ./productBatchValidationLifecycle.yaml
+jsonschema:
+  type: object
+  properties:
+    product:
+      $ref: '#/definitions/ProductId'
+      title: Product
+    batchId:
+      type: string
+      title: Batch ID
+      description: The unique identifier for the product batch
+    information:
+      type: string
+      title: Batch information
+    startDate:
+      type: string
+      format: date
+      title: Batch start date
+    endDate:
+      type: string
+      format: date
+      title: Batch finish date
+    documents:
+      type: string
+      title: Batch documents
+    ingredientBTQRCodeUrls:
+      type: array
+      title: 'Backward traceability qr codes for ingredients'
+      minItems: 0
+      items:
+        title: ''
+        properties:
+          ingredient:
+            type: string
+            title: Ingredient
+          qrCodeUrl:
+            type: string
+            format: uri
+            title: QR code URL
+          qrCodeInfo:
+            type: string
+            title: QR code information
+        required:
+          - ingredient
+          - qrCodeUrl
+  required:
+    - product
+    - batchId
+    - startDate
+    - endDate
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_productBatch.yaml
+templates:
+  qr: file:~/tools/templates/html/QR.productbatch.mustache

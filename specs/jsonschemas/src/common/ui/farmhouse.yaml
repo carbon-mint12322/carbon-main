@@ -1,0 +1,14 @@
+photoEvidence:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+map:
+  'ui:field': MapLandBoundariesField
+'ui:order':
+  - name
+  - size
+  - condition
+  - amenities
+  - ownership
+  - use
+  - photoEvidence
+  - map
+  - '*'

@@ -1,0 +1,158 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Seeds Info'
+  properties:
+    sourceOfSeed:
+      type: string
+      enum:
+        - Own
+        - Purchase
+      title: Source of seed
+      default: Purchase
+    varietyHybridName:
+      type: string
+      title: Variety/Hybrid name
+    cropDuration:
+      type: number
+      title: Crop duration (days)
+    physicalPurity:
+      type: number
+      title: Physical purity (%)
+      minimum: 0
+      maximum: 100
+    moistureContent:
+      type: number
+      title: Moisture content (%)
+      minimum: 0
+      maximum: 100
+    germinationPercentage:
+      type: number
+      title: Germination percentage (%)
+      minimum: 0
+      maximum: 100
+    speedOfGermination:
+      type: number
+      title: Speed of germination (cms)
+      minimum: 1
+      maximum: 5
+    specialCharacteristics:
+      title: Special characteristics
+      type: array
+      minItems: 1
+      items:
+        type: string
+        enum:
+          - freeFromWeedSeedsAndForeignMaterials
+          - freeFromPestsAndDiseasesResidues
+          - draughtTolerant
+          - submergenceTolerant
+          - highStorageCapacity
+          - highYield
+          - goodSizeAndShape
+          - moreSweetness
+          - goodAroma
+          - attractiveColor
+          - goodTexture
+          - otherCharacter
+        enumNames:
+          - Free from weed seeds and Foreign materials
+          - Free from Pests and Diseases residues
+          - Draught tolerance
+          - Submergence tolerant
+          - High storage capacity
+          - High yield
+          - Good size and shape
+          - More sweetness
+          - Good aroma
+          - Attractive color
+          - Good texture
+          - Other character
+      uniqueItems: true
+    varietalResistanceOnPests:
+      title: Varietal Resistance on Pests and Diseases (Name of the pests & diseases)
+      type: string
+    seedCleaningMethods:
+      type: string
+      title: Seed Cleaning Methods followed
+      enum:
+        - Sieving
+        - Salt solution
+        - Winnowing
+        - Others
+      default: Sieving
+    dateOfPurchase:
+      title: Date of purchase
+      type: string
+      format: date
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - dateOfPurchase
+    - totalExpenditure
+  allOf:
+    - if:
+        properties:
+          sourceOfSeed:
+            const: Purchase
+      then:
+        properties:
+          seedPurchaseReceipt:
+            type: array
+            title: 'Seed purchase receipt'
+            description: Seed purchase receipt
+            items:
+              type: string
+
+          seedBagLabel:
+            type: array
+            title: 'Seed bag label'
+            description: Seed bag label
+            items:
+              type: string
+
+          classOfSeed:
+            type: string
+            enum:
+              - Foundation seed
+              - Certified seed
+              - Registered seed
+              - Truthfully label seed
+              - Others
+            default: Foundation seed
+            title: Class of seed
+        if:
+          properties:
+            classOfSeed:
+              const: Others
+        then:
+          properties:
+            otherClassOfSeed:
+              type: string
+              title: Other class of seed
+    - if:
+        properties:
+          seedCleaningMethods:
+            const: Others
+      then:
+        properties:
+          otherSeedCleaningMethod:
+            type: string
+            title: Other seed cleaning method
+    - if:
+        properties:
+          specialCharacteristics:
+            contains:
+              type: string
+              const: otherCharacter
+      then:
+        properties:
+          otherCharacterName:
+            type: string
+            title: Other seed character
+uiHints: file:~/specs/jsonschemas/src/forms/ui/seedsInfo.yaml

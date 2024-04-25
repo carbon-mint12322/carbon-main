@@ -1,0 +1,51 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Integrated Crop Nutrition Simple Event'
+  properties:
+    nutritionsApplied:
+      title: Nutritions applied
+      type: array
+      minItems: 1
+      items:
+        type: object
+        title: ''
+        properties:
+          nutrition:
+            title: Nutrition
+            type: string
+          brand:
+            title: Brand
+            type: string
+          quantity:
+            title: Quantity (Kgs/Litres)
+            type: number
+          dosage:
+            type: number
+            title: Dosage per Kg (ml/gms)
+            minimum: 0
+          purchaseReceipt:
+            title: Upload purchase receipt
+            type: string
+            description: 'Upload purchase receipt'
+          expensesMet:
+            title: Expenses met
+            type: number
+            minimum: 0
+        required:
+          - nutrition
+          - quantity
+          - expensesMet
+
+    recommondedBy:
+      title: Recommonded by
+      type: string
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/integratedCropNutritionSimplifiedEvent.yaml

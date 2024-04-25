@@ -1,0 +1,24 @@
+form:
+  uiSchema:
+    documents:
+      'ui:widget': 'file'
+    information:
+      'ui:widget': textarea
+    product:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a product
+      foreignSchemaId: '/product'
+      'ui:options':
+        # This key is passed for selecting a cropping system for crop creation
+        filterKey: product
+      foreignLabelWidget: NameLabelWidget
+
+    'ui:order':
+      - product
+      - batchId
+      - information
+      - startDate
+      - endDate
+      - documents
+      - ingredientBTQRCodeUrls
+      - '*'

@@ -1,0 +1,41 @@
+type: object
+properties:
+  operatedBy:
+    title: Mandator name
+    type: string
+  mandatorPoc:
+    title: Mandator contact person
+    type: string
+  mandatorPhone:
+    type: string
+    title: Mandator phone
+  iecNumber:
+    type: string
+    title: Importer-exporter code
+  iecDocumentFile:
+    type: array
+    items:
+      type: string
+    title: Upload importer-exporter code document proof
+  gstNumber:
+    type: string
+    title: GST number
+  gstDocumentFile:
+    type: array
+    items:
+      type: string
+    title: GST document proof
+  panNumber:
+    type: string
+    title: PAN number
+  panDocumentFile:
+    type: array
+    items:
+      type: string
+    title: PAN document proof
+  registeredBankName:
+    type: string
+    title: Registered bank
+  registeredBankACNumber:
+    type: string
+    title: Registered bank account number

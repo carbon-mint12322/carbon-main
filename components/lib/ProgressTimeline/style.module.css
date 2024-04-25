@@ -1,0 +1,48 @@
+.timelineCalenderRoot {
+}
+
+.calendarHeaderRoot {
+  background: #ffffff !important;
+  border-bottom: unset;
+  font-family: stevie-sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  border-bottom: unset !important;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.calendarHeader {
+  border: unset !important;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.timelineCalenderDateHeader {
+  background: #ffffff !important;
+  font-family: stevie-sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  height: 84px;
+}
+
+.timelineCalenderDateHeader div {
+  background: #ffffff !important;
+  border-bottom: unset !important;
+  border-left: unset !important;
+  font-family: stevie-sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+  color: #959595;
+}
+
+.sidebar {
+  border-right: unset !important;
+  background: #ffffff !important;
+}

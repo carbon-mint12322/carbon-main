@@ -1,0 +1,27 @@
+photoEvidence:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+certificationsEvidence:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+'ui:order':
+  - processingSystem
+  - name
+  - type
+  - otherOutput
+  - capacity
+  - facilities
+  - equipment
+  - certifications
+  - certificationsEvidence
+  - services
+  - processes
+  - storageCapacity
+  - photoEvidence
+  - '*'
+processingSystem:
+  'ui:widget': ReferenceSelectorWidget
+  ui:placeholder: Select a processing system
+  foreignSchemaId: '/processingsystem'
+  'ui:options':
+    # This key is passed for selecting a field for crop creation
+    filterKey: processingSystem
+  foreignLabelWidget: NameLabelWidget

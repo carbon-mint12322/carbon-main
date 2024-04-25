@@ -1,0 +1,118 @@
+jsonschema:
+  type: object
+  properties:
+    name:
+      title: Land parcel name
+      type: string
+    surveyNumber:
+      title: Unique land parcel identification number(s)/land parcel survey no(s)
+      type: string
+    areaInAcres:
+      title: Area (acres)
+      type: number
+      minimum: 0
+    passbookNumber:
+      title: Land parcel official document/pattadar passbook number
+      type: string
+    landOwnershipDocument:
+      title: Upload land parcel official document/pattadar passbook
+      type: string
+      description: 'Upload land parcel official document/pattadar passbook'
+    landGovtMap:
+      title: Upload land parcel map document by govt.
+      type: string
+      description: 'Upload land parcel map document by govt.'
+    landSupportDocument:
+      title: Upload land parcel support documents
+      type: string
+      description: 'Upload land parcel support documents'
+    address:
+      title: Land parcel address
+      $ref: '#/definitions/Address'
+    adjacentLands:
+      title: Adjacent lands
+      type: object
+      properties:
+        north:
+          title: North
+          type: string
+        east:
+          title: East
+          type: string
+        west:
+          title: West
+          type: string
+        south:
+          title: South
+          type: string
+    distanceFromServiceRoad:
+      title: Distance from the service road (in km)
+      type: number
+    map:
+      $ref: '#/definitions/Map'
+    location:
+      $ref: '#/definitions/GeoLocation'
+    landOwner:
+      $ref: '#/definitions/Person'
+    climateScore:
+      type: number
+      title: Climate score (%)
+      minimum: 0
+      maximum: 100
+    complianceScore:
+      type: number
+      title: Compilance score (%)
+      minimum: 0
+      maximum: 100
+    collective:
+      type: string
+    agent:
+      type: string
+    basicUtilities:
+      type: object
+      properties:
+        waterSources:
+          type: array
+          items:
+            $ref: '#/definitions/WaterSource'
+        powerSources:
+          type: array
+          items:
+            $ref: '#/definitions/PowerSource'
+    supportUtilities:
+      type: array
+      items:
+        $ref: '#/definitions/Facility'
+    processingUnits:
+      type: array
+      items:
+        $ref: '#/definitions/Facility'
+    alliedActivities:
+      type: array
+      items:
+        $ref: '#/definitions/AlliedActivity'
+    validationWorkflowId:
+      type: string
+      format: hidden
+    statusNotes:
+      type: string
+      format: hidden
+    status:
+      type: string
+      enum:
+        - Draft
+        - Under validation
+        - Under review
+        - Review failed
+        - Validation failed
+        - Approved
+      default: Draft
+    active:
+      type: boolean
+    audit:
+      $ref: '#/definitions/Audit'
+  required:
+    - name
+    - areaInAcres
+    - address
+uiHints: file:~/specs/jsonschemas/src/domain/ui/landparcel.yaml

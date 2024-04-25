@@ -1,0 +1,20 @@
+jsonschema:
+  properties:
+    chatId:
+      type: string
+    cropId:
+      $ref: "#/definitions/CropId"
+    channel:
+      type: string
+      enum:
+        - WhatsApp
+        - Telegram
+        - Signal
+      default: Telegram
+    active:
+      type: boolean
+  required:
+    - chatId
+    - cropId
+    - channel
+    - active

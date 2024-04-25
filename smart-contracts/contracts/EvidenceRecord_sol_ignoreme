@@ -1,0 +1,134 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+import "./CeeToken.sol";
+import "hardhat/console.sol";
+
+/**
+ * A contract to record some evidence.
+ */
+contract EvidenceRecord  {
+    IERC20 public token;
+
+    // Data being recorded
+    struct Record
+    {
+				string uri;
+				string userId;
+				int32  latitude; // geoPoint(79.123, -110.000287), use(79123000, -110000287).
+				int32  longitude;
+				int32  ts; //timestamp, seconds from epoch
+				string hash;
+        address creator;
+        bool locked;
+    }
+    // Lookup table to help verify record information
+    mapping (string => Record) lookup;
+    event Paid(uint256 amount);
+    event CreateLocked(Record r);
+    event CreateMutable(Record r);
+
+    constructor(IERC20 _token) {
+      token = _token;
+    }
+
+    function locked(string memory uri) private view returns(bool){
+      Record memory r = lookup[uri];
+      return r.locked;
+    }
+
+    // Create a record
+    function createMutable(
+      uint256 paymentTokens, // num tokens
+      string memory _uri,
+      string memory _userId,
+      int32  _latitude,
+      int32  _longitude,
+      int32  _ts,
+      string memory _hash
+    ) public payable {
+
+      require(paymentTokens > 0, "You need to sell at least some tokens");
+      uint256 allowance = token.allowance(msg.sender, address(this));
+      require(allowance >= paymentTokens, "Check the token allowance");
+      token.transferFrom(msg.sender, address(this), paymentTokens);
+
+      bytes memory fb = bytes(_uri);
+      bytes memory ub = bytes(_userId);
+      // bytes memory hb = bytes(_hash);
+
+      require(fb.length > 6, "uri must be > 6 characters");
+      require(ub.length > 6, "userId must be > 6 characters");
+      // require(hb.length >= 32, "hash must be >= 32 characters");
+      require(_ts > 0, "Invalid timestamp");
+
+      payable(msg.sender).transfer(paymentTokens);
+
+      lookup[_uri] = Record({
+        creator: msg.sender,
+        uri: _uri,
+        userId: _userId,
+        latitude: _latitude,
+        longitude: _longitude,
+        ts: _ts,
+        hash: _hash,
+        locked: false
+      });
+      emit Paid(paymentTokens);
+      emit CreateMutable(lookup[_uri]);
+    }
+
+    // Create a record
+    function createRecord(
+      uint256 paymentTokens, // num tokens
+      string memory _uri,
+      string memory _userId,
+      int32  _latitude,
+      int32  _longitude,
+      int32  _ts,
+      string memory _hash
+    ) public payable {
+
+      // Seems like this is only way to check if a record exists or not!
+      // No exists function etc.
+      require(!locked(_uri), "record already exists");
+
+      require(paymentTokens > 0, "You need to sell at least some tokens");
+      uint256 allowance = token.allowance(msg.sender, address(this));
+      require(allowance >= paymentTokens, "Check the token allowance");
+      token.transferFrom(msg.sender, address(this), paymentTokens);
+
+      bytes memory fb = bytes(_uri);
+      bytes memory ub = bytes(_userId);
+      // bytes memory hb = bytes(_hash);
+
+      require(fb.length > 6, "uri must be > 6 characters");
+      require(ub.length > 6, "userId must be > 6 characters");
+      //require(hb.length >= 32, "hash must be >= 32 characters");
+      require(_ts > 0, "Invalid timestamp");
+
+      payable(msg.sender).transfer(paymentTokens);
+
+      lookup[_uri] = Record({
+        creator: msg.sender,
+        uri: _uri,
+        userId: _userId,
+        latitude: _latitude,
+        longitude: _longitude,
+        ts: _ts,
+        hash: _hash,
+        locked: true
+      });
+
+      emit Paid(paymentTokens);
+      emit CreateLocked(lookup[_uri]);
+    }
+
+    // lookup record information by uri
+    // Not payable
+    function verify(string memory uri) 
+    public view returns (Record memory) {
+      return lookup[uri];
+    }
+
+}

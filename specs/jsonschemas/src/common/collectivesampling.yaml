@@ -1,0 +1,59 @@
+type: object
+properties:
+  aggregationPlan:
+    $ref: '#/definitions/AggregationPlanId'
+    title: Aggregation Plan
+  cb:
+    $ref: '#/definitions/CertificationBodyRef'
+    title: Certification body
+  collectionDate:
+    title: Collection date
+    type: string
+    format: date
+  sampleCollector:
+    title: Sample collector
+    type: string
+  description:
+    title: Sample description
+    type: string
+  lotNo:
+    title: Lot No
+    type: string
+  sampleType:
+    title: Sample type
+    type: string
+  sampleReference:
+    title: Sample reference
+    type: string
+  testingMethod:
+    title: Testing method
+    type: string
+  testingLab:
+    title: Testing Lab
+    type: string
+  results:
+    type: array
+    title: Test results
+    items:
+      type: string
+  samplingEvidences:
+    type: array
+    title: Sampling evidences
+    items:
+      type: string
+  status:
+    title: Status
+    type: string
+    enum:
+      - Approved
+      - Rejected
+    default: Approved
+  otherRemarks:
+    type: string
+    title: Other remarks
+required:
+  - aggregationPlan
+  - cb
+  - collectionDate
+  - sampleCollector
+  - lotNo

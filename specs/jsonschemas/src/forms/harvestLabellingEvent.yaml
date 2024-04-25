@@ -1,0 +1,55 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Harvest Labelling Event'
+  properties:
+    totalGrainYield:
+      title: Total grain yield (quintal)
+      type: number
+      minimum: 0
+    totalQuantityOfProduce:
+      title: The total quantity of products planned for sale/marketing (quintal)
+      type: number
+      minimum: 0
+    totalQuantityOfProducePlannedForConsumption:
+      title: The total quantity of products planned for consumption (quintal)
+      type: number
+      minimum: 0
+    totalNoOfLots:
+      title: Total no. of lots divided for the Sale
+      type: number
+      minimum: 0
+    lotsList:
+      title: Lots information
+      type: array
+      minItems: 1
+      items:
+        '$ref': '#/lotData'
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  lotData:
+    properties:
+      authenticLotNumber:
+        title: Authentic lot number
+        type: string
+      lotWeight:
+        title: Lot weight
+        type: number
+        minimum: 0
+      noOfUnits:
+        title: No. of units (No. of bags or containers)
+        type: number
+        minimum: 0
+      bagWeight:
+        title: Weight of each bag or container
+        type: number
+        minimum: 0
+      labelNumber:
+        title: Label number of each bag or container
+        type: string
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/harvestLabellingEvent.yaml

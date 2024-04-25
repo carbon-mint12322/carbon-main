@@ -1,0 +1,13 @@
+items:
+  'ui:order':
+    - operator
+    - rolesList
+    - '*'
+  operator:
+    'ui:widget': ReferenceSelectorWidget
+    ui:placeholder: Select an operator
+    foreignSchemaId: '/collective'
+    ui:options':
+      # This key is passed for selecting a field for crop creation
+      filterKey: operator
+    foreignLabelWidget: NameLabelWidget

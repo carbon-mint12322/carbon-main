@@ -1,0 +1,55 @@
+jsonschema:
+  type: object
+  properties:
+    name:
+      title: Land parcel name
+      type: string
+    surveyNumber:
+      title: Unique land parcel identification number(s)/land parcel survey no(s)
+      type: string
+    areaInAcres:
+      title: Area (acres)
+      type: number
+      minimum: 0
+    passbookNumber:
+      title: Land parcel official document/pattadar passbook number
+      type: string
+    landOwnershipDocument:
+      title: Upload land parcel official document/pattadar passbook
+      type: string
+      description: 'Upload land parcel official document/pattadar passbook'
+    landGovtMap:
+      title: Upload land parcel map document by govt.
+      type: string
+      description: 'Upload land parcel map document by govt.'
+    landSupportDocument:
+      title: Upload land parcel support documents
+      type: string
+      description: 'Upload land parcel support documents'
+    address:
+      title: Land parcel address
+      $ref: '#/definitions/landParcelAddress'
+    adjacentLands:
+      title: Adjacent lands
+      type: object
+      properties:
+        north:
+          title: North
+          type: string
+        east:
+          title: East
+          type: string
+        west:
+          title: West
+          type: string
+        south:
+          title: South
+          type: string
+    distanceFromServiceRoad:
+      title: Distance from the service road (in KM)
+      type: number
+  required:
+    - name
+    - areaInAcres
+    - address
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_basicinfo.yaml

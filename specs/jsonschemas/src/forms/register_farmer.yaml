@@ -1,0 +1,65 @@
+jsonschema:
+  properties:
+    personalDetails:   
+      title: 'Basic details'
+      type: object
+      properties:
+        firstName:
+          type: string
+          title: First name
+          pattern: '^[a-zA-Z\s]+$'
+        lastName:
+          type: string
+          title: Last name
+        primaryPhone:
+          type: string
+          title: Primary phone number
+          pattern: ^\+91\d{10}$
+        address:
+          type: object
+          title: Personal address
+          properties:       
+            village:
+              type: string
+              title: Village
+              pattern: '^[a-zA-Z\s]+$'   
+            state:
+              type: string
+              title: State
+              pattern: '^[a-zA-Z\s]+$'
+            pincode:
+              type: string
+              title: Pin Code
+              pattern: '^[0-9]+$'
+          required:
+            - village
+            - state
+            - pincode
+        profilePicture:
+          type: string
+          title: Upload profile picture
+          description: 'Profile picture'
+
+      required:
+        - firstName
+        - primaryPhone
+    gender:
+      title: Gender
+      type: string
+      enum:
+        - Male
+        - Female
+        - Others
+      default: Male
+    areaInAcres:
+      title: Area (acres)
+      type: number
+      minimum: 0
+    surveyNumber:
+      title: Unique land parcel identification number(s)/land parcel survey no(s)
+      type: string
+ 
+  required:
+    - personalDetails
+    - areaInAcres 
+uiHints: file:~/specs/jsonschemas/src/forms/ui/register_farmer.yaml

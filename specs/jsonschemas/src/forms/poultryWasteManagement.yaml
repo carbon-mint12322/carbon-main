@@ -1,0 +1,32 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Waste Management'
+  properties:
+    startDate:
+      title: Record start date
+      type: string
+      format: date
+    endDate:
+      title: Record end date
+      type: string
+      format: date
+    wastageType:
+      type: string
+      title: Type of waste generated (e.g. manure, litter)
+    wastageAmount:
+      type: string
+      title: Amount of waste generated per bird or per batch
+    totalExpenditure:
+      type: number
+      title: Any associated costs for waste management
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - wastageType
+    - wastageAmount
+    - totalExpenditure
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryWasteManagement.yaml

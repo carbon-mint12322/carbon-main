@@ -1,0 +1,521 @@
+form:
+  uiSchema:
+    croppingSystem:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a cropping system
+      foreignSchemaId: '/croppingsystem'
+      'ui:options':
+        # This key is passed for selecting a cropping system for crop creation
+        filterKey: croppingSystem
+      foreignLabelWidget: NameLabelWidget
+    plot:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a plot
+      foreignSchemaId: '/plot'
+      'ui:options':
+        # This key is passed for selecting a cropping system for crop creation
+        filterKey: plot
+      foreignLabelWidget: NameLabelWidget
+    pop:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a POP
+      foreignSchemaId: '/pop'
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: pop
+      foreignLabelWidget: NameLabelWidget
+    masterCrop:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a master crop
+      foreignSchemaId: '/mastercrop'
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: mastercrop
+      foreignLabelWidget: NameLabelWidget
+    'ui:order':
+      - croppingSystem
+      - plot
+      - pop
+      - masterCrop
+      - name
+      - cropType
+      - cropTag
+      - plantingMaterial
+      - seedVariety
+      - seedSource
+      - areaInAcres
+      - category
+      - season
+      - otherGrowingSeason
+      - estimatedPopulation
+      - estimatedYieldTonnes
+      - plannedSowingDate
+      - estHarvestDate
+      - nutritionRequirements
+      - '*'
+    nutritionRequirements:
+      'ui:order':
+        - greenManure
+        - greenManureRequirements
+        - greenLeafManure
+        - greenLeafManureRequirements
+        - fym
+        - fymRequirements
+        - concentrates
+        - concentratesRequirements
+        - bioFertilizer
+        - bioFertilizerRequirements
+        - otherComposts
+        - otherCompostsRequirements
+        - biodynamicPreparations
+        - biodynamicPreparationsRequirements
+        - chemicalFertilizers
+        - chemicalFertilizersRequirements
+        - microNutrients
+        - microNutrientsRequirements
+        - minerals
+        - mineralsRequirements
+        - bioStimulants
+        - bioStimulantsRequirements
+        - plantGrowthRegulators
+        - plantGrowthRegulatorsRequirements
+        - growthRetardants
+        - growthRetardantsRequirements
+        - otherProducts
+        - otherProductsRequirements
+        - '*'
+      greenManureRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      greenLeafManureRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      fymRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      concentratesRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      bioFertilizerRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      biodynamicPreparationsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      microNutrientsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      otherCompostsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      chemicalFertilizersRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+
+      mineralsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+      bioStimulantsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+      plantGrowthRegulatorsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+      growthRetardantsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+      otherProductsRequirements:
+        items:
+          'ui:order':
+            - criticalStage
+            - quantity
+            - dosage
+            - mode
+            - details
+            - '*'
+listPage:
+  showInactiveDefault: false
+  isMultiSelect: true
+  customFilterKeys:
+    - name
+    - landParcel.name
+    - farmer.name
+    - events.details.name
+  titleBar:
+    pageTitle: Crops
+    subTitle: "Showing {{data.length}} crops total"
+    mainBtnTitle: Add Crop
+    subBtnTitle: "Add Event"
+    showTitlebar: true
+    showTitlebarTitle: true
+    showTitlebarSubTitle: true
+    showTitlebarMainBtn: false
+    showTitlebarSubBtn: true
+    showTitlebarSearch: true
+  bulkActions:
+    - label: Download Event Template
+      operation: getEventTemplate
+    - label: Upload Event Template
+      operation: setUploadEventTemplate
+  colDefs:
+    - field: cropName
+      headerName: "Crop & Land parcel"
+      renderCell: renderNameCellCrop
+      minWidth: 220
+      flex: 1
+    - field: fbId
+      headerName: Crop ID
+      minWidth: 220
+      flex: 1
+      valueGetter: stringValueGetter
+    - field: cropType
+      headerName: Crop Type
+      minWidth: 200
+      flex: 1
+      valueGetter: stringValueGetter
+    - field: seedVariety
+      headerName: Seed Variety
+      minWidth: 200
+      flex: 1
+      valueGetter: stringValueGetter
+    - field: farmer.name
+      headerName: Farmer
+      minWidth: 200
+      flex: 1
+      valueGetter: stringValueGetter
+    - field: village
+      headerName: Village
+      minWidth: 200
+      flex: 1
+      renderCell: renderVillage
+    - field: areaInAcres
+      headerName: Area (Acres)
+      minWidth: 100
+      flex: 1
+      valueGetter: numberValueGetter
+    - field: estimatedYieldTonnes
+      headerName: Estimated Yield (Tonnes)
+      minWidth: 100
+      flex: 1
+      valueGetter: numberValueGetter
+    - field: actualSowingDate
+      headerName: Actual Sowing Date
+      minWidth: 200
+      flex: 1
+      valueGetter: dateValueGetter
+    - field: actualYieldTonnes
+      headerName: Total Yield (Tonnes)
+      minWidth: 100
+      flex: 1
+      valueGetter: numberValueGetter
+    - field: recentEvent
+      headerName: Recent Event
+      minWidth: 200
+      flex: 1
+      renderCell: renderRecentEventCrop
+    - field: recentEvent.createdAt
+      headerName: Event Date
+      minWidth: 160
+      flex: 1
+      renderCell: renderRecentEventDateCrop
+    - field: status
+      headerName: Status
+      minWidth: 100
+      flex: 1
+      valueGetter: stringValueGetter
+    - field: pendingEvents
+      headerName: Pending Events
+      minWidth: 100
+      flex: 1
+      valueGetter: numberValueGetter
+    - field: actions
+      headerName: Actions
+      minWidth: 100
+      flex: 1
+      renderCell: renderActionCellCrop
+detailPage:
+  showMap: true
+  titleBar:
+    pageTitle: "{{data.name}}"
+    subTitle: "{{data.landParcelDetails.name}}"
+    mainBtnTitle: Add Event
+    subBtnTitle: "Submit for Review"
+    showTitlebar: true
+    showTitlebarTitle: true
+    showTitlebarSubTitle: true
+    showTitlebarMainBtn: true
+    showTitlebarSubBtn: true
+  overviewFields:
+    - title: Crop ID
+      field: fbId
+    - title: Area
+      field: areaInAcres
+      format: "{{value}} acre(s)"
+    # - title: Field
+    #   field: fieldDetails.name
+    - title: Planned Plantation Date
+      field: plannedSowingDate
+    - title: Estimated Harvest Date
+      field: estHarvestDate
+    - title: Estimated Total Yield
+      field: estimatedYieldTonnes
+      format: "{{value}} tonne(s)"
+    - title: Actual Plantation Date
+      field: actualSowingDate
+    - title: Harvest Date(s)
+      field: actualHarvestDate
+    - title: Actual Total Yield
+      field: actualYieldTonnes
+      format: "{{value}} tonne(s)"
+    - title: Cropping System Category
+      field: category
+    - title: Season
+      field: season
+    - title: Crop Sub Type
+      field: cropType
+    - title: Seed Variety
+      field: seedVariety
+    - title: Seed Source
+      field: seedSource
+    - title: Cost of Cultivation
+      field: costOfCultivation
+      format: "{{value}} INR"
+  tabs:
+    - type: overview
+      title: Overview
+    - type: entityProgress
+      title: Crop Progress
+    - type: farmerSubmissions
+      title: Farmer Submissions
+    - type: events
+      title: Scheduled Events
+    - type: documents
+      title: Documents
+    - type: history
+      title: Activity Log
+eventCreatePage:
+  titleBar:
+    pageTitle: Create Crop Event
+  eventContextSchema: crop
+  workflowNames:
+    - - "landPrepBasicTillageEventLifecycle"
+      - "landPrepDevelopmentEventLifecycle"
+      - "landPrepLayoutEventLifecycle"
+      - "landPrepOtherEventLifecycle"
+      - "landPrepSimplifiedEventLifecycle"
+    - - "seedsInfoLifecycle"
+      - "seedlingsInfoLifecycle"
+    - - "seedsTreatmentLifecycle"
+    - - "sowingEventLifecycle"
+    - - "interCulturalOperationsWeedingEventLifecycle"
+      - "interCulturalOperationsMulchingEventLifecycle"
+      - "interCulturalOperationsThinningEventLifecycle"
+      - "interCulturalOperationsGapFillingEventLifecycle"
+      - "interCulturalOperationsEarthingUpEventLifecycle"
+      - "interCulturalOperationsPruningEventLifecycle"
+      - "interCulturalOperationsCropSpecificOperationEventLifecycle"
+    - - "irrigationEventLifecycle"
+    - - "nutritionBioStimulantsEventLifecycle"
+      - "nutritionFertilizerEventLifecycle"
+      - "nutritionManureEventLifecycle"
+      - "integratedCropNutritionEventLifecycle"
+      - "integratedCropNutritionSimplifiedEventLifecycle"
+    - - "pestManagementEventLifecycle"
+      - "preventiveMeasuresEventLifecycle"
+      - "diseaseManagementEventLifecycle"
+      - "integratedCropCareEventLifecycle"
+      - "integratedCropCareSimplifiedEventLifecycle"
+    - - "harvestingEventLifecycle"
+      - "harvestDryingEventLifecycle"
+      - "harvestLabellingEventLifecycle"
+      - "harvestPackingEventLifecycle"
+      - "harvestStorageEventLifecycle"
+      - "harvestThreshingEventLifecycle"
+      - "harvestTransportationEventLifecycle"
+      - "harvestWinnowingEventLifecycle"
+    - - "postHarvestHandlingLifecycle"
+    - - "cropSaleEventLifecycle"
+    - - "soilInfoLifecycle"
+      - "waterTestLifecycle"
+      - "farmResourcesOthersTestLifecycle"
+      - "inputSeedTestLifecycle"
+      - "inputNonGMOTestLifecycle"
+      - "inputOffFarmFertilizerTestLifecycle"
+      - "inputOthersTestLifecycle"
+      - "outputMicrobialTestLifecycle"
+      - "outputHeavyMetalsTestLifecycle"
+      - "outputPesticideResidueTestLifecycle"
+      - "outputNonGMOTestLifecycle"
+      - "outputOthersTestLifecycle"
+    - - "inputLogLifecycle"
+    - - "estimatedYieldUpdateLifecycle"
+    - - "observationsLifecycle"
+    - - "postProcessingLifecycle"
+    - - "otherEventLifecycle"
+  eventTitles:
+    - "Land Preparation"
+    - "Procurement"
+    - "Seed Treatment"
+    - "Plantation"
+    - "Intercultural Operations"
+    - "Irrigation"
+    - "Integrated Crop Nutrition"
+    - "Integrated Crop Care"
+    - "Harvest"
+    - "Post Harvest Handling"
+    - "Crop Sale"
+    - "Reports"
+    - "Input Log"
+    - "Estimated Yield Update"
+    - "Observations"
+    - "Post Processing"
+    - "Others"
+  eventSubtitles:
+    - - "Basic Tillage"
+      - "Development"
+      - "Layout"
+      - "Others"
+      - "Land Preparation (Basic)"
+
+    - - "Seeds"
+      - "Seedlings"
+
+    - - "None"
+
+    - - "None"
+
+    - - "Weeding"
+      - "Mulching"
+      - "Thinning"
+      - "Gap filling"
+      - "Earthing up"
+      - "Pruning"
+      - "Crop specific operation"
+
+    - - "None"  
+
+    - - "Bio Stimulants"
+      - "Fertilizers"
+      - "Manure"
+      - "General"
+      - "Crop Nutrition (Basic)"
+
+    - - "Pest Management"
+      - "Preventive Measures"
+      - "Crop Care (Basic)"
+
+    - - "Harvest"
+      - "Drying"
+      - "Labelling"
+      - "Packing"
+      - "Storage"
+      - "Threshing"
+      - "Transportation"
+      - "Winnowing" 
+
+    - - "None"
+    - - "None"    
+
+    - - "Farm resources - Soil test"
+      - "Farm resources - Water test"
+      - "Farm resources - Others"
+      - "Input - Seed test"
+      - "Input - Non GMO test"
+      - "Input - Off farm fertilizer or pesticide product test"
+      - "Input - Others"
+      - "Output - Microbial test"
+      - "Output - Heavy metals test"
+      - "Output - Pesticide residue test"
+      - "Output - Non GMO Test"
+      - "Output - Others"
+    - - "None"
+    - - "None"
+    - - "None"
+    - - "None"
+    - - "None"              

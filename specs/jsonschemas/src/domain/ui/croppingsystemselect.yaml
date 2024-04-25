@@ -1,0 +1,15 @@
+form:  
+  uiSchema:
+    'ui:order':
+      - croppingsystem    
+      - '*'
+
+    croppingsystem:
+      'ui:field': ReferenceField
+      ui:placeholder: Select a field parcel
+      foreignSchemaId: '/croppingsystem'
+      foreignLabelWidget: NameLabelWidget
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: croppingsystem
+    

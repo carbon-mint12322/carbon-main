@@ -1,0 +1,5 @@
+extends: ./lpEventNonValidationLifecycle.yaml
+jsonschema:
+  title: 'Output processing event'
+  $ref: '#/definitions/OutputProcessing'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/outputProcessingEvent.yaml

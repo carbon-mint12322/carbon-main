@@ -1,0 +1,22 @@
+jsonschema:
+  properties:
+    operatorDetails:
+      title: 'Operator details'
+      type: object
+      properties:
+        farmerID:
+          type: string
+          title: Farmer id
+        joiningDate:
+          type: string
+          format: date
+          title: Joining date
+        identityDocument:
+          type: string
+          title: Operator registration document
+          description: Upload operator registration document
+        subgroup:
+          $ref: '#/definitions/CollectiveSubGroupId'
+          title: Farmer subgroup
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/farmerOrgDetails.yaml

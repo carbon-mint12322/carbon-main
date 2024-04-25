@@ -1,0 +1,21 @@
+form:
+  uiSchema:
+    waterSource:
+      "ui:widget": checkboxes
+      "ui:options":
+        inline: true
+    dataSensors:
+      "ui:widget": checkboxes
+      "ui:options":
+        inline: true
+    "ui:order":
+      - waterSource
+      - otherWaterSource
+      - evidenceRequired
+      - waterAnalysisReport
+      - dataSensors
+      - otherDataSensors
+      - dataSensorsEvidence
+      - weatherRecordData
+      - weatherRecordDataEvidence
+      - "*"

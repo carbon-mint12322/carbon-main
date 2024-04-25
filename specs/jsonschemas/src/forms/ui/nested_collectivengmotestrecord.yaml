@@ -1,0 +1,2 @@
+form:
+  uiSchema: file:~/specs/jsonschemas/src/common/ui/ngmotestrecord.yaml

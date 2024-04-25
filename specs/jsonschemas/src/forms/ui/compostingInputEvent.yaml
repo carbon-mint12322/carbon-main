@@ -1,0 +1,23 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - compostingUnit
+      - feedstockType
+      - otherFeedstock
+      - quantity
+      - moistureLevel
+      - otherAdditives
+      - evidence
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    evidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml
+    compostingUnit:
+      'ui:field': ReferenceField
+      ui:placeholder: Select a composting unit
+      foreignSchemaId: '/landparcel'
+      foreignLabelWidget: NameLabelWidget

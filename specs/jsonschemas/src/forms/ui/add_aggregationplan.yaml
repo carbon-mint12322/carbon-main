@@ -1,0 +1,4 @@
+form:
+  uiSchema:
+    aggregationPlanDetails: file:~/specs/jsonschemas/src/common/ui/aggregationplan.yaml
+      

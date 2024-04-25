@@ -1,0 +1,33 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Energy Usage'
+  properties:
+    startDate:
+      title: Record start date
+      type: string
+      format: date
+    endDate:
+      title: Record end date
+      type: string
+      format: date
+    energyType:
+      type: string
+      title: Type of energy used (e.g. electricity, propane)
+    energyAmount:
+      type: number
+      title: Amount of energy used per bird or per batch
+    totalExpenditure:
+      type: number
+      title: Associated costs for energy usage
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - energyType
+    - energyAmount
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryEnergyUsage.yaml

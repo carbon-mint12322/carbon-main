@@ -1,0 +1,38 @@
+form:
+  uiSchema:
+    otherRemarks:
+      "ui:widget": textarea
+    typeOfWasteProducts:
+      "ui:widget": checkboxes
+    sourceOfWaste:
+      "ui:widget": checkboxes
+    "ui:order":
+      - wasteManagementPlan
+      - wasteManagementPlanEvidence
+      - planImplementedStatus
+      - typeOfWasteProducts
+      - otherWasteProducts
+      - sourceOfWaste
+      - otherSourceOfWaste
+      - ActionOnWasteAndPollutionMethods
+      - otherRemarks
+      - "*"
+    ActionOnWasteAndPollutionMethods:
+      "ui:order":
+        - onfarmComposting
+        - onfarmCompostingEvidence
+        - biomassProduction
+        - biomassProductionEvidence
+        - organicInputPreparation
+        - organicInputPreparationEvidence
+        - biomassConversion
+        - biomassConversionEvidence
+        - burning
+        - burningEvidence
+        - offFarmDisposal
+        - offFarmDisposalEvidence
+        - onFarmDisposal
+        - onFarmDisposalEvidence
+        - otherDisposal
+        - otherDisposalMethods
+        - otherDisposalEvidence

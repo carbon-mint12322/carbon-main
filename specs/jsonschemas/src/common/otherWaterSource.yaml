@@ -1,0 +1,19 @@
+type: object
+title: Farm pond / Lake or other water rain water harvesting structures in the farm
+properties:
+  name:
+    title: Name
+    type: string
+  capacity:
+    title: Total capacity in liters
+    type: number
+    minimum: 0
+  availability:
+    title: Availability months
+    type: string
+  pumpUsed: file:~/specs/jsonschemas/src/common/pumpUsed.yaml
+required:
+  - name
+  - capacity
+  - availability
+uiHints: file:~/specs/jsonschemas/src/common/ui/otherWaterSource.yaml

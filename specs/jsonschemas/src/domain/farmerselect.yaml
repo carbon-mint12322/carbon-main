@@ -1,0 +1,9 @@
+jsonschema:
+  title: Select Farmer
+  properties:    
+    farmer:
+      $ref: '#/definitions/FarmerRef'
+      title: Farmer
+  required:
+    - farmer
+uiHints: file:~/specs/jsonschemas/src/domain/ui/farmerselect.yaml

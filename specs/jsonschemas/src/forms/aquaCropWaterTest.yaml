@@ -1,0 +1,5 @@
+extends: ./aquacropNonValidationLifecycle.yaml
+jsonschema:
+  title: 'Water Test'
+  $ref: '#/definitions/WaterTest'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/waterTest.yaml

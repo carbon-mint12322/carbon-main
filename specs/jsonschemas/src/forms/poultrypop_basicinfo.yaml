@@ -1,0 +1,20 @@
+jsonschema:
+  properties:
+    formTitle:
+      type: object
+      title: Edit POP details
+    name:
+      type: string
+      title: POP name
+    description:
+      type: string
+      title: Description
+    poultryPopType:
+      title: Poultry information
+      $ref: '#/definitions/PoultryPOPType'
+  required:
+    - name
+    - description
+    - poultryPopType
+    - controlPoints
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultrypop_basicinfo.yaml

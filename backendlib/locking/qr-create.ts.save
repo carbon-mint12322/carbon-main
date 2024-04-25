@@ -1,0 +1,134 @@
+import { getBucketFileUrl, getQrBucketId, parseARN, arnRe } from '~/backendlib/s3';
+import renderView from '~/gen/templated-views';
+import asyncMapDeep from '../util/mapdeep';
+
+import makeLogger from '~/backendlib/logger';
+import loadObjectTree, { ObjectDataTuple } from '../db/object-tree';
+import { copyS3File } from '../s3/copy';
+import { getFileHash } from '../s3/hash';
+import { WorkflowContext } from '../workflow/types';
+
+type FileHash = { fileName: string; hash: string };
+
+const logger = makeLogger('qr');
+// Generate QR code view for a record of type IRecordDef
+// look for a template in the recordDef called qr
+// Load the object data from its ID using getRecordById function
+// Pass the object data to renderView function from templated-view.ts
+// Store the rendered text in S3 using s3 writeFile function from backendlib/s3/index.ts library.
+// store link in the object data using setRecordById function
+// return the link
+export async function generateQrCode(
+  domainSchemaId: string,
+  domainObjectId: string,
+  wfctx: WorkflowContext,
+  getSchemaFromName: (s: string) => any,
+  getModel: (name: string) => any,
+) {
+  const bucketId = getQrBucketId();
+  const modelApi = getModel(domainSchemaId);
+  const [data, relatedObjects]: ObjectDataTuple = await loadData(
+    domainObjectId,
+    domainSchemaId,
+    getSchemaFromName,
+    getModel,
+  );
+
+  if (!data) {
+    logger.error(`No data found for  ${domainSchemaId}, id: ${domainObjectId}`);
+    throw new Error('No data found for id: ' + domainObjectId);
+  }
+  const qrFolder = getFolderName(domainSchemaId, domainObjectId);
+  const qrFileName = `${qrFolder}/qr.html`;
+  // logger.debug('copying attachments to S3');
+  const mergedData = { ...data, ...relatedObjects };
+
+  // Deep traverse data, find attachments and
+  // copy all attachments to the QR folder.
+  // return mapped data structure with ARNs replaced with new
+  // public file locations.
+  const fileNameMappedData = await copyAttachments(bucketId, qrFolder, mergedData);
+  // console.log('fileNameMappedData is', fileNameMappedData);
+  const ctx = { ...fileNameMappedData, creationDate: new Date().toISOString() };
+  const html = renderView(domainSchemaId)('qr')(ctx);
+  // logger.debug(`QR view generated`);
+  // logger.debug(`writing QR view to S3: ${qrFileName}`);
+  const link = getBucketFileUrl(bucketId, qrFileName);
+  // logger.debug('updating record with QR link: ' + link);
+  await modelApi.update(domainObjectId, { qrLink: link }, ctx.session.userId, ctx.dbSession);
+  // logger.debug('returning QR link: ' + link);
+  return { link, bucketId, folder: qrFolder, attachments: fileNameMappedData.attachmentHashArr };
+}
+
+async function loadData(
+  domainSchemaId: string,
+  domainObjectId: string,
+  getSchemaFromName: (s: string) => any,
+  getModelApi: (name: string) => any,
+) {
+  return loadObjectTree(getModelApi, getSchemaFromName)(domainObjectId, domainSchemaId);
+}
+
+// Copy attachments from the object data to S3
+// For each attachment in the object data
+// Find ARNs and copy the corresponidng file to the QR folder.
+// Return mapped data, with old ARNs mapped to new file URLs.
+// All new files are stored under the QR folder
+async function copyAttachments(bucketId: string, qrFolder: string, data: any) {
+  let fileNumber = new Date().getTime();
+  const arnMapping: Record<string, string> = {};
+  // Deep traverse json data and map S3 ARNs to new S3 file names, all into
+  // QR public folder
+  const fileNameMappedData = await asyncMapDeep(filter, map)(data, undefined);
+  // Copy all files to the QR folder
+  const attachmentHashArr: FileHash[] = await s3Copy(arnMapping, bucketId, qrFolder);
+  return { ...fileNameMappedData, attachmentHashArr };
+
+  // Function to filter to include attachments only
+  function filter(value: any) {
+    return value && typeof value === 'string' && arnRe.test(value);
+  }
+
+  // map filterered field values to new file names in S3 (relative URL)
+  // Collect the old->new mappings in arnMapping table.
+  function map(arn: string) {
+    const { bucketId: _, fileName } = parseARN(arn);
+    const extension = getFileExtension(fileName);
+    const newFileName = `attachment-${fileNumber++}.${extension}`;
+    arnMapping[arn] = newFileName;
+    return newFileName; // relative URL
+  }
+}
+
+function getFolderName(domainSchemaId: string, domainObjectId: string) {
+  return `/farmbook/${domainSchemaId}/${domainObjectId}/${uniqueId()}`;
+}
+
+function getFileExtension(filename: string): string {
+  const match = filename.match(/\.([^.]+)$/);
+  return match ? match[1] : '';
+}
+// Copy files from one S3 bucket to another
+// arnMapping is a record of the form { [oldARN]: newFilename }
+// newBucketId is the ID of the bucket to copy to
+// copyS3File is a function that copies a single file from one bucket to another
+// Returns a promise that resolves when all files have been copied
+
+async function s3Copy(arnMapping: Record<string, string>, newBucketId: string, qrFolder: string) {
+  const isPublic = true;
+  const hashArr: FileHash[] = await Promise.all(
+    Object.entries(arnMapping).map(async ([arn, newFileName]): Promise<FileHash> => {
+      const { bucketId: oldBucketId, fileName: oldFileName } = parseARN(arn);
+      const newS3FileName = `${qrFolder}/${newFileName}`;
+      await copyS3File(oldBucketId, oldFileName, newBucketId, newS3FileName, isPublic);
+      const hash: string = await getFileHash(newBucketId, newS3FileName);
+      const fhash: FileHash = { fileName: newFileName, hash };
+      return fhash;
+    }),
+  );
+  return hashArr;
+}
+
+function uniqueId() {
+  return new Date().getTime();
+}

@@ -1,0 +1,37 @@
+'ui:order':
+  - aggregationPlan
+  - cb
+  - collectionDate
+  - sampleCollector
+  - description
+  - lotNo
+  - sampleType
+  - sampleReference
+  - testingMethod
+  - testingLab
+  - results
+  - samplingEvidences
+  - status
+  - otherRemarks
+otherRemarks:
+  'ui:widget': textarea
+results:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+samplingEvidences:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+aggregationPlan:
+  'ui:field': ReferenceField
+  ui:placeholder: Select an aggregation plan
+  foreignSchemaId: '/collective'
+  foreignLabelWidget: NameLabelWidget
+  'ui:options':
+    # This key is passed for selecting a field for crop creation
+    filterKey: aggregationPlan
+cb:
+  'ui:field': ReferenceField
+  ui:placeholder: Select a certification body
+  foreignSchemaId: '/certificationbody'
+  foreignLabelWidget: NameLabelWidget
+  'ui:options':
+    # This key is passed for selecting a field for crop creation
+    filterKey: certificationBody

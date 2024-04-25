@@ -1,0 +1,34 @@
+extends: ./aquacropNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Preventive Measures'
+  properties:
+    startDate:
+      title: Feed start date
+      type: string
+      format: date
+    endDate:
+      title: Feed end date
+      type: string
+      format: date
+    description:
+      title: Description of measures
+      type: string
+    purpose:
+      title: Purpose
+      type: string
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - feedType
+    - feedAmount
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/aquacropAeration.yaml

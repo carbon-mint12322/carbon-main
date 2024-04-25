@@ -1,0 +1,170 @@
+//generated from template: tools/templates/page-components/detail-component.tsx.mustache
+
+import React from 'react';
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+import { useAlert } from '~/contexts/AlertContext';
+import { useOperator } from '~/contexts/OperatorContext';
+import useFetch from 'hooks/useFetch';
+import axios from 'axios';
+import { DetailPageComponentConfig, GenericDetailPageComponent, TitleBarConfig } from '~/components/detail-page/GenericDetailPageComponent';
+
+import * as renderLib from "~/entitylib/{{modelName}}/detail";
+
+// Tab component import
+const OverviewTab = dynamic(() => import("~/components/lib/OverviewTab"));
+const InfoTab = dynamic(() => import( "~/components/lib/InfoTab"));
+const EntityProgress = dynamic(() => import( "~/components/lib/EntityProgress"));
+const ScheduledEventsTab = dynamic(() => import( "~/components/lib/ScheduledEvents"));
+const Document = dynamic(() => import( "~/components/lib/Document"));
+const Impact = dynamic(() => import( "~/components/lib/ImpactTab"));
+const HistoryTab = dynamic(() => import( "~/components/lib/HistoryTab"));
+const TasksTab = dynamic(() => import( "~/components/lib/TasksTab"));
+const ListTab = dynamic(() => import( "~/components/lib/TableView"));
+const LandParcelsTab = dynamic(() => import( "~/components/lib/LandParcelsList"));
+const SchemePOPEventsTab = dynamic(() => import( "~/components/lib/SchemePOPEventsTab"));
+const FarmerSubmissionsTab = dynamic(() => import( "~/components/lib/FarmerSubmission"));
+
+// icon import
+import OverviewIcon from "~/entitylib/icons/OverviewIcon";
+import InfoIcon from "~/entitylib/icons/InfoIcon";
+import ProgressIcon from "~/entitylib/icons/ProgressIcon";
+import ScheduledEventsIcon from "~/entitylib/icons/ScheduledEventsIcon";
+import DocumentsIcon from "~/entitylib/icons/DocumentsIcon";
+import ImpactIcon from "~/entitylib/icons/ImpactIcon";
+import HistoryIcon from "~/entitylib/icons/HistoryIcon";
+import TasksIcon from "~/entitylib/icons/TasksIcon";
+import LandParcelsIcon from "~/entitylib/icons/LandParcelsIcon";
+import ListIcon from "~/entitylib/icons/ListIcon";
+import FarmerSubmissionsIcon from "~/entitylib/icons/FarmerSubmissionsIcon";
+
+
+// Aliases for easy codegen
+const overviewComponent = OverviewTab;
+const infoComponent = InfoTab;
+const entityProgressComponent = EntityProgress;
+const eventsComponent = ScheduledEventsTab;
+const documentsComponent = Document;
+const impactComponent = Impact;
+const historyComponent = HistoryTab;
+const tasksComponent = TasksTab;
+const listComponent = ListTab;
+const landparcelsComponent = LandParcelsTab;
+const schemepopeventsComponent = SchemePOPEventsTab;
+const farmerSubmissionsComponent = FarmerSubmissionsTab;
+
+const overviewIcon = <OverviewIcon/>;
+const infoIcon = <InfoIcon/>;
+const entityProgressIcon = <ProgressIcon/>;
+const eventsIcon = <ScheduledEventsIcon/>;
+const documentsIcon = <DocumentsIcon/>;
+const impactIcon = <ImpactIcon/>;
+const historyIcon = <HistoryIcon/>;
+const tasksIcon = <TasksIcon/>;
+const listIcon = <ListIcon/>;
+const landparcelsIcon = <LandParcelsIcon/>;
+const schemepopeventsIcon =  <ScheduledEventsIcon/>;
+const farmerSubmissionsIcon =  <FarmerSubmissionsIcon/>;
+
+// component getData retrieval imports
+import {
+  getOverviewData as getoverviewData,
+  getImpactData as getimpactData,
+  getHistoryData as gethistoryData,
+  getInfoTabData as getinfoData,
+  getProgressData as getentityProgressData,
+  getScheduledEventsData as geteventsData,
+  getDocumentsData as getdocumentsData,
+  getTasksData as gettasksData,
+  getListData as getlistData,
+  getLandParcelsData as getlandparcelsData,
+  getSchemePOPEventsData as getschemepopeventsData,
+  getFarmerSubmissionsData as getfarmerSubmissionsData
+} from "~/entitylib/{{modelName}}/detail/getData";
+
+const titleBarRenderLib = renderLib.titlebar;
+
+export default function {{{modelNameCapitalized}}}DetailPage(props: any) {
+  const { openToast } = useAlert();
+  const router = useRouter();
+  const { getAPIPrefix, getApiUrl } = useOperator();
+  const API_URL = `${getAPIPrefix()}/{{modelName}}/${router.query.id}`;
+
+  const org = router?.query?.org as string;
+
+  const entityId = router?.query?.id as string;
+
+  // TODO: Move to GenericDetailPageComponent
+  const { isLoading: loading, data, reFetch } = useFetch<any[]>(API_URL);
+
+  const entityData = data;
+
+  function fetchData(){
+    return reFetch(API_URL);
+  }
+
+  //TODO: Move to GenericDetailPageComponent
+  const handleAddFormSubmit = async (formData: any) => {
+    try {
+      const apiUrl = getApiUrl(`/{{modelName}}/${router.query.id}`);
+      await axios
+        .post(apiUrl, {
+          ...formData,
+        })
+        .then((res) => {
+          openToast('success', '{{modelNameCapitalized}} details updated');
+        });
+
+      reFetch(API_URL);
+    } catch (error: any) {
+      openToast('error', 'Failed to update {{modelName}} details');
+      console.log(error);
+    }
+  };
+
+  const componentList: any[] = [
+{{#detailPageOptions.tabs}}
+    {
+      label: `{{title}}`,
+      icon: {{type}}Icon,
+
+      component: {{type}}Component,
+      // {{type}} tab props
+      props: {
+  {{#propsJson}}
+        ...({{{propsJson}}}),
+  {{/propsJson}}
+        ...get{{type}}Data(entityData,'{{{modelName}}}', fetchData, org),
+      }
+    },
+{{/detailPageOptions.tabs}}
+  ];
+
+  const mCtx = { props, data, searchValue: "xx" }; // mustache render context
+  const titleBarConfig: any = {
+    
+    showTitlebar: titleBarRenderLib.showTitlebar(mCtx),
+    showTitlebarTitle: titleBarRenderLib.showTitle(mCtx),
+    showTitlebarSubTitle: titleBarRenderLib.showSubtitle(mCtx),
+    showTitlebarSearch: titleBarRenderLib.showTitlebarSearch(mCtx),
+    showTitlebarMainBtn: titleBarRenderLib.showTitlebarMainBtn(mCtx),
+    showTitlebarSubBtn: titleBarRenderLib.showTitlebarSubBtn(mCtx),
+
+    pageTitle: titleBarRenderLib.renderTitle(mCtx, (K as any).titleBar?.pageTitle),
+    subTitle: titleBarRenderLib.renderSubTitle(mCtx, (K as any).titleBar?.subTitle),
+    mainBtnTitle: titleBarRenderLib.renderMainBtnTitle(mCtx, (K as any).titleBar?.mainBtnTitle),
+    subBtnTitle: titleBarRenderLib.renderSubBtnTitle(mCtx, (K as any).titleBar?.subBtnTitle),
+  };
+
+  return <GenericDetailPageComponent
+    modelName="{{{modelName}}}"
+    titleBarConfig={titleBarConfig}
+    componentList={componentList}
+    handleAddFormSubmit={handleAddFormSubmit}
+    entityId={entityId}
+    entityData={entityData}
+  />;
+}
+
+// Page constants from yaml
+const K = {{{detailPageOptionsJson}}};

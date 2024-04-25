@@ -1,0 +1,145 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    photoEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - cropCareMethods
+      - expensesMet
+      - photoEvidence
+      - recommondedBy
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    cropCareMethods:
+      'ui:order':
+        - mechanicalControl
+        - botanicalPesticide
+        - onFarmPreparations
+        - certifiedOrganicInputs
+        - naturalEnemies
+        - chemicalPesticide
+        - otherMethods
+        - '*'
+      mechanicalControl:
+        'ui:order':
+          - lightTrap
+          - lightTrapDetails
+          - noOfLightTraps
+          - lightTrapOperatingHours
+          - pheromoneTrap
+          - pheromoneTrapDetails
+          - noOfPheromoneTraps
+          - lureChangeInterval
+          - yellowStickyTrap
+          - noOfYellowStickyTraps
+          - yellowStickyTrapSize
+          - yellowStickyTrapChangeInterval
+          - blueStickyTrap
+          - noOfBlueStickyTraps
+          - blueStickyTrapSize
+          - blueStickyTrapChangeInterval
+          - baitTrap
+          - baitUsed
+          - againstPest
+          - baitChangeInterval
+          - otherTrap
+          - otherTrapsUsed
+          - '*'
+        otherTrapsUsed:
+          items:
+            - otherTrapDetails
+            - otherTrapNoOfTraps
+            - otherTrapAgainstPest
+            - otherTrapChangeInterval
+            - '*'
+      botanicalPesticide:
+        'ui:order':
+          - botanicalPesticideUsed
+          - '*'
+        botanicalPesticideUsed:
+          items:
+            'ui:order':
+              - pesticideName
+              - pesticideType
+              - concentration
+              - dosage
+              - '*'
+      onFarmPreparations:
+        'ui:order':
+          - panchakavya
+          - panchakavyaDosage
+          - jeevamritham
+          - jeevamrithamDosage
+          - dhasakavya
+          - dhasakavyaDosage
+          - cowUrine
+          - cowUrineDosage
+          - cowDungExtract
+          - cowDungExtractDosage
+          - fermentedButterMilk
+          - fermentedButterMilkDosage
+          - neemasthra
+          - neemasthraDosage
+          - chilliGarlicExtract
+          - chilliGarlicExtractDosage
+          - brahmaAshtra
+          - brahmaAshtraDosage
+          - agniAshtra
+          - agniAshtraDosage
+          - dasaParni
+          - dasaParniDosage
+          - otherPreparations
+          - otherPreparationsUsed
+          - '*'
+        otherPreparationsUsed:
+          items:
+            'ui:order':
+              - otherPreparationName
+              - otherPreparationDosage
+              - '*'
+      certifiedOrganicInputs:
+        'ui:order':
+          - certifiedOrganicInputsUsed
+          - '*'
+        certifiedOrganicInputsUsed:
+          items:
+            'ui:order':
+              - tradeName
+              - brandName
+              - principle
+              - certifiedBy
+              - evidence
+              - '*'
+            evidence:
+              'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      naturalEnemies:
+        'ui:order':
+          - eggParasitoid
+          - eggParasitoidName
+          - eggParasitoidRelease
+          - larvalParasitoid
+          - larvalParasitoidName
+          - larvalParasitoidRelease
+          - pupalParasitoid
+          - pupalParasitoidName
+          - pupalParasitoidRelease
+          - '*'
+      chemicalPesticide:
+        'ui:order':
+          - chemicalPesticideUsed
+          - '*'
+        chemicalPesticideUsed:
+          items:
+            'ui:order':
+              - chemicalTradeName
+              - chemicalFormulation
+              - checmicalConcentration
+              - chemicalDosage
+              - chemicalPurchaseEvidence
+              - '*'
+            chemicalPurchaseEvidence:
+              'ui:widget': 'UploadFilesWithAttachmentsWidget'
+
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

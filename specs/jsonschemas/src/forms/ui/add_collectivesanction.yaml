@@ -1,0 +1,30 @@
+form:
+  uiSchema:
+    sanctionDetails:
+      'ui:order':
+        - sanctionDate
+        - cb
+        - sanctionType
+        - reason
+        - description
+        - sanctionPeriod
+        - sanctionStatus
+        - actions
+        - responsibleParty
+        - monitoring
+        - review
+        - notification
+        - appealsProcess
+        - closureConfirmation
+        - attachments
+      description:
+        'ui:widget': textarea
+      correctiveActionPlan:
+        'ui:widget': textarea
+      cb:
+        'ui:field': ReferenceField
+        ui:placeholder: Select a certification body
+        foreignSchemaId: '/certificationbody'
+        foreignLabelWidget: NameLabelWidget
+      attachments:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'

@@ -1,0 +1,313 @@
+form:
+  uiSchema:
+    "ui:order":
+      - productionSystem
+      - poultryPop
+      - batchIdName
+      - poultryType
+      - purpose
+      - size
+      - chickPlacementDay
+      - chickSource
+      - breed
+      - risk
+      - estHarvestDate
+      - "*"
+    farmer:
+      'ui:widget': 'hidden'
+    productionSystem:
+      "ui:widget": ReferenceSelectorWidget
+      ui:placeholder: Select a production system
+      foreignSchemaId: "/productionsystem"
+      foreignLabelWidget: NameLabelWidget
+      "ui:options":
+        # This key is passed for selecting a field for crop creation
+        filterKey: productionSystem
+    poultryPop:
+      "ui:widget": ReferenceSelectorWidget
+      ui:placeholder: Select a Poultry POP
+      foreignSchemaId: "/poultrypop"
+      "ui:options":
+        # This key is passed for selecting a field for crop creation
+        filterKey: poultrypop
+      foreignLabelWidget: NameLabelWidget
+createPage:
+  titleBar:
+    pageTitle: "Add Poultry"
+  schema: poultrybatch
+  isValidationNeeded: true
+detailPage:
+  showMap: true
+  titleBar:
+    pageTitle: "{{data.batchIdName}}"
+    subTitle: "{{data.landParcelDetails.name}}"
+    mainBtnTitle: Add Event
+    subBtnTitle: "Sample Second Button"
+    showTitlebar: true
+    showTitlebarTitle: true
+    showTitlebarSubTitle: true
+    showTitlebarMainBtn: true
+    showTitlebarSubBtn: true
+  overviewFields:
+    - title: Batch ID
+      field: batchIdName
+    - title: Batch Size
+      field: size
+    - title: Field
+      field: field
+    - title: Poultry Type
+      field: poultryType
+    - title: Breed
+      field: breed
+    - title: Purpose
+      field: purpose
+    - title: Chick Placement Date
+      field: chickPlacementDay
+    - title: Estimated Harvest Date
+      field: estHarvestDate
+    - title: Actual Chick Placement Date
+      field: actualChickPlacementDay
+    - title: Harvest Date(s)
+      field: actualHarvestDate
+    - title: Actual Total Yield Size
+      field: actualYieldSize
+    - title: Actual Total Yield
+      field: actualYieldTonnes
+      format: "{{value}} tonnes"
+    - title: Farmer Name
+      field: farmerName
+      formatter: stringFormatter
+    - title: Cost of Cultivation
+      field: costOfCultivation
+      format: "{{value}} INR"
+  tabs:
+    - type: overview
+      title: Poultry Overview
+    # - type: info
+    #   title: Poultry Info
+    #   props:
+    #     includeJsonSchema: true
+    #     verticalTabs:
+    #       - type: basicInfo
+    #         title: Basic Info
+    #         props:
+    #           nodePath: basicInfo
+    #           viewUiOrder:
+    #             - poultryType
+    #             - purpose
+    #             - breed
+    #             - pedigree
+    #             - "*"
+    #       - type: chickData
+    #         title: Chick Data
+    #         props:
+    #           nodePath: chickData
+    #           viewUiOrder:
+    #             - chickSource
+    #             - risk
+    #             - size
+    #             - "*"
+    #       - type: pedigreeData
+    #         title: Pedigree
+    #         props:
+    #           nodePath: pedigreeData
+    #           viewUiOrder:
+    #             - pedigree
+    - type: entityProgress
+      title: Poultry Batch Progress
+    - type: events
+      title: Scheduled Events
+    # - type: tasks
+    #   title: Tasks
+    - type: documents
+      title: Documents
+    - type: impact
+      title: Impact
+    - type: history
+      title: Activity Log
+listPage:
+  showInactiveDefault: false
+  isMultiSelect: true
+  customFilterKeys:
+    - batchIdName
+    - farmer.name
+    - purpose
+    - breed
+  titleBar:
+    pageTitle: Poultry Batches
+    subTitle: "Showing {{data.length}} poultry batches total"
+    mainBtnTitle: Add Poultry Batch
+    subBtnTitle: "Bulk Actions"
+    showTitlebar: true
+    showTitlebarTitle: true
+    showTitlebarSubTitle: true
+    showTitlebarMainBtn: true
+    showTitlebarSubBtn: true
+    showTitlebarSearch: true
+  bulkActions:
+    - label: Add Events
+      operation: handleOpen
+
+  colDefs:
+    - field: poultryName
+      headerName: "Poultry Batch & Land parcel"
+      renderCell: renderNameCellPoultry
+      minWidth: 250
+      flex: 1
+    - field: purpose
+      headerName: Purpose
+      minWidth: 100
+      flex: 1
+      valueGetter: stringValueGetter
+    - field: size
+      headerName: Batch Size
+      minWidth: 100
+      flex: 1
+    - field: breed
+      headerName: Breed
+      minWidth: 100
+      flex: 1
+      valueGetter: stringValueGetter
+    - field: chickPlacementDay
+      headerName: Start Date
+      minWidth: 100
+      flex: 1
+    - field: recentEvent
+      headerName: Recent Event
+      minWidth: 150
+      flex: 1
+      renderCell: renderRecentEventPoultry
+    - field: recentEvent.createdAt
+      headerName: Event Date
+      minWidth: 100
+      flex: 1
+      renderCell: renderRecentEventDatePoultry
+    - field: dayMortality
+      headerName: Today Mortality
+      minWidth: 100
+      flex: 1
+      valueGetter: numberValueGetter
+    - field: cumulativeMortality
+      headerName: Cumulative Mortality
+      minWidth: 100
+      flex: 1
+      valueGetter: numberValueGetter
+    - field: mortalityPercentage
+      headerName: Mortality Percentage
+      minWidth: 100
+      flex: 1
+      valueGetter: percentageValueGetter
+    - field: risk
+      headerName: Risk
+      minWidth: 100
+      flex: 1
+      valueGetter: stringValueGetter
+    - field: feedStock
+      headerName: Feed Stock (Kgs)
+      minWidth: 100
+      flex: 1
+      valueGetter: numberValueGetter
+    - field: feedExpiry
+      headerName: Feed Expiry
+      minWidth: 100
+      flex: 1
+      valueGetter: dateValueGetter
+    - field: status
+      headerName: Status
+      minWidth: 100
+      flex: 1
+      valueGetter: stringValueGetter
+    - field: pendingEvents
+      headerName: Pending Events
+      minWidth: 100
+      flex: 1
+      valueGetter: numberValueGetter
+    - field: actions
+      headerName: Actions
+      minWidth: 100
+      flex: 1
+      renderCell: renderActionCellPoultry
+
+# Uncomment this block if you want event list page
+# eventListPage:
+#   pageTitle: Poultry Batch Events
+#   eventContextSchema: poultrybatch
+#   colDefs:
+#     - field: 'name'
+#       headerName: 'Name'
+#       minWidth: 220
+#       flex: 1
+#       hideable: false
+#     - field: 'category'
+#       headerName: 'Category'
+#       minWidth: 200
+#       flex: 1
+#     - field: 'status'
+#       headerName: 'Status'
+#       minWidth: 200
+#       flex: 1
+#       #valueGetter: (params: GridValueGetterParams) => `${params.row.status || '-'}`
+eventCreatePage:
+  titleBar:
+    pageTitle: Create Poultry Event
+  eventContextSchema: poultrybatch
+  workflowNames:
+    - - "poultryVaccinationLifecycle"
+      - "poultryMedicationLifecycle"
+      - "poultryMortalityLifecycle"
+      - "poultryWeightGrowthLifecycle"
+    - - "poultryFeedLifecycle"
+      - "poultryHarvestLifecycle"
+      - "poultryEggCollectionLifecycle"
+      - "poultryShedPreparationLifecycle"
+      - "poultryChicksProcurementLifecycle"
+      - "poultryChicksPlacementLifecycle"
+    - - "poultryFeedEfficiencyLifecycle"
+      - "poultryWaterUsageLifecycle"
+      - "poultryWasteManagementLifecycle"
+      - "poultryEnergyUsageLifecycle"
+      - "poultryLandUseLifecycle"
+    - - "poultryWaterTestLifecycle"
+      - "poultryOthersTestLifecycle"
+      - "poultryAuditReportLifecycle"
+      - "poultryInspectionLifecycle"
+    - - "poultryInputLogLifecycle"
+    - - "poultryObservationsLifecycle"
+  eventTitles:
+    - "Health Management"
+    - "Production Management"
+    - "Environmental Impact"
+    - "Reports"
+    - "Input Log"
+    - "Observations"
+  eventSubtitles:
+    - - "Vaccination"
+      - "Medication"
+      - "Mortality"
+      - "Weight Growth"
+
+    - - "Feed"
+      - "Harvest"
+      - "Egg Collection"
+      - "Shed Preparation"
+      - "Chicks Procurement"
+      - "Chicks Placement"
+
+    - - "Feed Efficiency"
+      - "Water Usage"
+      - "Waste Management"
+      - "Energy Usage"
+      - "Land Use"
+
+    - - "Water Test"
+      - "Others Test"
+      - "Audit Report"
+      - "Inspection Report"
+    - - "None"
+    - - "None"
+eventEditPage:
+  titleBar:
+    pageTitle: Edit Poultry Event
+    subTitle: "{{{data?.[0].batchIdName}}} • {{{data?.[0].landParcel?.name}}} • {{{data?.[0].farmer?.name}}}"
+editPage:
+  dummy: true

@@ -1,0 +1,1882 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+  <script>
+
+    /** */
+   function imageModalPopUp(url, title = false) {
+
+        if(title) $('#eventDetailImageModalTitle').text(title);
+
+        document.getElementById('eventDetailImageModal').innerHTML = '<img style="max-width:100%" src="' + url + '" />';
+         $('#imageModalContainer').modal('toggle');
+   }
+
+
+    /** */
+    function MapGenerator(selectorId, nestedCoordinates, markers) {
+
+        // eslint-disable-next-line no-undef
+        const map = new google.maps.Map(document.getElementById(selectorId), {
+            mapTypeId: 'satellite',
+        });
+
+
+        let canSetBounds = true;
+
+        // Create a new LatLngBounds object to encapsulate the polygon
+        // eslint-disable-next-line no-undef
+        const bounds = new google.maps.LatLngBounds();
+
+        for (const coordinates of nestedCoordinates) {
+            setPolygonForCoordinates(map, coordinates, canSetBounds);
+            canSetBounds = false;
+        }
+
+        for (const marker of markers) {
+            setMarker(map, marker)
+        }
+
+        map.fitBounds(bounds);
+
+        /** */
+        function setPolygonForCoordinates(map, coordinates, canSetBounds) {
+
+            // get first coordinate
+            const [first] = coordinates;
+
+            // eslint-disable-next-line no-undef
+            const polygons = new google.maps.Polygon({
+                path: coordinates,
+                geodesic: true,
+                fillOpacity: 0.4,
+                strokeColor: first.strokeColor,
+                strokeOpacity: first.strokeOpacity ?? 1.0,
+                strokeWeight: first.strokeWeight ?? 2,
+                ...(first.fillColor ? {fillColor: first.fillColor,} : {})
+            });
+
+            polygons.setMap(map);
+
+           
+                // Set the center of the map to the center of the polygon
+                for (const coordinate of coordinates) {
+                    bounds.extend(coordinate);
+                }
+            
+        }
+
+        /** */
+        function setMarker(map, marker) {
+            // eslint-disable-next-line no-undef
+            new google.maps.Marker({
+                position: marker,
+                map: map,
+
+            });
+
+             bounds.extend(marker);
+        }
+
+        /** */
+        function getRandomColor() {
+            return '#' + Math.floor(Math.random() * 16777215).toString(16);
+        }
+    }
+
+    /** */
+    function AddImageOrFileHtmlToParent(element) {
+
+      try {
+              // 
+              const title = element.data('title');
+              const href = element.data('href') || element.data('fileurl');
+
+              // 
+              function getFileType(url) {
+                
+                const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
+                const pdfExtension = ['.pdf'];
+
+                if (imageExtensions.some((extension) => url.toLowerCase().endsWith(extension))) {
+                  return "image";
+                }
+
+                if (pdfExtension.some((extension) => url.toLowerCase().endsWith(extension))) {
+                  return "pdf";
+                }
+              }
+
+              const commonAttributes = 'data-title="'+ title +'" data-href="'+ href +'" height="50" width="50"';
+
+              //
+              switch(getFileType(href)) {
+
+                case 'pdf':
+                  element.html(
+                    '<img src="https://img.icons8.com/office/40/pdf.png" '+ commonAttributes +' class="documentPreviewer">'
+                  )
+                  break; 
+
+                case 'image':
+                  element.html('<img src="'+ href +'" ' + commonAttributes + ' class="imagePreviewer">')
+                  break; 
+              }
+
+            } catch(e) {
+              console.error(e);
+            }
+
+
+    }
+
+  </script>
+
+  <script>  
+      const QR_INPUT_EVENTS = {{{ QRInput.eventsStringified }}}
+
+      function onEventSelect(id) {
+        
+        const event = QR_INPUT_EVENTS.find(event => event._id === id);
+        
+        $('#eventDetailModal').html($('#eventDetailModal').html(event.html).text());
+
+        MapGenerator('eventDetailModalMap', event.nestedCoordinates, event.markers);
+
+         $('.documentLink').each(function () {
+            AddImageOrFileHtmlToParent($(this));
+          });
+
+        $('#eventModalContainer').modal('toggle');
+      }
+  </script>
+
+  <!-- Script to wrap pdf loader -->
+  <script>
+
+  
+    /**
+    * getPdfLoader is function to setup a instance of PDFLoader wrapper.
+    * It expects a config input and returns a instance with the config setup, 
+    * so that we can reuse with different urls each time.
+    * 
+    * 
+    * @param {Object} config - Config to setup a instance of PdfLoader
+    * @param {string} config.contentHolderId - A html block level element, where the pages are going to be loaded
+    * 
+    */
+    function getScrollablePdfLoader({ contentHolderId }) {
+
+        /**
+        * PDFLoader is a wrapper function around mozilla's PDf.js library (https://github.com/mozilla/pdf.js)
+        * @constructor
+        * 
+        * @param {string} url - Url of the pdf to load
+        */
+        function PDFLoader(url) {
+
+            // Loaded via <script> tag, create shortcut to access PDF.js exports.
+            let { pdfjsLib } = globalThis;
+
+            // The workerSrc property shall be specified.
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.mjs';
+
+            let pdfDoc = null,
+                scale = 1;
+
+            /**
+            * Get page info from document, resize canvas accordingly, and render page.
+            * @param num Page number.
+            */
+            async function renderPage(num) {
+
+                // Using promise to fetch the page
+                return pdfDoc
+                    .getPage(num)
+                    .then(function (page) {
+
+                        const newCanvasId = 'pdf-viewer-' + num;
+
+                        // jQuery is expected be loaded before calling this function
+                        // eslint-disable-next-line no-undef 
+                        $('#' + contentHolderId).append('<canvas id="' + newCanvasId + '"></canvas>');
+
+                        // getting canvas
+                        const canvas = document.getElementById(newCanvasId);
+
+                        let viewport = page.getViewport({
+                            scale: scale
+                        });
+
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        // Render PDF page into canvas context
+                        const renderContext = {
+                            canvasContext: canvas.getContext('2d'),
+                            viewport: viewport
+                        };
+
+                        let renderTask = page.render(renderContext);
+
+                        return renderTask.promise;
+                    });
+
+            }
+
+            /**
+            * Renders all the pdf pages into html canvas element
+            */
+            async function renderAllPages() {
+                for (var i = 1; i <= pdfDoc.numPages; i++) {
+                    await renderPage(i);
+                }
+            }
+
+            /**
+            * Asynchronously downloads PDF.
+            */
+            pdfjsLib
+                .getDocument(url)
+                .promise
+                .then(async function (pdfDoc_) {
+                    pdfDoc = pdfDoc_;
+
+                    // Clear the existing content holder
+                    // eslint-disable-next-line no-undef
+                    $("#" + contentHolderId).empty();
+
+                    // Initiate page rendering
+                    return renderAllPages();
+                })
+                // eslint-disable-next-line no-console
+                .then(() => console.log("PDF loaded."));
+
+
+        }
+
+        return PDFLoader;
+    }
+
+  </script>
+
+  <style>
+    @font-face {
+      font-family: "Circular Std";
+      font-weight: 900;
+      src: url("https://carbon-mint.github.io/qr-assets.github.io/assets/fonts/CircularStd-Black.ttf");
+    }
+
+    @font-face {
+      font-family: "Circular Std";
+      font-weight: 700;
+      src: url("https://carbon-mint.github.io/qr-assets.github.io/assets/fonts/CircularStd-Bold.ttf");
+    }
+
+    @font-face {
+      font-family: "Circular std";
+      font-weight: 500;
+      src: url("https://carbon-mint.github.io/qr-assets.github.io/assets/fonts/CircularStd-Medium.ttf");
+    }
+
+    body {
+      font-family: "Circular std";
+      padding: 0;
+      margin: 0;
+      background-color: #f5f5f5;
+      word-wrap: break-word;
+    }
+
+    .header {
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 30px 24px 18px;
+    }
+
+    .header-logo-holder {
+      width: 45%;
+    }
+
+    .header-title-holder {
+      width: 55%;
+    }
+
+    #header-logo img {
+      width: 80px;
+    }
+
+    @media (max-width: 575px) { 
+      .header {
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .header-logo-holder, .header-title-holder {
+        width: 100%;
+      }
+
+      .header-logo-holder > img {
+        height: 50px;
+        width: 130px;
+      }
+    }
+
+    .sticky {
+      width: 230px;
+      height: 66px;
+      display: flex;
+      justify-content: space-between;
+      background: #ffffff;
+      border-radius: 64px;
+      padding: 15px 24px;
+      position: fixed;
+      margin: auto;
+      bottom: 50px;
+      left: calc(50% - 115px);
+      z-index: 9;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.08));
+    }
+
+    .text-part {
+      padding: 0 28px;
+    }
+
+    .text-one {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      color: #000000;
+      opacity: 0.4;
+      margin: 0;
+    }
+
+    .text-two {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      color: #000000;
+      margin: 0;
+    }
+
+    .text-three {
+      font-weight: 700;
+      font-size: 17px;
+      line-height: 22px;
+      color: #000000;
+      margin-bottom: 4px;
+      text-decoration: none;
+    }
+
+    .text-four {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
+      color: #000000;
+      margin-bottom: 2px;
+    }
+
+    .text-five {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
+      color: #000000;
+      opacity: 0.4;
+      margin: 0;
+    }
+
+    .head {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 23px;
+      color: #000000;
+      padding-left: 24px;
+    }
+
+    .head-right {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 23px;
+      color: #000000;
+      padding-left: 24px;
+      padding-right: 24px;
+      margin-right: 2px;
+    }
+
+    .line-btm {
+      padding-top: 24px;
+      padding-bottom: 31px;
+    }
+
+    .line-btm::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: #f0f0f0;
+    }
+
+    .box {
+      margin-top: 16px;
+      background: #ffffff;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.01);
+      border-radius: 8px;
+      padding-bottom: 24px;
+    }
+
+    .content {
+      margin: 24px 0;
+    }
+
+    .text-graph {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .date {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
+      color: #000000;
+      opacity: 0.6;
+    }
+
+    .text {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .text .left {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: flex-start;
+    }
+
+    .text .right {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: flex-start;
+    }
+
+    .text-part .text a {
+      text-decoration: none;
+    }
+
+    .arrow {
+      width: 21px;
+      height: 12px;
+    }
+
+    .displayScoreBox {
+      padding: 30px;
+    }
+
+    .displayScoreBox .top-score-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .displayScoreBox .top-score-box p:first-child {
+      padding: 0;
+      margin: 36px 0 12px 0;
+    }
+
+    .displayScoreBox .top-score-box p:last-child {
+      padding: 0;
+      margin: 8px 0;
+    }
+
+    .displayScoreBox .top-score-box h3 {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 25px;
+      padding: 0;
+      margin: 12px 0 0 0;
+    }
+
+    .displayScoreBox .score-box {
+      margin-top: 43px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .displayScoreBox .circle-big {
+      position: relative;
+      width: 114px;
+      height: 114px;
+      margin: 30px auto 25px auto;
+    }
+
+    .displayScoreBox .circle-big svg {
+      width: 114px;
+      height: 114px;
+    }
+
+    .displayScoreBox .circle-big .bg {
+      fill: none;
+      stroke-width: 11px;
+      stroke: #fff;
+    }
+
+    .displayScoreBox .circle-big .progress {
+      fill: none;
+      stroke-width: 11px;
+      stroke-linecap: round;
+      stroke-dasharray: 360;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      animation: big 2s linear;
+    }
+
+    .displayScoreBox .circle-big .text {
+      position: absolute;
+      width: 100%;
+      top: 37px;
+      font-size: 24px;
+      text-align: center;
+      font-weight: 400;
+      line-height: 22px;
+    }
+
+    .displayScoreBox .circle-big .text .small {
+      font-size: 14px;
+    }
+
+    .displayScoreBox .score-box .circle-1 .qualityPercentage {
+      color: #8bc34a;
+    }
+
+    .displayScoreBox .score-box .circle-2 .impactPercentage {
+      color: #2962ff;
+    }
+
+    .displayScoreBox .score-box h3 {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 23px;
+      white-space: nowrap;
+    }
+
+    .displayScoreBox .range-box {
+      margin: 45px 0 0 0;
+    }
+
+    .displayScoreBox .range-box p {
+      margin: 4px 0;
+      padding: 0;
+    }
+
+    .displayScoreBox .range-box .range-progress-bar {
+      width: 100%;
+      position: relative;
+    }
+
+    .displayScoreBox .img-box {
+      margin: 50px 32px 0 0;
+    }
+
+    .displayScoreBox .img-box div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box.two .content .text-part .text-one:nth-child(6) {
+      margin-top: 24px;
+    }
+
+    .box.three .content .text-part .img-part {
+      margin: 30px 0;
+    }
+
+    .box.three .content .text-part .text .right {
+      display: flex;
+      gap: 8px;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .box.four .content .text-part {
+      margin-left: 17px;
+      padding: 0;
+    }
+
+    .box.four .content .land-processing {
+      position: relative;
+    }
+
+    .box.four .content .land-processing::after {
+      content: "";
+      height: 100%;
+      width: 2px;
+      background-color: #d9d9d9;
+      position: absolute;
+      top: 32px;
+      left: 14px;
+    }
+
+    .box.four .content .land-processing:last-child::after {
+      content: "";
+      display: none;
+    }
+
+    .box.four .content .seed-processing {
+      position: relative;
+    }
+
+    .box.four .content .seed-processing::after {
+      content: "";
+      height: 100%;
+      width: 2px;
+      background-color: #d9d9d9;
+      position: absolute;
+      top: 32px;
+      left: 14px;
+    }
+
+    .box.four .content .water-treatment {
+      position: relative;
+    }
+
+    .box.four .content .water-treatment::after {
+      content: "";
+      height: 100%;
+      width: 2px;
+      background-color: #d9d9d9;
+      position: absolute;
+      top: 32px;
+      left: 14px;
+    }
+
+    .box.six .content .text-one,
+    .box.five .content .text-one {
+      margin-bottom: 6px;
+    }
+
+    .box.six .content .text-two,
+    .box.five .content .text-two {
+      margin-bottom: 24px;
+    }
+
+    .box.seven .content .certificates {
+      padding: 20px 28px 24px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #f0f0f0;
+      text-decoration: none;
+    }
+
+    .box.seven .content .certificates .left {
+      display: flex;
+      align-items: center;
+    }
+
+    .box.seven .content .certificates .text-part {
+      padding: 0 18px;
+    }
+
+    .box.seven .content .certificates .img-2 {
+      width: 25px;
+      height: 25px;
+    }
+
+    .box.seven .content .certificates img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .box.eight {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 17px 25px;
+    }
+
+    .sticky .text-area {
+      display: flex;
+      align-items: center;
+    }
+
+    @media only screen and (max-width: 767px) {
+      .displayScoreBox {
+        padding: 10px;
+      }
+    }
+
+    @media screen and (max-width: 425px) {
+      .box.three .content .img-part img {
+        width: 100%;
+      }
+    }
+
+    .btn-check:checked+.btn,
+    .btn.active,
+    .btn.show,
+    .btn:first-child:active,
+    :not(.btn-check)+.btn:active {
+      border: 0;
+    }
+
+    .dropdown-toggle::after {
+      display: none;
+    }
+
+    .link-coppy-icon {
+      user-select: none;
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      fill: currentcolor;
+      flex-shrink: 0;
+      transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      font-size: 40px;
+      border: 1px solid rgb(240, 240, 240);
+      border-radius: 100%;
+    }
+
+    .dropdown-menu.show {
+      display: flex;
+      grid-gap: 10px;
+      padding: 8px 16px;
+      background-color: rgb(255, 255, 255);
+      color: rgba(0, 0, 0, 0.87);
+      transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      box-shadow: rgba(0, 0, 0, 0.01) 0px 5px 5px -3px, rgba(0, 0, 0, 0.1) 0px 8px 10px 1px, rgba(0, 0, 0, 0.1) 0px 3px 14px 2px;
+      border-radius: 8px;
+      border: 0;
+    }
+
+    .dropdown-item {
+      padding: 0;
+    }
+
+    .documentPreviewer {
+      cursor:pointer;
+      color:blue;
+      text-decoration:underline;
+    }
+
+    .imagePreviewer {
+      cursor:pointer;
+      color:blue;
+      text-decoration:underline;
+    }
+
+    .orangePill {
+      display: flex;
+      justify-content: center;
+      color: #fff;
+      background-color: #ed6c02;
+      border-radius: 16px;
+    }
+
+    .greenPill { 
+      justify-content: center;
+      color: #fff;
+      background-color: green;
+      border-radius: 16px;
+    }
+
+    .fakeLink {
+      text-decoration: underline;
+      color: #0000EE;
+      cursor: pointer;
+    }
+
+    .val-pop-box {
+      display: inline-block;
+      box-shadow: 0 1px 50px 0 rgba(0,0,0,0.2);
+      width: 65%;
+      padding: 2px;
+      margin: 0px;
+      border-radius: 5px;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div id="header-logo">
+        <img src="https://carbon-mint.github.io/qr-assets.github.io/assets/images/{{QRInput.clientLogo}}.png" alt="{{QRInput.clientLogo}} Logo" height="50" width="50"/>
+    </div>
+
+    <div class="d-flex w-12 justify-content-between align-items-center header-title-holder">
+        <div class="title">
+            <h3>QBD Report</h3>
+        </div>
+
+        <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://carbon-mint.github.io/qr-assets.github.io/assets/images/ShareNetwork.png" alt="Share" />
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+            <a id="whatsapp" class="dropdown-item" data-action='share/whatsapp/share' target='_blank' rel='noreferrer'>
+                <svg width="40px" height="40px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="24" fill="url(#paint0_linear_401_2340)"></circle>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M24 37C31.732 37 38 30.732 38 23C38 15.268 31.732 9 24 9C16.268 9 10 15.268 10 23C10 25.5109 10.661 27.8674 11.8185 29.905L10 37L17.3149 35.3038C19.3014 36.3854 21.5789 37 24 37ZM24 34.8462C30.5425 34.8462 35.8462 29.5425 35.8462 23C35.8462 16.4576 30.5425 11.1538 24 11.1538C17.4576 11.1538 12.1538 16.4576 12.1538 23C12.1538 25.5261 12.9445 27.8675 14.2918 29.7902L13.2308 33.7692L17.2799 32.7569C19.1894 34.0746 21.5046 34.8462 24 34.8462Z"
+                    fill="#BFC8D0"></path>
+                <path
+                    d="M36 23C36 29.6274 30.6274 35 24 35C21.4722 35 19.1269 34.2184 17.1927 32.8837L13.0909 33.9091L14.1658 29.8784C12.8009 27.9307 12 25.5589 12 23C12 16.3726 17.3726 11 24 11C30.6274 11 36 16.3726 36 23Z"
+                    fill="url(#paint1_linear_401_2340)"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M24 37C31.732 37 38 30.732 38 23C38 15.268 31.732 9 24 9C16.268 9 10 15.268 10 23C10 25.5109 10.661 27.8674 11.8185 29.905L10 37L17.3149 35.3038C19.3014 36.3854 21.5789 37 24 37ZM24 34.8462C30.5425 34.8462 35.8462 29.5425 35.8462 23C35.8462 16.4576 30.5425 11.1538 24 11.1538C17.4576 11.1538 12.1538 16.4576 12.1538 23C12.1538 25.5261 12.9445 27.8675 14.2918 29.7902L13.2308 33.7692L17.2799 32.7569C19.1894 34.0746 21.5046 34.8462 24 34.8462Z"
+                    fill="white"></path>
+                <path
+                    d="M20.5 16.5C20.1672 15.8314 19.6565 15.8906 19.1407 15.8906C18.2188 15.8906 16.7812 16.9949 16.7812 19.0501C16.7813 20.7344 17.5234 22.5782 20.0244 25.3362C22.438 27.998 25.6094 29.3749 28.2422 29.3281C30.875 29.2812 31.4167 27.0156 31.4167 26.2504C31.4167 25.9113 31.2062 25.7421 31.0613 25.6961C30.1641 25.2656 28.5093 24.4633 28.1328 24.3125C27.7563 24.1618 27.5597 24.3657 27.4375 24.4766C27.0961 24.802 26.4193 25.7609 26.1875 25.9766C25.9558 26.1923 25.6103 26.0831 25.4665 26.0016C24.9374 25.7893 23.5029 25.1512 22.3595 24.0427C20.9453 22.6719 20.8623 22.2003 20.5959 21.7804C20.3828 21.4446 20.5392 21.2385 20.6172 21.1484C20.9219 20.7969 21.3426 20.2541 21.5313 19.9844C21.7199 19.7147 21.5702 19.3051 21.4803 19.0501C21.0938 17.9531 20.7663 17.0349 20.5 16.5Z"
+                    fill="white"></path>
+                <defs>
+                    <linearGradient id="paint0_linear_401_2340" x1="45" y1="6" x2="-1.16229e-06" y2="48"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#5BD066"></stop>
+                    <stop offset="1" stop-color="#27B43E"></stop>
+                    </linearGradient>
+                    <linearGradient id="paint1_linear_401_2340" x1="34.5" y1="14" x2="12" y2="35"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#5BD066"></stop>
+                    <stop offset="1" stop-color="#27B43E"></stop>
+                    </linearGradient>
+                </defs>
+                </svg>
+            </a>
+            </li>
+            <li>
+            <a id="telegram" class="dropdown-item" href="#" target='_blank' rel='noreferrer'>
+                <svg width="40px" height="40px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="24" fill="url(#paint0_linear_401_2349)"></circle>
+                <path
+                    d="M33.6961 16.6405C33.8653 15.5474 32.8259 14.6845 31.8539 15.1113L12.4951 23.6109C11.7981 23.9169 11.8491 24.9726 12.572 25.2029L16.5643 26.4742C17.3262 26.7168 18.1513 26.5914 18.8166 26.1317L27.8175 19.9132C28.0889 19.7257 28.3847 20.1116 28.1528 20.3507L21.6739 27.0306C21.0454 27.6786 21.1701 28.7766 21.9261 29.2506L29.18 33.7995C29.9936 34.3097 31.0403 33.7972 31.1925 32.8141L33.6961 16.6405Z"
+                    fill="white"></path>
+                <defs>
+                    <linearGradient id="paint0_linear_401_2349" x1="24" y1="0" x2="24" y2="48"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#37BBFE"></stop>
+                    <stop offset="1" stop-color="#007DBB"></stop>
+                    </linearGradient>
+                </defs>
+                </svg>
+            </a>
+            </li>
+            <li>
+            <a id="gmail" href="#" class="dropdown-item" target='_blank' rel='noreferrer'>
+                <svg width="40px" height="40px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="23.5" stroke="#ECECEC"></circle>
+                <path
+                    d="M30.8041 16.6797L24.2007 21.8331L17.4463 16.6797V16.6811L17.4544 16.6881V23.9042L24.1245 29.1691L30.8041 24.1076V16.6797Z"
+                    fill="#EA4335"></path>
+                <path
+                    d="M32.5409 15.4262L30.8068 16.6797V24.1075L36.2636 19.918V17.3942C36.2636 17.3942 35.6012 13.7896 32.5409 15.4262Z"
+                    fill="#FBBC05"></path>
+                <path
+                    d="M30.8068 24.1077V33.7418H34.9892C34.9892 33.7418 36.1793 33.6192 36.265 32.2626V19.9181L30.8068 24.1077Z"
+                    fill="#34A853"></path>
+                <path d="M17.4548 33.7499V23.9041L17.4463 23.8972L17.4548 33.7499Z" fill="#C5221F"></path>
+                <path
+                    d="M17.4487 16.6812L15.724 15.4346C12.6637 13.7981 12 17.4013 12 17.4013V19.9251L17.4487 23.8973V16.6812Z"
+                    fill="#C5221F"></path>
+                <path d="M17.4463 16.6811V23.8972L17.4548 23.9042V16.688L17.4463 16.6811Z" fill="#C5221F"></path>
+                <path
+                    d="M12 19.9264V32.2708C12.0843 33.6288 13.2758 33.75 13.2758 33.75H17.4582L17.4487 23.8973L12 19.9264Z"
+                    fill="#4285F4"></path>
+                </svg>
+            </a>
+            </li>
+            <li><a onclick="copyToClipboard()" class="dropdown-item" href="#"><svg
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium link-coppy-icon" focusable="false" color="#3A7BFA"
+                aria-hidden="true" viewBox="0 0 24 24" data-testid="LinkIcon">
+                <path
+                    d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z">
+                </path>
+                </svg></a></li>
+        </ul>
+        </div>  
+    </div>
+  </div>
+
+  
+  <div class="container-fluid">
+    <section class="box two">
+      <div class="content">
+        <div class="line-btm">
+          <div class="d-flex justify-content-between">
+            <h2 class="head">Aquaculture Crop Details</h2>
+            <h2 class="head-right validationStatus">{{QRInput.aquacrop.status}}</h2>
+          </div>
+        </div>
+        <div class="text-part">         
+          <p class="text-one">Name</p>
+          <p class="text-two">{{QRInput.aquacrop.cropType}}</p>
+          <div class="text">
+            <div class="left">
+              <p class="text-one">Crop Sub Type</p>
+              <p class="text-two">{{QRInput.aquacrop.cropSubType}}</p>
+            </div>
+            <div class="right">
+              <p class="text-one">Stock Size (Kgs)</p>
+              <p class="text-two">{{QRInput.aquacrop.quantity}}</p>
+            </div>
+          </div>
+          <div class="text">
+            <div class="left">
+              <p class="text-one">Actual Stocking Date</p>
+              <p class="text-two">{{QRInput.aquacrop.actualStockingDate}}</p>
+            </div>
+            <div class="right">
+              <p class="text-one">Actual Yield</p>
+              <p class="text-two">{{QRInput.currentEvent.details.harvestQuantity}} tonnes</p>
+            </div>
+          </div>
+          <div class="text">
+            <div class="left">
+              <p class="text-one">Estimated Yield</p>
+              <p class="text-two">{{QRInput.aquacrop.estimatedYieldTonnes}} tonnes</p>
+            </div>
+            <div class="right">
+              <p class="text-one">Total Yield</p>
+              <p class="text-two">{{QRInput.totalYield}} tonnes</p>
+            </div>
+          </div>
+          <div class="text">
+            <div class="left">
+              <p class="text-one">Harvest Date</p>
+              <p class="text-two">{{QRInput.currentEvent.details.startDate}} ( {{QRInput.cropHarvestedTime}} harvest )</p>
+            </div>
+            <div class="right">
+              <p class="text-one">Seed Variety</p>
+              <p class="text-two">{{QRInput.aquacrop.seedVariety}}</p>
+            </div>
+          </div>
+          <div class="text">
+            <div class="left">
+              <p class="text-one">Seed Source</p>
+              <p class="text-two">{{QRInput.aquacrop.seedSource}}</p>
+            </div>
+          </div>
+          
+          <div class="mt-4">
+            <div class="img-part" style="height: 500px;">
+              <p class="text-one pb-2">Map</p>
+              <div id="map" class="mapComponent" style="height: 100%;" data-map-coords='{{{QRInput.map}}}'></div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="box four">
+      <div class="content">
+        <div class="line-btm">
+          <div class="d-flex justify-content-between">
+            <h2 class="head">Aquaculture crop events</h2>
+            <h2
+             class="head-right validationStatus"
+             data-validation-life-cycle-html="{{QRInput.validationLCHtml.currentEvent}}"
+            >
+            {{QRInput.currentEvent.status}}
+            </h2>
+          </div>
+        </div>
+        {{#QRInput.events}}
+        <div class="land-processing mb-4 ms-4 me-4 d-flex" onclick="onEventSelect('{{_id}}')">
+          <div class="img-part">
+            {{#isFirst}}
+            <img src="https://carbon-mint.github.io/qr-assets.github.io/assets/images/flag.svg" alt="green-leaf" />
+            {{/isFirst}}
+            {{#notFirst}}
+            <img src="https://carbon-mint.github.io/qr-assets.github.io/assets/images/calendar.svg" alt="green-leaf" />
+            {{/notFirst}}
+          </div>
+          <div class="text-part">
+            <h2 class="text-two"><span class="fakeLink">{{name}}</span></h2>
+            <h3 class="date">{{eventDate}} {{#days}}• Day(s) {{days}}{{/days}}</h3>
+          </div>
+        </div>
+        {{/QRInput.events}}
+      </div>
+    </section>
+
+    <section class="box two">
+      <div class="content">
+        <div class="line-btm">
+          <div class="d-flex justify-content-between">
+            <h2 class="head">Production system</h2>
+          </div>
+        </div>
+        {{#QRInput.productionSystem}}
+            <div class="text-part">               
+                <div>
+                  <p class="text-one">Name</p>
+                  <p class="text-two pb-3">{{name}}</p>
+                </div>
+                 <div>
+                  <p class="text-one">Category</p>
+                  <p class="text-two pb-3">{{category}}</p>
+                </div>
+                 <div>
+                  <p class="text-one">Pond Type</p>
+                  <p class="text-two pb-3">{{pondType}}</p>
+                </div>
+                 <div>
+                  <p class="text-one">Pond Depth</p>
+                  <p class="text-two pb-3">{{depth}}</p>
+                </div>
+                 <div>
+                  <p class="text-one">Pond Shape</p>
+                  <p class="text-two pb-3">{{shape}}</p>
+                </div>
+                 <div>
+                  <p class="text-one">Water source</p>
+                  <p class="text-two pb-3">{{waterSource}}</p>
+                </div>
+                 <div>
+                  <p class="text-one">Area (In Acres)</p>
+                  <p class="text-two pb-3">{{QRInput.field.areaInAcres}}</p>
+                </div>
+            </div>
+
+        {{/QRInput.productionSystem}}
+      </div>
+    </section>
+
+    <section class="box two">
+      <div class="content">
+        <div class="line-btm">
+          <div class="d-flex justify-content-between">
+            <h2 class="head">Land Parcel Details</h2>
+            <h2
+             class="head-right validationStatus"
+             data-validation-life-cycle-html="{{QRInput.validationLCHtml.landParcel}}"
+             >
+             {{QRInput.landParcel.status}}
+             </h2>
+          </div>
+        </div>
+        {{#QRInput.landParcel}}
+        <div class="text-part">
+          <div class="text">
+            <div class="left">
+              <p class="text-one">Name</p>
+              <p class="text-two">{{name}}</p>
+            </div>
+            <div class="right">
+              <p class="text-one">Land Owner</p>
+              <p class="text-two">{{owner}}</p>
+            </div>
+          </div>
+
+          <div class="text">
+            <div class="right">
+              <p class="text-one">Ownership Status</p>
+              <p class="text-two">{{ownershipStatus}}</p>
+            </div>
+            <div class="left">
+              <p class="text-one">Land Size</p>
+              <p class="text-two">{{calculatedAreaInAcres}} Acres</p>
+              <!-- <img
+                  src="https://carbon-mint.github.io/qr-assets.github.io/assets/images/greenarrowup.png"
+                  alt="arrow"
+                  class="arrow"
+                /> -->
+            </div>
+          </div>
+          
+
+            {{#schemes.length}}
+            <div>
+              <div class="left">
+                <p class="text-one pt-4 pb-2">Schemes</p>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="text-one">Scheme</th>
+                          <th class="text-one">Conversion status</th>
+                          <th class="text-one">Organic certification status</th>
+                          <th class="text-one">Certification body</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {{#schemes}}
+                        <tr>
+                          <td class="text-two">{{scheme}}</td>
+                          <td class="text-two">{{conversionStatus}}</td>
+                          <td class="text-two">{{certificationStatus}}</td>
+                          <td class="text-two">{{certificationBodyId.name}}</td>
+                        </tr>
+                      {{/schemes}}
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+            </div>
+            {{/schemes.length}}
+
+          {{/QRInput.landParcel}}
+
+
+          <!-- <div class="text">
+              <p class="text-two">Residue Reports</p>
+              <a href="#" class="text-two">View ></a>
+            </div> -->
+        </div>
+        
+      </div>
+    </section>
+
+    <section class="box five">
+      <div class="content">
+        <div class="line-btm">
+          <div class="d-flex justify-content-between">
+            <h2 class="head">Farmer Details</h2>
+            <h2
+             class="head-right validationStatus"
+             data-validation-life-cycle-html="{{QRInput.validationLCHtml.farmer}}"
+            >
+              {{QRInput.farmer.status}}
+              </h2>
+          </div>
+        </div>
+        <div class="text-part">
+          <div class="text-graph">
+            <div class="left">
+              
+              <p class="text-one">Name</p>
+              <p class="text-two">{{QRInput.farmer.name}}</p>
+            </div>
+
+            <div id="box-5-example"></div>
+          </div>
+
+          <div class="text-graph">
+            <div class="left">
+              <p class="text-one">Farmer ID</p>
+              <p class="text-two">{{QRInput.farmer.id}}</p>
+            </div>
+
+            <div id="box-5-example"></div>
+          </div>
+
+          <p class="text-one">Farming experience</p>
+          <p class="text-two">{{QRInput.farmer.exp}} years</p>
+
+          <p class="text-one">Organic Farming experience</p>
+          <p class="text-two">{{QRInput.farmer.organicFarmingExp}} years</p>
+
+          <p class="text-one">Location</p>
+          <p class="text-two">{{QRInput.farmer.location}}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="box two">
+      <div class="content">
+        <div class="line-btm">
+          <div class="d-flex justify-content-between">
+            <h2 class="head">Operator Details</h2>
+            <h2 
+             class="head-right validationStatus"
+             data-validation-life-cycle-html="{{QRInput.validationLCHtml.collective}}"
+            >{{QRInput.collective.status}}</h2>
+          </div>
+        </div>
+
+        <div class="text-part">
+          {{#QRInput.collective}}
+             <!-- Basic info -->
+            <div class="basicInfo">
+              
+              <p class="text-one">Name</p>
+              <p class="text-two pb-3">{{name}}</p>
+
+              <p class="text-one">Category</p>
+              <p class="text-two pb-3">{{category}}</p>
+
+              <p class="text-one">Email</p>
+              <p class="text-two pb-3">{{email}}</p>
+
+              <p class="text-one">Contact person</p>
+              <p class="text-two pb-3">{{poc}}</p>
+
+              <p class="text-one">Phone</p>
+              <p class="text-two pb-3">{{phone}}</p>
+
+              <p class="text-one">Address</p>
+              <p class="text-two pb-3">
+                {{#address}}
+                  {{#village}}{{.}}{{/village}}{{#state}}, {{.}}{{/state}}
+                {{/address}}
+              </p>
+            
+            </div>
+
+            <!-- Mandator details -->
+            
+            <div class="mandator">
+              <p class="text-one pb-3">Mandator Details</p>
+              
+                <div class="operatedBy">
+                    <p class="text-one">Mandator name</p>
+                    <p class="text-two pb-3">{{mandator.operatedBy}}</p>
+                </div>
+
+                <div class="mandatorPoc">
+                    <p class="text-one">Mandator contact person</p>
+                    <p class="text-two pb-3">{{mandator.mandatorPoc}}</p>
+                </div>
+
+                <div class="mandatorPhone">
+                    <p class="text-one">Mandator phone</p>
+                    <p class="text-two pb-3">{{mandator.mandatorPhone}}</p>
+                </div>
+
+                <div class="iecNumber">
+                    <p class="text-one">Importer-exporter code</p>
+                    <p class="text-two pb-3">{{mandator.iecNumber}}</p>
+                </div>
+
+                <div class="iecDocumentFile">
+                    <p class="text-one">Upload importer-exporter code document proof</p>
+                    <p class="text-two pb-3 documentLink" data-href='{{mandator.iecDocumentFile}}' data-title='Upload importer-exporter code document proof'></p>
+                </div>
+
+                <div class="gstNumber">
+                    <p class="text-one">GST number</p>
+                    <p class="text-two pb-3">{{mandator.gstNumber}}</p>
+                </div>
+
+                <div class="gstDocumentFile">
+                    <p class="text-one">GST document proof</p>
+                    <p class="text-two pb-3 documentLink" data-href='{{mandator.gstDocumentFile}}' data-title='GST document proof'></p>
+                </div>
+            
+            </div>
+            
+
+            <!-- FPC details -->
+            {{#fpcDetails}}
+            <div class="fpcDetails">
+              <p class="text-one pb-3">FPC Details</p>
+              
+                <div class="fpRegistrationId">
+                    <p class="text-one">Registration id</p>
+                    <p class="text-two pb-3">{{fpRegistrationId}}</p>
+                </div>
+
+                <div class="fpoRegistrationDate">
+                    <p class="text-one">Registration date</p>
+                    <p class="text-two pb-3">{{fpoRegistrationDate}}</p>
+                </div>
+
+                <div class="fpRegistrationDocumentFile">
+                    <p class="text-one">Upload Registration document proof</p>
+                    <p class="text-two pb-3">{{fpRegistrationDocumentFile}}</p>
+                </div>
+
+                <div class="gstNumber">
+                    <p class="text-one">GST number</p>
+                    <p class="text-two pb-3">{{gstNumber}}</p>
+                </div>
+
+                <div class="gstDocumentFile">
+                    <p class="text-one">GST document proof</p>
+                    <p class="text-two pb-3">{{gstDocumentFile}}</p>
+                </div>
+                
+                <div class="noOfFarmers">
+                    <p class="text-one">No of farmers</p>
+                    <p class="text-two pb-3">{{noOfFarmers}}</p>
+                </div>
+
+                <div class="cropsCovered">
+                    <p class="text-one">Crops covered</p>
+                    <p class="text-two pb-3">{{cropsCovered}}</p>
+                </div>
+
+                <div class="villagesCovered">
+                    <p class="text-one">Villages covered</p>
+                    <p class="text-two pb-3">{{villagesCovered}}</p>
+                </div>
+
+            
+            </div>
+            {{/fpcDetails}}
+
+            <!-- FPO details -->
+            {{#fpoDetails}}
+
+            <div class="fpoDetails">
+              <p class="text-one pb-3">FPO Details</p>
+              
+                <div class="fpRegistrationId">
+                    <p class="text-one">Registration id</p>
+                    <p class="text-two pb-3">{{fpRegistrationId}}</p>
+                </div>
+
+                <div class="fpoRegistrationDate">
+                    <p class="text-one">Registration date</p>
+                    <p class="text-two pb-3">{{fpoRegistrationDate}}</p>
+                </div>
+
+                <div class="fpRegistrationDocumentFile">
+                    <p class="text-one">Upload Registration document proof</p>
+                    <p class="text-two pb-3">{{fpRegistrationDocumentFile}}</p>
+                </div>
+
+                <div class="gstNumber">
+                    <p class="text-one">GST number</p>
+                    <p class="text-two pb-3">{{gstNumber}}</p>
+                </div>
+
+                <div class="gstDocumentFile">
+                    <p class="text-one">GST document proof</p>
+                    <p class="text-two pb-3">{{gstDocumentFile}}</p>
+                </div>
+                
+                <div class="noOfFarmers">
+                    <p class="text-one">No of farmers</p>
+                    <p class="text-two pb-3">{{noOfFarmers}}</p>
+                </div>
+
+                <div class="cropsCovered">
+                    <p class="text-one">Crops covered</p>
+                    <p class="text-two pb-3">{{cropsCovered}}</p>
+                </div>
+
+                <div class="villagesCovered">
+                    <p class="text-one">Villages covered</p>
+                    <p class="text-two pb-3">{{villagesCovered}}</p>
+                </div>
+
+            
+            </div>
+            {{/fpoDetails}}
+
+            <!-- Schemes -->
+            {{#schemes.length}}
+            <div>
+              <div class="left">
+                <p class="text-one pt-4 pb-2">Schemes</p>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="text-one">Scheme</th>
+                          <th class="text-one">Conversion status</th>
+                          <th class="text-one">Organic certification status</th>
+                          <th class="text-one">Certification body</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {{#schemes}}
+                        <tr>
+                          <td class="text-two">{{scheme}}</td>
+                          <td class="text-two">{{conversionStatus}}</td>
+                          <td class="text-two">{{certificationStatus}}</td>
+                          <td class="text-two">{{certificationBodyId.name}}</td>
+                        </tr>
+                      {{/schemes}}
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+            </div>
+            {{/schemes.length}}
+
+            <!-- Supporting documents -->
+            
+
+
+          {{/QRInput.collective}}
+        </div>
+      </div>
+    </section>
+  
+    <section class="box seven">
+      <div class="content">
+        <div class="line-btm">
+          <h2 class="head">Certificates</h2>
+        </div>
+        <div class="text-part">
+        {{#QRInput.certificates}}
+          <div>
+            <p class="text-one">{{key}}</p>
+            {{#value}}
+              <span class="text-two pb-3 documentLink" data-href="{{href}}" data-title='{{title}}'></span>
+            {{/value}}
+          </div>
+          <br />
+        {{/QRInput.certificates}}
+        </div>
+      </div>
+    </section>
+
+    <section class="box six">
+      <div class="content">
+        <div class="line-btm">
+          <div class="d-flex justify-content-between">
+            <h2 class="head">Blockchain Details</h2>
+            <h2 class="head-right validationStatus" id="blockchainDataVerifyBtn"></h2>
+          </div>
+        </div>
+        <div class="text-part" id="blockchainData">
+          <!-- <p class="text-one">Transaction Hash</p>
+          <p class="text-two">{{QRInput.transactionHash}}</p>
+
+          <p class="text-one">Block #</p>
+          <p class="text-two">{{QRInput.blockHash}}</p>
+
+          <p class="text-one">Timestamp</p>
+          <p class="text-two">{{QRInput.blockChainTimestamp}}</p> -->
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="box d-flex flex-column justify-content-center align-items-center p-4">
+      <p class="text-four m-2">Powered by</p>
+      <img class="my-2" src="https://carbon-mint.github.io/qr-assets.github.io/assets/images/logo.svg" alt="logo" class="logo" style="width: 70px;" />
+    </section>
+
+  </div>
+
+   <div class="modal fade" id="eventModalContainer" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5>Aquaculture Event Details</h5>
+            <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="eventDetailModal" style="width: 100%;"></div>
+            <div class="map col-lg-12 justify-content-center ">
+              <div class="row">
+                <b>Map</b>
+                <div class="px-3">
+                  <div id="eventDetailModalMap" style="height: 50vh;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+       </div>
+      </div>
+    </div>
+
+     <div class="modal fade" id="imageModalContainer" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="eventDetailImageModalTitle"></h5>
+            <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="eventDetailImageModal" style="width: 100%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="pdfModalContainer" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="pdfModalContainerTitle"></h5>
+            <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body d-flex flex-column justify-content-center" style="width: 100%;">
+            <div id="pdf-canvas" style="width: 100%;" class="d-flex flex-column justify-content-center"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="validationLifeCycleModalContainer" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="validationLifeCycleModalContainerTitle">Validation history</h5>
+            <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="validationLifeCycleModalBody" class="modal-body d-flex flex-row justify-content-start" style="width: 100%;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="valdiationEventFormModalContainer" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="valdiationEventFormModalContainerTitle">Validation Event</h5>
+            <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="valdiationEventFormModalContainerBody" class="modal-body d-flex flex-row justify-content-start" style="width: 100%;">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+  function copyToClipboard(e) {
+    e && e.preventDefault();
+    console.time('time1');
+    var temp = $("<input>");
+    $("body").append(temp);
+    temp.val(document.URL).select();
+    document.execCommand("copy");
+    temp.remove();
+    console.timeEnd('time1');
+  }
+  $(() => {
+    $('#whatsapp').attr('href', "whatsapp://send?text="+document.URL)
+    $('#telegram').attr('href', "tg://msg?text="+document.URL)
+    $('#gmail').attr('href', "mailto:?body="+document.URL)
+  })
+</script>
+<script>
+  var qualityPercentage = document.querySelector(".qualityPercentage");
+  var impactPercentage = document.querySelector(".impactPercentage");
+
+  var container1 = d3.select("#example1");
+  var container2 = d3.select("#example2");
+
+  function donut(container, percent, color, imageLink) {
+    var data = [
+      { count: 100 - percent, color: "#d3d3d3" },
+      { count: percent, color: color },
+    ];
+
+    totalPercent = percent + "%";
+
+    var width = 120,
+      height = 120,
+      radius = 60;
+
+    var arc = d3.arc().outerRadius(radius).innerRadius(42);
+
+    var pie = d3
+      .pie()
+      .sort(null)
+      .startAngle(360 * (Math.PI / 180))
+      .endAngle(0 * (Math.PI / 180))
+      .value(function (d) {
+        return d.count;
+      });
+
+    var svg = container
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    var g = svg.selectAll(".arc").data(pie(data)).enter().append("g");
+
+    g.append("path")
+      .attr("d", arc)
+      .style("fill", function (d, i) {
+        return d.data.color;
+      });
+
+    g.append("image")
+      .attr("xlink:href", imageLink)
+      .attr("height", "40")
+      .attr("width", "40")
+      .attr("x", "-20")
+      .attr("y", "-20");
+  }
+
+  donut(
+    container1,
+    parseInt(
+      qualityPercentage.textContent == "NA"
+        ? "0"
+        : qualityPercentage.textContent
+    ),
+    "#8BC34A",
+    "https://carbon-mint.github.io/qr-assets.github.io/assets/images/Leaf.png"
+  );
+  donut(
+    container2,
+    parseInt(
+      impactPercentage.textContent == "NA"
+        ? "0"
+        : impactPercentage.textContent
+    ),
+    "#2962FF",
+    "https://carbon-mint.github.io/qr-assets.github.io/assets/images/GlobeHemisphereEast.png"
+  );
+</script>
+
+<script>
+  let topPr = document.getElementById("topPr").textContent;
+  let progress = document.querySelector(".progress").clientWidth - 10;
+  let pin = document.getElementById("pin");
+  let percentile = (progress * (100 - topPr)) / 100;
+  pin.style.left = percentile+"px";
+  pin.style.left = progress;
+</script>
+<!--  -->
+<!--  -->
+<script>
+  var box2 = document.querySelector("#box-2-example");
+  var box3 = document.querySelector("#box-3-example");
+  var box5 = document.querySelector("#box-5-example");
+  let cropRating = document.getElementById("cropRating");
+  let landRating = document.getElementById("landRating");
+
+  var container1 = d3.select("#box-2-example");
+  var container2 = d3.select("#box-3-example");
+  var container3 = d3.select("#box-5-example");
+
+  function donut(container, percent, color, text = "") {
+    if (text !== "") {
+      var data = [
+        { count: 5 - percent, color: "#d3d3d3" },
+        { count: percent, color: color },
+      ];
+    } else {
+      var data = [
+        { count: 100 - percent, color: "#d3d3d3" },
+        { count: percent, color: color },
+      ];
+    }
+
+    totalPercent = percent + "%";
+
+    var width = 60,
+      height = 60,
+      radius = 30;
+
+    var arc = d3.arc().outerRadius(radius).innerRadius(20);
+
+    var pie = d3
+      .pie()
+      .sort(null)
+      .startAngle(360 * (Math.PI / 180))
+      .endAngle(0 * (Math.PI / 180))
+      .value(function (d) {
+        return d.count;
+      });
+
+    var svg = container
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    var g = svg.selectAll(".arc").data(pie(data)).enter().append("g");
+
+    g.append("path")
+      .attr("d", arc)
+      .style("fill", function (d, i) {
+        return d.data.color;
+      });
+    g.append("text")
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .style("font-size", "14px")
+      .text(text);
+  }
+
+  donut(container1, parseInt(cropRating.textContent), "#8BC34A");
+  donut(container2, parseInt(landRating.textContent), "#8BC34A");
+  donut(container3, 4.5, "#8BC34A", "4.5");
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{{QRInput.mapkey}}}&callback=initMap&v=weekly" defer></script>
+<script src="https://mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
+
+
+<script>
+
+  $(document).ready(function() {
+
+      // PDF loader handlers
+      (() => {
+
+        const PdfLoader = getScrollablePdfLoader({
+          contentHolderId : "pdf-canvas"
+        });
+
+        $(document).on("click", '.documentPreviewer', function () {
+            const title = $(this).data('title');
+            const url = $(this).data('href');
+            
+            new PdfLoader(url);
+
+
+           if (title) $("#pdfModalContainerTitle").text(title);
+
+            $("#pdfModalContainer").modal('toggle');
+        });
+
+      })();
+
+
+      // Load ajax for block chain data
+      (()=> {
+
+        $.ajax('./blockchain-manifest.json').done(function(data) {
+
+          try {
+            const getContent = ({key, value}) => '<p class="text-one">' + key + '</p> <p class="text-two">' + value + '</p>';
+
+            const { blockchainData: {logs: [{blockNumber, transactionHash}]}} = data;
+
+            let content = '';
+
+            content += getContent({key : 'Block Number', value : blockNumber});
+            content += getContent({key : 'Transaction Hash', value : transactionHash});
+            content += getContent({key : 'Powered By', value : 'Polygon'});
+
+            $('#blockchainData').html(content);
+            $('#blockchainDataVerifyBtn').html('<a class="pill" target="_blank" rel="noopener" rel="noreferrer" href="https://mumbai.polygonscan.com/tx/' + transactionHash + '" >Verify</a>');
+
+          } catch(e) {
+            console.error(e);
+          }
+
+        });
+
+      })();
+
+
+      // Replacing pdf and image with their approprate viewer
+      (() => {
+
+        try {
+
+          $(document).on("click", '.imagePreviewer', function() {
+            imageModalPopUp( $(this).attr('src'), $(this).data('title'));
+          });
+
+          $('.documentLink').each(function () {
+            AddImageOrFileHtmlToParent($(this));
+          });
+
+        } catch(e) {
+          console.error(e);
+        }
+
+      })();
+
+      // Updating status with pill classes
+      (() => {
+
+        $('.validationStatus').each(function() { 
+
+          const text = $(this).text();
+
+          if (!text) return;
+
+          $(this).addClass('orangePill');
+
+          // Only when status is approved it is green pill 
+          if (text === "Approved" || text === "Validated" ) $(this).addClass('greenPill');
+        })
+
+      })();
+
+      // Initalising map components
+      (() => {
+
+        $('.mapComponent').each(function() { 
+
+          try{
+
+            const coordinates = $(this).data('map-coords');
+
+            if (!coordinates) return;
+
+            const selectorId = $(this).attr('id');
+
+            MapGenerator(selectorId, coordinates, []);
+
+          }catch(e) {
+            console.error(e);
+          }
+        })
+
+      })();
+
+       // Show validation status modal popup
+      (() => {
+        try {
+          $(document).on('click', '.validationStatus', function() {
+
+              const validationLifeCycleHtml = $(this).data('validation-life-cycle-html');
+
+              if (!validationLifeCycleHtml) return;
+
+              $('#validationLifeCycleModalBody').html(validationLifeCycleHtml);
+
+              $('#validationLifeCycleModalContainer').modal('toggle');
+
+          });
+        } catch(e) {}
+      })();
+
+       // Show validation event's form on modal
+      (() => {
+        try {
+          $(document).on('click', '.validationEventForm', function() {
+
+              const valdiationEventFormTitle = $(this).data('validation-event-form-title');
+
+              const valdiationEventForm = $(this).data('validation-event-form');
+
+              if (!valdiationEventForm) return;
+
+              $('#valdiationEventFormModalContainerTitle').html(valdiationEventFormTitle);
+
+              $('#valdiationEventFormModalContainerBody').html(valdiationEventForm);
+
+              $('#valdiationEventFormModalContainer').modal('toggle');
+
+          });
+        } catch(e) {}
+      })();
+  });
+
+</script>
+
+</html>

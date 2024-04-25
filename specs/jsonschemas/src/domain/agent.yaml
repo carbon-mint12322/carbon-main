@@ -1,0 +1,41 @@
+jsonschema:
+  properties:
+    personalDetails:
+      $ref: '#/definitions/Person'
+    userId:
+      $ref: '#/definitions/UserId'
+    personalOrgDetails:
+      $ref: '#/definitions/PersonalOrgDetails'
+    organization:
+      $ref: '#/definitions/OrganizationId'
+    collectives:
+      type: array
+      items:
+        $ref: '#/definitions/CollectiveId'
+    certificationBodies:
+      type: array
+      items:
+        $ref: '#/definitions/CertificationBodyId'
+    validationWorkflowId:
+      type: string
+      format: hidden
+    statusNotes:
+      type: string
+      format: hidden
+    status:
+      type: string
+      enum:
+        - Draft
+        - Under validation
+        - Under review
+        - Review failed
+        - Validation failed
+        - Approved
+      default: Draft
+    active:
+      type: boolean
+    audit:
+      $ref: '#/definitions/Audit'
+  required:
+    - personalDetails
+uiHints: file:~/specs/jsonschemas/src/domain/ui/agent.yaml

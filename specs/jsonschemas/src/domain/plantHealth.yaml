@@ -1,0 +1,9 @@
+type: object
+properties:
+  img:
+    type: string
+    title: Image Link
+  eventId:
+    type: string
+    title: Event Id
+    description: Plant Health Info

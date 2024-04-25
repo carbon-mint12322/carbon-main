@@ -1,0 +1,57 @@
+type: object
+title: Solar dryer load event
+properties:
+  solarDryer:
+    type: array
+    items:
+      $ref: '#/definitions/SolarDryerId'
+    title: Solar Dryers
+  inputMaterials:
+    type: string
+    title: Input materials
+  inputCost:
+    type: number
+    title: Input cost
+  quantity:
+    type: number
+    title: Amount of inputs loaded (Kgs)
+    minimum: 0
+  dryingHours:
+    type: number
+    title: Drying hours
+  weightAfterDrying:
+    type: number
+    title: Weight after drying process
+    minimum: 0
+  energyConsumption:
+    type: number
+    title: Energy consumption during drying process
+    minimum: 0
+  waterConsumption:
+    type: number
+    title: Water consumption during drying process (Litres)
+    minimum: 0
+  wastage:
+    type: number
+    title: Wastage after drying process (Kgs)
+    minimum: 0
+  dryingEvidence:
+    title: Drying process evidence
+    type: array
+    items:
+      type: string
+    description: Drying process evidence
+  durationAndExpenses:
+    title: 'Duration and Expenses'
+    '$ref': './DurationAndExpenses'
+  otherRemarks:
+    type: string
+    title: Other remarks
+required:
+  - solarDryer
+  - inputMaterials
+  - quantity
+  - dryingHours
+  - weightAfterDrying
+DurationAndExpenses: file:~/specs/jsonschemas/src/common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/common/ui/solarDryerLoadEvent.yaml

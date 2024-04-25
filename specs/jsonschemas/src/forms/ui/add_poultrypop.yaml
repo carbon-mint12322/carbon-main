@@ -1,0 +1,11 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - description
+      - recommendedBy
+      - poultryPopType
+      - controlPoints
+      - '*'
+    poultryPopType: file:~/specs/jsonschemas/src/common/ui/poultryPopType.yaml
+    controlPoints: file:~/specs/jsonschemas/src/common/ui/controlPoint.yaml

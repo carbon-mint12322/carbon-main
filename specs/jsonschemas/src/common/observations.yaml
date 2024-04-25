@@ -1,0 +1,53 @@
+type: object
+title: 'Observations'
+properties:
+  observationsTitle:
+    type: object
+    title: Observations report
+  observationName:
+    type: string
+    title: Observation name
+  observationType:
+    type: string
+    title: Observation type
+  observedBy:
+    title: Observed by
+    type: string
+  observationRemarks:
+    title: Observation remarks
+    type: string
+  dateOfObservation:
+    title: Date of observation
+    type: string
+    format: date
+  observationEvidence:
+    title: Observation evidence
+    type: array
+
+    description: Observation evidence
+    items:
+      type: string
+  startDate:
+    type: string
+    format: date
+    title: Start date
+  endDate:
+    type: string
+    format: date
+    title: End date
+  totalExpenditure:
+    type: number
+    minimum: 0
+    title: Total expenditure
+  otherRemarks:
+    type: string
+    title: Other remarks
+required:
+  - observationName
+  - observationType
+  - observedBy
+  - observationRemarks
+  - dateOfObservation
+  - startDate
+  - endDate
+uiHints: file:~/specs/jsonschemas/src/common/ui/observations.yaml

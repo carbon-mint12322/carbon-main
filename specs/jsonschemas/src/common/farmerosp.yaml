@@ -1,0 +1,3315 @@
+type: object
+properties:
+  basicDetails:
+    title: 1. Organic System Plan Basic Details
+    type: object
+  landParcel:
+    $ref: '#/definitions/LandParcelRef'
+    title: Land Parcel
+  year:
+    type: number
+    title: OSP Year
+    minimum: 2000
+    maximum: 3000
+  totalArea:
+    type: number
+    title: Total Area (Ha)
+  latitude:
+    title: Latitude
+    type: string
+  longitude:
+    title: Longitude
+    type: string
+  crops:
+    type: array
+    minItems: 1
+    title: Crops
+    items:
+      type: object
+      title: ''
+      properties:
+        crop:
+          type: string
+          title: Crop
+        cropType:
+          title: Crop Type (M/I/C/B)
+          type: string
+          enum:
+            - M
+            - I
+            - C
+            - B
+          default: M
+        cropArea:
+          title: Crop Area (Ha)
+          type: number
+        estQty:
+          title: Est. Quantity (MT)
+          type: number
+        variety:
+          title: Variety
+          type: string
+        sowingDate:
+          title: Sowing Date
+          type: string
+          format: date
+        season:
+          type: string
+          title: Season
+          enum:
+            - Kharif
+            - Rabi
+            - Summer
+            - Biennial
+            - Annual
+            - Perennial crop
+          default: Kharif
+      required:
+        - crop
+        - cropType
+        - cropArea
+        - estQty
+        - sowingDate
+        - season
+
+  ospFormsCheckList:
+    title: '2. OSP Forms  Checklist Chapter 3 (Appendix 1) NPOP'
+    type: object
+    properties:
+      ospFormsCheckListLabel:
+        type: object
+        title: ''
+        description: "National Standards for Organic Production (NSOP) under the NPOP programme of National Accreditation Board of India requires Organic System Plan (OSP) of Operators to be reviewed and updated annually. This form provides the checklist of forms to be filled and submitted as part of the OSP. For new applicants, the OSP should carry filled-in application as well. OSP format is proprietary to ISCOP's approach developed in compliance to NAB regulations. This form is applicable only to Organic Crop Production and not applicable to Livestock or handling operations. This OSP applies only to independent operators and does not relate to group operations"
+      generalDescription:
+        title: COP 101.1 General Description of Organic Operations
+        type: object
+        properties:
+          farmName:
+            type: string
+            title: Farm Name (As required in the Organic Certification)
+          location:
+            type: string
+            title: Location
+            enum:
+              - Single (One Piece)
+              - Single (Scattered)
+              - Multiple
+              - Complex
+          farmingSystem:
+            type: string
+            title: Farming System
+            enum:
+              - Cropping System Based (only)
+              - Mixed Farming
+          landProfile:
+            type: string
+            title: Land Profile
+            enum:
+              - Owned
+              - Leased
+              - Both
+          sales:
+            type: string
+            title: Sales
+            enum:
+              - On-Farm (Bulk)
+              - On-Farm (Retail)
+              - Off-Farm
+              - Combination
+          postHarvest:
+            type: string
+            title: Post Harvest
+            enum:
+              - Unhandled
+              - Less-Handled
+              - Fresh
+              - Dried
+              - Manufactured
+          organicAwareness:
+            type: string
+            title: Organic Awareness
+            enum:
+              - Experienced
+              - New (Trained)
+              - New (Untrained)
+          ifRenewed:
+            type: string
+            title: If Renewed
+            enum:
+              - Sanctions
+              - Complaints
+              - Non-compliance
+          generalDescriptionInstructions:
+            type: object
+            title: ''
+            description: 'General Description of Organic Operations must be filled-in duly without missing any item. If the applicant fails to fill any item, OSP will not be considered for further processing. General Description provides a basic understanding of the complexity and risk of the operator.'
+        # required:
+        #   - farmName
+        #   - location
+        #   - farmingSystem
+        #   - landProfile
+        #   - sales
+        #   - postHarvest
+        #   - organicAwareness
+        #   - ifRenewed
+      landProfile:
+        title: COP 101.2 Land Profile of Operator
+        type: object
+        properties:
+          landProfileChecklist:
+            type: object
+            title: ''
+            properties:
+              landProfileInstructions:
+                type: object
+                title: ''
+                description: 'Please check the boxes related to Land Profile of the operator filled and enclosed as part of this OSP submission.'
+              formsChecklist:
+                type: boolean
+                title: Forms Checklist (this form)
+              applicationForm:
+                type: boolean
+                title: Application Form
+              legalEntityAndAffirmations:
+                type: boolean
+                title: Legal Entity & Affirmations
+              biodiversityAndNaturalResourcesManagement:
+                type: boolean
+                title: Bio-diversity and Natural Resources Management
+              landRequirementsCOP401:
+                type: boolean
+                title: Land Requirements (COP 401)
+              landMapsCOP400:
+                type: boolean
+                title: Land Maps (COP 400)
+              priorLandUseDocumentationCOP401:
+                type: boolean
+                title: Prior Land Use Documentation (COP 401)
+              currentProposedLandUseCOP701:
+                type: boolean
+                title: Current Proposed Land Use (COP 701)
+              farmOperatorLegalStatusEvidences:
+                type: boolean
+                title: Farm/Operator Legal Status Evidences (Enclosure)
+            # required:
+            #   - formsChecklist
+            #   - applicationForm
+            #   - legalEntityAndAffirmations
+            #   - biodiversityAndNaturalResourcesManagement
+            #   - landRequirementsCOP401
+            #   - landMapsCOP400
+            #   - priorLandUseDocumentationCOP401
+            #   - currentProposedLandUseCOP701
+            #   - farmOperatorLegalStatusEvidences
+
+      ospForms:
+        type: object
+        title: COP 101.3 OSP Forms
+        properties:
+          ospFormsChecklist:
+            type: object
+            title: ''
+            properties:
+              ospFormsInstructions:
+                type: object
+                title: ''
+                description: 'Please check the box by each OSP form that you are submitting with your application or renewal.'
+              organicAwarenessCOP501:
+                type: boolean
+                title: Organic Awareness (COP 501)
+              cropProductionOverviewCOP601:
+                type: boolean
+                title: Crop Production Overview (COP 601)
+              bufferingAndLandUseCOP701:
+                type: boolean
+                title: Buffering & Land Use (COP 701)
+              soilHealthAndWaterQualityCOP801:
+                type: boolean
+                title: Soil Health & Water Quality (COP 801)
+              seedStockAndPlantingMaterialCOP901:
+                type: boolean
+                title: Seed Stock and Planting Material (COP 901)
+              mulchingCOP1001:
+                type: boolean
+                title: Mulching (COP 1001)
+              compostingCOP1101:
+                type: boolean
+                title: Composting (COP 1101)
+              farmInputsMaterialsListCOP1201:
+                type: boolean
+                title: Farm Inputs (Materials List) (COP 1201)
+              weedManagementCOP1301:
+                type: boolean
+                title: Weed Management (COP 1301)
+              diseaseManagementCOP1501:
+                type: boolean
+                title: Disease Management (COP 1501)
+              comminglingAndContaminationCOP1601:
+                type: boolean
+                title: Commingling & Contamination (COP 1601)
+              recordsAndAuditTrailCOP1701:
+                type: boolean
+                title: Records & Audit Trail (COP 1701)
+              wildHarvest:
+                type: boolean
+                title: Wild Harvest (applicable with CP)
+              postHarvestHandlingCOP1801:
+                type: boolean
+                title: Post-Harvest Handling (COP 1801)
+              salesCOP1901:
+                type: boolean
+                title: Sales (COP 1901)
+              farmDiaryFormatEnclosure:
+                type: boolean
+                title: Farm Diary Format (Enclosure)
+            # required:
+            #   - organicAwarenessCOP501
+            #   - cropProductionOverviewCOP601
+            #   - bufferingAndLandUseCOP701
+            #   - soilHealthAndWaterQualityCOP801
+            #   - seedStockAndPlantingMaterialCOP901
+            #   - mulchingCOP1001
+            #   - compostingCOP1101
+            #   - farmInputsMaterialsListCOP1201
+            #   - weedManagementCOP1301
+            #   - diseaseManagementCOP1501
+            #   - comminglingAndContaminationCOP1601
+            #   - recordsAndAuditTrailCOP1701
+            #   - wildHarvest
+            #   - postHarvestHandlingCOP1801
+            #   - salesCOP1901
+            #   - farmDiaryFormatEnclosure
+
+          supplementaryDocumentation:
+            type: array
+            title: Supplementary documentation
+            items:
+              type: string
+            description: Please provide more supplementary documentation, if any, that shall support your certification
+
+  organicSystemPlanSummary:
+    title: '3. Summary of Organic System Plan for Crop Production (Chapter 3 Appendix 1 of NPOP)'
+    type: object
+    properties:
+      productionCycleDescription:
+        title: '1. Production Cycle Description'
+        type: string
+      conversionRequirements:
+        title: '2. Conversion Requirements'
+        type: string
+      conversionPeriodManagement:
+        title: '3. Conversion Period Management'
+        type: string
+      landscapeDevelopmentPlan:
+        title: '4. Landscape Development Plan'
+        type: string
+      cropVarietiesAndPlantingMaterial:
+        title: '5. Crop Varieties and Planting Material Sourcing Plan'
+        type: string
+      biodiversityManagementPlan:
+        title: '6. Bio-diversity Management Plan'
+        type: string
+      nutritionSourceAndManagementPlan:
+        title: '7. Nutrition Source and Management Plan'
+        type: string
+      cropProtectionPlan:
+        title: '8. Crop Protection Plan'
+        type: string
+      contaminationAndComingling:
+        title: '9. Contamination & Comingling (Parallel/Split plans)'
+        type: string
+      conservationPractices:
+        title: '10. Conservation Practices'
+        type: string
+      wildHarvest:
+        title: '11. Wild Harvest'
+        type: string
+
+  oOSPFormsLandProfileofOperator:
+    title: '4. OSP Forms - Land Profile of Operator COP 400'
+    type: object
+    properties:
+      landProfileOperatorLabel:
+        type: object
+        title: ''
+        description: 'This form describes my land under organic operation.This form describes about my lands under farm operations in various locations for organic crop and livestock production and allows for accompanying documentation to establish its eligibility for organic certificatio'
+      farmOperationScope:
+        title: 'Farm Operation Scope:'
+        type: array
+        items:
+          type: string
+          enum:
+            - Single Location
+            - Multiple Location
+            - Organic Only
+            - Parallel Production
+            - Split Production
+            - Own Land Parcel
+            - Leased Land Parcel
+            - Combination of Both
+        uniqueItems: true
+
+      certifiedLandParcel:
+        title: 'Do you already have certified land parcel under your operation?'
+        type: string
+        enum:
+          - 'Yes'
+          - 'No'
+        defautl: 'No'
+
+      certifiedLandParcelType:
+        title: 'If Yes, please select the type:'
+        type: string
+        enum:
+          - ISCOP Certified
+          - Others
+
+      extentOfConversion:
+        type: object
+        title: 'COP 400.2 Extent of Conversion'
+        properties:
+          totalAcreage:
+            title: 'Total Acreage of Farm Operations:'
+            type: number
+
+          acreageForConversion:
+            title: 'Acreage for Organic Conversion:'
+            type: number
+
+          numberOfLocations:
+            title: 'Number of Locations:'
+            type: number
+
+          extentOfConversionGrid:
+            type: array
+            title: ''
+            items:
+              type: object
+              properties:
+                locationNameID:
+                  type: string
+                  title: 'Location Name/ID:'
+                totalAcreage:
+                  type: number
+                  title: 'Total Acreage:'
+                acreageForConversion:
+                  type: number
+                  title: 'Acreage for Conversion:'
+              required:
+                - locationNameID
+                - totalAcreage
+                - acreageForConversion
+
+            columns:
+              - field: locationNameID
+                title: 'Location Name/ID'
+                width: 200
+              - field: totalAcreage
+                title: 'Total Acreage'
+                width: 200
+              - field: acreageForConversion
+                title: 'Acreage for Conversion'
+                width: 200
+
+          landRequirementsSubmission:
+            type: array
+            title: Land requirements
+            items:
+              type: string
+            description: 'Please submit independent COP 401 Land requirements for every location under conversion or certification.'
+
+          locationIdentity:
+            type: array
+            title: Overview map
+            items:
+              type: string
+            description: 'Attach an overview map or hand-drawn coordinates (Coordinates preferable)'
+
+      landOwnershipStatus:
+        type: object
+        title: 'COP 400.3 Land Ownership Status'
+        properties:
+          landOwnershipStatusGrid:
+            type: array
+            title: ''
+            items:
+              type: object
+              properties:
+                locationID:
+                  type: string
+                  title: 'Location ID:'
+                acreage:
+                  type: number
+                  title: 'Acreage:'
+                ownerDetails:
+                  type: string
+                  title: 'Owner Details:'
+                relationshipWithOperator:
+                  type: string
+                  title: 'Relationship with Operator:'
+              required:
+                - locationID
+                - acreage
+                - ownerDetails
+                - relationshipWithOperator
+            columns:
+              - field: locationID
+                title: 'Location ID'
+                width: 200
+              - field: acreage
+                title: 'Acreage'
+                width: 200
+              - field: ownerDetails
+                title: 'Owner Details'
+                width: 200
+              - field: relationshipWithOperator
+                title: 'Relationship with Operator'
+                width: 200
+          owenershipEvidence:
+            type: array
+            title: Ownership Evidence
+            items:
+              type: string
+            description: 'Please attach evidence for ownership (Latest EC copy) and agreement copies supporting relationship'
+
+  landPastUseDocumentation:
+    title: '5. OSP Forms - Land Past-Use Documentation COP 400'
+    type: object
+
+    properties:
+      landPastUseDocumentationGrid:
+        title: ''
+        type: array
+        items:
+          type: object
+          properties:
+            year:
+              type: number
+              title: Years
+            fieldNumber:
+              type: number
+              title: Field Number
+            season:
+              type: string
+              title: Season
+            croppingSystem:
+              type: string
+              title: Cropping System
+            janCrop:
+              type: string
+              title: Jan-Crop
+            febCrop:
+              type: string
+              title: Feb-Crop
+            marCrop:
+              type: string
+              title: Mar-Crop
+            aprCrop:
+              type: string
+              title: Apr-Crop
+            mayCrop:
+              type: string
+              title: May-Crop
+            junCrop:
+              type: string
+              title: Jun-Crop
+            julCrop:
+              type: string
+              title: Jul-Crop
+            augCrop:
+              type: string
+              title: Aug-Crop
+            sepCrop:
+              type: string
+              title: Sep-Crop
+            octCrop:
+              type: string
+              title: Oct-Crop
+            novCrop:
+              type: string
+              title: Nov-Crop
+            decCrop:
+              type: string
+              title: Dec-Crop
+            yield:
+              type: string
+              title: Yield
+
+        columns:
+          - field: year
+            headerName: Years
+            width: 100
+          - field: fieldNumber
+            headerName: Field Number
+            width: 150
+          - field: season
+            headerName: Season
+            width: 150
+          - field: croppingSystem
+            headerName: Cropping System
+            width: 150
+          - field: janCrop
+            headerName: Jan-Crop
+            width: 150
+          - field: febCrop
+            headerName: Feb-Crop
+            width: 150
+          - field: marCrop
+            headerName: Mar-Crop
+            width: 150
+          - field: aprCrop
+            headerName: Apr-Crop
+            width: 150
+          - field: mayCrop
+            headerName: May-Crop
+            width: 150
+          - field: junCrop
+            headerName: Jun-Crop
+            width: 150
+          - field: julCrop
+            headerName: Jul-Crop
+            width: 150
+          - field: augCrop
+            headerName: Aug-Crop
+            width: 150
+          - field: sepCrop
+            headerName: Sep-Crop
+            width: 150
+          - field: octCrop
+            headerName: Oct-Crop
+            width: 150
+          - field: novCrop
+            headerName: Nov-Crop
+            width: 150
+          - field: decCrop
+            headerName: Dec-Crop
+            width: 150
+          - field: yield
+            headerName: Yield
+            width: 150
+
+      landUseFormForAdditionalLocation:
+        title: 'Use Independent Past Land Use form for every additional location.'
+        type: string
+        enum:
+          - Yes
+          - No
+
+      criticalObservation:
+        title: 'Any Critical observation about Adjacent Lands and Ecosystem:'
+        type: array
+        items:
+          type: string
+          enum:
+            - Industry Air Pollution
+            - Contaminated Canal/Ground Water
+            - Soil Erosion
+            - Land Reclamation Efforts
+            - Threat for commercial conversion
+        uniqueItems: true
+
+  landscapeCOP401:
+    title: '6. OSP Forms - Landscape (Clause 4) COP 401'
+    type: object
+    properties:
+      singleFormDescription:
+        description: 'Submit one copy of this Land Requirements form for each farm location (not for individual fields) that is non-adjacent to your other farmland or production locations, and/or has distinct land use history (different date of last prohibited materials use or different prior land manager, etc.)'
+        type: object
+        title: ''
+      allLandDescription:
+        title: 'This Land Requirements form describes all the land in my organic operation.'
+        type: boolean
+      additionalCopies:
+        title: 'Additional copies of this form are attached and describe other land within my operation.'
+        type: boolean
+      locationIdentityDescription:
+        title: 'COP 401.1 Location Identity Description'
+        type: object
+        properties:
+          farmLocationID:
+            title: 'Farm Location ID'
+            type: string
+          legalStatus:
+            title: 'Legal Status (Patta/Survey)'
+            type: string
+          totalAreaInAcres:
+            title: 'Total Area in Acres'
+            type: number
+          areaToBeCertifiedInAcres:
+            title: 'Area to be certified in Acres'
+            type: number
+          landParcelLocationIdentity:
+            title: 'Land Parcel Location Identity'
+            type: string
+          numberOfFields:
+            title: 'Number of Fields (All fields)'
+            type: number
+          dateOfLandUndertaking:
+            title: 'Date of Land Undertaking for cultivation purposes (at least Year)'
+            type: string
+          stopUsingProhibitedMaterials:
+            title: 'When did you stop using prohibited materials? (at least month/year)'
+            type: string
+          otherCertifyingBodyInspection:
+            title: 'Did any other certifying body inspect the land before?'
+            type: string
+            enum:
+              - 'Yes'
+              - 'No'
+            defautl: 'No'
+          otherCertifyingBodyInspectionDate:
+            title: 'If Yes, When (Month/Year)'
+            type: string
+
+      landscapeCOP4012:
+        title: 'COP 401.2 Field Configuration'
+        type: object
+        properties:
+          totalNumberOfFields:
+            title: 'Total Number of Fields'
+            type: number
+          fieldConfiguration:
+            title: 'Field Configuration'
+            type: string
+          boundaryDescription:
+            title: 'Fields under Conversion/Certification - Boundary Description'
+            type: array
+            items:
+              type: object
+              properties:
+                fieldNumber:
+                  title: 'Field Number'
+                  type: string
+                size:
+                  title: 'Size (Ac/Cents)'
+                  type: string
+                east:
+                  title: 'East'
+                  type: string
+                south:
+                  title: 'South'
+                  type: string
+                west:
+                  title: 'West'
+                  type: string
+                north:
+                  title: 'North'
+                  type: string
+            columns:
+              - field: fieldNumber
+                headerName: Field Number
+                width: 200
+              - field: size
+                headerName: Size (Ac/Cents)
+                width: 200
+              - field: east
+                headerName: East
+                width: 200
+              - field: south
+                headerName: South
+                width: 200
+              - field: west
+                headerName: West
+                width: 200
+              - field: north
+                headerName: North
+                width: 200
+
+          boundaryDescriptionCode:
+            title: ''
+            description: 'Boundary Description Code; R- Residential, W-Water source, C-Cultivated organic, Q - Conventional, B-Buffer, K-Pasture, F-Fallow, S-Roadside, L-Livestock shed, M-Composting Area, P-Parallel/Split area, U-Uncultivated area (Storage). Use the word A along with the above codes, if the land belongs to adjacent holding, For instance AQ-Adjacent conventional'
+            type: object
+
+          fieldsUnderSplitParallelProduction:
+            title: 'Fields under Split/Parallel Production – Boundary Description'
+            type: array
+            items:
+              type: object
+              properties:
+                fieldNumber:
+                  title: 'Field Number'
+                  type: string
+                size:
+                  title: 'Size (Ac/Cents)'
+                  type: string
+                east:
+                  title: 'East'
+                  type: string
+                south:
+                  title: 'South'
+                  type: string
+                west:
+                  title: 'West'
+                  type: string
+                north:
+                  title: 'North'
+                  type: string
+            columns:
+              - field: fieldNumber
+                headerName: Field Number
+                width: 200
+              - field: size
+                headerName: Size (Ac/Cents)
+                width: 200
+              - field: east
+                headerName: East
+                width: 200
+              - field: south
+                headerName: South
+                width: 200
+              - field: west
+                headerName: West
+                width: 200
+              - field: north
+                headerName: North
+                width: 200
+
+      landscapeCOP4013:
+        title: 'COP 401.3 Field Map (Attach Field Maps)'
+        type: object
+        properties:
+          fieldMapAttachments:
+            title: ''
+            type: array
+            items:
+              type: string
+            description: 'Provide an accurate map that shows each field included on the farm listed above. Show boundaries and area to be certified as described in COP 401.2. This may be a Patta/Chita FMB sketch of the parcel map or a detailed hand-drawn map, as long as it is clearly configurable. This map must be current and dated. An updated (revised or new) map must be submitted whenever information on the map changes.'
+          attachedFields:
+            title: 'Please tick those shown in map attached'
+            type: array
+            items:
+              type: string
+              enum:
+                - Field numbers
+                - Area in acres (field specific)
+                - Buffers
+                - North arrow
+                - Adjoining land use
+                - Landmarks such as buildings, farm or public roads, railroad tracks
+                - Slope(s)
+                - Buffers – As windbreaks, hedgerows or woodlands, etc
+                - Livestock
+                - Pastures
+                - Permanent fences
+                - Feeding area (uncrowded if any)
+                - Location and source of water
+                - Bio-diversity
+                - Shade
+                - Processing and Storage area
+            uniqueItems: true
+
+      landRecordsEndorsement:
+        title: 'COP 401.4 Land Records Endorsement'
+        type: object
+        properties:
+          endorsementItems:
+            title: 'Land records presented for eligibility of certification are endorsed by local authorities.'
+            type: array
+            items:
+              type: string
+              enum:
+                - Ownership Status
+                - Lease Agreement
+                - Land Map
+                - Land Use History
+            uniqueItems: true
+          acknowledgement:
+            title: ''
+            type: object
+            description: 'I acknowledge and accept that the land presented for eligibility under organic certification is free of disputes and is in full control of the operator. It does not have a threat of misuse, ownership risk and other legal disputes that may lead to undisclosed disturbance for organic eligibility status. I will bring to the notice of ISCOP, if there any dispute that shall intervene eligibility status'
+
+  organicAwareness:
+    title: '7. COP 501 ORGANIC AWARENESS'
+    type: object
+    properties:
+      opinion:
+        title: 'COP 501.1 Opinion'
+        type: object
+        properties:
+          migrationPurpose:
+            title: 'Why do you want to migrate from conventional farming to organic farming? Your single strong purpose…'
+            type: string
+          migrationDifficulty:
+            title: 'Do you think migration from conventional farming to organic is easy?'
+            type: string
+            enum:
+              - Yes
+              - No
+          certifiedFarmersMet:
+            title: 'How many certified farmers have you met to understand organic farming?'
+            type: string
+            enum:
+              - Nil
+              - '<5'
+              - '>5'
+          organicFarmingComplexity:
+            title: 'Do you know that organic farming involves organic regulation and complexity?'
+            type: string
+            enum:
+              - Yes
+              - No
+          migrationDecisionTiming:
+            title: 'When did you decide to migrate to organic farming?'
+            type: string
+            enum:
+              - This year
+              - '1-2 years'
+              - '>2 Years'
+          attendedWorkshops:
+            title: 'Did you attend training, workshops, or symposiums regarding organic farming?'
+            type: string
+            enum:
+              - Yes
+              - No
+          organicFarmingOpinion:
+            title: 'Your opinion about organic farming. Choose only one of the below.'
+            type: string
+            enum:
+              - Scientific practice
+              - Traditional practice
+              - Spiritual practice
+
+      socioEconomicAwareness:
+        title: 'COP 501.2 Socio-economic Awareness'
+        type: object
+        properties:
+          farmerMigration:
+            title: 'In the past, Farmers migrated to Organic farming mostly have'
+            type: string
+            enum:
+              - withdrawn faster
+              - sustained with high difficulties
+              - continued successfully
+          differentiateOrganicProducts:
+            title: 'Do you know how to differentiate certified organic products from wrong claims?'
+            type: string
+            enum:
+              - Yes
+              - No
+          accessToMarkets:
+            title: 'Do you think you have access to fetching markets for your organic produce?'
+            type: string
+            enum:
+              - Yes
+              - No
+          opinionAboutCost:
+            title: 'What is your opinion about the cost of organic farming?'
+            type: string
+            enum:
+              - Capital intensive
+              - High operating cost
+              - Both
+              - Cheaper
+          laborAwareness:
+            title: 'Do you think your agriculture labor is aware of organic farming?'
+            type: string
+            enum:
+              - Yes
+              - No
+          approachReasons:
+            title: 'I have approached ISCOP certification or organic certification because (you may tick two options)'
+            type: array
+            items:
+              type: string
+              enum:
+                - My buyer wants it.
+                - I realize it is legal.
+                - It helps me learn and sustain.
+                - I do't believe in certification
+            uniqueItems: true
+
+      productionAwareness:
+        title: 'COP 501.3 Production Awareness'
+        type: object
+        properties:
+          approvedInputMaterialList:
+            title: 'Do you have the approved input material list and other restricted and prohibited list?'
+            type: string
+            enum:
+              - Yes
+              - No
+          bufferZoneMaintenance:
+            title: 'Do you know about buffer zone maintenance in your farm?'
+            type: string
+            enum:
+              - Yes
+              - No
+          learnedOrExecutedPractices:
+            title: 'Which of the following practices you have already learned or executed?'
+            type: array
+            items:
+              type: string
+              enum:
+                - Mulching
+                - Composting
+                - Buffer zone
+                - Mixed farming
+                - Cover crops
+                - Inter-cropping
+            uniqueItems: true
+          farmDiaryMaintenance:
+            title: 'Do you have the habit of maintaining a farm diary?'
+            type: string
+            enum:
+              - Yes
+              - No
+          organicSystemPlanDevelopment:
+            title: 'Do you know how to develop an Organic System Plan for your farm?'
+            type: string
+            enum:
+              - Yes
+              - No
+          awarenessOfConversion:
+            title: 'Do you think you are fully aware of conversion and ready to adapt?'
+            type: string
+            enum:
+              - Yes
+              - No
+          awarenessOfTerms:
+            title: 'Do you know about the following terms? Box it if you are aware.'
+            type: array
+            items:
+              type: string
+              enum:
+                - Parallel Production
+                - Split Production
+                - Comingling
+                - GMO
+            uniqueItems: true
+
+  cropProductionPlan:
+    title: '8. COP 601 Crop Production Plan'
+    type: object
+    properties:
+      productionSystemOverview:
+        title: 'COP 601.1 Production System Overview'
+        type: object
+        properties:
+          cropsPlannedToGrow:
+            title: 'List of crops you are planning to grow & harvest for which you are seeking organic certified status.'
+            type: string
+          livestockCertification:
+            title: 'Do you produce Livestock and you are seeking certification for that as well?'
+            type: string
+            enum:
+              - Yes
+              - No
+          organicProductionSystem:
+            title: 'Is your production system all organic?'
+            type: string
+            enum:
+              - Yes
+              - No
+          conventionalCrops:
+            title: 'If no, please list crops that you want to continue to grow as conventional.'
+            type: string
+
+      resourcePotential:
+        title: 'COP 601.2 Resource Potential'
+        type: object
+        properties:
+          soilFertility:
+            title: 'What type of soil fertility adopted in your farm so far? You may choose combinations.'
+            type: array
+            items:
+              type: string
+              enum:
+                - High Chemical Fertilizer Inputs
+                - Low Chemical Fertilizer Inputs
+                - High organic matter inputs
+                - Low organic matter inputs
+                - Bio-inputs
+                - Live Mulching
+            uniqueItems: true
+          waterDependencies:
+            title: 'Please tick your water dependencies. You may choose more than one.'
+            type: array
+            items:
+              type: string
+              enum:
+                - Canal Irrigation
+                - Bore-well Irrigation
+                - Rainwater harvesting
+                - Conservatory adaptation
+                - Wetlands
+                - Fully Rain-fed
+            uniqueItems: true
+          facilities:
+            title: 'Please tick, if these facilities are part of your organic farm'
+            type: array
+            items:
+              type: string
+              enum:
+                - Compost Yard
+                - Green House
+                - Aquaculture
+                - Nursery
+                - Drying Yard
+                - Stockyard
+                - Pack Station
+                - Wild Harvest
+                - Cold Storage
+                - Vehicles
+            uniqueItems: true
+
+      inputDependencies:
+        title: 'COP 601.3 Input Dependencies'
+        type: object
+        properties:
+          seedDependencies:
+            title: 'Seed Dependencies for organic farming (you may tick more than one).'
+            type: array
+            items:
+              type: string
+              enum:
+                - On-farm Planting Stock
+                - Off-farm Local Seeds
+                - Commercial Hybrids
+                - GMO
+            uniqueItems: true
+          onFarmComposting:
+            title: 'Do you have plans for on-farm composting?'
+            type: string
+            enum:
+              - Yes
+              - No
+          offFarmManures:
+            title: 'Do you have plans to buy or use off-farm manures?'
+            type: string
+            enum:
+              - Yes
+              - No
+          approvedCommercialInputs:
+            title: 'Do you have plans to buy approved commercial inputs?'
+            type: string
+            enum:
+              - Yes
+              - No
+          externalFeedForLivestock:
+            title: 'Do you have plans to buy external feed for your livestock?'
+            type: string
+            enum:
+              - Yes
+              - No
+          diseaseHandling:
+            title: 'How do you want to handle critical diseases in your organic operation?'
+            type: string
+          zeroExternalInputs:
+            title: 'Do you believe in zero external inputs based organic farming?'
+            type: string
+            enum:
+              - Yes
+              - No
+
+      postHarvestHandling:
+        title: 'COP 601.4 Post-Harvest Handling'
+        type: object
+        properties:
+          postHarvestHandlingInvolved:
+            title: 'Does your farm involve in post-harvest handling of the crop produce?'
+            type: string
+            enum:
+              - Yes
+              - No
+          postHarvestHandlingActivities:
+            title: 'Please tick, if you do any of the following in your farm?'
+            type: array
+            items:
+              type: string
+              enum:
+                - 'Wash product with water'
+                - 'Sort/size product'
+                - 'Grade product'
+                - 'Roast beans'
+                - 'Cool product'
+                - 'Transport crops'
+                - 'Store product'
+                - 'Clean seeds'
+                - 'Clean product'
+                - 'Bag or pack crops'
+                - 'Dry grain'
+                - 'Others (describe):'
+            uniqueItems: true
+          complexHandling:
+            title: 'Do you perform complex handling of crop products (change their essential form—cut, cook, etc.)?'
+            type: string
+            enum:
+              - Yes
+              - No
+          handlingProcessingActivities:
+            title: 'If Yes, list handling/processing activities below.'
+            type: string
+
+      certifiedOperationScope:
+        title: 'COP 601.5 Certified Operation Scope'
+        type: object
+        properties:
+          certifyLivestockOperations:
+            title: 'Do you want to certify your Livestock Operations?'
+            type: string
+            enum:
+              - Yes
+              - No
+          certifyHandlingOperations:
+            title: 'Do you want to certify your handling operations?'
+            type: string
+            enum:
+              - Yes
+              - No
+          certifyOnFarmSaleOperations:
+            title: 'Do you want to certify your On-farm sale operations?'
+            type: string
+            enum:
+              - Yes
+              - No
+          certifyComplexHandlingActivity:
+            title: 'Do you want to certify your complex handling activity?'
+            type: string
+            enum:
+              - Yes
+              - No
+          markLicense:
+            title: 'Do you want a Mark License?'
+            type: string
+            enum:
+              - Yes
+              - No
+
+  conversionRequirements:
+    title: '9. COP 701 Conversion Requirements'
+    type: object
+    properties:
+      conversionRequirementsLabel:
+        title: ''
+        type: object
+        description: "This form describes land use plan as a conversion requirement in the farm outlay.This form describes about overall land utility structure for its productivity, efficiency and sustainability. This form helps the operator describe their farm's efficiency to rotate crops, enhance diversity, permanent and temporary buffers as means for effective conversion requirement."
+      landUseOverview:
+        title: 'COP 701.1 Land Use Overview'
+        type: object
+        properties:
+          generalLandUseDescription:
+            title: 'General Land use description'
+            type: string
+            enum:
+              - Field Crop Intensification
+              - Orchard-type
+              - Plantation Estate Type
+              - Field crop-Orchard Mixed type
+              - Livestock Intense
+              - Forest type
+              - Peri-Urban Type
+
+          farmUtilityFacilityMix:
+            title: 'Farm Utility/Facility Mix'
+            type: object
+            properties:
+              livestockHouse:
+                title: 'Livestock House'
+                type: boolean
+              tractorShed:
+                title: 'Tractor Shed'
+                type: boolean
+              machineShed:
+                title: 'Machine Shed'
+                type: boolean
+              exclusiveCattlePasture:
+                title: 'Exclusive Cattle Pasture'
+                type: boolean
+              farmPond:
+                title: 'Farm Pond'
+                type: boolean
+              wetlands:
+                title: 'Wetlands'
+                type: boolean
+              bufferZone:
+                title: 'Buffer Zone'
+                type: boolean
+              forestTrails:
+                title: 'Forest trails'
+                type: boolean
+              aquaculture:
+                title: 'Aquaculture'
+                type: boolean
+              compostShed:
+                title: 'Compost shed'
+                type: boolean
+              greenhouse:
+                title: 'Greenhouse'
+                type: boolean
+              beehive:
+                title: 'Beehive'
+                type: boolean
+              fallows:
+                title: 'Fallows'
+                type: boolean
+              barn:
+                title: 'Barn'
+                type: boolean
+              dryingYard:
+                title: 'Drying Yard'
+                type: boolean
+              coldChamber:
+                title: 'Cold Chamber'
+                type: boolean
+              processingShed:
+                title: 'Processing Shed'
+                type: boolean
+              residential:
+                title: 'Residential'
+                type: boolean
+            # required:
+            #   - livestockHouse
+            #   - tractorShed
+            #   - machineShed
+            #   - exclusiveCattlePasture
+            #   - farmPond
+            #   - wetlands
+            #   - bufferZone
+            #   - forestTrails
+            #   - aquaculture
+            #   - compostShed
+            #   - greenhouse
+            #   - beehive
+            #   - fallows
+            #   - barn
+            #   - dryingYard
+            #   - coldChamber
+            #   - processingShed
+            #   - residential
+          distributionOfFarmland:
+            title: 'Distribution of Farmland (as percentage of total farmland)'
+            type: object
+            properties:
+              builtPercentage:
+                title: 'Built %'
+                type: string
+              primeAgriculturalPercentage:
+                title: 'Prime Agricultural %'
+                type: string
+              conservatoryPercentage:
+                title: 'Conservatory %'
+                type: string
+          sustainableLandUse:
+            title: 'Do you think your land use is sustainable?'
+            type: string
+            enum:
+              - Yes
+              - No
+          adaptivePlan:
+            title: 'If no, what is your adaptive plan? (Describe if possible)'
+            type: string
+        # required:
+        #   - generalLandUseDescription
+        #   - farmUtilityFacilityMix
+        #   - distributionOfFarmland
+        #   - sustainableLandUse
+
+      cropRotation:
+        title: 'COP 701.2 Crop Rotation'
+        type: object
+        properties:
+          awareOfCropRotation:
+            title: 'Are you aware of crop rotation and its importance in organic farming?'
+            type: string
+            enum:
+              - Yes
+              - No
+          managePerennialCropFields:
+            title: 'How do you manage your perennial crop fields?'
+            type: string
+            enum:
+              - Cover crops
+              - Alley cropping
+              - Intercropping
+              - Hedgerows
+              - Unattended
+          rotateFieldCrops:
+            title: 'How do you rotate your field crops?'
+            type: string
+            enum:
+              - Cash Crop-Filler Crop/Cover crop-Altn Cash crop
+              - Cash crop-Altn Cash crop-Filler/Cover
+              - Cash Crop-Same Cash Crop - Altn Cash Crop-Filler
+              - No Filler/Cover crops
+
+          cropRotationIssues:
+            title: 'Indicate the issues you address or planning to address with your crop rotation.'
+
+            type: array
+            items:
+              type: string
+              enum:
+                - Organic matter increase
+                - Soil compaction or crusting
+                - Wind erosion
+                - Salinity
+                - Pest management
+                - Water availability
+                - Deficient nutrients
+                - Disease management
+                - Water infiltration/drainage
+                - Water erosion
+                - Weed management
+                - Overall farm biodiversity
+            uniqueItems: true
+
+        # required:
+        #   - awareOfCropRotation
+        #   - managePerennialCropFields
+        #   - rotateFieldCrops
+        #   - cropRotationIssues
+
+      bufferZone:
+        title: 'COP 701.3 Buffer Zone'
+        type: object
+        properties:
+          adjacentLandUseEastern:
+            title: 'Eastern Side - Adjacent Land Use'
+            type: object
+            properties:
+              organicFarms:
+                title: 'Organic farms'
+                type: boolean
+              fallowFields:
+                title: 'Fallow fields'
+                type: boolean
+              pasture:
+                title: 'Pasture'
+                type: boolean
+              wildLands:
+                title: 'Wild lands'
+                type: boolean
+              conventional:
+                title: 'Conventional'
+                type: boolean
+              livestock:
+                title: 'Livestock'
+                type: boolean
+              residential:
+                title: 'Residential'
+                type: boolean
+              farmUtilities:
+                title: 'Farm utilities'
+                type: boolean
+              roadside:
+                title: 'Roadside'
+                type: boolean
+              others:
+                title: 'Others (Specify)'
+                type: string
+          adjacentLandUseNorthern:
+            title: 'Northern Side - Adjacent Land Use'
+            type: object
+            properties:
+              organicFarms:
+                title: 'Organic farms'
+                type: boolean
+              fallowFields:
+                title: 'Fallow fields'
+                type: boolean
+              pasture:
+                title: 'Pasture'
+                type: boolean
+              wildLands:
+                title: 'Wild lands'
+                type: boolean
+              conventional:
+                title: 'Conventional'
+                type: boolean
+              livestock:
+                title: 'Livestock'
+                type: boolean
+              residential:
+                title: 'Residential'
+                type: boolean
+              farmUtilities:
+                title: 'Farm utilities'
+                type: boolean
+              roadside:
+                title: 'Roadside'
+                type: boolean
+              others:
+                title: 'Others (Specify)'
+                type: string
+          adjacentLandUseWestern:
+            title: 'Western Side - Adjacent Land Use'
+            type: object
+            properties:
+              organicFarms:
+                title: 'Organic farms'
+                type: boolean
+              fallowFields:
+                title: 'Fallow fields'
+                type: boolean
+              pasture:
+                title: 'Pasture'
+                type: boolean
+              wildLands:
+                title: 'Wild lands'
+                type: boolean
+              conventional:
+                title: 'Conventional'
+                type: boolean
+              livestock:
+                title: 'Livestock'
+                type: boolean
+              residential:
+                title: 'Residential'
+                type: boolean
+              farmUtilities:
+                title: 'Farm utilities'
+                type: boolean
+              roadside:
+                title: 'Roadside'
+                type: boolean
+              others:
+                title: 'Others (Specify)'
+                type: string
+          adjacentLandUseSouthern:
+            title: 'Southern Side - Adjacent Land Use'
+            type: object
+            properties:
+              organicFarms:
+                title: 'Organic farms'
+                type: boolean
+              fallowFields:
+                title: 'Fallow fields'
+                type: boolean
+              pasture:
+                title: 'Pasture'
+                type: boolean
+              wildLands:
+                title: 'Wild lands'
+                type: boolean
+              conventional:
+                title: 'Conventional'
+                type: boolean
+              livestock:
+                title: 'Livestock'
+                type: boolean
+              residential:
+                title: 'Residential'
+                type: boolean
+              farmUtilities:
+                title: 'Farm utilities'
+                type: boolean
+              roadside:
+                title: 'Roadside'
+                type: boolean
+              others:
+                title: 'Others (Specify)'
+                type: string
+          bufferTypes:
+            title: 'Buffer Types to Avoid Contamination'
+            type: array
+            items:
+              type: string
+              enum:
+                - Permanent Physical barriers
+                - Permanent Vegetation (full perimeter)
+                - Hedgerow planting
+                - Windbreak/Shelterbelt
+                - Riparian water buffer
+                - Crop selection (pollinators issue)
+            uniqueItems: true
+
+          # required:
+          #   - adjacentLandUseEastern
+          #   - adjacentLandUseNorthern
+          #   - adjacentLandUseWestern
+          #   - adjacentLandUseSouthern
+          #   - bufferTypesToAvoidContamination
+          #   - bufferAreasForEachField
+
+          bufferAreas:
+            type: array
+            title: 'Describe buffer areas for each field/pasture that you maintain on your organic land.'
+            items:
+              type: object
+              properties:
+                fieldNumber:
+                  type: string
+                  title: 'Field Number'
+                adjacentLand:
+                  type: string
+                  title: 'Adjacent Land'
+                buffer:
+                  type: string
+                  title: 'Buffer'
+
+            columns:
+              - field: fieldNumber
+                headerName: 'Field Number'
+                width: 200
+              - field: adjacentLand
+                headerName: 'Adjacent Land'
+                width: 200
+              - field: buffer
+                headerName: 'Buffer'
+                width: 200
+
+          growingInBufferAreas:
+            title: 'Growing in buffer areas'
+            type: string
+            description: 'Please specify whether you grow crops in the buffer area, and whether you plan to sell or represent them as organic. If you need more space, please attach a separate page.'
+          bufferDescriptionAttachment:
+            title: 'Buffer description attachment'
+            type: array
+            items:
+              type: string
+            description: 'Buffer description attachments'
+          conversionPlan:
+            title: 'Conversion Plan (Agro-ecological)'
+            type: string
+
+  soilAndWaterQuality:
+    title: '10. OSP Forms - Soil & Water Quality COP 801'
+    type: object
+    properties:
+      soilAndWaterQualityLabel:
+        type: object
+        title: ''
+        description: 'This form describes Soil and water quality management plan of my organic system plan. This form provides an idea about how sustainable my plans are towards maintaining soil health and water quality.'
+
+      soilAnalysis:
+        type: object
+        title: 'COP 801.1 Soil Analysis'
+        properties:
+          soilDegradationProblem:
+            type: string
+            title: 'Soil Degradation Problem'
+            enum:
+              - 'Erosion'
+              - 'Compaction'
+              - 'Contamination'
+          knowSoilType:
+            type: boolean
+            title: 'Do you know your soil type?'
+            default: false
+          soilType:
+            type: array
+            title: 'Tick your soil type'
+            items:
+              type: string
+              enum:
+                - 'Red Loamy'
+                - 'Red Sterile'
+                - 'Red Sandy'
+                - 'Thin Red'
+                - 'Deep Red Loamy'
+                - 'Black Soil'
+                - 'Laterite Soil'
+                - 'Coastal soil'
+                - 'Others (Specify)'
+            uniqueItems: true
+          recentSoilTestReport:
+            type: boolean
+            title: 'Do you have a recent (less than one year) soil test report?'
+            default: false
+
+          recentSoilTestReportAttachement:
+            type: array
+            items:
+              type: string
+            title: 'Attach soil testing report'
+          aspectsCovered:
+            type: array
+            title: 'What aspects does your test results cover?'
+            items:
+              type: string
+              enum:
+                - 'Soil NPK'
+                - 'Biological NPK'
+                - 'Microbial Activity'
+                - 'Extractable C'
+                - 'C:N Balance'
+            uniqueItems: true
+          monitorSoilFertility:
+            type: boolean
+            title: 'Do you know how to monitor soil fertility in a chemical-free production system?'
+          monitorMethod:
+            type: array
+            title: 'How do you decide to monitor your soil fertility for this year?'
+            items:
+              type: string
+              enum:
+                - 'Soil Testing'
+                - 'Microbial Activity'
+                - 'Tissue testing'
+                - 'Soil Observation'
+                - 'Observation of Crop Health'
+                - 'Crop Yields'
+                - 'Crop Quality testing'
+                - 'Others (Specify)'
+            uniqueItems: true
+          otherMonitoringMethod:
+            type: string
+            title: Other monitoring method
+          happyWithSoilFertility:
+            type: boolean
+            title: 'Are you happy with your current soil fertility for uncompromising organic production?'
+          readyForCompromises:
+            type: boolean
+            title: 'If No, Are you ready for critical compromises that are part of conversion?'
+
+      soilFertilityPlan:
+        type: object
+        title: 'COP 801.2 Soil Fertility Plan'
+        properties:
+          majorPractices:
+            type: array
+            title: 'Major practices planned as part of the soil building plan'
+            items:
+              type: string
+              enum:
+                - 'Soil Amendments'
+                - 'Summer Fallow'
+                - 'Crop Rotation'
+                - 'Soil Erosion Control'
+                - 'Subsoiling'
+                - 'Others (Specify)'
+            uniqueItems: true
+          onFarmInitiatives:
+            type: array
+            title: 'Major on-farm initiatives that are part of soil fertility plan'
+            items:
+              type: string
+              enum:
+                - 'On-farm Manure'
+                - 'On-farm Composting'
+                - 'On-farm bio-dynamic preparations'
+                - 'On-farm fermenters'
+                - 'On-farm livestock proportion build'
+                - 'Matching Manure crops & pastures'
+            uniqueItems: true
+          useRestrictedFertilityInputs:
+            type: boolean
+            title: 'Do you have plans to use restricted (R) fertility inputs?'
+          complyWithAnnotationR:
+            type: boolean
+            title: 'If yes, do you know how to comply with the annotation (R)?'
+          useHighSaltContent:
+            type: boolean
+            title: 'Do you have plans to temporarily use high salt content (Calcium carbonate, Sodium Nitrate, Potassium Sulphate, etc)?'
+          preventSaltBuildup:
+            type: boolean
+            title: 'If yes, do you know how to prevent salt build-up?'
+          burnCropResidues:
+            type: boolean
+            title: 'Do you burn Crop residues in the certified field?'
+          sewageOrSludgeIntervention:
+            type: boolean
+            title: 'Do you have any sewage or sludge material intervention in your field?'
+          majorCostDuringConversion:
+            type: boolean
+            title: 'Do you see your soil building plan is going to be a major cost during your conversion?'
+          periodicalSoilMonitoring:
+            title: 'Do you have plans for periodical soil monitoring?'
+
+            type: string
+
+            enum:
+              - 'Weekly'
+              - 'Monthly'
+              - 'Quarterly'
+              - 'Semi-annually'
+
+      waterAnalysis:
+        type: object
+        title: 'COP 801.3 Water Analysis'
+        properties:
+          waterTestReport:
+            type: string
+            title: 'What type of test report do you have for your water source utilized for organic farming?'
+            enum:
+              - 'Residue Analysis Report'
+              - 'Salinity Test Report'
+              - 'No reports done so far'
+          planningWaterAnalysis:
+            type: boolean
+            title: 'If No, are you planning to do water analysis?'
+          waterDependencies:
+            type: array
+            title: 'Please tick your current water dependencies'
+            items:
+              type: string
+              enum:
+                - 'Canal Irrigation'
+                - 'Bore-well Irrigation'
+                - 'Rain water harvesting'
+                - 'Conservatory adaptation'
+                - 'wetlands'
+                - 'Fully Rain-fed'
+            uniqueItems: true
+          waterQualityAwareness:
+            type: array
+            title: 'Do you know about the following regarding water quality?'
+            items:
+              type: string
+              enum:
+                - 'pH'
+                - 'EC'
+                - 'water minerals'
+                - 'Heavy Metals'
+                - 'Poly Aromatic Hydrocarbons'
+                - 'Pesticide residues'
+                - 'Industrial Chemicals'
+                - 'Allergens'
+                - 'Microbial Contaminants'
+            uniqueItems: true
+          waterContaminationsAware:
+            type: boolean
+            title: 'Are you aware of water-based contaminations in food products?'
+
+      waterManagementPlan:
+        type: object
+        title: 'COP 801.4 Water Management Plan'
+        properties:
+          waterSourceShared:
+            type: boolean
+            title: 'Is your water source shared?'
+          waterSource:
+            type: array
+            title: 'Water Source:'
+            items:
+              type: string
+              enum:
+                - 'On-site Wells/Pond'
+                - 'River/Creek/Pond'
+                - 'Rainwater'
+                - 'Municipal'
+                - 'Canal Supplies'
+          waterQualityManagementPlans:
+            type: array
+            title: 'Please tick those plans that are part of your water quality management'
+            items:
+              type: string
+              enum:
+                - 'Separating waterways from adjacent holdings'
+                - 'Rain Water Harvesting'
+                - 'Conservatory Scheduling'
+                - 'Drip Irrigation'
+                - 'other micro-irrigation techniques'
+                - 'Sediment Basin'
+                - 'periodic water quality testing'
+                - 'Water treatment'
+                - 'Riparian culture'
+                - 'Mulching'
+                - 'On-Farm Watershed'
+            uniqueItems: true
+          irrigationSystemType:
+            type: string
+            title: 'Type of Irrigation System planned.'
+            enum:
+              - 'Drip'
+              - 'Flood'
+              - 'Pivot'
+              - 'Others (specify)'
+          otherIrrigationSystemType:
+            title: 'Other irrigation system type'
+            type: string
+          farmInputsThroughIrrigation:
+            type: boolean
+            title: 'Do you apply farm inputs through irrigation water?'
+          materialsUsedForIrrigation:
+            type: array
+            title: 'Tick materials you use for irrigation supportive practices.'
+            items:
+              type: string
+              enum:
+                - 'Pipeline cleaning solvents'
+                - 'Motor Fuel'
+                - 'Lubricants'
+                - 'Chlorination'
+                - 'Disinfectants'
+            uniqueItems: true
+          waterUsePlan:
+            type: array
+            title: 'Water Use Plan'
+            items:
+              type: string
+              enum:
+                - 'Irrigation'
+                - 'Livestock'
+                - 'washing crops'
+                - 'Greenhouse'
+                - 'Processing'
+                - 'others'
+            uniqueItems: true
+
+  seedStock:
+    title: '11. OSP Forms - Seed Stock COP 901'
+    type: object
+    properties:
+      seedSourceDescription:
+        title: ''
+        type: object
+        description: 'This form describes seed sources, seed quality, access and treatment aspects of my organic operation.This form describes about my annual and perennial planting stock plan and their access plans without hindrance supporting my crop rotation.'
+
+      npopRegulationDescription:
+        title: ''
+        type: object
+        description: 'NPOP regulation requires the use of organically grown seeds, unless the variety is not commercially available. In the advent of organic seeds unavailable, prepare evidences for sourcing attempts and documentation for commercial unavailability. Synthetic seed treatments are prohibited, unless included as part of National Sanitary plan as an exemption. GMOs are prohibited. Please save all seed labels and treatment inoculants label for inspection. Failure to show evidences shall be treated as "conventional-chemical treated and GMO" category assessment only'
+
+      annualSeeds:
+        type: object
+        title: 'COP 901.1 Annual Seeds'
+        properties:
+          source:
+            type: string
+            title: 'Seed Source'
+            enum:
+              - 'On-Farm Source'
+              - 'Off-farm Source'
+              - 'No Seeds Used'
+          organicStatus:
+            type: string
+            title: 'Organic Status'
+            enum:
+              - 'All Organic Seeds'
+              - 'All Untreated Seeds Used'
+              - 'No GMOs (mandatory)'
+          seedsList:
+            type: array
+            title: 'List all seeds planned/used for the Current Season'
+
+            items:
+              type: object
+              properties:
+                cropVarietyBrand:
+                  type: string
+                  title: 'Crop/Variety/Brand'
+                organicStatus:
+                  type: string
+                  title: 'Organic Status'
+                  enum:
+                    - 'Organic'
+                    - 'Non-Organic'
+                untreated:
+                  type: boolean
+                  title: 'Untreated'
+                treated:
+                  type: boolean
+                  title: 'Treated'
+                gmo:
+                  type: boolean
+                  title: 'GMO'
+                fungicide:
+                  type: boolean
+                  title: 'Fungicide'
+                inoculant:
+                  type: boolean
+                  title: 'Inoculant'
+                validationForSeedSourceAndTreatment:
+                  type: string
+                  title: 'Validation for Seed Source & Treatment'
+            columns:
+              - field: cropVarietyBrand
+                headerName: 'Crop/Variety/Brand'
+                width: 200
+              - field: organicStatus
+                headerName: 'Organic Status'
+                width: 200
+              - field: untreated
+                headerName: 'Untreated'
+                width: 200
+              - field: treated
+                headerName: 'Treated'
+                width: 200
+              - field: gmo
+                headerName: 'GMO'
+                width: 200
+              - field: fungicide
+                headerName: 'Fungicide'
+                width: 200
+              - field: inoculant
+                headerName: 'Inoculant'
+                width: 200
+              - field: validationForSeedSourceAndTreatment
+                headerName: 'Validation for Seed Source & Treatment'
+                width: 200
+          gmoDeclaration:
+            title: ''
+            type: object
+            description: 'Non-GMO Declaration: I acknowledge and accept that the seeds, seedlings and planting stocks are verified for its non-GMO status. I declare with evidence that all planting stock are non-GMO only. I indemnify the liability for wrong declaration, if identified untrue.'
+
+          gmoDeclarationAttachment:
+            title: GMO declaration attachment
+            type: array
+            items:
+              type: string
+
+  mulchingAwareness:
+    type: object
+    title: '12. OSP Forms - MULCHING AWARENESS COP 1001'
+    properties:
+      mulchingLabel:
+        title: ''
+        type: object
+        description: "Mulching is the process of covering the topsoil with plant material such as leaves, grass, twigs, crop residues, straw etc. In organic agriculture the term 'mulching' refers only to the use of organic, degradable plant materials. ISCOP require this form to be filled to understand that mulching is practiced to its advantage and not handled as a source of contamination. Operator’s mulching awareness is critical for sustenance and optimistic handling of organic operations"
+      mulchingContaminationAwareness:
+        type: object
+        title: 'COP 1001.1 Mulching Contamination Awareness'
+        properties:
+          knowMulchSourceContamination:
+            type: string
+            title: 'Do you know that your mulch material may be a big source of soil contamination?'
+            enum:
+              - 'Yes'
+              - 'No'
+          trainedToChooseMulch:
+            type: string
+            title: 'Are you trained to choose mulch material without infection?'
+            enum:
+              - 'Yes'
+              - 'No'
+          onFarmMulchMaterial:
+            type: string
+            title: 'Is your mulch material on-farm?'
+            enum:
+              - 'Yes'
+              - 'No'
+          handlingRiskOfContamination:
+            type: string
+            title: 'If No, how do you handle the risk of contamination?'
+          plasticOrStoneMulch:
+            type: string
+            title: 'Is you mulch material plastic or stone?'
+            enum:
+              - 'Yes'
+              - 'No'
+          stopUsingPlasticOrStone:
+            type: string
+            title: 'If yes, stop using it. Show evidences for stopping it.'
+          treatMulchMaterial:
+            type: string
+            title: 'Do you treat your mulch material for infestations?'
+            enum:
+              - 'Yes'
+              - 'No'
+          treatmentDetails:
+            type: string
+            title: 'If yes, please specify the treatment material and purpose.'
+          tillSoilAfterMulchDegraded:
+            type: string
+            title: 'Do you till your soil after mulch material is degraded, especially before sowing the next crop?'
+            enum:
+              - 'Yes'
+              - 'No'
+          mulchingSystemDependent:
+            type: string
+            title: 'If no, is your mulching cropping system dependent?'
+            enum:
+              - 'Yes'
+              - 'No'
+          dependentSystemDetails:
+            type: string
+            title: 'If yes, please specify the system.'
+
+      mulchingAndMulchMaterials:
+        type: object
+        title: 'COP 1001.2 Mulching & Mulch Materials'
+        properties:
+          practiceMulching:
+            type: string
+            title: 'Do you practice mulching in your organic farm?'
+            enum:
+              - 'Yes'
+              - 'No'
+          startMulchingPlan:
+            type: string
+            title: 'If No, what is your plan to start mulching practice?'
+          mulchMaterialsSource:
+            type: array
+            title: 'If yes, what is your source of mulch materials?'
+            items:
+              type: string
+              enum:
+                - 'Weeds'
+                - 'Plastic'
+                - 'Cover crops'
+                - 'Stones'
+                - 'Crop residues'
+                - 'Pruning material from trees'
+                - 'Cuttings from hedges'
+                - 'Processing waste'
+                - 'Others (Specify)'
+            uniqueItems: true
+          mulchPurpose:
+            type: array
+            title: 'What is the primary purpose of your mulching? Is it very selective or a comprehensive practice?'
+            items:
+              type: string
+              enum:
+                - 'Soil Erosion'
+                - 'Water Conservation'
+                - 'Weed Management'
+                - 'Soil Fertility'
+            uniqueItems: true
+
+    schema:
+
+  composting:
+    type: object
+    title: '13. OSP Forms - COMPOSTING COP 1101'
+    properties:
+      compostingLabel:
+        title: ''
+        type: object
+        description: 'Composting is the process of transforming organic materials of plant or animal origin into humus in heaps or pits. Compared with uncontrolled decomposition of organic material, decomposition in the composting process occurs at a faster rate, reaches higher temperatures and results in a product of higher quality. ISCOP requires operators to fill this form to understand how the operator meets composting requirement and compose associated contamination'
+
+      sourceOfCompost:
+        type: object
+        title: 'COP 1101.1 Source of Compost'
+        properties:
+          practiceComposting:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: Do you practice composting in your organic farm?
+          useOffFarmCompost:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: If No, do you use off-farm compost?
+          trackSourceOfOffFarmCompost:
+            type: string
+            enum:
+              - Compost Specification sheet
+              - Monitored Procurement
+              - Certified Supplier
+            title: How do you track the source of off-farm compost/Manure?
+          useUncompostedManure:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: Do you use un-composted raw or aged-manure?
+          applyUncompostedManure:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: If yes, do you apply it directly to crops whose edible portion directly contacts soil?
+          applyUncompostedManureTiming:
+            type: string
+            enum:
+              - 30 days to harvest
+              - 60 days to harvest
+              - 90 days to harvest
+            title: If yes, when do you apply?
+
+      sourcesOfCompost:
+        type: object
+        title: 'COP 1101.2 On-farm Composting (Attach compost yard plan and process)'
+        properties:
+          compostProcurementSources:
+            type: array
+            items:
+              type: string
+              enum:
+                - Organic green biomass
+                - Livestock bedding
+                - Sewage waste
+                - Municipal Waste
+                - Processing waste
+                - Mushroom beddings
+                - others (specify)
+            uniqueItems: true
+            title: What are the sources of compost you procure?
+          maintainRecordsForCompostProcurement:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: Do you maintain records for compost procurement with source identity?
+          awarenessOfManureContaminants:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: Are you aware of the impact of manure or compost-based contaminants on soil and water quality?
+
+      onFarmComposting:
+        type: object
+        title: 'COP 1101.2 On-farm Composting (Attach compost yard plan and process)'
+        properties:
+          sourceOfBiomass:
+            type: string
+            enum:
+              - On-farm
+              - Off-farm
+              - Both
+            title: What is your source of biomass or ingredients?
+          recordsForOffFarmOrganicIdentity:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: If Off-farm, do you have records for its organic identity?
+          mixIngredientsForComposting:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: Do you mix ingredients like crop biomass, cattle manure, and other forms?
+          trainedToHandleComposting:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: Are you trained to handle composting?
+          maxTemperatureDuringComposting:
+            type: string
+            enum:
+              - < 60 deg Centigrade
+              - 60-70 deg Centigrade
+              - '>70 deg Centigrade'
+            title: What is the maximum temperature of the ingredients during composting?
+          sourceOfCompostMicrobialCulture:
+            type: string
+            enum:
+              - Certified source
+              - Not certified
+            title: What is your source of compost microbial culture?
+          cultureSpecificationAndSupplierCertificate:
+            type: string
+            title: Please provide culture specification you purchase along with the supplier certificate.
+          maintainRecordsForCompostProduction:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: Do you maintain records for your compost production?
+
+  materialList:
+    type: object
+    title: '14. OSP Forms - Materials List COP 1201'
+    properties:
+      materalListLabel:
+        title: ''
+        type: object
+        description: 'List all materials (except seed and planting stock) you use or plan to use. Include soil amendments--fertilizers, minerals, micronutrients, compost, manure; inoculants and seed treatments; pest / disease / weed management substances and adjuvants; crop production aids, or any other materials applied to soil, crops, water, or stored products. If you need more space, please attach a list.'
+
+      soilFertilityInputsFrame:
+        title: 'COP 1201.1 Soil Fertility Inputs'
+        type: object
+        properties:
+          soilFertilityLabel:
+            title: ''
+            type: object
+            description: 'Soil Stimulants, composting organisms, soil buffering agents, soil amending substances and soil protectants are the soil fertility related inputs to be listed below.'
+
+          soilFertilityInputs:
+            type: array
+            items:
+              type: object
+              properties:
+                productType:
+                  type: string
+                  title: Product Type
+                brandName:
+                  type: string
+                  title: Brand Name
+                productSpecificationAndApplication:
+                  type: string
+                  title: Product Specification and Application
+                dosage:
+                  type: string
+                  title: Dosage
+                organicStatus:
+                  type: string
+                  enum:
+                    - Approved
+                    - Restricted
+                  title: Organic Status
+                thirdPartyVerification:
+                  type: string
+                  enum:
+                    - Yes
+                    - No
+                  title: Third Party Verification
+                evidenceAvailability:
+                  type: string
+                  title: Evidence Availability
+
+            columns:
+              - field: productType
+                headerName: 'Product Type'
+                width: 200
+              - field: brandName
+                headerName: 'Brand Name'
+                width: 200
+              - field: productSpecificationAndApplication
+                headerName: 'Product Specification and Application'
+                width: 200
+              - field: daosage
+                headerName: 'Dosage'
+                width: 200
+              - field: organicStatus
+                headerName: 'Organic Status'
+                width: 200
+              - field: thirdPartyVerification
+                headerName: 'Third Party Verification'
+                width: 200
+              - field: evidenceAvailability
+                headerName: 'Evidence Availability'
+                width: 200
+
+          soilFertilityBottomLabel:
+            title: ''
+            type: object
+            description: 'Please make the product labels and purchase receipts available for inspection. Please include all on-farm inputs like manures, panchakavya, bio-dynamic inputs and composts if they are not ploughed in-situ.'
+
+      cropNutritionMaterialsFrame:
+        type: object
+        title: 'COP 1201.2 Crop Nutrition Materials'
+        properties:
+          cropNutritionMaterialsLabel:
+            title: ''
+            type: object
+            description: 'Primary nutrients, secondary nutrients, micro-nutrition, growth factors, flower fall controlling substances and sprays applied for nutritive value.'
+
+          cropNutritionMaterials:
+            type: array
+            items:
+              type: object
+
+              properties:
+                productType:
+                  type: string
+                  title: Product Type
+                brandName:
+                  type: string
+                  title: Brand Name
+                productSpecificationAndApplication:
+                  type: string
+                  title: Product Specification and Application
+                dosage:
+                  type: string
+                  title: Dosage
+                organicStatus:
+                  type: string
+                  enum:
+                    - Approved
+                    - Restricted
+                  title: Organic Status
+                thirdPartyVerification:
+                  type: string
+                  enum:
+                    - Yes
+                    - No
+                  title: Third Party Verification
+                evidenceAvailability:
+                  type: string
+                  title: Evidence Availability
+
+            columns:
+              - field: productType
+                headerName: 'Product Type'
+                width: 200
+              - field: brandName
+                headerName: 'Brand Name'
+                width: 200
+              - field: productSpecificationAndApplication
+                headerName: 'Product Specification and Application'
+                width: 200
+              - field: daosage
+                headerName: 'Dosage'
+                width: 200
+              - field: organicStatus
+                headerName: 'Organic Status'
+                width: 200
+              - field: thirdPartyVerification
+                headerName: 'Third Party Verification'
+                width: 200
+              - field: evidenceAvailability
+                headerName: 'Evidence Availability'
+                width: 200
+
+          cropNutritionBottomLabel:
+            type: object
+            title: ''
+            description: 'Please make the product labels and purchase receipts available for inspectio'
+
+      cropProtectionFrame:
+        type: object
+        title: 'COP 1201.3 Crop Protection'
+        properties:
+          cropProtectionLabel:
+            title: ''
+            description: 'Weed controlling substances, pest controlling substances and disease controlling substances are the crop protection inputs you may list in the table below.'
+            type: object
+          cropProtection:
+            type: array
+            title: 'COP 1201.3 Crop Protection'
+            items:
+              type: object
+              properties:
+                productType:
+                  type: string
+                  title: Product Type
+                brandName:
+                  type: string
+                  title: Brand Name
+                productSpecificationAndApplication:
+                  type: string
+                  title: Product Specification and Application
+                dosage:
+                  type: string
+                  title: Dosage
+                organicStatus:
+                  type: string
+                  enum:
+                    - Approved
+                    - Restricted
+                  title: Organic Status
+                thirdPartyVerification:
+                  type: string
+                  enum:
+                    - Yes
+                    - No
+                  title: Third Party Verification
+                evidenceAvailability:
+                  type: string
+                  title: Evidence Availability
+
+            columns:
+              - field: productType
+                headerName: 'Product Type'
+                width: 200
+              - field: brandName
+                headerName: 'Brand Name'
+                width: 200
+              - field: productSpecificationAndApplication
+                headerName: 'Product Specification and Application'
+                width: 200
+              - field: dosage
+                headerName: 'Dosage'
+                width: 200
+              - field: organicStatus
+                headerName: 'Organic Status'
+                width: 200
+              - field: thirdPartyVerification
+                headerName: 'Third Party Verification'
+                width: 200
+              - field: evidenceAvailability
+                headerName: 'Evidence Availability'
+                width: 200
+          cropProtectionBottonLabel:
+            title: ''
+            description: 'Please make the product labels and purchase receipts available for inspection. Please list all the on-farm indigenous preparations used for crop protection.'
+            type: object
+
+      farmSupportInputsFrame:
+        type: object
+        title: 'COP 1201.4 Farm Support Inputs'
+        properties:
+          farmSupportInputsLabel:
+            title: ''
+            description: 'Post-harvest storage related materials, warehouse/farm disinfectants, power equipment fuels, lubricants, cleaning substances, water amending substances and any other farm related materials that support farming.'
+            type: object
+          farmSupportInputs:
+            type: array
+            items:
+              type: object
+              properties:
+                productType:
+                  type: string
+                  title: Product Type
+                brandName:
+                  type: string
+                  title: Brand Name
+                productSpecificationAndApplication:
+                  type: string
+                  title: Product Specification and Application
+                dosage:
+                  type: string
+                  title: Dosage
+                organicStatus:
+                  type: string
+                  enum:
+                    - Approved
+                    - Restricted
+                  title: Organic Status
+                thirdPartyVerification:
+                  type: string
+                  enum:
+                    - Yes
+                    - No
+                  title: Third Party Verification
+                evidenceAvailability:
+                  type: string
+                  title: Evidence Availability
+
+            columns:
+              - field: productType
+                headerName: 'Product Type'
+                width: 200
+              - field: brandName
+                headerName: 'Brand Name'
+                width: 200
+              - field: productSpecificationAndApplication
+                headerName: 'Product Specification and Application'
+                width: 200
+              - field: dosage
+                headerName: 'Dosage'
+                width: 200
+              - field: organicStatus
+                headerName: 'Organic Status'
+                width: 200
+              - field: thirdPartyVerification
+                headerName: 'Third Party Verification'
+                width: 200
+              - field: evidenceAvailability
+                headerName: 'Evidence Availability'
+                width: 200
+
+          farmSupportInputsBottomLabel:
+            title: ''
+            type: object
+            description: 'Please make the product labels and purchase receipts available for inspection. Please list all the on-farm indigenous preparations used for crop protection'
+
+      offFarmMateialsApproval:
+        type: string
+        title: 'Do you require off-farm materials approval from ISCOP?'
+        enum:
+          - Yes
+          - No
+      offFarmMateialsApprovalLabel:
+        description: 'Please declare actual status of materials used. This will help the inspector or ISCOP support you with proper assistance and enable your farming. True declaration of materials will empower your organic farming.'
+        title: ''
+        type: object
+
+  weedManagement:
+    title: '15. OSP Forms - WEED MANAGEMENT COP 1301'
+    type: object
+    properties:
+      weedBiodiversity:
+        type: object
+        title: 'COP 1301.1 Weed Bio-diversity'
+        properties:
+          considerWeedManagementBarrier:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Do you consider weed management as a major barrier to organic production?'
+          knowNegativeInfluenceWeeds:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Do you know the type of weeds that negatively influenced your cultivation so far?'
+          knowWeedAllelopathy:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Do you know what is weed allelopathy and crop allelopathy?'
+          weedicideUsageDuration:
+            type: string
+            title: 'How long have you been using weedicide in your field?'
+          lastUseWeedicide:
+            type: string
+            title: 'When did you last use weedicide?'
+          problematicWeeds:
+            type: string
+            title: 'Enlist those high intensity, problematic weeds in your field that affects your cultivation (use local names).'
+          perennialWeedIssues:
+            type: string
+            title: 'Do you have issues with notified perennial weeds that are becoming a major problem? Please list.'
+
+      weedManagementPlan:
+        type: object
+        title: 'COP 1301.2 Weed Management Plan'
+        properties:
+          weedManagementItems:
+            type: array
+            title: 'Please list the items that are part of your weed management plan. (Tick all applicable)'
+            items:
+              type: string
+              enum:
+                - Living Mulch Cover crop
+                - Allelopathic cover crop
+                - Timing of Planting
+                - Sanitized Mulch
+                - Soil Solarization
+                - Flaming
+                - Manual Weeding
+                - Resistant varieties
+                - Mechanical Weeders
+                - Approved Herbicides
+                - Biological herbicides
+                - Seed Predation
+            uniqueItems: true
+          useGlacialAceticAcid:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Are you planning to use glacial acetic acid as herbicide?'
+          knowSystemicWeedManagement:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Do you know about systemic weed management for organic farming?'
+          irrigatingCropOrField:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Are you irrigating the crop or the entire field?'
+          fertilizingCropOrField:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Are you fertilizing the crop or the entire field?'
+          cropIntensityForWeedManagement:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Are you looking at crop intensity as a tool for weed management?'
+          controlWeedBeforeOrAfterEmergence:
+            type: string
+            enum:
+              - Primarily Pre-emergence strategy
+              - Post-emergence control
+            title: 'Are you planning to control weed before emergence or after emergence?'
+
+  pestManagement:
+    title: '16. OSP Forms - PEST MANAGEMENT COP 1401'
+    type: object
+    properties:
+      pestEcology:
+        type: object
+        title: 'COP 1401.1 Pest Ecology'
+        properties:
+          knowPestIssues:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Do you know the pest issues associated with your planned cropping system?'
+          pesticideDecision:
+            type: string
+            title: 'In the past, how did you take the decision to use pesticides?'
+            enum:
+              - Periodic practice
+              - Based on incidence
+              - Based on economic impact of incidence
+          adaptConventionalApproaches:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'In the past, did you adapt conventional approaches regularly before using pesticides?'
+          pesticideUsageDuration:
+            type: string
+            title: 'How long have you been using pesticides in your field?'
+          lastUsePesticides:
+            type: string
+            title: 'When did you last use pesticides?'
+          problematicPests:
+            type: string
+            title: 'Enlist those high-intensity, problematic pests in your field that affect your cultivation (use local names).'
+          economicallyDamagingPests:
+            type: string
+            title: 'Do you have issues with any particular economically damaging pest that is becoming a major problem? Please list.'
+
+      pestManagementPlan:
+        type: object
+        title: 'COP 1401.2 Pest Management Plan'
+        properties:
+          pestManagementItems:
+            type: array
+            title: 'Please list the items that are part of your pest management plan. (Tick all applicable)'
+            items:
+              type: string
+              enum:
+                - Soil tillage and sanitation
+                - Trap Crops
+                - Resistant Varieties
+                - Natural Enemies
+                - Bio-control agents
+                - Traps and Barriers
+                - Crop Rotation
+                - Natural Pesticides
+                - Mechanical Removal
+                - Soap Oil
+                - Aromatic repellent crops
+                - Selective weeding
+            uniqueItems: true
+          useNaturalPyrethrum:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Are you planning to use natural pyrethrum as a regular pesticide?'
+          knowEcologicalPestManagement:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Do you know about ecological pest management for organic farming?'
+          useCertifiedPesticides:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Are you planning to use certified pesticides for approved organic agriculture?'
+          organicSuckingPestsControl:
+            type: string
+            title: 'Organic Sucking Pests Control'
+          organicFeedingPestsControl:
+            type: string
+            title: 'Organic Feeding Pests Control'
+          organicSoilInsectsControl:
+            type: string
+            title: 'Organic Soil Insects Control'
+
+  diseaseManagement:
+    title: '16. OSP Forms – DISEASE MANAGEMENT COP 1501'
+    type: object
+
+    properties:
+      diseaseManagementLabel:
+        title: ''
+        type: object
+        description: 'Organic Disease management practicesare about making life difficult for pathogen to survive in the farm. Well-informed organic farmers do so, but in most cases pathogens make life difficult for the farmer. ISCOP is extremely careful in recognising the critical levels of understanding of farmers regarding pathogens and disease. ISCOP requires the operator to fill this form to understand your plans to control/manage diseases in an acceptable manner. Your curiosity to apply chemicals to save crops may affect your organic status. '
+      diseaseEcology:
+        type: object
+        title: 'COP 1501.1 Disease Ecology'
+        properties:
+          knowMajorDiseases:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Do you know the major diseases you expect with your planned cropping system?'
+          decisionToFungicides:
+            type: string
+            title: 'In the past, how did you make the decision to use fungicides/bacteriocides?'
+            enum:
+              - Periodic practice
+              - Based on incidence
+              - Based on economic impact of incidence
+          chemicalsUsageDuration:
+            type: string
+            title: 'How long have you been using chemicals for diseases in your field?'
+          lastUseChemical:
+            type: string
+            title: 'When did you last use a chemical?'
+          frequentlyOccurringDiseases:
+            type: string
+            title: 'Enlist frequently occurring diseases in your field.'
+          majorSourceForDiseases:
+            type: string
+            title: 'In the past, what is a major source for diseases in your field?'
+            enum:
+              - Fungal
+              - Bacterial
+              - Nematode
+              - Viral
+          knowHowToDifferentiate:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Do you know how to differentiate disease infestation from nutrition deficiency or pest-affected symptoms?'
+          economicallyDamagingDisease:
+            type: string
+            title: 'Do you have issues with any particular economically damaging disease that is alarming? Please list.'
+
+      diseaseManagementPlan:
+        type: object
+        title: 'COP 1501.2 Organic Disease Management Plan'
+        properties:
+          diseaseManagementItems:
+            type: array
+            title: 'Please list the items that are part of your disease management plan. (Tick all applicable)'
+            items:
+              type: string
+              enum:
+                - Soil Health Management
+                - Vector Exclusion
+                - Seed Source Exclusion
+                - Water Source Exclusion
+                - Resistant Varieties
+                - Always Raised Bed
+                - Crop Rotation
+                - Staking, Trellis & Pruning
+                - Approved Fungicides
+                - Biologicals
+                - Sulfur, Copper & Peroxides Use
+                - Tetracycline Use
+            uniqueItems: true
+          useChemicals:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Are you planning to use Sulfur, Copper, streptomycine, and Tetracycline as a regular option?'
+          knowHolisticExclusion:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Do you know about holistic exclusion of disease for organic farming?'
+          useCertifiedChemicals:
+            type: string
+            enum:
+              - Yes
+              - No
+            title: 'Are you planning to use certified chemicals for approved organic agriculture?'
+          organicFungalDiseaseControl:
+            type: string
+            title: 'Organic Fungal Disease Control'
+          organicBacterialDiseaseControl:
+            type: string
+            title: 'Organic Bacterial Disease Control'
+          organicSoilPathogenControl:
+            type: string
+            title: 'Organic Soil Pathogen Control'
+          organicViralDiseaseControl:
+            type: string
+            title: 'Organic Viral Disease Control'
+
+  contamination:
+    title: '17. OSP Forms - Commingling & Contamination COP 1601'
+    type: object
+    properties:
+      contaminationLabel:
+        title: ''
+        type: object
+        description: 'This form describe the measures you take—management practices and physical barriers—to minimize risks and prevent commingling/contact between organic and non-organic product, and prevent contamination of organic product with substances prohibited in organic production and handling. Buffers must be “sufficient to prevent contamination.'
+
+      organicImmunity:
+        type: object
+        title: 'COP 1601.1 Organic Immunity'
+        properties:
+          productionType:
+            type: string
+            title: 'Production Type'
+            enum:
+              - Fully Organic
+              - Parallel Production
+              - Split Production
+          sourceOfIrrigationWater:
+            type: string
+            title: 'Source of Irrigation Water'
+            enum:
+              - Private Source
+              - Public Source
+          storeProhibitedMaterials:
+            type: string
+            title: 'Do you store prohibited materials on-farm?'
+            enum:
+              - Yes
+              - No
+          rentEquipmentsAndTransport:
+            type: string
+            title: 'Do you rent equipment and transport from outside?'
+            enum:
+              - Yes
+              - No
+          onFarmProcessingHandling:
+            type: string
+            title: 'Do you have on-farm processing/handling of split/parallel production?'
+            enum:
+              - Yes
+              - No
+          buyCompostFYMFromOutside:
+            type: string
+            title: 'Do you buy compost/FYM from outside?'
+            enum:
+              - Yes
+              - No
+          haveLivestockNotPartOfOrganicOperations:
+            type: string
+            title: 'Do you have livestock not part of organic operations?'
+            enum:
+              - Yes
+              - No
+
+      splitOperations:
+        type: object
+        title: 'COP 1601.2 Split Operations'
+        properties:
+          numberOfCrops:
+            type: string
+            title: 'For how many crops do you have split operations that are listed in organic operations?'
+            enum:
+              - 1
+              - 2
+              - 3
+              - 4
+              - 5
+              - '>5'
+          sameSeedStockCommercialVarieties:
+            type: string
+            title: 'Do you use the same seed stock/commercial varieties for split operations?'
+            enum:
+              - Yes
+              - No
+          alignSplitProductionSameSeason:
+            type: string
+            title: 'Do you align split production the same season as organic operation?'
+            enum:
+              - Yes
+              - No
+          independentFarmDiary:
+            type: string
+            title: 'Do you maintain an independent farm diary for split operations?'
+            enum:
+              - Yes
+              - No
+          storeSplitOperationMaterial:
+            type: string
+            title: 'Do you store the split operation material in the same store as organic operation?'
+            enum:
+              - Yes
+              - No
+          plansToDiscontinueSplitOperations:
+            type: string
+            title: 'Do you have plans to discontinue split operations in the future?'
+            enum:
+              - Yes
+              - No
+
+      irrigation:
+        type: object
+        title: 'COP 1601.3 Irrigation'
+        properties:
+          publicWaterTreatment:
+            type: string
+            title: 'If your irrigation source is public, does your local government treat water with prohibited substances?'
+            enum:
+              - Yes
+              - No
+          sameWaterSourceForBoth:
+            type: string
+            title: 'Is the water source and channel the same for both organic operation and Split/parallel production?'
+            enum:
+              - Yes
+              - No
+          fertigateOrChemigate:
+            type: string
+            title: 'If yes, do you fertigate or chemigate conventional production?'
+            enum:
+              - Yes
+              - No
+          planToAvoidContamination:
+            type: string
+            title: 'If yes, what is your plan to avoid contamination?'
+
+      storage:
+        type: object
+        title: 'COP 1601.4 Storage'
+        properties:
+          separateStorageForConventional:
+            type: string
+            title: 'Do you separately store materials used for conventional production?'
+            enum:
+              - Yes
+              - No
+          plansToSeparateStorage:
+            type: string
+            title: 'If No, do you have plans to separate?'
+            enum:
+              - Yes
+              - No
+          separateIdentityOfMaterials:
+            type: string
+            title: 'If yes, how do you separate the identity of materials used for organic operations?'
+            enum:
+              - Independent Records
+              - Clear Store Configuration
+              - Contamination-free Separation
+          storeOrganicProduceSeparately:
+            type: string
+            title: 'Do you store organic harvested produce separately?'
+            enum:
+              - Yes
+              - No
+          independentStorageFacilityForOrganicProduce:
+            type: string
+            title: 'Is there an independent storage facility for organic produce?'
+            enum:
+              - Yes
+              - No
+          useStoreDisinfectantsFumigants:
+            type: string
+            title: 'Do you use store disinfectants/fumigants?'
+            enum:
+              - Yes
+              - No
+          storageInfrastructureDetails:
+            type: string
+            title: 'Please provide details about your storage infrastructure.'
+          storageCapacity:
+            type: object
+            title: 'Specify capacities independently for each type.'
+            properties:
+              dry:
+                type: string
+                title: 'Dry'
+              wet:
+                type: string
+                title: 'Wet'
+              coldChambers:
+                type: string
+                title: 'Cold Chambers'
+          certifyFinalProductStorageFacility:
+            type: string
+            title: 'Do you want to certify your final product storage facility?'
+            enum:
+              - Yes
+              - No
+
+      equipmentsTransport:
+        type: object
+        title: 'COP 1601.5 Equipments & Transport'
+        properties:
+          cleanEquipmentsBeforeUse:
+            type: string
+            title: 'If you hire seeders, applicators, ploughers, and other farm equipment, do you clean them before use?'
+            enum:
+              - Yes
+              - No
+          maintainCleaningRecords:
+            type: string
+            title: 'Do you maintain cleaning records of all equipment?'
+            enum:
+              - Yes
+              - No
+          useSameContainersForStorage:
+            type: string
+            title: 'Do you use the same containers for storing organic and conventional products?'
+            enum:
+              - Yes
+              - No
+          maintainContainerCleaningRecords:
+            type: string
+            title: 'If yes, do you maintain cleaning records?'
+            enum:
+              - Yes
+              - No
+          useSameTransitFacility:
+            type: string
+            title: 'Do you use the same on-farm and off-farm transit facility for both organic and conventional production?'
+            enum:
+              - Yes
+              - No
+          specifyCleaningAndRecords:
+            type: string
+            title: 'If yes, please specify if cleaned and records and maintained.'
+            enum:
+              - Yes
+              - No
+
+      onFarmPostHarvestHandling:
+        type: object
+        title: 'COP 1601.6 On-farm Post-Harvest Handling'
+        properties:
+          treatEquipmentsForInfection:
+            type: string
+            title: Do you treat the handling/processing equipments for infection?
+            enum:
+              - Yes
+              - No
+          disinfectantType:
+            type: string
+            title: Please mention the type of disinfectant.
+            description: If you treat handling/processing equipments for infection, specify the type of disinfectant used.
+          treatWoodenItemsForPests:
+            type: string
+            title: Do you treat wooden items for pests?
+            enum:
+              - Yes
+              - No
+          avoidContactWithSoilCrop:
+            type: string
+            title: How do you avoid them from contacting soil, crop, or other materials involved in organic operation?
+          usageOfManualHarvesters:
+            type: string
+            title: Usage of manual harvesters like sickles and other manual handling tools for alternate purposes.
+          mixManuallyHandledToolsForOtherOperations:
+            type: string
+            title: Do you mix the manually handled tools for other operations?
+            enum:
+              - Yes
+              - No
+          cleaningRecordsForToolsEquipments:
+            type: string
+            title: Do you have cleaning records for tools and equipment for harvest handling?
+            enum:
+              - Yes
+              - No
+
+      comminglingContaminationPlan:
+        type: object
+        title: 'COP 1601.7 Commingling & Contamination Plan'
+        properties:
+          adjacentFieldsHandleGMOCrops:
+            type: string
+            title: Does your adjacent fields handle GMO crops?
+            enum:
+              - Yes
+              - No
+          planBufferZone:
+            type: string
+            title: Do you know how to plan a buffer zone to avoid commingling & contamination for on-farm aspects?
+            enum:
+              - Yes
+              - No
+          cropRotationHandleContamination:
+            type: string
+            title: Does your crop rotation handle contamination through pollinators?
+            enum:
+              - Yes
+              - No
+          comminglingContaminationPlanDetails:
+            type: string
+            title: If you have split/parallel production, please provide us a detailed commingling and contamination plan.
+
+  operatorRecords:
+    type: object
+    title: '18. OSP Forms - Records & Audit Trail COP 1701.1'
+    properties:
+      operatorRecordsLabel:
+        title: ''
+        type: object
+        description: 'Records are necessary to facilitate production verification and audit. NPOP regulations require that your recordkeeping system be adapted to your type of operation, and fully disclose all activities and transactions of your operation. ISCOP requires operators to maintain a record-keeping system to monitor organic operations. If you are not aware of record-keeping, please take the assistance of our experts. ISCOP requires the operator to maintain the records for minimum 5 years. Record-keeping is mandatory for certified operations. Please fill'
+      awareOfRecordKeeping:
+        type: string
+        title: 'Are you aware of record-keeping and its importance in certified organic operations?'
+        enum:
+          - 'Yes'
+          - 'No'
+      trainingEvidence:
+        type: string
+        title: 'If No, Please take appropriate training about records-keeping for organic crop production and produce evidence for training.'
+      typesOfRecords:
+        type: array
+        descrtiption: 'Indicate all that apply. You will need all records available for inspection. Some records must be documents from external sources (such as seed and input purchase receipts, suppliers organic certificates, and soil or tissue test results).'
+        title: 'What types of records do you keep? Indicate all that apply. You will need all records available for inspection. Some records must be documents from external sources (such as seed and input purchase receipts, suppliers organic certificates, and soil or tissue test results).'
+        items:
+          type: string
+          enum:
+            - 'Operators Land Records'
+            - 'Legal status of operator related records'
+            - 'Purchase records for all inputs (e.g. receipts, delivery tags, product labels)'
+            - 'Input application records that show all materials applied to soil, water and crops (fertilizer and soil inputs, pest management materials and post-harvest handling), including product name/formulation and manufacturer, application date, rate or quantity, crop and location'
+            - 'Seed Authenticity Records - Seed, seedling, and planting stock, inoculant or seed treatments; seed-saving/propagation records; documentation of commercial non-availability of organic seed/non-GMO status'
+            - 'Farm Activity records that show crop rotation including cover crops/green manures'
+            - 'Crop observation records (crop chronological observation)'
+            - 'Manure use records showing interval between date of application and harvest date of crops grown for human consumption'
+            - 'Compost production records (composting system, ingredients, C:N ratio, temperature, turnings)'
+            - 'Testing Report records (soil or tissue tests, water tests, pest observation logs)'
+            - 'Cleaning records (required if application or harvest equipment is not dedicated to organic)'
+            - 'Harvest records (records show location, crop, date harvested and transported from the field)'
+            - 'Post-harvest activities (washing and grading product, bagging or boxing, etc.)'
+            - 'Storage records (e.g. delivery/receiving tags showing facility location, crops, quantities, post-harvest activities and pest control)'
+            - 'Bio-dynamic inputs preparation records (If applicable)'
+            - 'Shipping records (e.g. packing facility tags, delivery receipts, receiving documents, bills of lading)'
+            - 'Sales records (e.g. invoices, purchase orders, inventory, TC)'
+            - 'Others (describe):'
+        uniqueItems: true
+
+  postHarvestHandling:
+    type: object
+    title: '19. OSP Forms - POST-HARVEST HANDLING (CP) COP 1801'
+    properties:
+      postHarvestHandlingLabel:
+        title: ''
+        type: object
+        description: 'This post-harvest handling is restricted to the handling operations associated with your crop production and does not relate to processing of external crops. If you use external crops in your farm, it requires a different certification procedure. The operator cannot handle complex handling activities like cooking, baking, curing, churning, separating, distilling, extracting, manufacturing, canning, etc even if it is associated with produce from your own farm without an independent processing certification'
+
+      handlingScope:
+        type: object
+        title: 'COP 1801.1 Handling Scope'
+        properties:
+          handleExternalCrops:
+            type: string
+            title: 'Do you plan to handle external crops in your handling facility?'
+            enum:
+              - 'Yes'
+              - 'No'
+          handleConventionalTransitionalCrops:
+            type: string
+            title: 'Are you planning to handle conventional or transitional crops in your facility?'
+            enum:
+              - 'Yes'
+              - 'No'
+          confirmHandlingRestrictions:
+            type: string
+            title: 'How do you confirm that your handling operations are restricted to crop production only?'
+            enum:
+              - 'No Value Addition'
+              - 'Less complexity'
+              - 'Small Sized'
+              - 'Preserves Essential form of own product'
+              - 'Others (Specify)'
+          scopeOfHandling:
+            type: array
+            title: 'Please tick the scope of handling'
+            items:
+              type: string
+              enum:
+                - 'Wet Packing Line'
+                - 'Dry Packing line'
+                - 'Cleaning & grading'
+                - 'Cold Storage'
+                - 'Drying'
+                - 'Flume washing'
+                - 'Dehulling & Dehusking'
+                - 'Others (specify)'
+            uniqueItems: true
+
+      handlingFacilityManagement:
+        type: object
+        title: 'COP 1801.2 Handling Facility Management'
+        properties:
+          layoutMap:
+            type: string
+            title: 'Present a layout map of your handling operations (Attach)'
+          hasSOP:
+            type: string
+            title: 'Do you have standard operating procedure (SOP) for cleaning & sanitation, water utility, pest control, and materials handling?'
+            enum:
+              - 'Yes'
+              - 'No'
+          sopAttachment:
+            type: string
+            title: 'If yes, attach SOP'
+          developSOP:
+            type: string
+            title: 'If no, please develop SOPs for inspection and approval'
+          contaminationComminglingControls:
+            type: array
+            title: 'What contamination & commingling controls do you have in your facility?'
+            items:
+              type: string
+              enum:
+                - 'Sanitation measures'
+                - 'Temperature, humidity, and light control'
+                - 'Screen windows and vents'
+                - 'Inspect incoming product'
+                - 'Elimination of pest habitat or breeding areas'
+                - 'Eliminate sources of food'
+                - 'Crack, crevice, and hole repair'
+                - 'Seal doors and windows'
+                - 'Air curtains'
+                - 'Positive pressure'
+            uniqueItems: true
+          waterQuality:
+            type: array
+            title: 'If you have a washing line, and the water contacts food substance, please provide the following for water quality'
+            items:
+              type: string
+              enum:
+                - 'Water Treatment Details'
+                - 'Water Test Reports'
+            uniqueItems: true
+          pestManagementPlan:
+            type: array
+            title: 'Please provide facility pest management plan'
+            items:
+              type: string
+              enum:
+                - 'Mechanical traps'
+                - 'Electrocuters'
+                - 'Sticky traps'
+                - 'Pheromone traps'
+                - 'Heat treatment'
+                - 'Other (describe)'
+            uniqueItems: true
+          cleaningMaterialsList:
+            type: string
+            title: 'Please provide a list of materials used for cleaning and sanitation of the facility'
+
+  sales:
+    type: object
+    title: '20. OSP Forms - SALES COP 1901'
+    properties:
+      salesLabel:
+        title: ''
+        type: object
+        description: 'ISCOP requires the operator to fill in this form to help us know about your plans to sell the organic produce. Your sales plan shall reflect your requirement for Mark Licensing, Transaction Certificate and other traceability documentation. Your sales plan shall disclose your commitment to bring your produce in to Tracenet and the regulated organic produce market. '
+
+      salesPlan:
+        type: object
+        title: 'COP 1901.1 Sales Plan'
+        properties:
+          salesOptions:
+            type: array
+            title: 'Please indicate your options to sell'
+            items:
+              type: string
+              enum:
+                - 'On-Farm (Bulk)'
+                - 'On-Farm (Retail)'
+                - 'Off-Farm'
+                - 'Combination'
+            uniqueItems: true
+          productLabels:
+            type: string
+            title: 'Under what name(s), label(s) or brand(s) do you market your products?'
+          labelingOptions:
+            type: array
+            title: 'What kinds of labeling do you want to use? Check all that apply:'
+            items:
+              type: string
+              enum:
+                - 'No product labels used'
+                - 'Retail labels, such as printed boxes or bags, produce stickers, rubber bands or twist ties'
+                - 'Signage and written materials (Farmers Markets or Farm Stands, website, brochure, CSA newsletter, or other promotional materials)'
+                - 'Non-retail labeling for storage or shipping containers, such as bin or pallet tags. ("Nonretail containers used to ship or store raw or processed agricultural product labeled as containing organic ingredients must display the production lot number of the product if applicable.")'
+            uniqueItems: true
+          productionTracking:
+            type: string
+            title: 'Describe how your records can track your organic production from source (farm, field or production location) to final sale.'
+          lotNumberingSystem:
+            type: string
+            title: 'Describe your lot numbering system for non-retail packaging.'
+          labelCopies:
+            type: array
+            title: 'If you use a label, please provide copies of all organic product labels used.'
+            items:
+              type: string
+              enum:
+                - 'Not Applicable'
+                - 'No labeling used'
+                - 'New label(s) attached for review (Labels must be approved before use.)'
+            uniqueItems: true
+          markLicense:
+            type: string
+            title: 'Do you require “Mark’ License?'
+            enum:
+              - 'Yes'
+              - 'No'
+          salesRecords:
+            type: string
+            title: 'Please maintain a copy of sales records and inventory for Inspection.'
+          transactionCertificate:
+            type: string
+            title: 'Do you know about Transaction Certificate and its significance in your produce identity?'
+            enum:
+              - 'Yes'
+              - 'No'
+
+  remarks:
+    type: string
+    title: Remarks
+required:
+  - landParcel
+  - year
+  - totalArea
+  - latitude
+  - longitude

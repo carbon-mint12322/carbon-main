@@ -1,0 +1,4 @@
+jsonschema:
+  title: Harvest Update Details
+  $ref: '#/definitions/HarvestUpdate'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/nested_harvestupdate.yaml

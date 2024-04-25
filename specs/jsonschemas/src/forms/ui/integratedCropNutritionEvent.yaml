@@ -1,0 +1,71 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    photoEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - nutritionsApplied
+      - expensesMet
+      - photoEvidence
+      - recommondedBy
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    nutritionsApplied:
+      'ui:order':
+        - greenManure
+        - crop
+        - otherCrop
+        - sowingDate
+        - seedTreatment
+        - dosage
+        - tramplingDate
+        - greenLeafManure
+        - greenLeafManureUsed
+        - greenLeafManureQuantity
+        - greenLeafManureTramplingDate
+        - agriWaste
+        - agriWasteType
+        - fym
+        - fymQuantity
+        - fymState
+        - concentrates
+        - concentratesUsed
+        - otherConcentratesUsed
+        - concentratesQuantity
+        - bioFertilizer
+        - bioFertilizerUsed
+        - bioFertilizerQuantity
+        - otherComposts
+        - otherCompostsUsed
+        - otherCompostsQuantity
+        - onFarmPreparations
+        - onFarmPreparationsUsed
+        - onFarmPreparationsDosage
+        - biodynamicPreparations
+        - biodynamicPreparationsFollowed
+        - biodynamicPreparationsDosage
+        - chemicalFertilizers
+        - chemicalFertilizersUsed
+        - chemicalFertilizersDosage
+        - microNutrients
+        - microNutrientsUsed
+        - microNutrientsDosage
+        - minerals
+        - mineralsUsed
+        - mineralsDosage
+        - bioStimulants
+        - bioStimulantsUsed
+        - bioStimulantsDosage
+        - plantGrowthRegulators
+        - plantGrowthRegulatorsUsed
+        - plantGrowthRegulatorsDosage
+        - growthRetardants
+        - growthRetardantsUsed
+        - growthRetardantsDosage
+        - otherProducts
+        - otherProductsUsed
+        - otherProductsDosage
+
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

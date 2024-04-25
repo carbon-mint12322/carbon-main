@@ -1,0 +1,40 @@
+extends: ./poultryNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Culling'
+  properties:
+    startDate:
+      title: Culling start date
+      type: string
+      format: date
+    endDate:
+      title: Culling end date
+      type: string
+      format: date
+    reason:
+      type: string
+      title: Reason for culling
+    noOfBirds:
+      type: number
+      title: Number of birds culled
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    evidence:
+      title: Evidence
+      type: array
+      description: Attach evidences
+      items:
+        type: string
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - reason
+    - noOfBirds
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryCulling.yaml

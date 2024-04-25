@@ -1,0 +1,29 @@
+extends: ./sheepPSNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Weight Growth Event'
+  properties:
+    dateOfWeighing:
+      type: string
+      format: date
+      title: Date of weighing
+    weight:
+      type: number
+      title: Birth weight (Kgs)
+    bodyConditionScore:
+      type: string
+      title: Body condition score
+    healthIssues:
+      type: string
+      title: Health issues
+    averageWeightGain:
+      type: number
+      title: Average weight gain (Kgs)
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - dateOfWeighing
+    - weight
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/sheepWeightGrowth.yaml

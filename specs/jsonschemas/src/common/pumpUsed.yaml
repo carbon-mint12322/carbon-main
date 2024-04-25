@@ -1,0 +1,40 @@
+type: object
+title: Pump used
+properties:
+  pumpType:
+    type: string
+    title: Pump type
+    enum:
+      - Submersible
+      - Monoblock
+      - Centrifugal
+    default: Submersible
+  brand:
+    type: string
+    title: Brand
+  model:
+    type: string
+    title: Model
+  capacity:
+    type: number
+    title: Capacity (hp)
+  suctionHoseDia:
+    type: number
+    title: Suction hose diameter
+  pumpEnergySource:
+    type: string
+    title: Pump energy source
+  maxDailyRunningHours:
+    title: Maximum daily running hours (during monsoon months)
+    type: number
+    minimum: 0
+  minDailyRunningHours:
+    title: Minimum daily running hours (during peak summer hours)
+    type: number
+    minimum: 0
+  maxDelivery:
+    title: Maximum delivery / minute (Litres) (during monsoon months)
+    type: number
+  minDelivery:
+    title: Minimum delivery / minute (Litres) (during peak summer hours)
+    type: number

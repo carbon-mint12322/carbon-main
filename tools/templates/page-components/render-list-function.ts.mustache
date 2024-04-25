@@ -1,0 +1,22 @@
+import stringFormatter  from '~/utils/stringFormatter';
+import numberFormatter  from '~/utils/numberFormatter';
+import dateFormatter  from '~/utils/dateFormatter';
+import RenderActionCell from '~/entitylib/functions/renderCells/renderActionCell';
+
+const identityFormatter = (value: any) => value;
+
+const {{fieldVariableName}} = (reFetch: any) => (data: any)  =>
+{{#isAction}}
+    RenderActionCell({data, modelName: '{{modelName}}', wfName: '{{modelName}}', formContext: null, reFetch});
+{{/isAction}}
+{{^isAction}}
+{{#formatter}}
+    {{{formatter}}}(data?.row?.{{{colDef.field}}});
+{{/formatter}}
+{{^formatter}}
+    data?.row?.{{{colDef.field}}} ? ""+data?.row?.{{{colDef.field}}} : "";
+{{/formatter}}
+{{/isAction}}
+
+export default {{fieldVariableName}};
+

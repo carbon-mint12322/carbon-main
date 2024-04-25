@@ -1,0 +1,57 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Crop Sale Event'
+  properties:
+    sale:
+      type: object
+      title: 'Sale operation'
+    quantity:
+      type: number
+      title: Quantity sold
+    unitValue:
+      type: string
+      title: Unit value (e.g. 100 kg bag)
+    pricePerUnit:
+      type: number
+      title: Price per unit
+    buyer:
+      type: string
+      title: Buyer information
+    totalSaleValue:
+      type: number
+      title: Total sale value
+    paymentMethod:
+      type: string
+      title: Payment method
+    saleReceipt:
+      title: Sale receipt
+      type: array
+      description: Upload sale receipt from buyer
+      items:
+        type: string
+    startDate:
+      type: string
+      format: date
+      title: Start date
+    endDate:
+      type: string
+      format: date
+      title: End date
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - quantity
+    - unitValue
+    - pricePerUnit
+    - totalSaleValue
+    - startDate
+    - endDate
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/cropSaleEvent.yaml

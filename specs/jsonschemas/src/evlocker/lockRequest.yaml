@@ -1,0 +1,18 @@
+jsonschema:
+  properties:
+    file:
+      type: string
+    userId:
+      type: string
+    userName:
+      type: string
+    latitude:
+      type: number
+    longitude:
+      type: number
+    ts:
+      type: number
+    recipient:
+      type: string
+    locked:
+      type: boolean

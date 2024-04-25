@@ -1,0 +1,44 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    specialCharacteristics:
+      'ui:widget': checkboxes
+    seedPurchaseReceipt:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    seedBagLabel:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - sourceOfSeed
+      - seedPurchaseReceipt
+      - seedBagLabel
+      - classOfSeed
+      - otherClassOfSeed
+      - varietyHybridName
+      - cropDuration
+      - physicalPurity
+      - moistureContent
+      - germinationPercentage
+      - speedOfGermination
+      - specialCharacteristics
+      - freeFromWeedSeedsAndForeignMaterials
+      - freeFromPestsAndDiseasesResidues
+      - draughtTolerant
+      - submergenceTolerant
+      - highStorageCapacity
+      - highYield
+      - goodSizeAndShape
+      - moreSweetness
+      - goodAroma
+      - attractiveColor
+      - goodTexture
+      - otherCharacter
+      - otherCharacterName
+      - varietalResistanceOnPests
+      - seedCleaningMethods
+      - otherSeedCleaningMethod
+      - startDate
+      - endDate
+      - dateOfPurchase
+      - totalExpenditure
+      - otherRemarks

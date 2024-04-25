@@ -1,0 +1,41 @@
+const Mustache = require('mustache');
+
+type Renderer = (ctx:any) => string;
+type FnTable = Record<string, Renderer>;
+type ViewTable = Record<string, FnTable>;
+
+// Usage: renderView(modelName)(viewName)(data)
+// Public function
+const renderView = (modelName: string) => (viewName: string): Renderer => {
+    try {
+      return (
+        (renderTable && renderTable[modelName] && renderTable[modelName][viewName]) ||
+        defaultRenderer
+      );
+    } catch (e) {
+      console.error(e);
+      return defaultRenderer;
+    }
+  };
+
+
+export default renderView;
+
+const mustacheRenderer = (template: string): Renderer => (ctx: any): string =>
+  Mustache.render(template, ctx); 
+
+function defaultRenderer(ctx: any): string {
+  return ctx.name || "<no render function>";
+}
+
+const renderTable: ViewTable = {
+{{#functionTable}}
+  {{{modelName}}} : {
+  {{#htmlTemplateFunctions}}
+    {{key}}: mustacheRenderer(`{{{mustacheTemplate}}}`),
+  {{/htmlTemplateFunctions}}
+  },
+{{/functionTable}}
+}
+
+

@@ -1,0 +1,96 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Inter Cultural Operations Event'
+  properties:
+    cropSpecific:
+      type: object
+      title: 'Intercultural operations - crop specific operations'
+    operation:
+      title: Crop specific operation
+      type: string
+      enum:
+        - Pinching
+        - Tipping
+        - Flower thinning
+        - Fruit thinning
+        - Other
+      default: Pinching
+    expensesMet:
+      title: Expenses met
+      type: number
+      minimum: 0
+    recommondedBy:
+      title: Recommended by
+      type: string
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          operation:
+            const: Pinching
+      then:
+        properties:
+          pinchingDate:
+            type: string
+            title: Pinchining date
+            format: date
+          pinchingApplication:
+            type: string
+            title: Manual or chemical application
+    - if:
+        properties:
+          operation:
+            const: Tipping
+      then:
+        properties:
+          tippingDate:
+            type: string
+            title: Tipping date
+            format: date
+          tippingApplication:
+            type: string
+            title: Manual or chemical application
+    - if:
+        properties:
+          operation:
+            const: Flower thinning
+      then:
+        properties:
+          flowerThinningDate:
+            type: string
+            title: Flower thinning date
+            format: date
+          flowerThinningApplication:
+            type: string
+            title: Manual or chemical application
+    - if:
+        properties:
+          operation:
+            const: Fruit thinning
+      then:
+        properties:
+          fruitThinningDate:
+            type: string
+            title: Fruit thinning date
+            format: date
+          fruitThinningApplication:
+            type: string
+            title: Manual or chemical application
+    - if:
+        properties:
+          operation:
+            const: Other
+      then:
+        properties:
+          otherOperation:
+            type: string
+            title: Other crop specific operation
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/interCulturalOperationsCropSpecificOperationEvent.yaml

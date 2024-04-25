@@ -1,0 +1,20 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - cows
+      - dateOfVaccination
+      - type
+      - route
+      - dose
+      - adverseReactions
+      - totalExpenditure
+      - otherRemarks
+      - '*'
+    cows:
+      'ui:field': ReferenceField
+      ui:placeholder: Select cows
+      foreignSchemaId: '/cow'
+      foreignNameField: 'tagId'
+      foreignLabelWidget: NameLabelWidget

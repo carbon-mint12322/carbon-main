@@ -1,0 +1,29 @@
+form:
+  uiSchema:
+    'ui:order':
+      - field
+      - name
+      - category
+      - pondType
+      - depth
+      - shape
+      - waterSource
+      - infra
+      - aerationSystem
+      - feedingArea
+      - autoFeeders
+      - waterInlet
+      - waterOutlet
+      - shadeStructures
+      - otherInfra
+      - constructionDate
+      - additionalInfo
+      - '*'
+    field:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a field
+      foreignSchemaId: '/field'
+      foreignLabelWidget: NameLabelWidget
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: field

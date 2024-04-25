@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    scrapSheds: file:~/specs/jsonschemas/src/common/ui/scrapShed.yaml

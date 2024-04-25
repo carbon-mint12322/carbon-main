@@ -1,0 +1,79 @@
+extends: ./lpEventNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: Internal inspection report (farmer) - IndGAP
+  properties:
+    inspectionReportGrid:
+      type: array
+      items:
+        type: object
+        title: Inspection report
+        properties:
+          clNo:
+            type: string
+            title: 'Cl. No.'
+          item:
+            type: string
+            title: Item
+          level:
+            type: string
+            title: Level
+          control:
+            type: string
+            title: Control Point
+          compliance:
+            title: Compliance
+            type: string
+            enum:
+              - 'Yes'
+              - 'No'
+              - N/A
+            default: 'No'
+          remarks:
+            type: string
+            title: Remarks
+        required:
+          - clNo
+          - item
+          - level
+          - control
+          - compliance
+      columns:
+        - field: clNo
+          headerName: Cl. No
+          width: 100
+        - field: item
+          headerName: Item
+          width: 200
+        - field: level
+          headerName: Level
+          width: 100
+        - field: control
+          headerName: Control Point
+          width: 3002
+        - field: compliance
+          headerName: Compliance
+          width: 100
+        - field: remarks
+          headerName: Rekmarks
+          width: 300
+      title: Inspection Report Table
+    inspectionReport:
+      title: Inspection report
+      type: string
+      description: Upload inspection report
+    startDate:
+      title: Inspection start date
+      type: string
+      format: date
+    endDate:
+      title: Inspection end date
+      type: string
+      format: date
+    inspectionDoneBy:
+      title: Inspection done by
+      type: string
+    otherRemarks:
+      type: string
+      title: Other remarks
+uiHints: file:~/specs/jsonschemas/src/forms/ui/internalInspectionReport_farmer_IndGAP.yaml

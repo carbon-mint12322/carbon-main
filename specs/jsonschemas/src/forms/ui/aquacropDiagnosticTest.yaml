@@ -1,0 +1,16 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - testType
+      - startDate
+      - endDate
+      - totalExpenditure
+      - testResults
+      - testResultsEvidence
+      - followUpActions
+      - otherRemarks
+      - '*'
+    testResultsEvidence:
+      'ui:widget': 'file'

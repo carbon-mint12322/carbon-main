@@ -1,0 +1,38 @@
+type: object
+properties:
+  name:
+    type: string
+  areaInAcres:
+    type: number
+    minimum: 0
+  startDate:
+    type: string
+    format: date
+  sowingDate:
+    type: string
+    format: date
+  harvestDate:
+    type: string
+    format: date
+  category:
+    type: string
+    description: "Type of crop - Main, Inter, Border, Mixed, etc."
+  seedType:
+    type: string
+  seedVariety:
+    type: string
+  seedSource:
+    type: string
+  photoEvidence:
+    type: string
+  active:
+    type: boolean
+required:
+  - name
+  - areaInAcres
+  - category
+  - seedVariety
+  - seedType
+  - seedSource
+  - photoEvidence
+  - active

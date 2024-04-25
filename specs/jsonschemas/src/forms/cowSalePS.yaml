@@ -1,0 +1,29 @@
+extends: ./cowPSValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Sale Event'
+  properties:
+    cows:
+      type: array
+      items:
+        $ref: '#/definitions/CowId'
+      title: Cows
+      foreignNameField: 'tagId'
+    dateOfSale:
+      type: string
+      format: date
+      title: Date of sale
+    reason:
+      type: string
+      title: Reason for sale
+    price:
+      type: number
+      title: Sale price (Rs)
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - cows
+    - dateOfSale
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/cowSalePS.yaml

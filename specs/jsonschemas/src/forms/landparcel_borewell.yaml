@@ -1,0 +1,6 @@
+jsonschema:
+  type: object
+  properties:
+    borewell: file:~/specs/jsonschemas/src/common/borewell.yaml
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_borewell.yaml

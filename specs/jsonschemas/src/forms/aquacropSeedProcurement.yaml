@@ -1,0 +1,44 @@
+extends: ./aquacropNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Seed Procurement'
+  properties:
+    supplierName:
+      type: string
+      title: Supplier name
+    supplierContact:
+      type: string
+      title: Supplier contact
+    quantity:
+      type: number
+      title: Quantity
+    type:
+      type: string
+      title: Seed type
+    orderDate:
+      type: string
+      format: date
+      title: Order date
+    arrivalDate:
+      type: string
+      format: date
+      title: Arrival date
+    condition:
+      type: string
+      title: Seed condition upon arrival
+    mortality:
+      type: number
+      title: Seed mortality upon arrival
+    durationAndExpenses:
+      title: 'Duration and Expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - supplierName
+    - quantity
+    - orderDate
+    - arrivalDate
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/aquacropSeedProcurement.yaml

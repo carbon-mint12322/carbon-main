@@ -1,0 +1,32 @@
+jsonschema:
+  type: object
+  properties:
+    product:
+      $ref: '#/definitions/ProductId'
+      title: Product
+    batchId:
+      type: string
+      title: Batch ID
+      description: The unique identifier for the product batch
+    information:
+      type: string
+      title: Batch information
+    startDate:
+      type: string
+      format: date
+      title: Batch start date
+    endDate:
+      type: string
+      format: date
+      title: Batch finish date
+    documents:
+      type: string
+      title: Batch documents
+    collective:
+      $ref: '#/definitions/CollectiveId'
+      title: Collective
+  required:
+    - product
+    - batchId
+    - startDate
+uiHints: file:~/specs/jsonschemas/src/domain/ui/productbatch.yaml

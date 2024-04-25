@@ -1,0 +1,15 @@
+form:
+  uiSchema:
+    'ui:order':
+      - farmTools
+      - '*'
+    farmTools:
+      'ui:order':
+        - toolType
+        - quantity
+        - toolDetails
+        - toolEvidence
+        - toolyDate
+        - '*'
+      toolEvidence:
+        'ui:widget': 'file'

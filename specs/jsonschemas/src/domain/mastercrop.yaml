@@ -1,0 +1,63 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Master crop name
+    cropName:
+      type: string
+      title: Crop name
+    cropType:
+      type: string
+      title: Crop sub type
+    seedVariety:
+      type: string
+      title: Seed variety
+    seedSource:
+      type: string
+      title: Seed source
+    season:
+      type: string
+      title: Season
+    otherGrowingSeason:
+      type: string
+      title: Other growing season
+    seedPurchaseReceipt:
+      type: array
+      title: Seeds purchase receipt
+      items:
+        type: string
+
+    seedCertificate:
+      type: string
+      title: Seed certificate
+    collective:
+      $ref: '#/definitions/CollectiveId'
+      title: Collective
+    validationWorkflowId:
+      type: string
+      format: hidden
+    statusNotes:
+      type: string
+      format: hidden
+    status:
+      type: string
+      enum:
+        - Draft
+        - Under validation
+        - Under review
+        - Review failed
+        - Validation failed
+        - Approved
+      default: Draft
+    active:
+      type: boolean
+    audit:
+      $ref: '#/definitions/Audit'
+  required:
+    - name
+    - seedVariety
+    - seedType
+    - cropType
+    - collective
+    - active
+uiHints: file:~/specs/jsonschemas/src/domain/ui/mastercrop.yaml

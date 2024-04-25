@@ -1,0 +1,21 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Name
+    category:
+      type: string
+      enum:
+        - Monocropping
+        - Intercroping
+        - Mixed
+      default: Monocropping
+      title: Category
+    field:
+      $ref: '#/definitions/FieldId'
+      title: Field
+  required:
+    - name
+    - category
+    - field
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_croppingsystem.yaml

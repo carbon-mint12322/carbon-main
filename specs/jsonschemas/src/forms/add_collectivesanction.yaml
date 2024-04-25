@@ -1,0 +1,71 @@
+jsonschema:
+  properties:
+    sanctionDetails:
+      title: Sanction Details
+      type: object
+      properties:
+        sanctionDate:
+          title: Sanction date
+          type: string
+          format: date
+        cb:
+          $ref: '#/definitions/CertificationBodyRef'
+          title: Certification body
+        sanctionType:
+          title: Sanction type
+          type: string
+          enum:
+            - Financial
+            - Legal
+            - Operational
+          default: Financial
+        reason:
+          title: Reason for sanction
+          type: string
+        description:
+          title: Description
+          type: string
+        sanctionPeriod:
+          title: Sanction period
+          type: string
+        sanctionStatus:
+          title: Sanction status
+          type: string
+          enum:
+            - Active
+            - Expired
+            - Revoked
+            - Pending
+          default: Active
+        actions:
+          title: Actions taken
+          type: string
+        responsibleParty:
+          title: Responsible party
+          type: string
+        monitoring:
+          title: Monitoring and Reporting
+          type: string
+        review:
+          title: Review and updates
+          type: string
+        notification:
+          title: notification
+          type: string
+        appealsProcess:
+          title: Appeals process
+          type: string
+        closureConfirmation:
+          title: Closure confirmation
+          type: string
+        attachments:
+          type: array
+          title: Attachements
+          items:
+            type: string
+      required:
+        - sanctionDate
+        - cb
+        - reason
+        - description
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_collectivesanction.yaml

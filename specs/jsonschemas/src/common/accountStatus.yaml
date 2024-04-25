@@ -1,0 +1,15 @@
+type: object
+properties:
+  status:
+    title: Status
+    type: string
+    enum:
+      - Draft
+      - Submitted for approval
+      - Under review
+      - Approved
+    default: Draft
+  active:
+    title: Active
+    type: boolean
+    default: true

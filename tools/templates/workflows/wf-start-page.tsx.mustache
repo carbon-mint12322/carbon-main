@@ -1,0 +1,15 @@
+// Generated code (template: tools/templates/workflows/wf-landing-page.tsx.mustache)
+import { FunctionComponent } from 'react';
+import { WorkflowDefinition } from "~/backendlib/workflow/types";
+import { WfStartView } from "~/components/workflow/wf-view";
+
+type StartPageProps = {
+  wfdef: WorkflowDefinition;
+};
+
+const WorkflowPage: FunctionComponent<StartPageProps> =
+  (props: StartPageProps) =>  (<WfStartView wfdef={wfdef}/>);
+
+export default WorkflowPage;
+
+const wfdef: WorkflowDefinition = {{{ json }}}

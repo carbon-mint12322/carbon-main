@@ -1,0 +1,29 @@
+form:
+  uiSchema:
+    nonConfirmityDetails:
+      'ui:order':
+        - ncDate
+        - cb
+        - description
+        - location
+        - scope
+        - severity
+        - evidence
+        - rca
+        - correctiveActionPlan
+        - targetDate
+        - status
+        - verification
+        - notes
+        - closureConfirmation
+      notes:
+        'ui:widget': textarea
+      correctiveActionPlan:
+        'ui:widget': textarea
+      cb:
+        'ui:field': ReferenceField
+        ui:placeholder: Select a certification body
+        foreignSchemaId: '/certificationbody'
+        foreignLabelWidget: NameLabelWidget
+      evidence:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'

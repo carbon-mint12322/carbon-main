@@ -1,0 +1,32 @@
+extends: ./aquacropValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Harvest'
+  properties:
+    startDate:
+      title: Harvest start date
+      type: string
+      format: date
+    endDate:
+      title: Harvest end date
+      type: string
+      format: date
+    harvestQuantity:
+      type: number
+      title: Quantity (Tonnes)
+    harvestingMethod:
+      title: Harvesting method
+      type: string
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure for harvest
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - harvestQuantity
+    - totalExpenditure
+uiHints: file:~/specs/jsonschemas/src/forms/ui/aquacropHarvest.yaml

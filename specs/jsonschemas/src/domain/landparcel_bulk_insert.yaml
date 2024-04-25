@@ -1,0 +1,4 @@
+jsonschema:
+  type: array
+  items:
+    $ref: '#/definitions/LandParcel'

@@ -1,0 +1,37 @@
+otherRemarks:
+  'ui:widget': textarea
+'ui:order':
+  - soilTestReport
+  - labCertifiedByNabl
+  - nablCertificationEvidence
+  - soilTexture
+  - soilColor
+  - depthOfSurfaceSoil
+  - 'n'
+  - p
+  - k
+  - ca
+  - mg
+  - s
+  - otherMicroNutrients
+  - ph
+  - ec
+  - organicCarbon
+  - soilHeavyMetalsContamincationReport
+  - soilPesticideHerbcideResiduesReport
+  - soilBenficialHarmfulMicrobialMassReport
+  - startDate
+  - endDate
+  - totalExpenditure
+  - otherRemarks
+  - '*'
+soilTestReport:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+nablCertificationEvidence:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+soilHeavyMetalsContamincationReport:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+soilPesticideHerbcideResiduesReport:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+soilBenficialHarmfulMicrobialMassReport:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'

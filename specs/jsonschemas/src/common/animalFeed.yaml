@@ -1,0 +1,26 @@
+type: object
+properties:
+  dateOfFeeding:
+    type: string
+    format: date
+    title: Feeding date
+  typeOfFeed:
+    type: string
+    title: Type of feed
+  quantity:
+    type: number
+    title: Feed quantity (Kgs)
+  feedConversionRatio:
+    type: number
+    title: Feed conversion ratio
+  totalExpenditure:
+    type: number
+    minimum: 0
+    title: Total expenditure
+  otherRemarks:
+    type: string
+    title: Other remarks
+required:
+  - dateOfFeeding
+  - quantity
+  - totalExpenditure

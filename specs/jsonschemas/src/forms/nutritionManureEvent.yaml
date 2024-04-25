@@ -1,0 +1,282 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Integrated Crop Nutrition Manure Event'
+  properties:
+    usedWellDecomposedManure:
+      title: Used well decomposed manure
+      type: string
+      enum:
+        - 'Yes'
+        - 'No'
+      default: 'Yes'
+    sourceOfManure:
+      title: Source of manure
+      type: string
+      enum:
+        - On the farm
+        - Off the farm
+        - Both
+      default: On the farm
+    timeOfApplication:
+      title: Time of application
+      type: string
+      enum:
+        - Before preparatory cultivation (basal application)
+        - Before last ploughing
+        - At Sowing/Planting time
+        - On standing crop
+        - Others
+      default: Before preparatory cultivation (basal application)
+    manuresApplied:
+      type: object
+      title: Manures applied
+      properties:
+        fym:
+          type: boolean
+          default: false
+          title: FYM
+        vermiCompost:
+          type: boolean
+          default: false
+          title: Vermi compost
+        neemCake:
+          type: boolean
+          default: false
+          title: Neem cake
+        compost:
+          type: boolean
+          default: false
+          title: Compost
+        soilIncorporationOfGreenManures:
+          type: boolean
+          default: false
+          title: Soil incorporation of green manures
+        soilIncorporationOfGreenLeafManures:
+          type: boolean
+          default: false
+          title: Soil incorporation of green leaf manures
+        rhizobium:
+          type: boolean
+          default: false
+          title: Rhizobium
+        azolla:
+          type: boolean
+          default: false
+          title: Azolla
+        blueGreenAlgae:
+          type: boolean
+          default: false
+          title: Blue green algae (BGA)
+        zinkSolubilisingBacteria:
+          type: boolean
+          default: false
+          title: Zinc solubilising bacteria
+        phosporousSolubilisingBacteria:
+          type: boolean
+          default: false
+          title: Phosporous solubilising bacteria
+        ghanajeevamrutham:
+          type: boolean
+          default: false
+          title: Ghanajeevamruthum
+        bioChar:
+          type: boolean
+          default: false
+          title: Biochar
+        Others:
+          type: boolean
+          default: false
+          title: Others
+      allOf:
+        - if:
+            properties:
+              fym:
+                const: true
+          then:
+            properties:
+              fymManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              vermiCompost:
+                const: true
+          then:
+            properties:
+              vermiCompostManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              neemCake:
+                const: true
+          then:
+            properties:
+              neemCakeManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              compost:
+                const: true
+          then:
+            properties:
+              compostManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              soilIncorporationOfGreenManures:
+                const: true
+          then:
+            properties:
+              soilIncorporationOfGreenManuresManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              soilIncorporationOfGreenLeafManures:
+                const: true
+          then:
+            properties:
+              soilIncorporationOfGreenLeafManuresManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              rhizobium:
+                const: true
+          then:
+            properties:
+              rhizobiumManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              azolla:
+                const: true
+          then:
+            properties:
+              azollaManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              blueGreenAlgae:
+                const: true
+          then:
+            properties:
+              blueGreenAlgaeManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              zinkSolubilisingBacteria:
+                const: true
+          then:
+            properties:
+              zinkSolubilisingBacteriaManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              phosporousSolubilisingBacteria:
+                const: true
+          then:
+            properties:
+              phosporousSolubilisingBacteriaManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              ghanajeevamrutham:
+                const: true
+          then:
+            properties:
+              ghanajeevamruthamManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              bioChar:
+                const: true
+          then:
+            properties:
+              bioCharManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+        - if:
+            properties:
+              Others:
+                const: true
+          then:
+            properties:
+              otherManures:
+                type: string
+                title: Other manures applied
+              otherManuresManuresApplication:
+                title: ''
+                '$ref': '#/manuresData'
+    methodOfApplication:
+      title: Method of application
+      type: string
+      enum:
+        - Soil application
+        - Foliar application
+        - Fertigation
+        - Others
+      default: Soil application
+    nutrientCompositionAnalysisReport:
+      title: Nutrient composition analysis report
+      type: array
+      description: Nutrient composition analysis report
+      items:
+        type: string
+
+    recommondedBy:
+      title: Recommended by
+      type: string
+    totalManuresCost:
+      type: number
+      title: Total manures cost
+      minimum: 0
+    durationAndExpenses:
+      title: 'Duration and Expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          timeOfApplication:
+            const: Others
+      then:
+        properties:
+          otherTimeOfApplication:
+            type: string
+            title: Other time of application
+    - if:
+        properties:
+          methodOfApplication:
+            const: Others
+      then:
+        properties:
+          otherMethodOfApplication:
+            type: string
+            title: Other method of application
+
+  manuresData:
+    properties:
+      purchaseReceipt:
+        type: string
+        title: Purchase receipt
+
+        description: Purchase receipt
+      quantityOfApplication:
+        type: number
+        title: Quantity of application (kg/acre)
+        minimum: 0
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/nutritionManureEvent.yaml

@@ -1,0 +1,9 @@
+jsonschema:
+  title: Select Cropping System
+  properties:
+    croppingsystem:
+      $ref: '#/definitions/CroppingSystemRef'
+      title: Cropping System
+  required:
+    - croppingsystem
+uiHints: file:~/specs/jsonschemas/src/domain/ui/croppingsystemselect.yaml

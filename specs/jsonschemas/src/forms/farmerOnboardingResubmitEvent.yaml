@@ -1,0 +1,50 @@
+jsonschema:
+  type: object
+  properties:
+    personalDetails:
+      $ref: '#/definitions/Person'
+      title: 'Basic details'
+    farmingExperience:
+      type: object
+      title: Farming experience
+      properties:
+        totalFarmingExperienceYears:
+          type: number
+          title: 'Total years of experience in farming'
+          description: 'Total years of experience in farming'
+          minimum: 0
+        organicFarmingExperienceYears:
+          type: number
+          title: 'Total years of experience in organic farming'
+          description: 'Total years of experience in organic farming'
+          minimum: 0
+        cropsWithOrganicFarmingExperience:
+          type: string
+          title: 'Crops with organic farming experience (ex: rice, wheat, etc)'
+          description: 'Crops with organic farming experience (ex: rice, wheat, etc)'
+        livestockExperience:
+          type: string
+          title: 'Experience with livestock'
+          description: 'Experience with livestock'
+        agriAlliedActivitiesExperience:
+          type: string
+          title: 'Experience with allied activities (ex: animal husbandry, fishery, etc)'
+          description: 'Experience with allied activities (ex: animal husbandry, fishery, etc)'
+    personalOrgDetails:
+      $ref: '#/definitions/PersonalOrgDetails'
+      title: 'Organization details'
+    required: [personalDetails]
+uiHints:
+  form:
+    uiSchema:
+      'ui:order':
+        - personalDetails
+        - farmingExperience
+        - '*'
+      farmingExperience:
+        'ui:order':
+          - totalFarmingExperienceYears
+          - organicFarmingExperienceYears
+          - cropsWithOrganicFarmingExperience
+          - livestockExperience
+          - agriAlliedActivitiesExperience

@@ -1,0 +1,173 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Integrated Crop Care Simple Event'
+  properties:
+    cropCareMethods:
+      title: Integrated crop care methods
+      '$ref': '#/cropCareMethodsData'
+    expensesMet:
+      title: Expenses met
+      type: number
+      minimum: 0
+    photoEvidence:
+      title: Upload photo evidence
+      type: array
+      description: 'Upload photo evidence'
+      items:
+        type: string
+    recommondedBy:
+      title: Recommended by
+      type: string
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  cropCareMethodsData:
+    properties:
+      mechanicalControl:
+        title: Mechanical controls used
+        type: array
+        minItems: 0
+        items:
+          type: object
+          title: ''
+          properties:
+            controlItem:
+              title: Control item trade name
+              type: string
+            brandName:
+              title: Brand name
+              type: string
+            details:
+              type: string
+              title: Details
+            noOfItems:
+              title: No of items / Acre
+              type: number
+              minimum: 0
+
+      botanicalPesticide:
+        title: Botanical pesticide used
+        type: array
+        items:
+          type: object
+          title: ''
+          properties:
+            pesticideName:
+              title: Pesticide name
+              type: string
+            brandName:
+              title: Brand name
+              type: string
+            pesticideType:
+              title: Pesticide type
+              type: string
+              enum:
+                - Oil
+                - Extract
+                - Others
+              default: Oil
+            concentration:
+              title: Concentration / specification
+              type: number
+              minimum: 0
+            dosage:
+              title: Dosage per litre
+              type: number
+              minimum: 0
+
+      onFarmPreparations:
+        title: On-farm preparations
+        type: array
+        minItems: 0
+        items:
+          type: object
+          title: ''
+          properties:
+            onFarmItem:
+              title: On-farm preparation
+              type: string
+            dosage:
+              title: Dosage per litre
+              type: number
+              minimum: 0
+
+      certifiedOrganicInputs:
+        title: Certified organic inputs used
+        type: array
+        items:
+          type: object
+          title: ''
+          properties:
+            tradeName:
+              title: Trade name of the product
+              type: string
+            brandName:
+              title: Brand name
+              type: string
+            principle:
+              title: Pesticide principle
+              type: string
+            certifiedBy:
+              title: Certified by
+              type: string
+            evidence:
+              title: Upload photo of product label & invoice
+              type: array
+              items:
+                type: string
+
+              description: Upload photo of product label & invoice
+
+      naturalEnemies:
+        title: Introduction of natural enemies
+        type: array
+        items:
+          type: object
+          title: ''
+          properties:
+            naturalEnemy:
+              title: Name
+              type: string
+
+      chemicalPesticide:
+        title: 'Chemical pesticide / fungicide / Nematicide / Acaricide sprayed'
+        type: array
+        items:
+          type: object
+          title: ''
+          properties:
+            chemicalTradeName:
+              title: Trade name
+              type: string
+            chemicalBrandName:
+              title: Brand name
+              type: string
+            chemicalFormulation:
+              title: Formulation
+              type: string
+            chemicalConcentration:
+              title: Concentration
+              type: number
+            chemicalDosage:
+              title: Dosage per litre
+              type: number
+              minumum: 0
+            chemicalPurchaseEvidence:
+              title: Upload photo for purchase evidence
+
+              type: array
+              items:
+                type: string
+
+              description: Upload photo for purchase evidence
+
+      otherMethods:
+        title: Other crop care methods used
+        type: string
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/integratedCropCareEvent.yaml

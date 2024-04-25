@@ -1,0 +1,30 @@
+extends: ./goatPSNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Milking Event'
+  properties:
+    goats:
+      type: array
+      items:
+        $ref: '#/definitions/GoatId'
+      title: Goats
+      foreignNameField: 'tagId'
+    dateOfMilking:
+      type: string
+      format: date
+      title: Milking date
+    quantity:
+      type: number
+      title: Quantity of milk produced (Litres)
+    times:
+      type: string
+      title: Milking times
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - goats
+    - dateOfMilking
+    - quantity
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/goatMilkingPS.yaml

@@ -1,0 +1,7 @@
+jsonschema:
+  properties:
+    osps:
+      title: Organic System Plan Information
+      $ref: '#/definitions/FarmerOsp'
+      
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_farmerosp.yaml

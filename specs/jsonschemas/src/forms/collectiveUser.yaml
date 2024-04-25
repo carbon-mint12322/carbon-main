@@ -1,0 +1,19 @@
+jsonschema:
+  properties:
+    personalDetails:
+      title: Personal Details
+      $ref: '#/definitions/Person'
+    reportsTo:
+      title: User reports to
+      type: string
+    pin:
+      title: Mobile Pin
+      type: string
+    rolesList:
+      $ref: '#/definitions/OperatorRolesList'
+      title: Roles
+
+  required:
+    - personalDetails
+    - rolesList
+uiHints: file:~/specs/jsonschemas/src/forms/ui/collectiveUser.yaml

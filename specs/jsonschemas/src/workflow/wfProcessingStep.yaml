@@ -1,0 +1,14 @@
+type: object
+properties:
+  name:
+    type: string
+  description:
+    type: string
+  # Import path is location of the function to be executed
+  # This will ultimately result in a JS import statement
+  importPath:
+    type: string
+  schemes:
+    type: array
+    items:
+      $ref: "#/definitions/SchemeId"

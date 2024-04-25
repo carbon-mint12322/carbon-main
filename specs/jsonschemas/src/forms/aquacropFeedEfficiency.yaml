@@ -1,0 +1,31 @@
+extends: ./aquacropNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Feed Efficiency'
+  properties:
+    startDate:
+      title: Record start date
+      type: string
+      format: date
+    endDate:
+      title: Record end date
+      type: string
+      format: date
+    fcr:
+      type: number
+      title: Feed conversion ratio (FCR)
+    feedAmount:
+      type: number
+      title: Amount of feed used per day (Kgs)
+    changesInFeed:
+      type: string
+      title: Notable changes in FCR
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - fcr
+    - feedAmount
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryFeedEfficiency.yaml

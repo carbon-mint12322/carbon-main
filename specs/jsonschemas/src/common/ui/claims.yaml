@@ -1,0 +1,8 @@
+items:
+  claimDescription:
+    'ui:widget': textarea
+  'ui:order':
+    - claim
+    - claimDescription
+    - '*'
+

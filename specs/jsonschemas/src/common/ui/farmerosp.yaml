@@ -1,0 +1,717 @@
+remarks:
+  'ui:widget': textarea
+
+'ui:order':
+  - basicDetails
+  - landParcel
+  - year
+  - totalArea
+  - latitude
+  - longitude
+  - crops
+  - ospFormsCheckList
+  - organicSystemPlanSummary
+  - oOSPFormsLandProfileofOperator
+  - landPastUseDocumentation
+  - landscapeCOP401
+  - organicAwareness
+  - cropProductionPlan
+  - conversionRequirements
+  - soilAndWaterQuality
+  - seedStock
+  - mulchingAwareness
+  - composting
+  - materialList
+  - weedManagement
+  - pestManagement
+  - diseaseManagement
+  - contamination
+  - operatorRecords
+  - postHarvestHandling
+  - sales
+  - remarks
+  - '*'
+sales:
+  salesPlan:
+    salesOptions:
+      'ui:widget': 'checkboxes'
+
+    productLabels:
+      'ui:widget': 'textarea'
+    labelingOptions:
+      'ui:widget': 'checkboxes'
+
+    productionTracking:
+      'ui:widget': 'textarea'
+    lotNumberingSystem:
+      'ui:widget': 'textarea'
+    labelCopies:
+      'ui:widget': 'checkboxes'
+    markLicense:
+      'ui:widget': 'radio'
+    salesRecords:
+      'ui:widget': 'textarea'
+    transactionCertificate:
+      'ui:widget': 'radio'
+
+postHarvestHandling:
+  handlingScope:
+    handleExternalCrops:
+      'ui:widget': 'radio'
+    handleConventionalTransitionalCrops:
+      'ui:widget': 'radio'
+    scopeOfHandling:
+      'ui:widget': 'checkboxes'
+
+  handlingFacilityManagement:
+    hasSOP:
+      'ui:widget': 'radio'
+    contaminationComminglingControls:
+      'ui:widget': 'checkboxes'
+    waterQuality:
+      'ui:widget': 'checkboxes'
+    pestManagementPlan:
+      'ui:widget': 'checkboxes'
+
+operatorRecords:
+  awareOfRecordKeeping:
+    'ui:widget': 'radio'
+  typesOfRecords:
+    'ui:widget': 'checkboxes'
+
+contamination:
+  organicImmunity:
+    productionType:
+      'ui:widget': 'radio'
+    sourceOfIrrigationWater:
+      'ui:widget': 'radio'
+    storeProhibitedMaterials:
+      'ui:widget': 'radio'
+    rentEquipmentsAndTransport:
+      'ui:widget': 'radio'
+    onFarmProcessingHandling:
+      'ui:widget': 'radio'
+    buyCompostFYMFromOutside:
+      'ui:widget': 'radio'
+    haveLivestockNotPartOfOrganicOperations:
+      'ui:widget': 'radio'
+
+  splitOperations:
+    numberOfCrops:
+      'ui:widget': 'radio'
+    sameSeedStockCommercialVarieties:
+      'ui:widget': 'radio'
+    alignSplitProductionSameSeason:
+      'ui:widget': 'radio'
+    independentFarmDiary:
+      'ui:widget': 'radio'
+    storeSplitOperationMaterial:
+      'ui:widget': 'radio'
+    plansToDiscontinueSplitOperations:
+      'ui:widget': 'radio'
+
+  irrigation:
+    classNames: 'form-subsection'
+    publicWaterTreatment:
+      'ui:widget': 'radio'
+    sameWaterSourceForBoth:
+      'ui:widget': 'radio'
+    fertigateOrChemigate:
+      'ui:widget': 'radio'
+
+  storage:
+    separateStorageForConventional:
+      'ui:widget': 'radio'
+    plansToSeparateStorage:
+      'ui:widget': 'radio'
+    separateIdentityOfMaterials:
+      'ui:widget': 'radio'
+    storeOrganicProduceSeparately:
+      'ui:widget': 'radio'
+    independentStorageFacilityForOrganicProduce:
+      'ui:widget': 'radio'
+    useStoreDisinfectantsFumigants:
+      'ui:widget': 'radio'
+    storageInfrastructureDetails:
+      'ui:widget': 'textarea'
+    storageCapacity:
+      dry:
+        'ui:widget': 'text'
+      wet:
+        'ui:widget': 'text'
+      coldChambers:
+        'ui:widget': 'text'
+    certifyFinalProductStorageFacility:
+      'ui:widget': 'radio'
+
+  equipmentsTransport:
+    cleanEquipmentsBeforeUse:
+      'ui:widget': 'radio'
+    maintainCleaningRecords:
+      'ui:widget': 'radio'
+    useSameContainersForStorage:
+      'ui:widget': 'radio'
+    maintainContainerCleaningRecords:
+      'ui:widget': 'radio'
+    useSameTransitFacility:
+      'ui:widget': 'radio'
+    specifyCleaningAndRecords:
+      'ui:widget': 'radio'
+
+  onFarmPostHarvestHandling:
+    treatEquipmentsForInfection:
+      'ui:widget': 'radio'
+
+    treatWoodenItemsForPests:
+      'ui:widget': 'radio'
+
+    mixManuallyHandledToolsForOtherOperations:
+      'ui:widget': 'radio'
+
+    cleaningRecordsForToolsEquipments:
+      'ui:widget': 'radio'
+
+  comminglingContaminationPlan:
+    adjacentFieldsHandleGMOCrops:
+      'ui:widget': 'radio'
+
+    planBufferZone:
+      'ui:widget': 'radio'
+
+    cropRotationHandleContamination:
+      'ui:widget': 'radio'
+
+diseaseManagement:
+  diseaseEcology:
+    knowMajorDiseases:
+      'ui:widget': 'radio'
+    knowHowToDifferentiate:
+      'ui:widget': 'radio'
+
+  diseaseManagementPlan:
+    diseaseManagementItems:
+      'ui:widget': 'checkboxes'
+    useChemicals:
+      'ui:widget': 'radio'
+    knowHolisticExclusion:
+      'ui:widget': 'radio'
+    useCertifiedChemicals:
+      'ui:widget': 'radio'
+
+pestManagement:
+  pestEcology:
+    knowPestIssues:
+      'ui:widget': 'radio'
+    adaptConventionalApproaches:
+      'ui:widget': 'radio'
+  pestManagementPlan:
+    pestManagementItems:
+      'ui:widget': 'checkboxes'
+    useNaturalPyrethrum:
+      'ui:widget': 'radio'
+    knowEcologicalPestManagement:
+      'ui:widget': 'radio'
+    useCertifiedPesticides:
+      'ui:widget': 'radio'
+
+weedManagement:
+  weedBiodiversity:
+    weedManagementItems:
+      'ui:widget': 'checkboxes'
+    considerWeedManagementBarrier:
+      'ui:widget': 'radio'
+    knowNegativeInfluenceWeeds:
+      'ui:widget': 'radio'
+    knowWeedAllelopathy:
+      'ui:widget': 'radio'
+
+  weedManagementPlan:
+    useGlacialAceticAcid:
+      'ui:widget': 'radio'
+    knowSystemicWeedManagement:
+      'ui:widget': 'radio'
+    irrigatingCropOrField:
+      'ui:widget': 'radio'
+    fertilizingCropOrField:
+      'ui:widget': 'radio'
+    cropIntensityForWeedManagement:
+      'ui:widget': 'radio'
+    weedManagementItems:
+      'ui:widget': 'checkboxes'
+
+materialList:
+  soilFertilityInputsFrame:
+    soilFertilityInputs:
+      'ui:field': 'DgField'
+  cropNutritionMaterialsFrame:
+    cropNutritionMaterials:
+      'ui:field': 'DgField'
+  cropProtectionFrame:
+    cropProtection:
+      'ui:field': 'DgField'
+  farmSupportInputsFrame:
+    farmSupportInputs:
+      'ui:field': 'DgField'
+  offFarmMateialsApproval:
+    'ui:widget': 'radio'
+
+composting:
+  sourceOfCompost:
+    practiceComposting:
+      'ui:widget': 'radio'
+    useOffFarmCompost:
+      'ui:widget': 'radio'
+    useUncompostedManure:
+      'ui:widget': 'radio'
+    applyUncompostedManure:
+      'ui:widget': 'radio'
+  sourcesOfCompost:
+    compostProcurementSources:
+      'ui:widget': 'checkboxes'
+    maintainRecordsForCompostProcurement:
+      'ui:widget': 'radio'
+    awarenessOfManureContaminants:
+      'ui:widget': 'radio'
+
+  onFarmComposting:
+    sourceOfBiomass:
+      'ui:widget': 'radio'
+    recordsForOffFarmOrganicIdentity:
+      'ui:widget': 'radio'
+    mixIngredientsForComposting:
+      'ui:widget': 'radio'
+    trainedToHandleComposting:
+      'ui:widget': 'radio'
+    maxTemperatureDuringComposting:
+      'ui:widget': 'radio'
+    sourceOfCompostMicrobialCulture:
+      'ui:widget': 'radio'
+    maintainRecordsForCompostProduction:
+      'ui:widget': 'radio'
+
+mulchingAwareness:
+  mulchingContaminationAwareness:
+    knowMulchSourceContamination:
+      'ui:widget': 'radio'
+    trainedToChooseMulch:
+      'ui:widget': 'radio'
+    onFarmMulchMaterial:
+      'ui:widget': 'radio'
+    plasticOrStoneMulch:
+      'ui:widget': 'radio'
+
+    treatMulchMaterial:
+      'ui:widget': 'radio'
+
+    tillSoilAfterMulchDegraded:
+      'ui:widget': 'radio'
+    mulchingSystemDependent:
+      'ui:widget': 'radio'
+
+  mulchingAndMulchMaterials:
+    practiceMulching:
+      'ui:widget': 'radio'
+
+    mulchMaterialsSource:
+      'ui:widget': 'checkboxes'
+    mulchPurpose:
+      'ui:widget': 'checkboxes'
+
+seedStock:
+  annualSeeds:
+    seedsList:
+      'ui:field': 'DgField'
+    gmoDeclarationAttachment:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+
+soilAndWaterQuality:
+  'ui:order':
+    - soilAndWaterQualityLabel
+    - soilAnalysis
+    - soilFertilityPlan
+    - waterAnalysis
+    - waterManagementPlan
+    - '*'
+  soilFertilityPlan:
+    majorPractices:
+      'ui:widget': 'checkboxes'
+
+    onFarmInitiatives:
+      'ui:widget': 'checkboxes'
+
+    frequency:
+      'ui:widget': 'radio'
+
+  soilAnalysis:
+    recentSoilTestReportAttachement:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    soilType:
+      'ui:widget': 'checkboxes'
+    aspectsCovered:
+      'ui:widget': 'checkboxes'
+    monitorMethod:
+      'ui:widget': 'checkboxes'
+
+  waterManagementPlan:
+    waterSourceShared:
+      'ui:widget': 'radio'
+
+    waterSource:
+      'ui:widget': 'checkboxes'
+
+    waterQualityManagementPlans:
+      'ui:widget': 'checkboxes'
+
+    irrigationSystemType:
+      'ui:widget': 'radio'
+
+    farmInputsThroughIrrigation:
+      'ui:widget': 'radio'
+      'ui:options':
+        inline: true
+    materialsUsedForIrrigation:
+      'ui:widget': 'checkboxes'
+
+    waterUsePlan:
+      'ui:widget': 'checkboxes'
+
+  waterAnalysis:
+    waterTestReport:
+      'ui:widget': 'radio'
+
+    planningWaterAnalysis:
+      'ui:widget': 'radio'
+
+    waterDependencies:
+      'ui:widget': 'checkboxes'
+
+    waterQualityAwareness:
+      'ui:widget': 'checkboxes'
+
+conversionRequirements:
+  landUseOverview:
+    sustainableLandUse:
+      'ui:widget': 'radio'
+  cropRotation:
+    awareOfCropRotation:
+      'ui:widget': 'radio'
+    cropRotationIssues:
+      'ui:widget': 'checkboxes'
+  bufferZone:
+    bufferTypes:
+      'ui:widget': 'checkboxes'
+    bufferAreas:
+      'ui:field': DgField
+    growingInBufferAreas:
+      'ui:widget': 'textarea'
+    bufferDescriptionAttachment:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    conversionPlan:
+      'ui:widget': 'textarea'
+
+cropProductionPlan:
+  productionSystemOverview:
+    cropsPlannedToGrow:
+      'ui:widget': 'textarea'
+
+    livestockCertification:
+      'ui:widget': 'radio'
+
+    organicProductionSystem:
+      'ui:widget': 'radio'
+
+    conventionalCrops:
+      'ui:widget': 'textarea'
+
+  resourcePotential:
+    soilFertility:
+      'ui:widget': 'checkboxes'
+
+    waterDependencies:
+      'ui:widget': 'checkboxes'
+
+    facilities:
+      'ui:widget': 'checkboxes'
+
+  inputDependencies:
+    seedDependencies:
+      'ui:widget': 'checkboxes'
+
+    onFarmComposting:
+      'ui:widget': 'radio'
+
+    offFarmManures:
+      'ui:widget': 'radio'
+
+    approvedCommercialInputs:
+      'ui:widget': 'radio'
+
+    externalFeedForLivestock:
+      'ui:widget': 'radio'
+
+    diseaseHandling:
+      'ui:widget': 'textarea'
+    zeroExternalInputs:
+      'ui:widget': 'radio'
+
+  postHarvestHandling:
+    postHarvestHandlingInvolved:
+      'ui:widget': 'radio'
+    postHarvestHandlingActivities:
+      'ui:widget': 'checkboxes'
+    complexHandling:
+      'ui:widget': 'radio'
+    handlingProcessingActivities:
+      'ui:widget': 'textarea'
+
+  certifiedOperationScope:
+    certifyLivestockOperations:
+      'ui:widget': 'radio'
+
+    certifyHandlingOperations:
+      'ui:widget': 'radio'
+
+    certifyOnFarmSaleOperations:
+      'ui:widget': 'radio'
+
+    certifyComplexHandlingActivity:
+      'ui:widget': 'radio'
+
+    markLicense:
+      'ui:widget': 'radio'
+
+organicAwareness:
+  'ui:order':
+    - opinion
+    - socioEconomicAwareness
+    - productionAwareness
+    - '*'
+
+  opinion:
+    migrationDifficulty:
+      'ui:widget': 'radio'
+    organicFarmingComplexity:
+      'ui:widget': 'radio'
+
+    attendedWorkshops:
+      'ui:widget': 'radio'
+  socioEconomicAwareness:
+    differentiateOrganicProducts:
+      'ui:widget': 'radio'
+    accessToMarkets:
+      'ui:widget': 'radio'
+    laborAwareness:
+      'ui:widget': 'radio'
+    approachReasons:
+      'ui:widget': 'checkboxes'
+  productionAwareness:
+    learnedOrExecutedPractices:
+      'ui:widget': 'checkboxes'
+    awarenessOfTerms:
+      'ui:widget': 'checkboxes'
+    approvedInputMaterialList:
+      'ui:widget': 'radio'
+    bufferZoneMaintenance:
+      'ui:widget': 'radio'
+    farmDiaryMaintenance:
+      'ui:widget': 'radio'
+
+    organicSystemPlanDevelopment:
+      'ui:widget': 'radio'
+
+    awarenessOfConversion:
+      'ui:widget': 'radio'
+
+landscapeCOP401:
+  'ui:order':
+    - singleFormDescription
+    - allLandDescription
+    - additionalCopies
+    - locationIdentityDescription
+    - landscapeCOP4012
+    - landscapeCOP4013
+    - landRecordsEndorsement
+    - '*'
+  locationIdentityDescription:
+    otherCertifyingBodyInspection:
+      'ui:widget': 'radio'
+  landRecordsEndorsement:
+    endorsementItems:
+      'ui:widget': 'checkboxes'
+    'ui:order':
+      - endorsementItems
+      - acknowledgement
+      - '*'
+  landscapeCOP4013:
+    attachedFields:
+      'ui:widget': 'checkboxes'
+    fieldMapAttachments:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+
+    'ui:order':
+      - fieldMapAttachments
+      - attachedFields
+      - '*'
+  landscapeCOP4012:
+    boundaryDescription:
+      'ui:field': DgField
+    fieldsUnderSplitParallelProduction:
+      'ui:field': DgField
+    'ui:order':
+      - totalNumberOfFields
+      - fieldConfiguration
+      - boundaryDescription
+      - boundaryDescriptionCode
+      - fieldsUnderSplitParallelProduction
+      - '*'
+landPastUseDocumentation:
+  landPastUseDocumentationGrid:
+    'ui:field': DgField
+  'ui:order':
+    - landPastUseDocumentationGrid
+    - landUseFormForAdditionalLocation
+    - criticalObservation
+    - '*'
+
+oOSPFormsLandProfileofOperator:
+  farmOperationScope:
+    'ui:widget': checkboxes
+  certifiedLandParcel:
+    'ui:widget': 'radio'
+  'ui:order':
+    - landProfileOperatorLabel
+    - farmOperationScope
+    - certifiedLandParcel
+    - certifiedLandParcelType
+    - extentOfConversion
+    - landOwnershipStatus
+    - '*'
+  landOwnershipStatus:
+    landOwnershipStatusGrid:
+      'ui:field': DgField
+    owenershipEvidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - landOwnershipStatusGrid
+      - owenershipEvidence
+      - '*'
+  extentOfConversion:
+    extentOfConversionGrid:
+      'ui:field': DgField
+    landRequirementsSubmission:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    locationIdentity:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - totalAcreage
+      - acreageForConversion
+      - numberOfLocations
+      - extentOfConversionGrid
+      - landRequirementsSubmission
+      - locationIdentity
+      - '*'
+
+organicSystemPlanSummary:
+  productionCycleDescription:
+    'ui:widget': textarea
+  conversionRequirements:
+    'ui:widget': textarea
+  conversionPeriodManagement:
+    'ui:widget': textarea
+  landscapeDevelopmentPlan:
+    'ui:widget': textarea
+  cropVarietiesAndPlantingMaterial:
+    'ui:widget': textarea
+  biodiversityManagementPlan:
+    'ui:widget': textarea
+  nutritionSourceAndManagementPlan:
+    'ui:widget': textarea
+  cropProtectionPlan:
+    'ui:widget': textarea
+  contaminationAndComingling:
+    'ui:widget': textarea
+  conservationPractices:
+    'ui:widget': textarea
+  wildHarvest:
+    'ui:widget': textarea
+  'ui:order':
+    - productionCycleDescription
+    - conversionRequirements
+    - conversionPeriodManagement
+    - landscapeDevelopmentPlan
+    - cropVarietiesAndPlantingMaterial
+    - biodiversityManagementPlan
+    - nutritionSourceAndManagementPlan
+    - cropProtectionPlan
+    - contaminationAndComingling
+    - conservationPractices
+    - wildHarvest
+    - '*'
+
+ospFormsCheckList:
+  'ui:order':
+    - ospFormsCheckListLabel
+    - generalDescription
+    - landProfile
+    - ospForms
+    - '*'
+
+  generalDescription:
+    'ui:order':
+      - farmName
+      - location
+      - farmingSystem
+      - landProfile
+      - sales
+      - postHarvest
+      - organicAwareness
+      - ifRenewed
+      - generalDescriptionInstructions
+      - '*'
+
+  ospForms:
+    'ui:order':
+      - ospFormsChecklist
+      - supplementaryDocumentation
+      - '*'
+    ospFormsChecklist:
+      'ui:order':
+        - ospFormsInstructions
+        - organicAwarenessCOP501
+        - cropProductionOverviewCOP601
+        - bufferingAndLandUseCOP701
+        - soilHealthAndWaterQualityCOP801
+        - seedStockAndPlantingMaterialCOP901
+        - mulchingCOP1001
+        - compostingCOP1101
+        - farmInputsMaterialsListCOP1201
+        - weedManagementCOP1301
+        - diseaseManagementCOP1501
+        - comminglingAndContaminationCOP1601
+        - recordsAndAuditTrailCOP1701
+        - wildHarvest
+        - postHarvestHandlingCOP1801
+        - salesCOP1901
+        - farmDiaryFormatEnclosure
+        - '*'
+    supplementaryDocumentation:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+
+crops:
+  items:
+    'ui:order':
+      - crop
+      - cropType
+      - cropArea
+      - estQty
+      - variety
+      - sowingDate
+      - '*'
+landParcel:
+  'ui:field': ReferenceField
+  ui:placeholder: Select a land parcel
+  foreignSchemaId: '/landparcel'
+  foreignLabelWidget: NameLabelWidget
+  'ui:options':
+    # This key is passed for selecting a field for crop creation
+    filterKey: landParcel

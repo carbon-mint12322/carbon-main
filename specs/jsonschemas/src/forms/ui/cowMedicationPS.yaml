@@ -1,0 +1,21 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - cows
+      - dateOfMedication
+      - type
+      - dose
+      - frequency
+      - reason
+      - withdrawalPeriod
+      - totalExpenditure
+      - otherRemarks
+      - '*'
+    cows:
+      'ui:field': ReferenceField
+      ui:placeholder: Select cows
+      foreignSchemaId: '/cow'
+      foreignNameField: 'tagId'
+      foreignLabelWidget: NameLabelWidget

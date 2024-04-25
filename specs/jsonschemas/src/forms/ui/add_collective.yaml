@@ -1,0 +1,34 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - category
+      - address
+      - email
+      - poc
+      - phone
+      - registrationId
+      - registrationDocumentFile
+      - mandator
+      - fpoDetails
+      - fpcDetails
+      - schemes
+      - '*'
+    registrationDocumentFile:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    schemes:
+      items:
+        certificationBodyId:
+          'ui:widget': ReferenceSelectorWidget
+          ui:placeholder: Select a certification body
+          foreignSchemaId: '/certificationbody'
+          foreignLabelWidget: NameLabelWidget
+        'ui:order':
+          - certificationBodyId
+          - scheme
+          - conversionStatus
+          - certificationStatus
+          - '*'
+    mandator: file:~/specs/jsonschemas/src/common/ui/mandator.yaml
+    fpoDetails: file:~/specs/jsonschemas/src/common/ui/fpoDetails.yaml
+    fpcDetails: file:~/specs/jsonschemas/src/common/ui/fpoDetails.yaml

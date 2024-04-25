@@ -1,0 +1,26 @@
+form:
+  uiSchema:
+    'ui:order':
+      - schemeDetails
+      - '*'
+    schemeDetails:
+      certificationBodyId:
+        'ui:field': ReferenceField
+        ui:placeholder: Select a certification body
+        foreignSchemaId: '/certificationbody'
+        foreignLabelWidget: NameLabelWidget
+        'ui:options':
+          # This key is passed for selecting a field for crop creation
+          filterKey: certificationBody
+      certificationDocument:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      'ui:order':
+        - certificationBodyId
+        - scheme
+        - conversionStatus
+        - certificationStatus
+        - certificationDocument
+        - validityStartDate
+        - validityEndDate
+        - certificationAuthority
+        - '*'

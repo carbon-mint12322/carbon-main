@@ -1,0 +1,14 @@
+jsonschema:
+  properties:
+    personalDetails:
+      title: Personal Details
+      $ref: '#/definitions/Person'
+    reportsTo:
+      title: User reports to
+      type: string
+    pin:
+      title: Mobile Pin
+      type: string
+  required:
+    - personalDetails
+uiHints: file:~/specs/jsonschemas/src/forms/ui/basicUserDetails.yaml

@@ -1,0 +1,33 @@
+type: array
+default: [{}]
+items:
+  type: object
+  title: ""
+  properties:
+    claim:
+      title: Claim
+      type: string
+      enum:
+        - Organic
+        - Non-GMO
+        - Pesticide-Free
+        - Heritage or Heirloom
+        - Local
+        - Sustainably Grown
+        - Fair Trade
+        - Non-Allergenic
+        - High Nutrient Content
+        - Regeneratively Grown
+        - Low Carbon Footprint
+        - Free of Additives or Preservatives
+        - Gluten-Free
+        - Vegan      
+      default: Organic
+ 
+    claimDescription:
+      title: Description
+      type: string
+ 
+  required:
+    - claim
+    - description

@@ -1,0 +1,13 @@
+type: object
+properties:
+  start:
+    title: Start Date
+    type: string
+    format: date
+  end:
+    title: End Date
+    type: string
+    format: date
+required:
+  - start
+  - end

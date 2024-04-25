@@ -1,0 +1,46 @@
+extends: ./lpEventNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Farmer Training'
+  properties:
+    trainingName:
+      type: string
+      title: Training name
+    trainingType:
+      type: string
+      title: Training type
+    conductedBy:
+      title: Conducted by
+      type: string
+    trainingRemarks:
+      title: Training remarks
+      type: string
+    trainingMaterials:
+      title: Training materials
+      type: array
+      description: Training materials
+      items:
+        type: string
+    startDate:
+      type: string
+      format: date
+      title: Start date
+    endDate:
+      type: string
+      format: date
+      title: End date
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - trainingName
+    - trainingType
+    - conductedBy
+    - trainingRemarks 
+    - startDate
+    - endDate
+uiHints: file:~/specs/jsonschemas/src/forms/ui/farmerTraining.yaml

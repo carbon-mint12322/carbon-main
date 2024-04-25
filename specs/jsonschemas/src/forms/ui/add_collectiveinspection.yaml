@@ -1,0 +1,19 @@
+form:
+  uiSchema:
+    externalInspectionDetails:
+      'ui:order':
+        - startDate
+        - endDate
+        - cb
+        - inspectionDoneBy
+        - reports
+        - notes
+      notes:
+        'ui:widget': textarea
+      cb:
+        'ui:field': ReferenceField
+        ui:placeholder: Select a certification body
+        foreignSchemaId: '/certificationbody'
+        foreignLabelWidget: NameLabelWidget
+      reports:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'

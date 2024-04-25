@@ -1,0 +1,5 @@
+jsonschema:
+  type: object
+  properties:
+    farmhouses: file:~/specs/jsonschemas/src/common/farmhouse.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_farmhouses.yaml

@@ -1,0 +1,40 @@
+extends: ./aquacropStockingNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Stocking'
+  properties:
+    stockingDate:
+      title: Stocking date
+      type: string
+      format: date
+    stockingQuantity:
+      title: Stocking quantity
+      type: number
+    stockingMethod:
+      title: Stocking method
+      enum:
+        - Manual
+        - Aerator
+      default: Manual
+    stockingSize:
+      title: Stocking size (Kgs)
+      type: number
+      minimum: 0
+    stockingDensity:
+      title: Stocking density
+      type: number
+    acclimatization:
+      title: Acclimataization details
+      type: string
+    durationAndExpenses:
+      title: 'Duration and Expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - stockingDate
+    - stockingQuantity
+    - stockingSize
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/aquacropStocking.yaml

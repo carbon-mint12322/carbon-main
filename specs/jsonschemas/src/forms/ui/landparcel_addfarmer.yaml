@@ -1,0 +1,17 @@
+form:
+  uiSchema:
+    leaseDocuments:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - farmer
+      - ownership
+      - leaseDocuments
+  
+      - '*'
+    farmer:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a farmer
+      foreignSchemaId: '/farmer'
+      'ui:options':
+        filterKey: farmer
+      foreignLabelWidget: UserNameWidget

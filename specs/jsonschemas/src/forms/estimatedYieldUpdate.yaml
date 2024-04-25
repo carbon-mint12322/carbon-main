@@ -1,0 +1,32 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Estimated Yield Update'
+  properties:
+    estimatedYieldUpdateTitle:
+      type: object
+      title: Estimated yield update
+    yield:
+      type: number
+      title: Estimated yield
+    reason:
+      type: string
+      title: Update reason
+    dateOfUpdate:
+      title: Date of update
+      type: string
+      format: date
+    evidence:
+      title: Evidence
+      type: string
+
+      description: Estimated yield update evidence
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - yield
+    - reason
+    - dateOfUpdate
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/estimatedYieldUpdate.yaml

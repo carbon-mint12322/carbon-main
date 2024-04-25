@@ -1,0 +1,96 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+    slug:
+      type: string
+      format: hidden
+    category:
+      type: string
+      enum:
+        - FPO
+        - ICS
+        - Self Help Group
+        - Farmer Group
+        - Dealer
+      default: FPO
+    address:
+      $ref: '#/definitions/Address'
+    email:
+      type: string
+      title: Email
+    poc:
+      type: string
+      title: Contact person
+    phone:
+      type: string
+      title: Phone
+    registrationId:
+      type: string
+    registrationDocumentFile:
+      type: string
+      format: 'data-url'
+      title: Upload registration document proof
+    iecNumber:
+      type: string
+      title: Upload importer-exporter code document proof
+    iecDocumentFile:
+      type: string
+      format: 'data-url'
+      title: Upload importer-exporter code document proof
+    gstNumber:
+      type: string
+      title: GST Number
+    gstDocumentFile:
+      type: string
+      format: 'data-url'
+      title: GST document proof
+    registeredBankName:
+      type: string
+      title: Registered bank name
+    registeredBankACNumber:
+      type: string
+      title: Registered bank account number
+    operatedBy:
+      $ref: '#/definitions/NameID'
+    schemes:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            $ref: '#/definitions/SchemeId'
+          name:
+            type: string
+          certificationBodyId:
+            type: string
+            $ref: '#/definitions/CertificationBodyId'
+    validationWorkflowId:
+      type: string
+      format: hidden
+    statusNotes:
+      type: string
+      format: hidden
+    status:
+      type: string
+      enum:
+        - Draft
+        - Under validation
+        - Under review
+        - Review failed
+        - Validation failed
+        - Approved
+      default: Draft
+    active:
+      type: boolean
+    audit:
+      $ref: '#/definitions/Audit'
+  required:
+    - registrationId
+    - registrationDocumentFile
+    - name
+    - category
+    - organization
+    - active
+uiHints: file:~/specs/jsonschemas/src/domain/ui/collective.yaml

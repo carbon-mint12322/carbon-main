@@ -1,0 +1,15 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - category
+      - field
+      - '*'
+    field:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a field
+      foreignSchemaId: '/field'
+      foreignLabelWidget: NameLabelWidget
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: field

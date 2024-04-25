@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "baseUrl": ".",
+    "rootDir": "backendlib/db",
+    "outDir": "./build"
+  },
+  "include": ["backendlib/db/**/*.js", "backendlib/db/**/*.ts"],
+  "exclude": ["node_modules"]
+}

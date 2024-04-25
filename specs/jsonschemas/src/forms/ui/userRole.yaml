@@ -1,0 +1,6 @@
+form:
+  uiSchema:
+    'ui:order':
+      - roles
+      - '*'
+    roles: file:~/specs/jsonschemas/src/common/ui/userRoles.yaml

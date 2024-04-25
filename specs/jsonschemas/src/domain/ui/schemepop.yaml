@@ -1,0 +1,118 @@
+form:
+  uiSchema:
+    'ui:order':
+      - schemeName      
+      - description
+      - responsibleParty
+      - duration
+      - scope
+      - certificationAuthority
+      - compliancePoints
+      - '*'
+    compliancePoints: file:~/specs/jsonschemas/src/common/ui/compliancePoint.yaml
+createPage:
+  titleBar:
+    pageTitle: "Add Scheme POP"
+  schema: schemepop
+  isValidationNeeded: false
+detailPage:
+  showMap: false
+  titleBar:
+    pageTitle: "Scheme: {{data.schemeName}}"
+    subTitle: "Responsible Party: {{data.responsibleParty}}"
+    mainBtnTitle: Add Event
+    subBtnTitle: "Sample Second Button"
+    showTitlebar: true
+    showTitlebarTitle: true
+    showTitlebarSubTitle: true
+    showTitlebarMainBtn: false
+    showTitlebarSubBtn: false
+  overviewFields:
+    - title: Name
+      field: schemeName
+    - title: Responsible Party
+      field: responsibleParty
+    - title: Scope
+      field: scope
+    - title: Duration
+      field: duration
+      format: "{{value}} months"
+    - title: Certification Authority
+      field: certificationAuthority 
+  tabs:
+
+    - type: info
+      title: Scheme POP Info
+      props:
+        includeJsonSchema: true
+        verticalTabs:
+          - type: basicInfo
+            title: Basic Info
+            props:
+              nodePath: 
+              viewUiOrder:
+                - schemeName
+                - responsibleParty
+                - scope                
+                - duration
+                - certificationAuthority    
+    - type: schemepopevents
+      title: Events
+    - type: documents
+      title: Documents
+    - type: history
+      title: Activity Log
+
+listPage:
+  showInactiveDefault: false
+  isMultiSelect: true
+  customFilterKeys:
+    - schemeName
+    - responsibleParty
+    - certificationAuthority
+   
+  titleBar:
+    pageTitle: Scheme POPs
+    subTitle: "Showing {{data.length}} scheme POPs total"
+    mainBtnTitle: Add Scheme POP
+    subBtnTitle: "Bulk Actions"
+    showTitlebar: true
+    showTitlebarTitle: true
+    showTitlebarSubTitle: true
+    showTitlebarMainBtn: true
+    showTitlebarSubBtn: false
+    showTitlebarSearch: true
+  bulkActions:
+    - label: Add Events
+      operation: handleOpen
+  colDefs:
+    - field: schemeName
+      headerName: "POP Name"
+      minWidth: 250
+      flex: 1
+    - field: responsibleParty
+      headerName: Responsible Party
+      minWidth: 200
+      flex: 1   
+    - field: scope
+      headerName: Scope
+      minWidth: 300
+      flex: 1
+    - field: duration
+      headerName: Duration (months)
+      minWidth: 200
+      flex: 1       
+      valueGetter: numberValueGetter
+    - field: certificationAuthority
+      headerName: Certification authority
+      minWidth: 200
+      flex: 1   
+    - field: status
+      headerName: Status
+      minWidth: 100
+      flex: 1
+    - field: actions
+      headerName: Actions
+      minWidth: 100
+   
+   

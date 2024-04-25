@@ -1,0 +1,18 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - goats
+      - dateOfCalving
+      - complications
+      - calfWeight
+      - totalExpenditure
+      - otherRemarks
+      - '*'
+    goats:
+      'ui:field': ReferenceField
+      ui:placeholder: Select goats
+      foreignSchemaId: '/goat'
+      foreignSchemaId: '/tagId'
+      foreignLabelWidget: NameLabelWidget

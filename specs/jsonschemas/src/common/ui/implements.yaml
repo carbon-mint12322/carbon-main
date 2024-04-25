@@ -1,0 +1,10 @@
+'ui:order':
+  - machineriesOwnership
+  - useCleanedAndUncontaminatedMachineries
+  - evidenceOfOperation
+  - totalHoursOfOperation
+  - ratePerHour
+  - expensesMet
+  - '*'
+evidenceOfOperation:
+  'ui:widget': 'file'

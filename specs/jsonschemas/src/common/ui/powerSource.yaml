@@ -1,0 +1,24 @@
+photoEvidence:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+location:
+  'ui:field': MapLocationField
+'ui:order':
+  - name
+  - source
+  - gridPowerSource
+  - otherGridPowerSource
+  - gridPowerCapacity
+  - solarPowerCapacity
+  - solarPowerAvailability
+  - bioGasProdCapacity
+  - bioGasStorageCapacity
+  - windEnergyProdCapacity
+  - windEnergyStorageCapacity
+  - generatorProdCapacity
+  - generatorStorageCapacity
+  - otherAvailability
+  - otherStorageCapacity
+  - photoEvidence
+  - location
+  - active
+  - '*'

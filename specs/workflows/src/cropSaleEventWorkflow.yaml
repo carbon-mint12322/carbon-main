@@ -1,0 +1,25 @@
+name: cropSaleEventWorkflow
+startStateName: start
+description: Crop Sale Event
+domainSchemaId: /farmbook/crop
+testScenariosFiles: []
+states:
+  - name: start
+    description: The Workflow starts in this state.
+    triggers:
+      - eventName: cropSaleEvent
+        description: Crop Sale Event
+        roles: ['AGENT', 'ADMIN'] # No roles required, ie anyone can do this
+        inputSchemaName: cropSaleEvent
+        processingSteps:
+          - name: createCropEvent
+            description: Create event object for crop
+            importPath: ../../../workflows/farmbook/functions/createCropEvent
+        transitions:
+          - condition:
+              name: always
+              importPath: ../../../workflows/common/functions/always
+            state: end
+  - name: end
+    description: End state
+    isEndState: true

@@ -1,0 +1,31 @@
+jsonschema:
+  properties:
+    bankDetails:
+      title: 'Bank Details'
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name of the bank
+          pattern: ^[A-Za-z]+$
+        branch:
+          type: string
+          title: Branch name
+          pattern: ^[a-zA-Z]+$
+        accountNumber:
+          type: string
+          title: Bank account number
+          pattern: ^[0-9]+$
+        ifsc:
+          type: string
+          title: IFSC code
+          pattern: ^[A-Z0-9]+$
+        swift:
+          type: string
+          title: SWIFT code
+        bankDocument:
+          type: string
+          title: Upload document proof of the account
+  required:
+    - bankDetails
+uiHints: file:~/specs/jsonschemas/src/forms/ui/farmer_bankdetails.yaml

@@ -1,0 +1,25 @@
+form:
+  uiSchema:
+    comments:
+      'ui:widget': textarea
+    'ui:order':
+      - evaluationType
+      - otherType
+      - farmerName
+      - farmerId
+      - crop
+      - variety
+      - area
+      - spacing
+      - averageYield
+      - totalYieldPerAcre
+      - totalYield
+      - description
+      - evaluationDate
+      - evaluator
+      - outcome
+      - comments
+      - attachments
+      - '*'
+    attachments:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

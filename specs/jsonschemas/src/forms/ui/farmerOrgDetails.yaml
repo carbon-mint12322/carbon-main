@@ -1,0 +1,21 @@
+form:
+  uiSchema:
+    'ui:order':
+      - operatorDetails
+      - '*'
+    operatorDetails:
+      identityDocument:
+        'ui:widget': 'file'
+      'ui:order':
+        - farmerID
+        - joiningDate
+        - identityDocument
+        - subgroup
+        - '*'
+      subgroup:
+        'ui:field': ReferenceField
+        ui:placeholder: Select a farmer subgroup
+        foreignSchemaId: '/collective'
+        foreignLabelWidget: NameLabelWidget
+        'ui:options':
+          filterKey: subgroup

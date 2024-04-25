@@ -1,0 +1,14 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - dateOfBirth
+      - gender
+      - weight
+      - damsIdentificationNumber
+      - siresIdentificationNumber
+      - birthComplications
+      - totalExpenditure
+      - otherRemarks
+      - '*'

@@ -1,0 +1,20 @@
+jsonschema:
+  properties:
+    personalDetails:
+      $ref: '#/definitions/Person'
+      title: 'Basic details'
+    gender:
+      title: Gender
+      type: string
+      enum:
+        - Male
+        - Female
+        - Others
+      default: Male
+    dob:
+      title: Date of birth
+      type: string
+      format: date
+  required:
+    - personalDetails
+uiHints: file:~/specs/jsonschemas/src/forms/ui/farmerPersonalDetails.yaml

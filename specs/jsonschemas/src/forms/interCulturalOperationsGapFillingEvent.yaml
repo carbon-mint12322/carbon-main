@@ -1,0 +1,33 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Inter Cultural Operations GAP Filling Event'
+  properties:
+    gapFillingDate:
+      title: Date of gap filling
+      type: string
+      format: date
+    gapFillingMethod:
+      title: Gap filling method
+      type: string
+      enum:
+        - Thinned seeding
+        - Raised bed nursery / Other nursery
+        - Grow bag nursery
+        - Fresh seeds
+      default: Thinned seeding
+    expensesMet:
+      title: Expenses met
+      type: number
+      minimum: 0
+    recommondedBy:
+      title: Recommended by
+      type: string
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/interCulturalOperationsGapFillingEvent.yaml

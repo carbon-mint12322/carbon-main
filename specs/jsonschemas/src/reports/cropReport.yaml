@@ -1,0 +1,103 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      enum:
+        - Cotton
+        - Black Gram
+        - Ashwagandha
+        - Onion
+        - Lemongrass
+        - Potato
+        - Finger Millet
+      default: Cotton
+      title: Crop Name
+    areaInAcres:
+      type: number
+      title: Area (in acres)
+    cropTag:
+      type: string
+      title: Crop Tag Name
+    plannedSowingDate:
+      type: string
+      format: date
+      title: Planned plantation date
+    actualSowingDate:
+      type: string
+      format: date
+      title: Actual plantation date
+    estHarvestDate:
+      type: string
+      format: date
+      title: Estimated harvest date
+    actualHarvestDate:
+      type: string
+      format: date
+      title: Actual harvest date
+    estimatedYieldTonnes:
+      type: number
+      title: Estimated yield (tonnes)
+      minimum: 0
+    actualYieldTonnes:
+      type: number
+      title: Actual yield (tonnes)
+    category:
+      type: string
+      enum:
+        - Main
+        - Inter
+        - Inter 2
+        - Border
+        - Cover
+      default: Main
+      title: Cropping System Category
+    season:
+      type: string
+      title: Season
+    cropType:
+      type: string
+      title: Crop sub type
+    seedVariety:
+      type: string
+      title: Seed variety
+    seedSource:
+      type: string
+      title: Seed source
+      pattern: '^[a-zA-Z][a-zA-Z0-9\s]*$'
+    costOfCultivation:
+      type: number
+      title: Cost of cultivation (rupees)
+    climateScore:
+      type: number
+      title: Climate score (%)
+      minimum: 0
+      maximum: 100
+    complianceScore:
+      type: number
+      title: Compilance score (%)
+      minimum: 0
+      maximum: 100
+    landParcel:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Land parcel name
+    farmer:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Farmer Name
+        farmerID:
+          type: string
+          title: Farmer ID
+    collective:
+      type: string
+      title: Operator Name
+    active:
+      type: string
+      title: Status
+    createdAt:
+      type: string
+      title: Created At

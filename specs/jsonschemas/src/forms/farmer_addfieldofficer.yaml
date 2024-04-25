@@ -1,0 +1,12 @@
+jsonschema:
+  properties:
+    fieldOfficer:
+      type: array
+      items:
+        $ref: '#/definitions/UserRecordId'
+      title: Field Officers
+      foreignNameField: 'name'
+
+  required:
+    - fieldOfficer
+uiHints: file:~/specs/jsonschemas/src/forms/ui/farmer_addfieldofficer.yaml

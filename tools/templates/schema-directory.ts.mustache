@@ -1,0 +1,43 @@
+import mapValues from 'lodash/mapValues';
+
+const schemaTable: Record<string, () => Promise<any>> = {
+{{#schemaList}}
+    "{{{modelName}}}": () => import("~/gen/jsonschemas/{{modelName}}.json"),
+{{/schemaList}}
+}
+
+export default async function getSchema(schemaId:string): Promise<any> {
+  const modelName = schemaId.split('/').pop();
+  if (!modelName) {
+    throw new Error(`schemaId ${schemaId} is invalid`);
+  }
+  const loader = schemaTable[modelName];
+  return loader();
+}
+
+export async function getReffreeSchema(modelName:string): Promise<any> {
+    const loader = schemaTable[modelName];
+    const schema = loader();
+    return normalizeRefs(schema);
+}
+
+export async function normalizeRefs(schema: any) {
+  const props = schema.properties;
+  const defs = await getSchema('definitions');
+  const newProps = mapValues(props, (prop: any) => {
+    if (prop.$ref) {
+      const ref = prop.$ref;
+      const refSchema = defs[ref];
+      return refSchema;
+    }
+    return prop;
+  });
+  return {
+    ...schema,
+    properties: newProps,
+  };
+}
+
+export function getSchemaList(): string[] {
+  return Object.keys(schemaTable);
+}

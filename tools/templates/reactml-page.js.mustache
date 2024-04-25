@@ -1,0 +1,23 @@
+import React from "react";
+import Head from "next/head"
+
+{{{importsBlock}}}
+
+import { AppConfigContext } from "~/contexts/AppConfigContext";
+import { useGlobalStateCtx } from "~/contexts/GlobalStateCtx";
+
+// Shortcut for react fragment
+const Fragment = React.Fragment;
+const PlainText = ({text}) => text;
+
+function {{{name}}}(props) {
+  const pageCtx = React.useContext(AppConfigContext);
+	{{{useContextsBlock}}}
+	{{{useStatesBlock}}}
+  return (
+{{{jsxBlock}}}
+  );
+}
+
+export default {{{name}}};
+

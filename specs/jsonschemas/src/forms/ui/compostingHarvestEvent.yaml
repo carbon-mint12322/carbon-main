@@ -1,0 +1,21 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - compostingUnit
+      - quantity
+      - method
+      - qualityMethod
+      - evidence
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml
+    compostingUnit:
+      'ui:field': ReferenceField
+      ui:placeholder: Select a composting unit
+      foreignSchemaId: '/landparcel'
+      foreignLabelWidget: NameLabelWidget
+    evidence:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

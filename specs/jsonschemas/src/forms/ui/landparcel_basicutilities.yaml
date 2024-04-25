@@ -1,0 +1,17 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    basicUtilities:
+      waterSources:
+        items:
+          photoEvidence:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          location:
+            'ui:field': MapLocationField
+      powerSources:
+        items:
+          photoEvidence:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          location:
+            'ui:field': MapLocationField

@@ -1,0 +1,13 @@
+const Mustache = require('mustache');
+const mRender = Mustache.render;
+
+type Context = {
+  props:any;
+}
+
+const defaultSubBtnTitle = "";
+
+const renderSubBtnTitle = (ctx: Context, template?:string) =>
+  mRender(template||defaultSubBtnTitle, ctx);
+
+export default renderSubBtnTitle;

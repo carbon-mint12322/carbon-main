@@ -1,0 +1,20 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - surveyNumber
+      - areaInAcres
+      - passbookNumber
+      - landOwnershipDocument
+      - landGovtMap
+      - landSupportDocument
+      - address
+      - adjacentLands
+      - distanceFromServiceRoad
+      - '*'
+    landOwnershipDocument:
+      'ui:widget': 'file'
+    landGovtMap:
+      'ui:widget': 'file'
+    landSupportDocument:
+      'ui:widget': 'file'

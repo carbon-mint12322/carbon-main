@@ -1,0 +1,28 @@
+jsonschema:
+  type: object
+  title: 'Edit field'
+  properties:
+    name:
+      title: Name
+      type: string
+    areaInAcres:
+      title: Area (acres)
+      type: number
+    fieldType:
+      title: Field type
+      enum:
+        - Open Field
+        - Nursery
+        - Poly House
+        - Netted House
+        - Enclosed house
+        - Fence Buffer
+        - Allied Activity Unit
+        - Processing Unit
+      default: Open Field
+      type: string
+    map:
+      title: Field map
+      type: string
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_editfield.yaml

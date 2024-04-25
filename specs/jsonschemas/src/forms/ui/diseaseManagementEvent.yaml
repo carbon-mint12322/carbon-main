@@ -1,0 +1,365 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    diseasesObserved:
+      'ui:widget': checkboxes
+    'ui:order':
+      - diseasesObserved
+      - otherDiseasesObserved
+      - diseaseManagementMethods
+      - recommondedBy
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    diseaseManagementMethods:
+      'ui:order':
+        - managementMeasuresFollowed
+        - biologicalControlManagementMeasuresFollowed
+        - organicPreparationsManagementMeasuresFollowed
+        - chemicalControlManagementMeasuresFollowed
+        - '*'
+      chemicalControlManagementMeasuresFollowed:
+        'ui:order':
+          - copperOxychloride
+          - copperOxychlorideApplicationData
+          - carbendazim
+          - carbendazimApplicationData
+          - thiram
+          - thiramApplicationData
+          - mancozeb
+          - mancozebApplicationData
+          - carbendazimMancozeb
+          - carbendazimMancozebApplicationData
+          - carboxin
+          - carboxinApplicationData
+          - metalaxylMancozeb
+          - metalaxylMancozebApplicationData
+          - metalaxyl
+          - metalaxylApplicationData
+          - wettableSulphur
+          - wettableSulphurApplicationData
+          - captan
+          - captanApplicationData
+          - bordeauxMixture
+          - bordeauxMixtureApplicationData
+          - dithaneM45
+          - dithaneM45ApplicationData
+          - methylDematon
+          - methylDematonApplicationData
+          - otherChemicalAgent
+          - otherChemicalAgentApplied
+          - otherChemicalAgentApplicationData
+          - '*'
+        copperOxychlorideApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        carbendazimApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        thiramApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        mancozebApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        carbendazimMancozebApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        carboxinApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        metalaxylMancozebApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        metalaxylApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        wettableSulphurApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        captanApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        bordeauxMixtureApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        dithaneM45ApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        methylDematonApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        otherChemicalAgentApplicationData:
+          'ui:order':
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      organicPreparationsManagementMeasuresFollowed:
+        'ui:order':
+          - asafoetida
+          - asafoetidaApplicationData
+          - butterMilk
+          - butterMilkApplicationData
+          - horseComposeExtract
+          - horseComposeExtractApplicationData
+          - spentMushroomCompostExtract
+          - spentMushroomCompostExtractApplicationData
+          - otherOrganicPreparation
+          - otherOrganicPreparationApplied
+          - otherOrganicPreparationApplicationData
+          - '*'
+        asafoetidaApplicationData:
+          'ui:order':
+            - sourceOfInput
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        butterMilkApplicationData:
+          'ui:order':
+            - sourceOfInput
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        horseComposeExtractApplicationData:
+          'ui:order':
+            - sourceOfInput
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        spentMushroomCompostExtractApplicationData:
+          'ui:order':
+            - sourceOfInput
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        otherOrganicPreparationApplicationData:
+          'ui:order':
+            - sourceOfInput
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - productFormulation
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+          productFormulation:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      biologicalControlManagementMeasuresFollowed:
+        'ui:order':
+          - trichoderma
+          - trichodermaApplicationData
+          - pseudomonas
+          - pseudomonasApplicationData
+          - bacillusSubtilis
+          - bacillusSubtilisApplicationData
+          - ampelomycesQuisqualis
+          - ampelomycesQuisqualisApplicationData
+          - otherBiologicalControlAgent
+          - otherBiologicalControlAgentApplied
+          - othersApplicationData
+          - '*'
+        trichodermaApplicationData:
+          'ui:order':
+            - sourceOfBiologicalAgent
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        pseudomonasApplicationData:
+          'ui:order':
+            - sourceOfBiologicalAgent
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        bacillusSubtilisApplicationData:
+          'ui:order':
+            - sourceOfBiologicalAgent
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        ampelomycesQuisqualisApplicationData:
+          'ui:order':
+            - sourceOfBiologicalAgent
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+        othersApplicationData:
+          'ui:order':
+            - sourceOfBiologicalAgent
+            - inputPurchaseReceipt
+            - dosageApplied
+            - applicationMethod
+            - otherApplicationMethod
+            - '*'
+          inputPurchaseReceipt:
+            'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

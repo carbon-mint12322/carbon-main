@@ -1,0 +1,40 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Group name
+    description:
+      title: Description
+      type: string
+    groupType:
+      title: Group type
+      type: string
+    groupLeader:
+      title: Group leader
+      type: string
+    groupContact:
+      title: Group contact number
+      type: string
+    status:
+      title: Status
+      type: string
+      enum:
+        - Active
+        - Inactive
+        - Pending
+      default: Active
+    creationDate:
+      title: Creation date
+      type: string
+      format: date
+    attachments:
+      type: array
+      title: Attachements
+      items:
+        type: string
+  required:
+    - name
+    - description
+    - creationDate
+
+uiHints: file:~/specs/jsonschemas/src/domain/ui/collectivegroup.yaml

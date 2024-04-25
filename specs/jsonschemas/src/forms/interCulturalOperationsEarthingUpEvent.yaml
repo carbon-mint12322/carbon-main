@@ -1,0 +1,56 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Inter Cultural Operations Earthing Up Event'
+  properties:
+    earthingUp:
+      type: object
+      title: 'Intercultural operations - earthing up'
+    earthingUpDoneAfter:
+      title: Earthing up done after
+      type: string
+      enum:
+        - Ploughing
+        - Hoeing
+      default: Ploughing
+    expensesMet:
+      title: Expenses met
+      type: number
+      minimum: 0
+    recommondedBy:
+      title: Recommended by
+      type: string
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          earthingUpDoneAfter:
+            const: Ploughing
+      then:
+        properties:
+          ploughingTools:
+            type: string
+            title: Ploughing tools
+            enum:
+              - Country plough
+              - Cultivator
+              - Weeder
+              - Others
+            default: Country plough
+        if:
+          properties:
+            ploughingTools:
+              const: Others
+        then:
+          properties:
+            otherPloughingTools:
+              type: string
+              title: Other ploughing tools
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/interCulturalOperationsEarthingUpEvent.yaml

@@ -1,0 +1,41 @@
+lifecycle:
+  inputValidator: ~/workflows/farmbook/functions/schemaValidator
+  createSteps:
+    - ~/workflows/farmbook/functions/createAquaCropEvent
+    - ~/workflows/farmbook/functions/updateAquaCropCostOfCultivation
+    - ~/workflows/farmbook/functions/updateWorkflowId
+    - ~/workflows/lifecycle/functions/updateLifecycleWorkflowId
+    - ~/workflows/common/functions/setEditableStatus
+  createRoles: ['AGENT', 'ADMIN']
+  updateSteps:
+    - ~/workflows/farmbook/functions/updateCropEvent
+    - ~/workflows/farmbook/functions/updateAquaCropCostOfCultivation
+  updateRoles: ['AGENT', 'ADMIN']
+  deleteSteps:
+    - ~/workflows/farmbook/functions/deleteCropEvent
+    - ~/workflows/farmbook/functions/updateAquaCropCostOfCultivation
+  deleteRoles: ['AGENT', 'ADMIN']
+  migrateSteps:
+    - ~/workflows/farmbook/functions/updateWorkflowId
+    - ~/workflows/lifecycle/functions/updateLifecycleWorkflowId
+    - ~/workflows/common/functions/setEditableStatus
+  migrateRoles: ['ADMIN']
+  validationWorkflow: true
+  userSubmitSteps:
+    - ~/workflows/common/functions/always
+  reviewRoles: ['REVIEWER', 'ADMIN']
+  reviewPassSchemaName: add_notes
+  reviewPassSteps:
+    - ~/workflows/common/functions/always
+  reviewFailSchemaName: add_notes
+  reviewFailSteps:
+    - ~/workflows/common/functions/always
+  validateRoles: ['VALIDATOR', 'ADMIN']
+  validatePassSchemaName: add_notes
+  validatePassSteps:
+    - ~/workflows/common/functions/always
+  validateFailSchemaName: add_notes
+  validateFailSteps:
+    - ~/workflows/common/functions/always
+  createVersionSteps:
+    - ~/workflows/common/functions/always

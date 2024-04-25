@@ -1,0 +1,168 @@
+version: '3.7'
+services:
+  mongo-carbon:
+    image: mongo
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - '27017:27017'
+
+  farmbook:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - '../ml2:/usr/src/app'
+    ports:
+      - '${FARMBOOK_PORT:-3000}:${FARMBOOK_PORT:-3000}'
+    links:
+      - mongo-carbon
+    command: >
+      /bin/bash -c "
+        yarn codegen;
+        yarn dev;
+      "
+    environment:
+      DDC_BUCKET: '32'
+      APP_NAME: 'farmbook'
+      NEXT_PUBLIC_APP_NAME: farmbook
+      DDC_GATEWAY: 'https://node-0.v2.us.cdn.testnet.cere.network'
+      DDC_PRIV_KEY: '0x11e735f3143a667da6a1b92eaf2ca082500fa081853505d2405c53cacfb8d5f0'
+      OPENAI_API_KEY: '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'
+      DATABASE_URL: 'mongodb://mongo-carbon:27017/farmbookstg'
+      LOG_LEVEL: 'debug'
+      TENANT_NAME: reactml-dev
+      NEXT_PRIV_FIREBASE_X509_URL: 'https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-vqsli%40carbon-mint-app.iam.gserviceaccount.com'
+      NEXT_PRIV_FIREBASE_AUTH_PROV_CERT_URL: 'https://www.googleapis.com/oauth2/v1/certs'
+      NEXT_PRIV_FIREBASE_TOKEN_URI: 'https://oauth2.googleapis.com/token'
+      NEXT_PRIV_FIREBASE_AUTH_URI: 'https://accounts.google.com/o/oauth2/auth'
+      NEXT_PRIV_FIREBASE_CLIENT_ID: '118332859933393506515'
+      NEXT_PRIV_FIREBASE_CLIENT_EMAIL: 'firebase-adminsdk-vqsli@carbon-mint-app.iam.gserviceaccount.com'
+      NEXT_PRIV_FIREBASE_PRIVATE_KEY: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDKXhlqWUkB9KKx\nxUUY72JXS2LQsy0pUaoxPjoAOgo7n+CDslQCwKCAasO550Vi+zY7rCbjGo5XdBTx\nL6Ztmhbz5s4fTiAeWoLzeyNnCi8VCGm4T6ok0NQIRH+zn1wJf8U0qG4PsNVpsMv+\nn3nw6OuGPa/z5zhwqetaFJyH0hjAGRkXhIY59onSXMKcMpwotaZSfoO9i+UmBUxv\nJ/PlIdlF/EcSQk1NRCc4D21zgi09XgAEX/ghIvD6YpRgonCkWo7YdjpIZQiqtQeM\nMN8JdITDpB55dp8SycDyfYAg8n3QG6twjK/e10X1z4wCj5pti1mL1Se2j5BuIn6g\nQmUlDXURAgMBAAECggEAHiqn3EAiD34R0LFJCx4ISV4OBXFoTowDdGLDz6vXQask\nE02+k0h2xJ3lvm043Tf4ji2sAFfBl0zRIGELjLQXLtWdrXH+fLfeZIBbNy1/9kEy\nTUzm3qUYroDTjom3dR0MXzyqZ4FjVuWJi1PnoB+AmJrSg2fY9IaH9H41FVQe52ey\nd9WMicD7ZXqzo0SSyb+f9QhkqAL/eqp7w7ZpVxTDKaksHL1fjWEtxoDdcEx/nsFs\nS+sP/T4m8tkqxQ/fPaTyDfiBWnF4d3UEiwiuimL47jWP0Btw4oXTaOsaLh6FOavW\n5bVP+sGDFgpuo2+RwAuJxfS1xKDrxep//5GlvluH1wKBgQDtZlHW+i0Jzd4EBBqb\nDtp0gDUXgQ3Qi8q57GMp5NcuzYuuRgpG3aM+USumcyZQERU9M5ks86NJM4rNLis/\nRHw+RpCZ0/ZpaSfkXTHoBikZzcCpTmg/3E0JjdlfG4+sh5tetWOtuSlSWiB/RSlY\nWjB7ceaIRUBzkfXvS/TdhKTA3wKBgQDaOR4hgPgS4P/L0JjfxjBq8Si3GocvxY7f\nVffmCiRFSSVbpyqxWFO/fqw59D27QiMhdJg0k0jOLb4zLYW9wxJnL6gXXrNU01MY\ndvxNoN89SDwa8YFoX0FM8jHggEBWTYR9llMxIRFcUWUcSEMZvqE+Qc1MbrxwO3vl\nDcwS5pbYDwKBgHXNpWThRkIsNzSU+MLjDwJqsG3Wa42GIPY72EVsul8OPncfaHAc\nAaqlytxRHbzzjS+OkD8fM3LasdD5TRqbGHAqwgyjgw5x0QrgOCikDfcxA57AOrkd\nz9ii3C/21EfQDwhjSHBnhprIAIJHRqoCLzbCoZwTiVUQJBM4BO17qenPAoGBAJLv\norosfN05YwN5kXYbnL5lY2TnF9+yxmDbIfBjI8kDV4Q/Kx/+uWVXhd//9REBl2YP\ne+zqvzsU0dzj6gm8L8gK7sPNoDKdmHYAqCIdEDPTT6VUuC3u9ak56xufP7LcvzlQ\n3vNVsLrYk5xXi9bp5OhmpjWw2nE3nFS+1YpkeW1BAoGAMRCYDGvG3iffAuHp2yDG\nwoGHrMfI4LSpz252qr/O735gdkoyUzYBpL1bsrtkBpNGUoWUlW9YGWuifnzJREVr\nDCrkm7/AImitiBz3YOp77hXjmYh4AW71lM0DI8ic4gZ1mDap0Fnll5zDoFN+EXwE\nAaKaTMwdD29bYTqjfLy6PQQ:\n-----END PRIVATE KEY-----\n"
+      NEXT_PRIV_FIREBASE_PRIVATE_KEY_ID: 'd243bdf277943d9705890cad863700f9d740cef7'
+      NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: 'G-EY47BVD1MG'
+      NEXT_PUBLIC_FIREBASE_APP_ID: '1:957981352555:web:a51be1eeaf92320806872e'
+      NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: '957981352555'
+      NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: 'carbon-mint-app.appspot.com'
+      NEXT_PUBLIC_FIREBASE_PROJECT_ID: 'carbon-mint-app'
+      NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: 'carbon-mint-app.firebaseapp.com'
+      NEXT_PUBLIC_FIREBASE_API_KEY: 'AIzaSyCoIXNo-EN01spUc7qL0cZNq9PyMnpyGDo'
+      BASE_URL: http://localhost:3000
+      GOOGLE_MAPS_KEY: 'AIzaSyDLXNnFU8g68zfD6atZUz83wMmFrknfncg'
+      NEXT_PUBLIC_GOOGLE_MAPS_KEY: 'AIzaSyDLXNnFU8g68zfD6atZUz83wMmFrknfncg'
+      ISSUER_PRIV_KEY: 'b9e9f4740b5c99e4a4b3cc92f24329a03acdcbd4012b1b4b2f5ba79144ee2183'
+      APP_WALLET_PRIV_KEY: 'b9e9f4740b5c99e4a4b3cc92f24329a03acdcbd4012b1b4b2f5ba79144ee2183'
+      CEETOKEN_CONTRACT_ADDRESS: '0x10D6F106eb28e9cD666cC1930C37B2a659FA32CF'
+      RECORD_CONTRACT_ADDRESS: '0xf467e74c8e026F2A1a397eC66B42b0f35dFB4916'
+      BLOCKCHAIN_URL: 'https://polygon-mumbai.g.alchemy.com/v2/OcIRYIOaALmuepVj7JMx2wjmvIUCFRFH'
+      BLOCKCHAIN_NAME: mumbai
+      GOERLI_CEETOKEN_CONTRACT_ADDRESS: '0xDE6Ca053a126d9bE5827889d582C0242Cd001874'
+      GOERLI_RECORD_CONTRACT_ADDRESS: '0xc3227E4b688513Fd19a17807d1cC1F4770FaFF8a'
+      GOERLI_BLOCKCHAIN_URL: 'https://eth-goerli.alchemyapi.io/v2/OcIRYIOaALmuepVj7JMx2wjmvIUCFRFH'
+      GOERLI_BLOCKCHAIN_NAME: goerli
+      GOOGLE_CLIENT_ID: 328086530933-m6gjf0p1ldsdu7a91cfhsk3ciighnq72.apps.googleusercontent.com
+      GOOGLE_CLIENT_SECRET: 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
+      COOKIE_SECRET: ef1234123456795679abcd
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: ef1234123456795679abcd
+      S3_ACCESS_KEY: AKIA53MHW476GOZ3BTVT
+      AWS_ACCESS_KEY_ID: AKIA53MHW476GOZ3BTVT
+      AWS_SECRET_ACCESS_KEY: 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
+      S3_SECRET_KEY: qgvIrsRAC9RvYRJ5jhwFrgU489k0OP1090g/Z18X
+      S3_PUBLIC_BUCKET_ID: evlocker2-dev-public3
+      S3_PRIVATE_BUCKET_ID: evlocker2-test
+      S3_QR_BUCKET_ID: evlocker2-dev-public3
+      AWS_REGION: ap-south-1
+      SERVER_URL: http://localhost:3000
+      GITHUB_AUTH_TOKEN: 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
+
+  dev-poultry:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - './:/usr/src/app'
+    ports:
+      - '${POULTRY_PORT:-3001}:${POULTRY_PORT:-3001}'
+    links:
+      - mongo-carbon
+    command: >
+      /bin/bash -c "
+        yarn codegen;
+        yarn dev;
+      "
+    environment:
+      PORT: '${POULTRY_PORT:-3001}'
+      APP_NAME: 'poultrybook'
+      TENANT_NAME: 'organova'
+      DATBASEURL: 'mongodb:/mukhya?retryWrites=true&w=majority'
+
+  licious-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - '../ml2:/usr/src/app'
+    ports:
+      - '${LICIOUS_PROD:-3000}:${LICIOUS_PROD:-3000}'
+    command: >
+      /bin/bash -c "
+        yarn codegen;
+        yarn dev;
+      "
+    environment:
+      DDC_BUCKET: '32'
+      APP_NAME: 'poultrybook'
+      NEXT_PUBLIC_APP_NAME: poultrybook
+      DDC_GATEWAY: 'https://node-0.v2.us.cdn.testnet.cere.network'
+      DDC_PRIV_KEY: '0x11e735f3143a667da6a1b92eaf2ca082500fa081853505d2405c53cacfb8d5f0'
+      OPENAI_API_KEY: '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'
+      DATABASE_URL: 'mongodb+srv://carbonmint:ry0kPe34Iyqj@carbonmint-india1.ryg4od9.mongodb.net/mukhya?retryWrites=true&w=majority'
+      LOG_LEVEL: 'debug'
+      TENANT_NAME: licious
+      NEXT_PRIV_FIREBASE_X509_URL: 'https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-vqsli%40carbon-mint-app.iam.gserviceaccount.com'
+      NEXT_PRIV_FIREBASE_AUTH_PROV_CERT_URL: 'https://www.googleapis.com/oauth2/v1/certs'
+      NEXT_PRIV_FIREBASE_TOKEN_URI: 'https://oauth2.googleapis.com/token'
+      NEXT_PRIV_FIREBASE_AUTH_URI: 'https://accounts.google.com/o/oauth2/auth'
+      NEXT_PRIV_FIREBASE_CLIENT_ID: '118332859933393506515'
+      NEXT_PRIV_FIREBASE_CLIENT_EMAIL: 'firebase-adminsdk-vqsli@carbon-mint-app.iam.gserviceaccount.com'
+      NEXT_PRIV_FIREBASE_PRIVATE_KEY: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDKXhlqWUkB9KKx\nxUUY72JXS2LQsy0pUaoxPjoAOgo7n+CDslQCwKCAasO550Vi+zY7rCbjGo5XdBTx\nL6Ztmhbz5s4fTiAeWoLzeyNnCi8VCGm4T6ok0NQIRH+zn1wJf8U0qG4PsNVpsMv+\nn3nw6OuGPa/z5zhwqetaFJyH0hjAGRkXhIY59onSXMKcMpwotaZSfoO9i+UmBUxv\nJ/PlIdlF/EcSQk1NRCc4D21zgi09XgAEX/ghIvD6YpRgonCkWo7YdjpIZQiqtQeM\nMN8JdITDpB55dp8SycDyfYAg8n3QG6twjK/e10X1z4wCj5pti1mL1Se2j5BuIn6g\nQmUlDXURAgMBAAECggEAHiqn3EAiD34R0LFJCx4ISV4OBXFoTowDdGLDz6vXQask\nE02+k0h2xJ3lvm043Tf4ji2sAFfBl0zRIGELjLQXLtWdrXH+fLfeZIBbNy1/9kEy\nTUzm3qUYroDTjom3dR0MXzyqZ4FjVuWJi1PnoB+AmJrSg2fY9IaH9H41FVQe52ey\nd9WMicD7ZXqzo0SSyb+f9QhkqAL/eqp7w7ZpVxTDKaksHL1fjWEtxoDdcEx/nsFs\nS+sP/T4m8tkqxQ/fPaTyDfiBWnF4d3UEiwiuimL47jWP0Btw4oXTaOsaLh6FOavW\n5bVP+sGDFgpuo2+RwAuJxfS1xKDrxep//5GlvluH1wKBgQDtZlHW+i0Jzd4EBBqb\nDtp0gDUXgQ3Qi8q57GMp5NcuzYuuRgpG3aM+USumcyZQERU9M5ks86NJM4rNLis/\nRHw+RpCZ0/ZpaSfkXTHoBikZzcCpTmg/3E0JjdlfG4+sh5tetWOtuSlSWiB/RSlY\nWjB7ceaIRUBzkfXvS/TdhKTA3wKBgQDaOR4hgPgS4P/L0JjfxjBq8Si3GocvxY7f\nVffmCiRFSSVbpyqxWFO/fqw59D27QiMhdJg0k0jOLb4zLYW9wxJnL6gXXrNU01MY\ndvxNoN89SDwa8YFoX0FM8jHggEBWTYR9llMxIRFcUWUcSEMZvqE+Qc1MbrxwO3vl\nDcwS5pbYDwKBgHXNpWThRkIsNzSU+MLjDwJqsG3Wa42GIPY72EVsul8OPncfaHAc\nAaqlytxRHbzzjS+OkD8fM3LasdD5TRqbGHAqwgyjgw5x0QrgOCikDfcxA57AOrkd\nz9ii3C/21EfQDwhjSHBnhprIAIJHRqoCLzbCoZwTiVUQJBM4BO17qenPAoGBAJLv\norosfN05YwN5kXYbnL5lY2TnF9+yxmDbIfBjI8kDV4Q/Kx/+uWVXhd//9REBl2YP\ne+zqvzsU0dzj6gm8L8gK7sPNoDKdmHYAqCIdEDPTT6VUuC3u9ak56xufP7LcvzlQ\n3vNVsLrYk5xXi9bp5OhmpjWw2nE3nFS+1YpkeW1BAoGAMRCYDGvG3iffAuHp2yDG\nwoGHrMfI4LSpz252qr/O735gdkoyUzYBpL1bsrtkBpNGUoWUlW9YGWuifnzJREVr\nDCrkm7/AImitiBz3YOp77hXjmYh4AW71lM0DI8ic4gZ1mDap0Fnll5zDoFN+EXwE\nAaKaTMwdD29bYTqjfLy6PQQ:\n-----END PRIVATE KEY-----\n"
+      NEXT_PRIV_FIREBASE_PRIVATE_KEY_ID: 'd243bdf277943d9705890cad863700f9d740cef7'
+      NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: 'G-EY47BVD1MG'
+      NEXT_PUBLIC_FIREBASE_APP_ID: '1:957981352555:web:a51be1eeaf92320806872e'
+      NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: '957981352555'
+      NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: 'carbon-mint-app.appspot.com'
+      NEXT_PUBLIC_FIREBASE_PROJECT_ID: 'carbon-mint-app'
+      NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: 'carbon-mint-app.firebaseapp.com'
+      NEXT_PUBLIC_FIREBASE_API_KEY: 'AIzaSyCoIXNo-EN01spUc7qL0cZNq9PyMnpyGDo'
+      BASE_URL: http://localhost:3000
+      GOOGLE_MAPS_KEY: 'AIzaSyDLXNnFU8g68zfD6atZUz83wMmFrknfncg'
+      NEXT_PUBLIC_GOOGLE_MAPS_KEY: 'AIzaSyDLXNnFU8g68zfD6atZUz83wMmFrknfncg'
+      ISSUER_PRIV_KEY: 'b9e9f4740b5c99e4a4b3cc92f24329a03acdcbd4012b1b4b2f5ba79144ee2183'
+      APP_WALLET_PRIV_KEY: 'b9e9f4740b5c99e4a4b3cc92f24329a03acdcbd4012b1b4b2f5ba79144ee2183'
+      CEETOKEN_CONTRACT_ADDRESS: '0x10D6F106eb28e9cD666cC1930C37B2a659FA32CF'
+      RECORD_CONTRACT_ADDRESS: '0xf467e74c8e026F2A1a397eC66B42b0f35dFB4916'
+      BLOCKCHAIN_URL: 'https://polygon-mumbai.g.alchemy.com/v2/OcIRYIOaALmuepVj7JMx2wjmvIUCFRFH'
+      BLOCKCHAIN_NAME: mumbai
+      GOERLI_CEETOKEN_CONTRACT_ADDRESS: '0xDE6Ca053a126d9bE5827889d582C0242Cd001874'
+      GOERLI_RECORD_CONTRACT_ADDRESS: '0xc3227E4b688513Fd19a17807d1cC1F4770FaFF8a'
+      GOERLI_BLOCKCHAIN_URL: 'https://eth-goerli.alchemyapi.io/v2/OcIRYIOaALmuepVj7JMx2wjmvIUCFRFH'
+      GOERLI_BLOCKCHAIN_NAME: goerli
+      GOOGLE_CLIENT_ID: 328086530933-m6gjf0p1ldsdu7a91cfhsk3ciighnq72.apps.googleusercontent.com
+      GOOGLE_CLIENT_SECRET: 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
+      COOKIE_SECRET: ef1234123456795679abcd
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: ef1234123456795679abcd
+      S3_ACCESS_KEY: AKIA53MHW476GOZ3BTVT
+      AWS_ACCESS_KEY_ID: AKIA53MHW476GOZ3BTVT
+      AWS_SECRET_ACCESS_KEY: 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
+      S3_SECRET_KEY: qgvIrsRAC9RvYRJ5jhwFrgU489k0OP1090g/Z18X
+      S3_PUBLIC_BUCKET_ID: evlocker2-dev-public3
+      S3_PRIVATE_BUCKET_ID: evlocker2-test
+      S3_QR_BUCKET_ID: evlocker2-dev-public3
+      AWS_REGION: ap-south-1
+      SERVER_URL: http://localhost:3000
+      GITHUB_AUTH_TOKEN: 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
+
+volumes:
+  mongodb_data:

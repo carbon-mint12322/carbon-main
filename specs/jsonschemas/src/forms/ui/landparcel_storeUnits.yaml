@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    storeUnits: file:~/specs/jsonschemas/src/common/ui/storeUnit.yaml

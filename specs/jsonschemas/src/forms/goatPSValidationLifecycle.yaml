@@ -1,0 +1,43 @@
+lifecycle:
+  inputValidator: ~/workflows/farmbook/functions/schemaValidator
+  createSteps:
+    - ~/workflows/farmbook/functions/createGoatProductionSystemEvent
+    - ~/workflows/farmbook/functions/updateWorkflowId
+    - ~/workflows/lifecycle/functions/updateLifecycleWorkflowId
+    - ~/workflows/common/functions/setEditableStatus
+  createRoles: ['AGENT', 'ADMIN']
+  updateSteps:
+    - ~/workflows/farmbook/functions/updateCropEvent
+  updateRoles: ['AGENT', 'ADMIN']
+  deleteSteps:
+    - ~/workflows/farmbook/functions/deleteCropEvent
+  deleteRoles: ['AGENT', 'ADMIN']
+  migrateSteps:
+    - ~/workflows/farmbook/functions/updateWorkflowId
+    - ~/workflows/lifecycle/functions/updateLifecycleWorkflowId
+    - ~/workflows/common/functions/setEditableStatus
+  migrateRoles: ['ADMIN']
+  validationWorkflow: true
+  userSubmitSteps:
+    - ~/workflows/common/functions/validation/setUnderReviewStatus
+    - ~/workflows/common/functions/validation/sendNotificationForReview
+  reviewRoles: ['REVIEWER', 'AGENT', 'ADMIN']
+  reviewPassSchemaName: add_notes
+  reviewPassSteps:
+    - ~/workflows/common/functions/validation/reviewPass
+  reviewFailSchemaName: add_notes
+  reviewFailSteps:
+    - ~/workflows/common/functions/validation/reviewFail
+    - ~/workflows/common/functions/validation/sendNotificationForRejection
+  validateRoles: ['VALIDATOR', 'AGENT', 'ADMIN']
+  validatePassSchemaName: add_notes
+  validatePassSteps:
+    - ~/workflows/common/functions/validation/validationPass
+    - ~/workflows/common/functions/validation/lockRecord
+  validateFailSchemaName: add_notes
+  validateFailSteps:
+    - ~/workflows/common/functions/validation/validationFail
+    - ~/workflows/common/functions/validation/sendNotificationForRejection
+  createVersionSteps:
+    - ~/workflows/common/functions/validation/bumpVersion
+    - ~/workflows/common/functions/setEditableStatus

@@ -1,0 +1,10 @@
+type: object
+properties:
+  name:
+    type: string
+  description:
+    type: string
+  # Import path is location of an async function to be executed
+  # This will ultimately result in a JS import statement
+  importPath:
+    type: string

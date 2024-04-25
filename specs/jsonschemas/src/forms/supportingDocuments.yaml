@@ -1,0 +1,34 @@
+jsonschema:
+  properties:
+    documents:
+      title: 'Documents'
+      type: array
+      items:
+        type: object
+        title: ''
+        properties:
+          documentType:
+            title: 'Document type'
+            type: string
+            enum:
+              - Report
+              - Survey
+              - Certificate
+              - Contract
+              - Agreement
+              - Supporting document
+              - Other
+            default: Report
+          documentDetails:
+            type: string
+            title: Document details
+          documentEvidence:
+            type: string
+            title: Upload document
+        required:
+          - documentType
+          - documentDetails
+          - documentEvidence
+      minItems: 0
+      uniqueItems: true
+uiHints: file:~/specs/jsonschemas/src/forms/ui/supportingDocuments.yaml

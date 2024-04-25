@@ -1,0 +1,5 @@
+jsonschema:
+  type: object
+  properties:
+    securityHouses: file:~/specs/jsonschemas/src/common/securityHouse.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_securityHouses.yaml

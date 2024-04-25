@@ -1,0 +1,25 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Poultry POP name
+    description:
+      type: string
+      title: Description
+    recommendedBy:
+      title: Recommended by
+      type: string
+    poultryPopType:
+      title: Poultry information
+      $ref: '#/definitions/PoultryPOPType'
+    controlPoints:
+      title: Control points
+      type: array
+      items:
+        $ref: '#/definitions/PoultryControlPoint'
+  required:
+    - name
+    - description
+    - poultryPopType
+    - controlPoints
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_poultrypop.yaml

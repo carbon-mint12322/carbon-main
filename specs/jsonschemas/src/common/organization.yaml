@@ -1,0 +1,28 @@
+type: object
+title: Organization Details
+properties:
+  name:
+    type: string
+    title: Organization name
+    description: 'Name of the organization'
+  address:
+    title: Address
+    $ref: '#/definitions/Address'
+  website:
+    type: string
+    title: Website
+  email:
+    type: string
+    title: Email
+  poc:
+    type: string
+    title: Contact person
+  phone:
+    type: string
+    title: Phone  
+required:
+  - name
+  - address
+  - phone
+  - poc
+

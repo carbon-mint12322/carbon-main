@@ -1,0 +1,25 @@
+name: croppingSystemIntegratedCropCareDiseaseManagementWorkflow
+startStateName: start
+description: Integrated CropCare Disease Management Event
+domainSchemaId: /farmbook/croppingsystem
+testScenariosFiles: []
+states:
+  - name: start
+    description: The Workflow starts in this state.
+    triggers:
+      - eventName: integratedCropCareDiseaseManagementEvent
+        description: Integrated CropCare Disease Management Event
+        roles: ['AGENT', 'ADMIN'] # No roles required, ie anyone can do this
+        inputSchemaName: diseaseManagementEvent
+        processingSteps:
+          - name: createCroppingSystemEvent
+            description: Create event object for cropping system
+            importPath: ../../../workflows/farmbook/functions/createCroppingSystemEvent
+        transitions:
+          - condition:
+              name: always
+              importPath: ../../../workflows/common/functions/always
+            state: end
+  - name: end
+    description: End state
+    isEndState: true

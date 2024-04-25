@@ -1,0 +1,22 @@
+form:
+  uiSchema:
+    "ui:order":
+      - name
+      - surveyNumber
+      - areaInAcres
+      - landOwner
+      - location
+      - address
+      - map
+      - adjacentLands
+      - "*"
+    location:
+      "ui:widget": GeoLocationWidget
+    waterSources:
+      "ui:widget": WaterSourceTableWidget
+    powerSources:
+      "ui:widget": PowerSourceTableWidget
+    facilities:
+      "ui:widget": FacilityTableWidget
+    alliedActivities:
+      "ui:widget": AlliedActivityTableWidget

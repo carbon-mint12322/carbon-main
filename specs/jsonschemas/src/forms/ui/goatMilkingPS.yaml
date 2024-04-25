@@ -1,0 +1,17 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - goats
+      - dateOfMilking
+      - quantity
+      - times
+      - otherRemarks
+      - '*'
+    goats:
+      'ui:field': ReferenceField
+      ui:placeholder: Select goats
+      foreignSchemaId: '/goat'
+      foreignNameField: 'tagId'
+      foreignLabelWidget: NameLabelWidget

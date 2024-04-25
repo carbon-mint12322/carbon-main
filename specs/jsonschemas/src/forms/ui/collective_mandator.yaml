@@ -1,0 +1,6 @@
+form:
+  uiSchema:
+    'ui:order':
+      - mandator
+      - '*'
+    mandator: file:~/specs/jsonschemas/src/common/ui/mandator.yaml

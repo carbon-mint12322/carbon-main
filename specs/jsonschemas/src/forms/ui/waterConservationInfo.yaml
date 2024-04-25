@@ -1,0 +1,11 @@
+form:
+  uiSchema:
+    methodsFollowed:
+      "ui:widget": checkboxes
+      "ui:options":
+        inline: true
+    "ui:order":
+      - methodsFollowed
+      - otherMethodsFollowed
+      - evidenceRequired
+      - "*"

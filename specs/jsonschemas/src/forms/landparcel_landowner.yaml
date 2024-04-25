@@ -1,0 +1,38 @@
+jsonschema:
+  properties:
+    landownerRef:
+      type: string
+      title: Landowner Reference
+      enum:
+        - 'Yes'
+        - 'No'
+      default: 'No'
+
+  allOf:
+    - if:
+        properties:
+          landownerRef:
+            const: 'No'          
+      then:
+        properties:
+          landOwner:
+            title: ''
+            $ref: '#/definitions/Person'
+        required:
+          - landOwner
+
+    - if:
+        properties:
+          landownerRef:
+            const: 'Yes'
+      then:
+        properties:
+          landowners:
+            type: array
+            items:
+              $ref: '#/definitions/LandownerId'
+            title: Landowners
+            foreignNameField: 'fbId'
+            minItems: 1
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_landowner.yaml

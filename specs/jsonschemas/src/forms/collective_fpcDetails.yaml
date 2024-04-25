@@ -1,0 +1,7 @@
+jsonschema:
+  properties:
+    fpcDetails:
+      type: object
+      title: FPC details
+      $ref: '#/definitions/FpoDetails'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/collective_fpcDetails.yaml

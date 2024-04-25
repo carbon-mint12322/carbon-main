@@ -1,0 +1,25 @@
+form:
+  uiSchema:
+    'ui:order':
+      - productionSystem
+      - name
+      - pondType
+      - arae
+      - depth
+      - shape
+      - waterSource
+      - infra
+      - aerationSystem
+      - feedingArea
+      - autoFeeders
+      - waterInlet
+      - waterOulet
+      - shadeStructures
+      - constructionDate
+      - additionalInfo
+      - '*'
+    productionSystem:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a production system
+      foreignSchemaId: '/productionsystem'
+      foreignLabelWidget: UserNameWidget

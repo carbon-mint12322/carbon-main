@@ -1,0 +1,31 @@
+jsonschema:
+  type: object
+  properties:
+    reportName:
+      type: string
+    reportType:
+      title: Report Type
+      type: string
+      enum:
+        - farmers
+        - landparcels
+        - crops
+        - solarDryerLoadEvent
+    dateRange:
+      title: Date Range
+      $ref: '#/definitions/DateRange'
+    customFields:
+      title: Custom fields
+      type: array
+      items:
+        type: string
+    documentStatus:
+      title: Document status
+      type: string
+      enum:
+        - active
+        - deactive
+        - both
+    collective:
+      title: collective
+      type: string

@@ -1,0 +1,21 @@
+form:
+  uiSchema:
+    pedigree:
+      'ui:widget': textarea
+    'ui:order':
+      - productionSystem
+      - age
+      - sheepSource
+      - breed
+      - gender
+      - tagId
+      - pedigree
+      - acquisitionDay
+    productionSystem:
+      'ui:widget': ReferenceSelectorWidget
+      ui:placeholder: Select a production system
+      foreignSchemaId: '/productionsystem'
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: productionSystem
+      foreignLabelWidget: NameLabelWidget

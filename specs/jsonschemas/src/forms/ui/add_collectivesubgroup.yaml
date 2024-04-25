@@ -1,0 +1,20 @@
+form:
+  uiSchema:
+    subGroups:
+      'ui:order':
+        - name
+        - description
+        - subGroupType
+        - subGroupLeader
+        - subGroupContact
+        - status
+        - creationDate
+        - attachments
+        - group
+      group:
+        'ui:field': ReferenceField
+        ui:placeholder: Select an operator group
+        foreignSchemaId: '/collective'
+        foreignLabelWidget: NameLabelWidget
+      attachments:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'

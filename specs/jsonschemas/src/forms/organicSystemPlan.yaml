@@ -1,0 +1,554 @@
+jsonschema:
+  type: object
+  title: Organic system plan
+  properties:
+    ospYear:
+      title: OSP Year
+      type: string
+      minimum: 2000
+      maximum: 3000
+
+    icsDetails:
+      title: 1. ICS Details
+      type: object
+      properties:
+        icsName:
+          title: a) Name of ICS
+          type: string
+        icsAddress:
+          title: b) Address of ICS
+          type: string
+        totalArea:
+          title: c) Total Area (in hectares)
+          type: number
+        noOfFarmers:
+          title: d) Total No. of Farmers
+          type: number
+        noOfFarmers4Has:
+          title: e) Number of farmers with area more than 4 Ha.
+          type: number
+        icsManager:
+          title: f) Name of ICS Manager
+          type: string
+        intent:
+          title: g) Grouping intent of the ICS
+          type: string
+        scope:
+          title: h) Scope
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+              - NPOP
+              - NOP
+              - IndGAP
+              - GlobalGAP
+              - FairTrade
+              - BAP
+              - ASC
+            default: NPOP
+          uniqueItems: true
+
+        operationStatus:
+          type: string
+          title: i) Status of operation
+          enum:
+            - Organic
+            - In-progress
+            - NA
+          default: Organic
+      allOf:
+        - if:
+            properties:
+              operationStatus:
+                const: In-progress
+          then:
+            properties:
+              conversionStatus:
+                title: Conversion Status
+                type: string
+                enum:
+                  - C1
+                  - C2
+                  - C3
+                  - NA
+                default: C1
+
+    seedDependencies:
+      title: 2. Seed Dependencies
+      type: object
+      properties:
+        onFarmPlantingStock:
+          type: boolean
+          title: On-farm Planting Stock
+        offFarmLocalSeeds:
+          type: boolean
+          title: off-farm Local Seeds
+        commertialHybrids:
+          type: boolean
+          title: Commercial Hybrids
+        icsSupplied:
+          type: boolean
+          title: ICS Supplied
+        gmo:
+          type: boolean
+          title: GMO
+
+    inputDependencies:
+      title: 3. Input Dependencies
+      type: object
+      properties:
+        onFarmInputs:
+          type: boolean
+          title: On-farm inputs
+        offFarmApprovedInputs:
+          type: boolean
+          title: Off-farm approved inputs
+        icsSupplied:
+          type: boolean
+          title: ICS Supplied
+        selectivePesticides:
+          type: boolean
+          title: Selective Pesticide for emergency
+        offFarmRestrictedInputs:
+          type: boolean
+          title: Off-farm restricted inputs
+        inputsUsed:
+          type: string
+          title: Inputs Used
+
+    bufferCrops:
+      type: object
+      title: 4. Buffer crops
+      properties:
+        bufferCropsExist:
+          type: string
+          title: Do the farms involve buffer crops?
+          enum:
+            - 'Yes'
+            - 'No'
+          default: 'Yes'
+        bufferCropsUsed:
+          title: Buffer crops Used
+          type: string
+        remarks:
+          type: string
+          title: Remarks
+    productionSystemOverview:
+      title: 5. Production System Overview for the scope
+      type: object
+      properties:
+        psoGrid:
+          type: array
+          items:
+            type: object
+            title: Plan
+            properties:
+              sNo:
+                type: number
+                title: 'S.No.'
+              crop:
+                type: string
+                title: Crop
+              variety:
+                title: Variety
+                type: string
+              season:
+                title: Season
+                type: string
+              cropType:
+                title: Crop Type (M/I/C/B)
+                type: string
+                enum:
+                  - M
+                  - I
+                  - C
+                  - B
+                default: M
+              cropArea:
+                title: Crop Area (Ha)
+                type: number
+              estQty:
+                title: Est. Quantity (MT)
+                type: number
+
+            required:
+              - sNo
+              - crop
+              - season
+              - cropArea
+              - estQty
+
+          columns:
+            - field: sNo
+              headerName: S.No
+              width: 200
+
+            - field: crop
+              headerName: Crop
+              width: 200
+            - field: variety
+              headerName: Variety
+              width: 200
+            - field: season
+              headerName: Season
+              width: 200
+            - field: cropType
+              headerName: Crop Type (M/I/C/B)
+              width: 100
+            - field: cropArea
+              headerName: Crop Area (Ha)
+              width: 200
+            - field: estQty
+              headerName: Est. Quantity (MT)
+              width: 200
+          title: Production System Overview Scope
+
+    conversionRequirements:
+      type: object
+      title: 6. Conversion Requirements
+      properties:
+        cropRotation:
+          type: string
+          title: a) Crop Rotation
+          enum:
+            - 'Yes'
+            - 'No'
+          default: 'Yes'
+        composting:
+          type: string
+          title: b) Composting
+          enum:
+            - 'Yes'
+            - 'No'
+          default: 'Yes'
+        mulching:
+          type: string
+          title: c) Mulching
+          enum:
+            - 'Yes'
+            - 'No'
+          default: 'Yes'
+      allOf:
+        - if:
+            properties:
+              composting:
+                const: 'Yes'
+          then:
+            properties:
+              biomassSource:
+                title: 1. Source of biomass or ingredients
+                type: string
+                enum:
+                  - On-farm
+                  - Off-farm
+                  - Both
+                default: On-farm
+              compostSource:
+                title: 2. Source of compost microbial culture
+                type: string
+                enum:
+                  - Certified
+                  - Non-certified
+    postHarvestHandling:
+      title: 7. Post-Harvest Handling
+      type: object
+      properties:
+        na:
+          type: boolean
+          title: NA
+        washWater:
+          type: boolean
+          title: Wash product with water
+        sortProducts:
+          type: boolean
+          title: Sort/size products
+        gradeProducts:
+          type: boolean
+          title: Grade products
+        coolProducts:
+          type: boolean
+          title: Cool products
+        cleaning:
+          type: boolean
+          title: Cleaning
+        packing:
+          type: boolean
+          title: Packing
+        drying:
+          type: boolean
+          title: Drying
+        others:
+          type: string
+          title: Others
+
+    soilManagement:
+      type: object
+      title: 8. Soil Management
+      properties:
+        soilAnalysis:
+          type: string
+          title: a) Whether recent (less than one year) soil analysis of all the farms have been carried out?
+          enum:
+            - 'Yes'
+            - 'No'
+          default: 'Yes'
+        majorPractices:
+          type: string
+          title: b) What are the major practices (composting, crop-rotation etc.) planned as part of soil building and fertility plan?
+
+    waterManagement:
+      type: object
+      title: 9. Water management plan
+      properties:
+        waterDependencies:
+          title: a) What are the current water dependencies/ sources?
+          type: string
+        waterAnalysis:
+          title: b) Whether recent (less than one year) water analysis of all the farms have been carried out?
+          type: string
+          enum:
+            - 'Yes'
+            - 'No'
+          default: 'Yes'
+
+    organicAwareness:
+      type: object
+      title: 10. Organic Awareness
+      properties:
+        farmersAware:
+          title: a) Are all the farmers aware of organic agriculture?
+          type: string
+          enum:
+            - 'Yes'
+            - 'No'
+          default: 'Yes'
+        trainingRecords:
+          title: b) Whether proper training records are maintained for farmer and staff training?
+          type: string
+          enum:
+            - 'Yes'
+            - 'No'
+          default: 'Yes'
+
+    buyBackDetails:
+      title: 11. Buy Back Details
+      type: object
+      properties:
+        buyBack:
+          title: Whether the Crops Harvested last year had been bought by the ICS?
+          type: string
+          enum:
+            - 'Yes'
+            - 'No'
+          default: 'Yes'
+        bbdGrid:
+          type: array
+          items:
+            type: object
+            title: Plan
+            properties:
+              sNo:
+                type: number
+                title: 'S.No.'
+              crop:
+                type: string
+                title: Crop
+              variety:
+                title: Variety
+                type: string
+              season:
+                title: Season
+                type: string
+              cropType:
+                title: Crop Type (M/I/C/B)
+                type: string
+                enum:
+                  - M
+                  - I
+                  - C
+                  - B
+                default: M
+              cropArea:
+                title: Crop Area (Ha)
+                type: number
+              estQty:
+                title: Est. Quantity (MT)
+                type: number
+              actualYield:
+                title: Actual Yield (MT)
+                type: number
+              purchased:
+                title: Purchased Quantity (MT)
+                type: number
+
+            required:
+              - sNo
+              - crop
+              - season
+              - cropArea
+              - estQty
+
+          columns:
+            - field: sNo
+              headerName: S.No
+              width: 200
+
+            - field: crop
+              headerName: Crop
+              width: 200
+            - field: variety
+              headerName: Variety
+              width: 200
+            - field: season
+              headerName: Season
+              width: 200
+            - field: cropType
+              headerName: Crop Type (M/I/C/B)
+              width: 100
+            - field: cropArea
+              headerName: Crop Area (Ha)
+              width: 200
+            - field: estQty
+              headerName: Est. Quantity (MT)
+              width: 200
+            - field: actualYield
+              headerName: Actual Yield (MT)
+              width: 200
+            - field: purchased
+              headerName: Purchased Quantity (MT)
+              width: 200
+          title: Buy Back Details
+
+    internalInspections:
+      title: 12. Internal Inspections
+      type: object
+      properties:
+        inspectionCompleted:
+          title: Whether 100% internal inspections has been completed?
+          type: string
+          enum:
+            - 'Yes'
+            - 'No'
+          default: 'Yes'
+        firstInspectionFrom:
+          title: First inspection from
+          type: string
+          format: date
+        firstInspectionTo:
+          title: First inspection to
+          type: string
+          format: date
+        secondInspectionFrom:
+          title: Second inspection from
+          type: string
+          format: date
+        secondInspectionTo:
+          title: Second inspection to
+          type: string
+          format: date
+
+    records:
+      title: 13. Records
+      type: object
+      properties:
+        farmerApplicationForms:
+          title: 'Farmers Application Form.'
+          type: boolean
+        farmeContractAgreement:
+          title: Farmers Contract Agreement with ICS
+          type: boolean
+        farmersLegalDocuments:
+          title: Farmers’ Legal Documents (Aadhar/ PAN)
+          type: boolean
+        farmersLandDocuments:
+          title: Farmers’ land records
+          type: boolean
+        icsLegalDocuemnts:
+          title: ICS Legal documents
+          type: boolean
+        icsManual:
+          title: ICS Manual
+          type: boolean
+        approvedFarmers:
+          title: Approved Farmers List with GPS Coordinates
+          type: boolean
+        farmMaps:
+          title: Farm Maps
+          type: boolean
+        overviewMap:
+          title: ICS Overview Map
+          type: boolean
+        farmDiaries:
+          title: Farm Diaries
+          type: boolean
+        internalInspectionRecords:
+          title: Internal Inspection Reports
+          type: boolean
+        farmerTrainingRecords:
+          title: Farmers Training Record
+          type: boolean
+        staffTrainingRecord:
+          title: Staff Training Record
+          type: boolean
+        organizationChart:
+          title: Organization Chart
+          type: boolean
+        conflict:
+          title: Conflict of Interest by ICS Personnel
+          type: boolean
+        staffList:
+          title: Staff list with Designation, Qualifications and Experiences.
+          type: boolean
+        ncSanctionRegister:
+          title: NC & Sanction Register
+          type: boolean
+        farmerExitFarms:
+          title: Farmers Exit Forms
+          type: boolean
+        purchaseRecords:
+          title: Purchase Records
+          type: boolean
+        purchaseVouchers:
+          title: Purchase Vouchers
+          type: boolean
+        riskAssessment:
+          title: Risk assessment at Farm level/ Village Coordinator level/ Aggregation level/ Organization level
+          type: boolean
+        purchaseRecordsAllInputs:
+          title: Purchase records for all inputs (eg. Reciepts, Delivery tags, Product Labels )
+          type: boolean
+        offFarmInputs:
+          title: Off-farm Input Approval Record
+          type: boolean
+        compostProduction:
+          title: Compost Production Records (eg. Composting system, Ingredients, C:N ratio, Temperature, Turnings)
+          type: boolean
+        testRecords:
+          title: Test records (Soil Tests, water Tests)
+          type: boolean
+        harvestRecords:
+          title: Harvest records
+          type: boolean
+        storageRecords:
+          title: Storage Records
+          type: boolean
+        salesRecords:
+          title: Sales records (eg. Invoices, Purchase Orders, TC)
+          type: boolean
+        others:
+          title: Others (describe)
+          type: string
+
+    attachments:
+      title: Reports
+      type: string
+      description: Upload any reports
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - ospYear
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/organicSystemPlan.yaml

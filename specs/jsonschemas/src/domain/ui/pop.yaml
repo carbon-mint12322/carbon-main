@@ -1,0 +1,12 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - description
+      - cropPopType
+      - controlPoints
+      - '*'
+    active:
+      'ui:field': Hidden
+    cropPopType: file:~/specs/jsonschemas/src/common/ui/cropPopType.yaml
+    controlPoints: file:~/specs/jsonschemas/src/common/ui/controlPoint.yaml

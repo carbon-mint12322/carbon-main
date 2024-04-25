@@ -1,0 +1,36 @@
+photoEvidence:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+
+'ui:order':
+  - processingSystem
+  - name
+  - length
+  - width
+  - height
+  - area
+  - brand
+  - dryingTime
+  - tempRange
+  - humidityRange
+  - material
+  - dryerType
+  - collectorType
+  - capacity
+  - orientation
+  - insulation
+  - glazingMaterial
+  - ventilation
+  - fanMotor
+  - energyStorage
+  - energySource
+  - heatingBackup
+  - photoEvidence
+  - '*'
+processingSystem:
+  'ui:widget': ReferenceSelectorWidget
+  ui:placeholder: Select a processing system
+  foreignSchemaId: '/processingsystem'
+  'ui:options':
+    # This key is passed for selecting a field for crop creation
+    filterKey: processingSystem
+  foreignLabelWidget: NameLabelWidget

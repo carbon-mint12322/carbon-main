@@ -1,0 +1,67 @@
+jsonschema:
+  properties:
+    productionSystem:
+      title: 'Production system'
+      $ref: '#/definitions/ProductionSystemId'
+    aquaPop:
+      $ref: '#/definitions/AquaPoPId'
+      title: POP
+    cropType:
+      type: string
+      enum:
+        - Shrimp
+        - Fish
+        - Mixed
+      default: Shrimp
+      title: Name
+    cropSubType:
+      type: string
+      title: Crop sub type
+    quantity:
+      type: number
+      title: Stocking quantity (Kgs)
+    plannedStockingDate:
+      type: string
+      format: date
+      title: Planned stocking date
+    actualStockingDate:
+      type: string
+      format: date
+      title: Actual stocking date
+    estHarvestDate:
+      type: string
+      format: date
+      title: Estimated harvest date
+    actualHarvestDate:
+      type: string
+      format: date
+      title: Actual harvest date
+    estimatedYieldTonnes:
+      type: number
+      title: Estimated yield (tonnes)
+      minimum: 0
+    seedVariety:
+      type: string
+      title: Seed variety
+    seedSource:
+      type: string
+      title: Seed source
+      pattern: '^[a-zA-Z][a-zA-Z0-9\s]*$'
+    risk:
+      type: string
+      title: Risk
+      enum:
+        - Low
+        - Medium
+        - High
+      default: Low
+  required:
+    - productionSystem
+    - cropType
+    - cropSubType
+    - plannedStockingDate
+    - quantity
+    - seedVariety
+    - seedSource
+templates:
+  qr: file:~/tools/templates/html/QR.aquacrop.mustache

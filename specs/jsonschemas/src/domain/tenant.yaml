@@ -1,0 +1,33 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+    subdomain:
+      type: string
+    apps:
+      type: array
+      items:
+        type: string
+    theme:
+      type: object
+      properties:
+        primaryColor:
+          type: string
+        secondaryColor:
+          type: string
+    logo:
+      type: string
+    welcomeMessage:
+      type: string
+    description:
+      type: string
+    organization:
+      $ref: '#/definitions/OrganizationId'
+    active:
+      type: boolean
+  required:
+    - name
+    - domain
+    - apps
+    - logo
+    - active

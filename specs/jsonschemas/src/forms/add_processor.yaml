@@ -1,0 +1,64 @@
+extends: ./farmerValidationLifecycle.yaml
+jsonschema:
+  properties:
+    personalDetails:
+      $ref: '#/definitions/Person'
+      title: 'Basic details'
+    gender:
+      title: Gender
+      type: string
+      enum:
+        - Male
+        - Female
+        - Others
+      default: Male
+    dob:
+      title: Date of birth
+      type: string
+      format: date
+    processingExperience:
+      type: number
+      title: Processing experience
+    operatorDetails:
+      title: 'Operator details'
+      type: object
+      properties:
+        processorID:
+          type: string
+          title: Processor ID
+        joiningDate:
+          type: string
+          format: date
+          title: Joining date
+        identityDocument:
+          type: string
+          title: Operator registration document
+          description: Upload operator registration document
+        subgroup:
+          $ref: '#/definitions/CollectiveSubGroupId'
+          title: Processor subgroup
+    bankDetails:
+      title: 'Bank details'
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name of the bank
+        branch:
+          type: string
+          title: Branch name
+        accountNumber:
+          type: string
+          title: Bank account number
+        ifsc:
+          type: string
+          title: IFSC code
+        swift:
+          type: string
+          title: SWIFT code
+        bankDocument:
+          type: string
+          title: Upload document proof of the account
+  required:
+    - personalDetails
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_processor.yaml

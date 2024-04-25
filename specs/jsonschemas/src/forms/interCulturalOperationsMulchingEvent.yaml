@@ -1,0 +1,114 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Inter Cultural Operations Mulching Event'
+  properties:
+    mulchMaterial:
+      title: Mulch material
+      type: string
+      enum:
+        - Live
+        - Organic mulch
+        - Thrash
+        - Stalk mulch
+        - Stubble mulch
+        - Plastic
+        - Others
+      default: Live
+    mulchSource:
+      title: Source of mulch
+      type: string
+      enum:
+        - Own from certified farm
+        - Own from conventional farm
+        - Off-farm organic
+        - Off-farm conventional
+        - Input shop
+        - Others
+      default: Own from certified farm
+    inputQuantity:
+      title: Input quantity (mulch material)
+      type: number
+      minimum: 0
+    costPerUnit:
+      title: Cost per unit
+      type: number
+      minimum: 0
+    expensesMet:
+      title: Expenses met
+      type: number
+      minimum: 0
+    recommondedBy:
+      title: Recommended by
+      type: string
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          mulchMaterial:
+            const: Live
+      then:
+        properties:
+          mulchMaterialLive:
+            title: Name of the crop for live mulch
+            type: string
+
+    - if:
+        properties:
+          mulchMaterial:
+            const: Organic mulch
+      then:
+        properties:
+          mulchMaterialOrganicMulch:
+            title: Organic mulch material
+            type: string
+
+    - if:
+        properties:
+          mulchMaterial:
+            const: Plastic
+      then:
+        properties:
+          materialName:
+            title: Name of the material
+            type: string
+          thickness:
+            title: Thickness
+            type: number
+          periodOfMulch:
+            title: Period of mulch (life)
+            type: string
+          afterUse:
+            type: string
+            title: After use
+            enum:
+              - Incorporated
+              - Removed
+              - Left as it is
+            default: Incorporated
+    - if:
+        properties:
+          mulchMaterial:
+            const: Others
+      then:
+        properties:
+          mulchMaterialOthers:
+            title: Other mulch material
+            type: string
+    - if:
+        properties:
+          mulchSource:
+            const: Others
+      then:
+        properties:
+          mulchSourceOthers:
+            title: Other mulch source
+            type: string
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/interCulturalOperationsMulchingEvent.yaml

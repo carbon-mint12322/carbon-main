@@ -1,0 +1,41 @@
+jsonschema:
+  type: object
+  title: 'Water harvesting information event'
+  properties:
+    methodsFollowed:
+      title: Methods followed
+      type: array
+      minItems: 1
+      items:
+        type: string
+        enum:
+          - Check dam
+          - Percolation tank
+          - Groundwater dam
+          - Farm pond
+          - Dug wells
+          - Microcatchments
+          - Making stone line
+          - Earth basin
+          - Trenches
+          - Others
+        default: Check dam
+      uniqueItems: true
+    evidenceRequired:
+      title: Upload evidence
+      type: string
+
+      description: Upload water harvesting evidence
+  allOf:
+    - if:
+        properties:
+          methodsFollowed:
+            contains:
+              type: string
+              const: Others
+      then:
+        properties:
+          otherMethodsFollowed:
+            title: Other methods followed
+            type: string
+uiHints: file:~/specs/jsonschemas/src/forms/ui/waterHarvestingInfo.yaml

@@ -1,0 +1,22 @@
+jsonschema:
+  properties:
+    landParcel:
+      $ref: '#/definitions/LandParcelId'
+    scheme:
+      climateScore:
+        type: number
+        title: Climate score (%)
+        minimum: 0
+        maximum: 100
+    complianceScore:
+      type: number
+      title: Compilance score (%)
+      minimum: 0
+      maximum: 100
+    active:
+      type: boolean
+  required:
+    - landParcel
+    - climateScore
+    - complianceScore
+    - active

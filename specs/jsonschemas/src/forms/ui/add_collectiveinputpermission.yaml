@@ -1,0 +1,54 @@
+form:
+  uiSchema:
+    inputPermissionDetails:
+      'ui:order':
+        - cb
+        - applicationDate
+        - seedsApproval
+        - fertilizerApproval
+        - areas
+        - soilAnalysis
+        - assessorRecommondation
+        - assessorName
+        - assessorDate
+        - cbApproval
+        - qualityManager
+        - approvalDate
+        - attachments
+        - otherRemarks
+      otherRemarks:
+        'ui:widget': textarea
+      seedsApproval:
+        'ui:order':
+          - saGrid
+          - '*'
+        saGrid:
+          ui:field: DgField
+      fertilizerApproval:
+        'ui:order':
+          - faGrid
+          - '*'
+        faGrid:
+          ui:field: DgField
+      areas:
+        'ui:order':
+          - areasGrid
+          - '*'
+        areasGrid:
+          ui:field: DgField
+      soilAnalysis:
+        'ui:order':
+          - saGrid
+          - '*'
+        saGrid:
+          ui:field: DgField
+      attachments:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'
+      cb:
+        'ui:field': ReferenceField
+        ui:placeholder: Select a certification body
+        foreignSchemaId: '/certificationbody'
+        foreignLabelWidget: NameLabelWidget
+        'ui:options':
+          # This key is passed for selecting a field for crop creation
+          filterKey: certificationBody

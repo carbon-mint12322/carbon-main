@@ -1,0 +1,13 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - dateOfFeeding
+      - typeOfFeed
+      - quantity
+      - feedingTimes
+      - feedConversionRatio
+      - totalExpenditure
+      - otherRemarks
+      - '*'

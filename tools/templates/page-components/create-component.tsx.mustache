@@ -1,0 +1,74 @@
+import dynamic from 'next/dynamic';
+import React from 'react';
+import CreateEntity from '~/components/lib/Entity/create';
+import withAuth from '~/components/auth/withAuth';
+import getCreateFormContext from "~/entitylib/{{modelName}}/create/getCreateFormContext"
+import {getTitle} from "~/entitylib/{{modelName}}/create/titlebar";
+import Box from '@mui/material/Box';
+import TitleBarGeneric from '~/components/TitleBarGeneric';
+import { useOperator } from '~/contexts/OperatorContext';
+import { useAlert } from '~/contexts/AlertContext';
+import styles from '~/styles/theme/brands/styles';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import axios from 'axios';
+
+const schema = "{{{createPageOptions.schema}}}";
+const isValidationNeeded = {{createPageOptions.isValidationNeeded}};
+const wfName = "{{{modelName}}}Lifecycle";
+const CreateEditor = dynamic(import("~/gen/data-views/{{{modelName}}}/{{{modelName}}}Editor.rtml.jsx"));
+
+function Create{{modelNameCaptialized}}(props: any) {
+  const { negateMargin } = props;
+  const { getApiUrl } = useOperator();
+  const { openToast } = useAlert();
+  const theme = useTheme();
+  const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+  const formContext = getCreateFormContext(props);
+
+  const titleBarData = {
+    isTitleBarPresent: true,
+    title: getTitle({props}),
+    isTitlePresent: true,
+    isMainBtnPresent: false,
+    isSubBtnPresent: false,
+  };
+
+  const handleFormSubmit = async (data: any) => {
+    try {
+      data = {
+        ...data,
+        status: 'Draft',
+      };
+      const res = await axios.post(getApiUrl('/{{modelName}}'), data);
+      if (res) {
+        openToast('success', '{{modelName}} Saved');
+      }
+    } catch (error: any) {
+      openToast('error', error?.response?.data.error || error?.message || 'Something went wrong');
+    } 
+  };
+
+  return (
+    isValidationNeeded ? (
+      <CreateEntity
+      title={getTitle({props})}
+      schema={schema}
+      entityWfName={wfName}
+      formContext={formContext}
+      negateMargin={negateMargin}
+    />
+    ) : (
+      <>
+        <TitleBarGeneric
+          titleBarData={titleBarData}
+        />
+        <Box sx={[styles.formFields, { m: matchDownSM ? '0' : '0 12rem' }]}>
+          <CreateEditor onSubmit={handleFormSubmit} formContext={formContext}/>
+        </Box>
+      </>
+    )
+  );
+}
+
+export default withAuth(Create{{modelNameCaptialized}});

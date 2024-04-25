@@ -1,0 +1,31 @@
+form:
+  uiSchema:
+    'ui:order':
+      - personalDetails
+      - gender
+      - dob
+      - operatorDetails
+      - '*'
+    operatorDetails:
+      'ui:order':
+        - farmerID
+        - joiningDate
+        - identityDocument
+      identityDocument:
+        'ui:widget': 'file'
+    bankDetails:
+      'ui:order':
+        - '*'
+      bankDocument:
+        'ui:widget': 'file'
+    personalDetails: file:~/specs/jsonschemas/src/common/ui/person.yaml
+    collectives:
+      'ui:field': Hidden
+    agents:
+      'ui:field': Hidden
+    verificationDetails:
+      'ui:field': Hidden
+    status:
+      'ui:field': Hidden
+    active:
+      'ui:field': Hidden

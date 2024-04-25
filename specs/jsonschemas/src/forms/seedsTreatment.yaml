@@ -1,0 +1,329 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Seeds Treatment Event'
+  properties:
+    priming:
+      title: Priming
+      type: boolean
+      default: false
+    pelleting:
+      title: Pelleting
+      type: boolean
+      default: false
+    treatment:
+      title: Treatment
+      type: boolean
+      default: false
+    bleach:
+      title: Bleach
+      type: boolean
+      default: false
+    enhancement:
+      title: Enhancement
+      type: boolean
+      default: false
+    botanical:
+      title: Botanical
+      type: boolean
+      default: false
+    protection:
+      title: Protection
+      type: boolean
+      default: false
+    growth:
+      title: Growth
+      type: boolean
+      default: false
+    bio:
+      title: Bio
+      type: boolean
+      default: false
+    chemical:
+      title: Chemical
+      type: boolean
+      default: false
+    otherTreatment:
+      title: Other treatment
+      type: boolean
+      default: false
+
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+
+  allOf:
+    - if:
+        properties:
+          priming:
+            const: true
+      then:
+        properties:
+          primingMethods:
+            type: string
+            title: Priming methods
+            enum:
+              - Hydro Priming
+              - Osmo Priming
+              - Halo Priming
+              - Harmonal Priming
+              - Bio Priming
+              - Others
+            default: Hydro Priming
+        if:
+          properties:
+            primingMethods:
+              const: Others
+        then:
+          properties:
+            otherPrimingMethod:
+              type: string
+              title: Other priming method
+
+    - if:
+        properties:
+          pelleting:
+            const: true
+      then:
+        properties:
+          pelletingMethod:
+            title: Pelleting/Coating method
+            type: string
+            enum:
+              - Inoculant
+              - Nutrient
+              - Hydrophilic
+              - Hydrophobic
+              - Others
+            default: Inoculant
+        if:
+          properties:
+            pelletingMethod:
+              const: Others
+        then:
+          properties:
+            otherPelletingMethod:
+              type: string
+              title: Other pelleting method
+
+    - if:
+        properties:
+          treatment:
+            const: true
+      then:
+        properties:
+          treatmentMethod:
+            title: Water treatment method
+            type: string
+            enum:
+              - Hot water Treatment
+              - Cold water Treatment
+              - Others
+            default: Hot water Treatment
+        if:
+          properties:
+            treatmentMethod:
+              const: Others
+        then:
+          properties:
+            otherTreatmentMethod:
+              type: string
+              title: Other water treatment
+
+    - if:
+        properties:
+          bleach:
+            const: true
+      then:
+        properties:
+          bleachMethod:
+            title: Bleach infection method
+            type: string
+            enum:
+              - Sodium Chloride
+              - Hydrogen peroxide
+              - Calcium hypochlorite
+              - Others
+            default: Sodium Chloride
+        if:
+          properties:
+            bleachMethod:
+              const: Others
+        then:
+          properties:
+            otherBleachMethod:
+              type: string
+              title: Other bleach infection method
+
+    - if:
+        properties:
+          enhancement:
+            const: true
+      then:
+        properties:
+          enhancementMethod:
+            title: Seed enhancement method
+            type: string
+            enum:
+              - Scarification
+              - Others
+            default: Scarification
+        if:
+          properties:
+            enhancementMethod:
+              const: Others
+        then:
+          properties:
+            otherEnhancementMethod:
+              type: string
+              title: Other seed enhancement method
+
+    - if:
+        properties:
+          botanical:
+            const: true
+      then:
+        properties:
+          botanicalMethod:
+            title: Botanical extracts method
+            type: string
+            enum:
+              - Neem oil
+              - Karanji oil
+              - Leaf extracted oils
+              - Others
+            default: Neem oil
+        if:
+          properties:
+            botanicalMethod:
+              const: Others
+        then:
+          properties:
+            otherBotanicalMethod:
+              type: string
+              title: Other botanical extracts method
+
+    - if:
+        properties:
+          protection:
+            const: true
+      then:
+        properties:
+          protectionMethod:
+            title: Plant protection biological agents
+            type: string
+            enum:
+              - Trichoderma
+              - Psuedomonus
+              - Bacillus subtilis
+              - NPV
+              - Beauveria
+              - Metarhazium
+              - Streptomyces
+              - Others
+            default: Trichoderma
+        if:
+          properties:
+            protectionMethod:
+              const: Others
+        then:
+          properties:
+            otherProtectionMethod:
+              type: string
+              title: Other plant protection biological agents
+
+    - if:
+        properties:
+          growth:
+            const: true
+      then:
+        properties:
+          growthMethod:
+            title: Plant growth enhancing biological agents
+            type: string
+            enum:
+              - Azotobacter
+              - PSB
+              - ZSB
+              - Rhizobium
+              - Anabeana
+              - KSB
+              - Others
+            default: Azotobacter
+        if:
+          properties:
+            growthMethod:
+              const: Others
+        then:
+          properties:
+            otherGrowthMethod:
+              type: string
+              title: Other growth plant enhancing biological agents
+
+    - if:
+        properties:
+          bio:
+            const: true
+      then:
+        properties:
+          bioMethod:
+            title: Biodynamic preparations
+            type: string
+            enum:
+              - Bheejamrutham
+              - Cow urine
+              - Cow dung
+              - Others
+            default: Bheejamrutham
+        if:
+          properties:
+            bioMethod:
+              const: Others
+        then:
+          properties:
+            otherBioMethod:
+              type: string
+              title: Other biodynamic preparations
+
+    - if:
+        properties:
+          chemical:
+            const: true
+      then:
+        properties:
+          chemicalMethod:
+            title: Chemicals applied
+            type: string
+            enum:
+              - Captan
+              - Thiram
+              - Mancozeb
+              - Carbendizum
+              - Imidacloprid
+              - Chloropyriphos
+              - Others
+            default: Captan
+        if:
+          properties:
+            chemicalMethod:
+              const: Others
+        then:
+          properties:
+            otherChemicalMethod:
+              type: string
+              title: Other chemicals applied
+
+    - if:
+        properties:
+          otherTreatment:
+            const: true
+      then:
+        properties:
+          otherTreatmentMethodName:
+            type: string
+            title: Other type of seed treatment
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/seedsTreatment.yaml

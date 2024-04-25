@@ -1,0 +1,16 @@
+form:
+  uiSchema:
+    technicalAdvice:
+      'ui:widget': textarea
+    range:
+      'ui:widget': date
+    'ui:order':
+      - name
+      - activityType
+      - range
+      - technicalAdvice
+      - repeated
+      - frequency
+      - ends
+      - eventStatus
+      - '*'

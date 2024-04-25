@@ -1,0 +1,215 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Post Harvest Handling Event'
+  properties:
+    primaryProcessing:
+      type: boolean
+      default: true
+      title: 'Primary processing / cleaning'
+    grading:
+      title: Grading
+      type: boolean
+      default: false
+    otherProcesses:
+      title: Other processes
+      type: boolean
+      default: false
+    packaging:
+      type: object
+      title: Packaging
+      properties:
+        unitSize:
+          title: Unit size (in kgs/other)
+          type: string
+        material:
+          title: Material used
+          type: string
+        state:
+          title: Material state
+          type: string
+          enum:
+            - Fresh
+            - Used
+            - Recycled
+          default: Fresh
+        grade:
+          title: Material grade
+          type: string
+          enum:
+            - Food grade
+            - Commercial
+          default: Food grade
+    transport:
+      type: object
+      title: Transport
+      properties:
+        mode:
+          title: Mode of transport
+          type: string
+          enum:
+            - Vehicle
+            - Manual
+            - Bullock cart
+            - Other
+          default: Vehicle
+      allOf:
+        - if:
+            properties:
+              mode:
+                const: Vehicle
+          then:
+            properties:
+              ownership:
+                title: Ownership
+                type: string
+                enum:
+                  - Owned
+                  - Rented
+                  - Certified processors or traders transport
+                default: Owned
+        - if:
+            properties:
+              mode:
+                const: Other
+          then:
+            properties:
+              otherTransport:
+                type: string
+                title: Other transport
+    price:
+      type: object
+      title: Price
+      properties:
+        marketPrice:
+          title: Market price
+          type: string
+        totalQuantity:
+          title: Total quantity
+          type: number
+    inputs:
+      title: Materials
+      type: object
+      properties:
+        inputQuantity:
+          title: Input quantity (handling material)
+          type: number
+          minimum: 0
+        costPerUnit:
+          title: Cost per unit
+          type: number
+          minimum: 0
+
+    expensesMet:
+      title: Expenses met
+      type: number
+      minimum: 0
+
+    handlingEvidence:
+      title: Post harvest handling evidence
+      type: array
+      description: Upload evidence for post harvest handling
+      items:
+        type: string
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          primaryProcessing:
+            const: true
+      then:
+        properties:
+          method:
+            type: string
+            title: Method
+            enum:
+              - Winnowing
+              - Washing
+              - Dipping
+              - Other cleaning process
+            default: Winnowing
+        allOf:
+          - if:
+              properties:
+                method:
+                  const: Washing
+            then:
+              properties:
+                waterUsed:
+                  title: Water used
+                  type: string
+                  enum:
+                    - Borewell water
+                    - Canal water
+                    - Treated water
+                    - Other water
+                  default: Borewell water
+              if:
+                properties:
+                  waterUsed:
+                    const: Other water
+              then:
+                properties:
+                  otherWaterUsed:
+                    title: Other water used
+                    type: string
+          - if:
+              properties:
+                method:
+                  const: Dipping
+            then:
+              properties:
+                dippingMethod:
+                  title: Dipping method
+                  type: string
+                  enum:
+                    - Fungicides
+                    - Hormones
+                    - Certified organic products
+                    - Other products
+                  default: Fungicides
+              if:
+                properties:
+                  dippingMethod:
+                    const: Other products
+              then:
+                properties:
+                  otherDippingProducts:
+                    title: Other dipping products used
+                    type: string
+          - if:
+              properties:
+                method:
+                  const: Other cleaning process
+            then:
+              properties:
+                otherCleaningProcess:
+                  title: Other cleaning process
+                  type: string
+
+    - if:
+        properties:
+          grading:
+            const: true
+      then:
+        properties:
+          gradingStandards:
+            type: string
+            title: Grading standards
+    - if:
+        properties:
+          otherProcesses:
+            const: true
+      then:
+        properties:
+          otherHandlingProcesses:
+            type: string
+            title: Other handling processes used
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/postHarvestHandling.yaml

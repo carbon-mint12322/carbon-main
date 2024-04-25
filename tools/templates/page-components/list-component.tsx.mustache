@@ -1,0 +1,332 @@
+//generated from template: tools/templates/page-components/list-component.tsx.mustache
+import React, { useMemo, useState } from 'react';
+
+import { Box, Paper } from '@mui/material';
+import { GridColDef, GridRowParams, GridSelectionModel, GridValueGetterParams } from '@mui/x-data-grid';
+
+import DataGrid from '~/components/lib/DataDisplay/DataGrid';
+import CircularLoader from '~/components/common/CircularLoader';
+
+import globalStyles from '~/styles/theme/brands/styles';
+import { stringDateFormatter } from '~/utils/dateFormatter';
+import { useOperator } from '~/contexts/OperatorContext';
+import axios from 'axios';
+import { bulkEventForm } from '~/frontendlib/bulkFunctions';
+import { ReadExcelFromTemplate } from '~/frontendlib/excel/readExcelFromTemplate';
+import moment from 'moment';
+import ExcelJS from 'exceljs';
+import useFetch from 'hooks/useFetch';
+import TitleBarGeneric from '~/components/TitleBarGeneric';
+
+import CustomFooter from '~/components/CustomFooter';
+import { filterDataByCustomKeys } from '~/components/lib/FilterDataByCustomKeys';
+
+import * as renderLib from "~/entitylib/{{modelName}}/list"
+
+import { useAlert } from '~/contexts/AlertContext';
+import dynamic from 'next/dynamic';
+import BulkEvent from '~/components/events/BulkEventEditor';
+
+
+const Mustache = require('mustache');
+const mRender = Mustache.render;
+
+const K =   {{{listPageOptionsJson}}};
+const titleBarRenderLib = renderLib.titlebar;
+
+const templatedString =
+  (template: string) =>
+  (ctx: any): string =>
+    mRender(template, ctx);
+
+const urlSuffix = "/{{modelName}}";
+const activeRowCssClasses = "datagridrowhover disabled-row";
+const inactiveRowCssClasses = "datagridrowhover";
+
+
+export default function {{{modelNameCapitalized}}}List(props: any) {
+  const [searchValue, setSearchValue] = useState('');
+  const { changeRoute, getAPIPrefix, getApiUrl } = useOperator();
+  const [showInactive, setShowInactive] = useState(K.showInactiveDefault);
+  const [selectionModel, setSelectionModel] = React.useState<GridSelectionModel>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [bulkTitle, setBulkTitle] = React.useState('');
+  const [uploadEventTemplate, setUploadEventTemplate] = useState(false);
+  const [bulkType, setBulkType] = useState('');
+
+  const { openToast } = useAlert();
+  const [updateInprogress, setUpdateInprogress] = React.useState<Boolean>(false);
+  const handleOpen = () => {
+        setIsOpen(true);
+        setBulkType('form');
+        setBulkTitle('Add Events')
+    };
+
+const API_URL = getAPIPrefix() + urlSuffix;
+const { isLoading: loading, data, reFetch } = useFetch<any>(API_URL);
+const entityData = data;    
+
+{{#eventCreatePageOptionsJson}}
+const eventCreatePageOptions = {{{eventCreatePageOptionsJson}}};
+const workflowNames = eventCreatePageOptions.workflowNames; 
+const eventContextSchema = eventCreatePageOptions.eventContextSchema
+const EventTitles = eventCreatePageOptions.eventTitles;
+const EventSubTitles = eventCreatePageOptions.eventSubtitles;
+
+
+  
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setSelectionModel([]);
+  };
+
+  const getEventTemplate = () => {
+        setIsOpen(true);
+        setBulkType('excel');
+        setBulkTitle('Download Event Template')
+    };
+
+  const sequentialCall = async ({ operation, operationData }: any) => {
+        try {
+            setUpdateInprogress(true);
+            if (bulkType === 'form') {
+                openToast('info', `Adding event to ${eventContextSchema}s...`);
+                const url = getApiUrl('/event/bulk-create')
+                await operation(operationData, selectionModel, eventContextSchema, url)
+                handleClose();
+                openToast('success', `Successfully added event to ${selectionModel.length} crops`);
+            } else if (bulkType === 'excel') {
+                const schemaName = operationData.schemaName;
+                const excelHeader = await import(`~/gen/excel/${schemaName}.json`);
+                const result = JSON.parse(await generateExcelHeader(operationData, selectionModel, excelHeader.default.columnHeaders))
+                const buffer = Buffer.from(result.data);
+                const blob = new Blob([buffer]);
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                document.body.appendChild(a);
+                a.href = url;
+                a.download = `Event Template-${schemaName}-${moment().format('yyyyMMDD')}.xlsx`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            }
+            setSelectionModel([]);
+            handleClose();
+        } catch (error: any) {
+            console.log(error?.response || error);
+            openToast('error', 'Failed to Add Event');
+        } finally {
+            setUpdateInprogress(false);
+            reFetch(API_URL);
+        }
+  }
+
+  const generateExcelHeader = async (data: any, modelIds: any, sheetColumns: any) => {
+        const workbook = new ExcelJS.Workbook();
+        const sheet = workbook.addWorksheet('1');
+        const filteredColumns = sheetColumns.reduce((acc: any, header: any) => {
+            if (!header.child) {
+                acc.push(header);
+            } else {
+                acc.push(...header.child);
+            }
+            return acc;
+        }, []);
+
+        const finalColumns = [
+            { key : "sNo", header : "Sr. No.", width : 20},
+            ...filteredColumns.map((col: any) => {
+            return {
+                key: col.key,
+                header: col.header,
+                width: col.header.length > 50 ? 30 : 20
+            }
+        })]
+
+        sheet.columns = finalColumns;
+        const filterData = entityData.filter((crop: any) => selectionModel.includes(crop.id));
+        // Add filtered names and modelIds in the respective columns
+        const startIndex = 4; // Assuming data starts from row 4 (adjust accordingly)
+        filterData.map((crop: any, index: number) => {
+            sheet.addRow({
+                sNo: ++index,
+                cropName: crop.name,
+                fbId: crop.fbId,
+                workflowName: data.wfName,
+                schemaName: data.schemaName
+                // Add other data accordingly
+            });
+        });
+
+        sheet.getRow(1).font = { bold: true }
+
+        const buffer = await workbook.xlsx.writeBuffer();
+
+        return JSON.stringify(buffer)
+  }
+
+  const uploadEvent = async (uploadData: any) => {
+        try {
+            setUpdateInprogress(true);
+            const finalUpload = { sheetData: uploadData, domainSchemaName: 'crop' }
+            openToast('info', 'Adding event to crops...');
+            await axios.post(getApiUrl('/event/upload-template-data'), finalUpload);
+            openToast('success', 'Successfully uploaded events');
+            setSelectionModel([]);
+        } catch (error: any) {
+            console.log(error?.response || error);
+            openToast('error', 'Failed to Add Event');
+        } finally {
+            setUpdateInprogress(false);
+            reFetch(API_URL);
+        }
+    }
+
+  {{/eventCreatePageOptionsJson}}  
+
+  const mCtx = { props, data, searchValue }; // mustache render context
+
+  function fetchData(){
+    return reFetch(API_URL);
+  }
+
+  function mapValueGetters(colDefs: any[]) {
+  return colDefs.map((coldef) => ({
+    ...coldef, 
+    valueGetter: coldef.valueGetter ? (renderLib as any)[coldef.valueGetter](coldef.field): undefined
+  }));
+  } 
+  function mapRenderCell(colDefs: any[]) {
+    return colDefs.map((coldef) => ({
+      ...coldef, 
+      renderCell: coldef.renderCell ? (renderLib as any)[coldef.renderCell](fetchData): undefined
+    }));
+  } 
+
+  const colDefs = mapValueGetters(mapRenderCell(K.colDefs));
+
+  const handleSearch = (value: any) => {
+    setSearchValue(value);
+  };
+
+  const handleRowClick = (params: any) => {
+    changeRoute(`${urlSuffix}/${params.row.id}`);
+  };
+
+  const searchData = useMemo(() => {
+    const filterActive = (data: any[]) =>
+      data?.filter((item: any) => (showInactive ? !item.active : item.active));
+    if (searchValue?.length > 0) {
+      return filterActive(filterDataByCustomKeys(data, searchValue, K.customFilterKeys));
+    }
+    return filterActive(data);
+  }, [searchValue, data, showInactive]);
+
+  const columns: GridColDef[] = colDefs;
+  const components = {
+    Footer: CustomFooter,
+  };
+  const componentProps = {
+    footer: {
+      active: !showInactive,
+      showActiveSwitch: true,
+      onSwitchClick: () => setShowInactive(!showInactive),
+    },
+  };
+
+  const bulkActions: any[] = [
+{{#listPageOptions.bulkActions}}
+    {
+      label: `{{label}}`,
+      operation: {{operation}},
+      props: selectionModel
+    },
+{{/listPageOptions.bulkActions}}
+  ];
+
+  const titleBarData = {
+    isTitleBarPresent: titleBarRenderLib.showTitlebar(mCtx),
+    isTitlePresent: titleBarRenderLib.showTitle(mCtx),
+    isSubTitlePresent: titleBarRenderLib.showSubtitle(mCtx),
+    isSearchBarPresent: titleBarRenderLib.showTitlebarSearch(mCtx),
+    isMainBtnPresent: titleBarRenderLib.showTitlebarMainBtn(mCtx),
+    isSubBtnPresent: titleBarRenderLib.showTitlebarSubBtn(mCtx),
+
+    title: titleBarRenderLib.renderTitle(mCtx, (K as any).titleBar?.pageTitle),
+    subTitle: titleBarRenderLib.renderSubTitle(mCtx, (K as any).titleBar?.subTitle),
+    mainBtnTitle: titleBarRenderLib.renderMainBtnTitle(mCtx, (K as any).titleBar?.mainBtnTitle),
+    subBtnTitle: titleBarRenderLib.renderSubBtnTitle(mCtx, (K as any).titleBar?.subBtnTitle),
+    mainBtnOptions: selectionModel.length ? bulkActions : [],
+    subBtnDisabled: !selectionModel.length || !!updateInprogress,
+  }
+  const isMultiSelect = K.isMultiSelect
+
+
+  const formContext: any = {
+    getApiUrl
+  };
+
+
+  return (
+    <>
+    <TitleBarGeneric
+        titleBarData={titleBarData}
+        handleMainBtnClick={() => changeRoute('/{{modelName}}/create')}
+        handleSubBtnClick={handleOpen}
+        handleSearch={handleSearch}
+      />
+      {{#eventCreatePageOptionsJson}}
+      <ReadExcelFromTemplate
+                showUpload={uploadEventTemplate}
+                setShowUpload={setUploadEventTemplate}
+                onExcelDataFetched={uploadEvent}
+                isExternal={true}
+            />
+      {{/eventCreatePageOptionsJson}}      
+      <Paper elevation={0}>
+        <CircularLoader value={loading}>
+          <Box style={globalStyles.dataGridLayer}>
+            <DataGrid
+              selectionModel={selectionModel}
+              checkboxSelection={isMultiSelect}
+              onSelectionModelChange={(newSelectionModel) => {
+                setSelectionModel(newSelectionModel);
+              }}
+              columns={columns}
+              rows={searchData || []}
+              disableColumnSelector={false}
+              isRowSelectable={(params: GridRowParams) => isMultiSelect}
+              rowHeight={64}
+              disableSelectionOnClick
+              sx={globalStyles.datagridSx}
+              onRowClick={handleRowClick}
+              getRowClassName={(params: GridRowParams) =>
+                `${!params.row.active ? activeRowCssClasses : inactiveRowCssClasses}`
+              }
+              components={components}
+              componentsProps={componentProps}
+            />
+          </Box>
+
+
+{{#eventCreatePageOptionsJson}}
+          <BulkEvent
+            onSubmit={(formData: any) => { sequentialCall({ operation: bulkEventForm, operationData: formData }) }}
+            formContext={formContext}
+            onCancelBtnClick={handleClose}
+            selectionModel={selectionModel}
+            open={isOpen}
+            onClose={handleClose}
+            type={bulkType}
+            title={bulkTitle}
+            Events={EventTitles}
+            EventSubTitles={EventSubTitles}
+            workflowNames={workflowNames}
+
+          />
+{{/eventCreatePageOptionsJson}}
+        </CircularLoader>
+      </Paper>
+    </>
+  );
+}

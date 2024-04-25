@@ -1,0 +1,48 @@
+jsonschema:
+  properties:
+    name:
+      title: Task name
+      type: string
+    desc:
+      type: string
+      title: Task description
+    dueDate:
+      type: string
+      format: date
+      title: Due date
+    priority:
+      title: Priority
+      type: string
+      enum:
+        - High
+        - Medium
+        - Low
+      default: High
+    assignee:
+      title: Assignee
+      type: string
+    status:
+      type: string
+      title: Status
+      enum:
+        - In progress
+        - Pending
+        - Completed
+      default: Pending
+    category:
+      type: string
+      title: Category
+    documents:
+      type: array
+      items:
+        type: string
+      title: Attachments
+    comments:
+      type: string
+      title: Comments
+  required:
+    - name
+    - desc
+    - dueDate
+    - assignee
+uiHints: file:~/specs/jsonschemas/src/forms/ui/task.yaml

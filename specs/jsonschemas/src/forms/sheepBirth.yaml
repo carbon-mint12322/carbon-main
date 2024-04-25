@@ -1,0 +1,42 @@
+extends: ./sheepPSNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Birth Event'
+  properties:
+    dateOfBirth:
+      type: string
+      format: date
+      title: Birth date
+    gender:
+      type: string
+      title: Gender
+      enum:
+        - Female
+        - Male
+      default: Female
+    weight:
+      type: number
+      title: Birth weight (Kgs)
+    damsIdentificationNumber:
+      type: string
+      title: Dam's identification number (Female parent)
+    siresIdentificationNumber:
+      type: string
+      title: Sire's identification number (Male parent)
+    birthComplications:
+      type: string
+      title: Birth complications
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - dateOfBirth
+    - gender
+    - weight
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/sheepBirth.yaml

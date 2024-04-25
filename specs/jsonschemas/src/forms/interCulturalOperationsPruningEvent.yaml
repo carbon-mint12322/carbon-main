@@ -1,0 +1,36 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Inter Cultural Operations Pruning Event'
+  properties:
+    prunityType:
+      title: Pruning type
+      type: string
+    pruningDate:
+      title: Pruning date
+      type: string
+      format: date
+    productUsed:
+      title: Product sprayed or smeared to avoid infestation
+      type: string
+    dosage:
+      title: Dosage (gm or ml)
+      type: number
+    expensesMet:
+      title: Expenses met
+      type: number
+      minimum: 0
+    recommondedBy:
+      title: Recommended by
+      type: string
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - pruningType
+    - pruningDate
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/interCulturalOperationsPruningEvent.yaml

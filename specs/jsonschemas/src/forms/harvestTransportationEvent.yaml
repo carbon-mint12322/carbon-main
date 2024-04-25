@@ -1,0 +1,52 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Harvest Transportation Event'
+  properties:
+    sourceOfVehicles:
+      title: Source of vehicles for the transportation of harvesting produce
+      type: string
+      enum:
+        - Own
+        - Rent
+      default: 'Rent'
+    wayOfTransporting:
+      title: Way of transporting
+      type: string
+    cleanVehicles:
+      title: Are vehicles used for transport of produce cleaned
+      type: string
+      enum:
+        - 'Yes'
+        - 'No'
+      default: 'No'
+    safetyGuidelines:
+      title: Do you have safety/ precaution guidelines for transportation
+      type: string
+      enum:
+        - 'Yes'
+        - 'No'
+      default: 'Yes'
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          safetyGuidelines:
+            const: 'Yes'
+      then:
+        properties:
+          evidenceDocument:
+            type: array
+
+            title: Evidence document
+            description: Guidelines evidence document
+            items:
+              type: string
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/harvestTransportationEvent.yaml

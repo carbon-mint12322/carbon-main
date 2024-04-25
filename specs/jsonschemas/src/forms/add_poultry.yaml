@@ -1,0 +1,76 @@
+extends: ./poultryBatchValidationLifecycle.yaml
+jsonschema:
+  properties:
+    productionSystem:
+      $ref: '#/definitions/ProductionSystemId'
+      title: Production system
+    poultryPop:
+      $ref: '#/definitions/PoultryPoPId'
+      title: POP
+    batchIdName:
+      type: string
+      title: Batch ID/Name
+    poultryType:
+      type: string
+      title: Poultry Type
+      enum:
+        - Broiler Chicken
+        - Country Chicken
+        - Breeder Chicken
+        - Duck
+        - Turkey
+        - Quail
+      default: Broiler Chicken
+    purpose:
+      type: string
+      title: Purpose
+      enum:
+        - Layers
+        - Rearing
+      default: Layers
+    size:
+      type: number
+      title: Size
+      minimum: 0
+    chickPlacementDay:
+      type: string
+      format: date
+      title: Chick placement date
+    chickSource:
+      type: string
+      title: Chick source
+    breed:
+      type: string
+      title: Breed
+    risk:
+      type: string
+      title: Risk
+      enum:
+        - Low
+        - Medium
+        - High
+      default: Low
+  allOf:
+    - if:
+        properties:
+          season:
+            type: string
+            const: Broiler Chicken
+      then:
+        properties:
+          estHarvestDate:
+            type: string
+            format: date
+            title: Estimated harvest date
+  required:
+    - productionSystem
+    - batchIdName
+    - poultryType
+    - purpose
+    - size
+    - chickPlacementDay
+    - chickSource
+    - breed
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_poultry.yaml
+templates:
+  qr: file:~/tools/templates/html/QR.poultry.mustache

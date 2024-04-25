@@ -1,0 +1,32 @@
+extends: ./aquacropValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Post-Harvest Processing'
+  properties:
+    startDate:
+      title: Processing start date
+      type: string
+      format: date
+    endDate:
+      title: Processing end date
+      type: string
+      format: date
+    processingQuantity:
+      type: number
+      title: Processing quantity (Tonnes)
+    processingMethod:
+      type: string
+      title: Processing method
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure for processing
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - processingQuantity
+    - totalExpenditure
+uiHints: file:~/specs/jsonschemas/src/forms/ui/aquacropPostHarvestProcessing.yaml

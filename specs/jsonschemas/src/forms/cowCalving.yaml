@@ -1,0 +1,27 @@
+extends: ./cowNonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Calving Event'
+  properties:
+    dateOfCalving:
+      type: string
+      format: date
+      title: Calving date
+    complications:
+      type: string
+      title: Complcations
+    calfWeight:
+      type: number
+      title: Calf weight (Kgs)
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - dateOfCalving
+    - totalExpenditure
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/cowCalving.yaml

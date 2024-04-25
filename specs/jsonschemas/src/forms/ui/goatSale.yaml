@@ -1,0 +1,10 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - dateOfSale
+      - reason
+      - price
+      - otherRemarks
+      - '*'

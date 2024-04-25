@@ -1,0 +1,46 @@
+# Workflow `{{wfdef.name}}`
+
+{{ wfdef.description }}
+
+Domain schema: `{{{ wfdef.domainSchemaId }}}`
+
+Start state: `{{ wfdef.startStateName }}`
+
+```mermaid
+flowchart LR
+
+{{{ mermaid }}}
+```
+
+{{#wfdef.states}}
+## State - {{name}}
+
+{{ description }}
+
+End state? {{ isEndState ? "true" : "false" }}
+
+{{#triggers}}
+
+### Trigger `{{eventName}}`
+
+{{{ description }}}
+
+Roles: {{ roles }}
+
+### Processing steps
+
+{{#processingSteps}}
+
+1. `{{name}}` - {{description}}
+{{/processingSteps}}
+
+#### Transitions
+
+{{#transitions}}
+1. Transition to: {{ state }}, description: {{description}}. Conditions:
+{{#conditions}}
+  1. {{name}} {{description}}
+{{/conditions}}
+{{/transitions}}
+{{/triggers}}
+{{/wfdef.states}}

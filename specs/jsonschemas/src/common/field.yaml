@@ -1,0 +1,15 @@
+type: object
+title: Field details
+properties:
+  name:
+    title: Name
+    type: string
+  areaInAcres:
+    title: Area (acres)
+    type: number
+  map:
+    $ref: '#/definitions/Map'
+required:
+  - name
+  - areaInAcres
+  - map

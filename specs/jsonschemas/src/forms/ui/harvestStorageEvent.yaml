@@ -1,0 +1,24 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - storage
+      - sourceOfStorageFecility
+      - onFarmStorageStructures
+      - otherOnFarmStorageStructures
+      - offFarmStorageStructures
+      - otherOffFarmStorageStructures
+      - biocidesAndPlantProtectants
+      - otherBiocidesAndPlantProtectants
+      - typeOfTreatment
+      - otherTypeOfTreatment
+      - sourceOfInput
+      - inputPurchaseReceipt
+      - quanityApplied
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    inputPurchaseReceipt:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

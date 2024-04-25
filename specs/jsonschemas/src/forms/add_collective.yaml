@@ -1,0 +1,115 @@
+jsonschema:
+  properties:
+    name:
+      type: string
+      title: Name
+    category:
+      $ref: '#/definitions/CollectiveCategory'
+      title: Category
+
+    address:
+      $ref: '#/definitions/Address'
+      title: Address
+    email:
+      type: string
+      title: Email
+    poc:
+      type: string
+      title: Contact person
+    phone:
+      type: string
+      title: Phone
+  required:
+    - name
+    - category
+    - address
+    - email
+    - phone
+  allOf:
+    - if:
+        properties:
+          category:
+            const: ICS
+      then:
+        properties:
+          registrationId:
+            type: string
+            title: Registration id
+          registrationDocumentFile:
+            type: array
+            items:
+              type: string
+            title: Upload registration document proof
+          schemes:
+            type: array
+            title: Schemes
+            items:
+              type: object
+              title: ''
+              properties:
+                certificationBodyId:
+                  $ref: '#/definitions/CertificationBodyId'
+                  title: Certification body
+                scheme:
+                  title: 'Scheme'
+                  type: string
+                  enum:
+                    - NPOP
+                    - NOP
+                    - IndGAP
+                    - GlobalGAP
+                    - FairTrade
+                  default: NPOP
+                conversionStatus:
+                  title: Conversion status
+                  type: string
+                  enum:
+                    - C1
+                    - C2
+                    - C3
+                  default: C1
+                certificationStatus:
+                  title: Organic certification status
+                  type: string
+                  enum:
+                    - Valid
+                    - Suspended
+                    - Withdrawn
+                    - Expired
+                    - In-progress
+                  default: In-progress
+              required:
+                - certificationBodyId
+                - scheme
+                - conversionStatus
+                - certificationStatus
+
+          mandator:
+            type: object
+            title: Mandator details
+            $ref: '#/definitions/Mandator'
+        required:
+          - registrationId
+    - if:
+        properties:
+          category:
+            const: FPO
+      then:
+        properties:
+          fpoDetails:
+            type: object
+            title: FPO details
+            $ref: '#/definitions/FpoDetails'
+
+    - if:
+        properties:
+          category:
+            const: FPC
+      then:
+        properties:
+          fpcDetails:
+            type: object
+            title: FPC details
+            $ref: '#/definitions/FpoDetails'
+
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_collective.yaml

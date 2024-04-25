@@ -1,0 +1,23 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Post Processing Event'
+  properties:
+    postProcessingOperation:
+      title: Operation name
+      type: string
+    postProcessingEvidence:
+      title: Postprocessing evidence
+      type: array
+      description: Upload evidence for post processing operation
+      items:
+        type: string
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/postProcessing.yaml

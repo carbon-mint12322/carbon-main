@@ -1,0 +1,79 @@
+// generated from templates/page-components/detail-get-data.ts.mustache
+import dynamic from 'next/dynamic';
+import { coordinateStringToCoordinateObject } from '~/utils/coordinatesFormatter';
+import mapStyles from '~/styles/theme/map/styles';
+import { stringDateFormatter } from '~/utils/dateFormatter';
+import { mustacheFormatter } from '~/utils/mustacheFormatter';
+import getCreateFormContext from "~/entitylib/{{modelName}}/create/getCreateFormContext"
+
+export {default as getImpactData} from "~/entitylib/functions/getData/getImpactData";
+export {default as getHistoryData} from "~/entitylib/functions/getData/getHistoryData";
+export {default as getInfoTabData} from "~/entitylib/functions/getData/getInfoTabData";
+export {default as getProgressData} from "~/entitylib/functions/getData/getProgressData";
+export {default as getScheduledEventsData} from "~/entitylib/functions/getData/getScheduledEventsData";
+export {default as getDocumentsData} from "~/entitylib/functions/getData/getDocumentsData";
+export {default as getTasksData} from "~/entitylib/functions/getData/getTasksData";
+export {default as getListData} from "~/entitylib/functions/getData/getListData";
+export {default as getLandParcelsData} from "~/entitylib/functions/getData/getLandParcelsData";
+export {default as getSchemePOPEventsData} from "~/entitylib/functions/getData/getSchemePOPEventsData";
+export {default as getFarmerSubmissionsData} from "~/entitylib/functions/getData/getFarmerSubmissionsData";
+
+import * as renderLib from "~/entitylib/{{modelName}}/detail"
+
+export function getOverviewData(data:any, modelName: string, reFetch: any, org: string){
+  return {
+    data: {
+      id: data?.id,
+      name: data?.name,
+      landParcel: data?.landParcelDetails?.name,
+      qrLink: data?.qrLink,
+      validationWorkflowId: data?.validationWorkflowId,
+      {{#detailPageOptions}}
+      wfName: '{{{modelName}}}',
+      schema: '{{{modelName}}}',
+      org: org,
+      showMap: {{detailPageOptions.showMap}},
+      {{/detailPageOptions}}
+      formContext: getCreateFormContext(data),
+      reFetch: reFetch,
+      polygons: [
+        {
+          paths: coordinateStringToCoordinateObject(data?.fieldDetails?.map || ''),
+          options: { ...mapStyles.fieldMap },
+        },
+      ],
+      landPolygon: {
+        paths: coordinateStringToCoordinateObject(data?.landParcelDetails?.map || ''),
+        options: { ...mapStyles.landParcelMap },
+      },
+      dataPanel: [
+
+{{#detailPageOptions.overviewFields}}
+        {
+          title: '{{title}}',
+{{#formatter}}
+          value: {{formatter}}(renderLib.{{renderCell}}(reFetch)(data)),
+{{/formatter}}          
+{{^formatter}}
+{{#format}}
+          value: mustacheFormatter(renderLib.{{renderCell}}(reFetch)(data), data, `{{{format}}}`),
+{{/format}}
+{{^format}}
+          value: renderLib.{{renderCell}}(reFetch)(data),
+{{/format}}
+{{/formatter}}          
+        },
+{{/detailPageOptions.overviewFields}}
+
+      ],
+    },
+    Editor: dynamic(import(`~/gen/data-views/${modelName}/${modelName}Editor.rtml.jsx`))
+  };
+}
+
+function stringFormatter(value: any) {
+  if (value === null || value === undefined) {
+    return '-';
+  }
+  return ""+value;
+}

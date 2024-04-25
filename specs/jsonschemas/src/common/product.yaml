@@ -1,0 +1,60 @@
+type: object
+properties:
+  name:
+    type: string
+    title: Product name
+  productId:
+    type: string
+    title: Product ID
+  category:
+    type: string
+    title: Product Category
+  type:
+    type: string
+    title: Product type
+  description:
+    type: string
+    title: Product description
+  documentation:
+    type: string
+    title: Production documentation
+  complianceRequirements:
+    type: object
+    title: Product Compliance Requirements
+  compliance:
+    type: string
+    title: Compliance documents
+  complianceNotes:
+    type: string
+    title: Compliance Notes
+  allergensAndGMOStatusLabel:
+    type: object
+    title: Allergens and GMO Status
+  allergensAndGMOStatusNotes:
+    type: string
+    title: Notes
+  allergensAndGMOStatus:
+    type: string
+    title: Allergens and GMO status document/s
+  ingredientCompositionLabel:
+    type: object
+    title: Ingredient Composition
+  ingredientComposition:
+    type: string
+    title: Ingredient composition document/s
+  ingredientCompositionNotes:
+    type: string
+    title: Notes
+  nutritionalInformationLabel:
+    type: object
+    title: Nutritional Information per 100 g
+  nutritionalInformation:
+    type: string
+    title: Nutritional information document/s
+  nutritionalInformationNotes:
+    type: string
+    title: Notes
+required:
+  - name
+  - productId
+  - category

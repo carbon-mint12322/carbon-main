@@ -1,0 +1,15 @@
+type: object
+properties:
+  reportName:
+    type: string
+    title: Report name
+  reportType:
+    title: Report Type
+    type: string
+    enum:
+      - farmers
+      - land_parcels
+      - crops
+  dateRange:
+    title: Date Range
+    $ref: '#/definitions/DateRange'

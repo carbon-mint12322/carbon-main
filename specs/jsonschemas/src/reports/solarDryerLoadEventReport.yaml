@@ -1,0 +1,71 @@
+jsonschema:
+  type: object
+  title: Solar dryer load event
+  properties:
+    landParcelName:
+      type: string
+      title: Land Parcel Name
+    details:
+      type: object
+      title: ''
+      properties:
+        durationAndExpenses:
+          minimum: 0
+          type: object
+          title: ''
+          properties:
+            startDate:
+              type: string
+              format: date
+              title: Start date
+            endDate:
+              type: string
+              format: date
+              title: End date
+            totalMenLabourDays:
+              type: number
+              minimum: 0
+              title: Total Men Labour Days
+            totalWomenLabourDays:
+              type: number
+              minimum: 0
+              title: Total Women Labour Days
+            totalLabourExpenditure:
+              type: number
+              minimum: 0
+              title: Total Labour Expenditure (Rupees)
+        solarDryer:
+          type: array
+          items:
+            $ref: '#/definitions/SolarDryerId'
+          title: Solar Dryers
+        inputMaterials:
+          type: string
+          title: Input material
+        quantity:
+          type: number
+          title: Input Weight (Kgs)
+          minimum: 0
+        weightAfterDrying:
+          type: number
+          title: Output Weight (Kgs)
+          minimum: 0
+        energySaved:
+          type: number
+          title: Energy Saved (kWh)
+          minimum: 0
+        waterSaved:
+          type: number
+          title: Water Saved (Litres)
+        ghgEmissionsSaved:
+          type: number
+          title: GHG emissions saved (metric tonnes)
+        methaneReductions:
+          type: number
+          title: Methane reduction (cubic meters)
+    status:
+      type: string
+      title: Status
+    createdAt:
+      type: string
+      title: Created At

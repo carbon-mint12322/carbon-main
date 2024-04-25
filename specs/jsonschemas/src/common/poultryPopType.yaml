@@ -1,0 +1,39 @@
+type: object
+properties:
+  poultryType:
+    type: string
+    title: Poultry Type
+    enum:
+      - Broiler Chicken
+      - Country Chicken
+      - Breeder Chicken
+      - Duck
+      - Turkey
+      - Quail
+    default: Broiler Chicken
+  variety:
+    type: string
+    title: Poultry variety
+  region:
+    type: string
+    title: Region
+  durationDays:
+    title: Poultry duration (days)
+    type: number
+    minimum: 0
+  scheme:
+    title: Scheme
+    type: string
+    enum:
+      - NPOP
+      - NOP
+      - IndGAP
+      - GlobalGAP
+      - FairTrade
+      - None
+    default: None
+required:
+  - poultryType
+  - variety
+  - region
+  - durationDays

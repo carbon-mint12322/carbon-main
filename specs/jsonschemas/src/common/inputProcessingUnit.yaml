@@ -1,0 +1,71 @@
+type: object
+title: Input Processing Unit
+properties:
+  processingSystem:
+    $ref: '#/definitions/ProcessingSystemId'
+    title: Processing system
+  name:
+    type: string
+    title: Name
+  type:
+    type: string
+    title: Type
+    enum:
+      - Crop sorting
+      - Washing
+      - Cutting
+      - Grading
+      - Other
+    default: Crop sorting
+  capacity:
+    type: number
+    title: Capacity per day (kgs/litres)
+    minimum: 0
+  facilities:
+    type: string
+    title: Facilities
+    description: Facilities (e.g., processing rooms, storage rooms, packaging area)
+  equipment:
+    type: string
+    title: Equipment
+    description: Equipment (e.g., machinery, tools, appliances)
+  certifications:
+    type: string
+    title: Certifications
+  certificationsEvidence:
+    title: Upload certifications evidence
+    type: array
+    description: 'Upload certifications evidence'
+    items:
+      type: string
+  services:
+    type: string
+    title: Services
+    description: Services (e.g., labeling, packaging, product customization)
+  processes:
+    type: string
+    title: Processes
+    description: Processes (e.g., washing, cutting, grading)
+  storageCapacity:
+    type: number
+    title: Storage capacity
+    minimum: 0
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+if:
+  properties:
+    type:
+      const: Other
+then:
+  properties:
+    otherInput:
+      type: string
+      title: Other Input
+required:
+  - processingSystem
+  - name
+  - type
+  - photoEvidence

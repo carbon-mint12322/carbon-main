@@ -1,0 +1,5 @@
+jsonschema:
+  type: object
+  properties:
+    attractions: file:~/specs/jsonschemas/src/common/attraction.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/landparcel_attractions.yaml

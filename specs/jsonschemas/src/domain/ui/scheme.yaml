@@ -1,0 +1,158 @@
+form:
+  uiSchema:
+    certificationBodyId:
+      "ui:widget": ReferenceSelectorWidget
+      ui:placeholder: Select a certification body
+      foreignSchemaId: '/certificationbody'
+      foreignLabelWidget: NameLabelWidget
+      'ui:options':
+        # This key is passed for selecting a field for crop creation
+        filterKey: certificationbody
+    certificationDocument:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    'ui:order':
+      - certificationBodyId
+      - scheme
+      - registrationDate
+      - conversionStatus
+      - certificationStatus
+      - certificationDocument
+      - validityStartDate
+      - validityEndDate
+      - certificationAuthority    
+      - '*'
+createPage:
+  titleBar:
+    pageTitle: "Add Scheme"
+  schema: scheme
+  isValidationNeeded: true
+detailPage:
+  showMap: false
+  titleBar:
+    pageTitle: "Scheme: {{data.scheme}}"
+    subTitle: "Owner: {{data.ownerType}}"
+    mainBtnTitle: Add Event
+    subBtnTitle: "Sample Second Button"
+    showTitlebar: true
+    showTitlebarTitle: true
+    showTitlebarSubTitle: true
+    showTitlebarMainBtn: false
+    showTitlebarSubBtn: false
+  overviewFields:
+    - title: Name
+      field: scheme
+    - title: Certification Body
+      field: certificationbody
+    - title: Scheme Owner Type
+      field: ownerType
+    - title: Scheme Owner
+      field: schemeOwner
+    - title: Registration Date
+      field: registrationDate
+    - title: Conversion Status
+      field: conversionStatus
+    - title: Certifcatino Status
+      field: certificationStatus    
+    - title: Certification Document
+      field: certificationDocument
+    - title: Validity Start Date
+      field: validityStartDate
+    - title: Validity End Date
+      field: validityEndDate
+    - title: Certification Authority
+      field: certificationAuthority 
+  tabs:
+    - type: overview
+      title: Scheme Overview
+    - type: info
+      title: Scheme Info
+      props:
+        includeJsonSchema: true
+        verticalTabs:
+          - type: basicInfo
+            title: Basic Info
+            props:
+              nodePath: 
+              viewUiOrder:
+                - certificationbody
+                - scheme
+                - registrationDate
+                - conversionStatus     
+                - certificationStatus  
+                - certificationDocument  
+                - validityStartDate
+                - validityEndDate
+                - certificationAuthority
+                           
+    - type: events
+      title: Events
+    - type: documents
+      title: Documents
+    - type: history
+      title: Activity Log
+
+listPage:
+  showInactiveDefault: false
+  isMultiSelect: true
+  customFilterKeys:
+    - scheme
+    - certificationBody
+    - conversionStatus
+    - certificationStatus
+    - certificationAuthority
+   
+  titleBar:
+    pageTitle: Schemes
+    subTitle: "Showing {{data.length}} schemes total"
+    mainBtnTitle: Add Scheme
+    subBtnTitle: "Bulk Actions"
+    showTitlebar: true
+    showTitlebarTitle: true
+    showTitlebarSubTitle: true
+    showTitlebarMainBtn: true
+    showTitlebarSubBtn: false
+    showTitlebarSearch: true
+  bulkActions:
+    - label: Add Events
+      operation: handleOpen
+  colDefs:
+    - field: scheme
+      headerName: "Scheme Name"
+      minWidth: 200
+      flex: 1
+    - field: certificationBodyId
+      headerName: Certification Body
+      minWidth: 200
+      flex: 1   
+    - field: registrationDate
+      headerName: Registration Date
+      minWidth: 200
+      flex: 1   
+      valueGetter: dateValueGetter
+    - field: conversionStatus
+      headerName: Conversion Status
+      minWidth: 150
+      flex: 1
+    - field: certificationStatus
+      headerName: Certification Status
+      minWidth: 200
+      flex: 1            
+    - field: validityStartDate
+      headerName: Validity Start Date
+      minWidth: 200
+      flex: 1   
+      valueGetter: dateValueGetter
+    - field: validityEndDate
+      headerName: Validity End Date
+      minWidth: 200
+      flex: 1   
+      valueGetter: dateValueGetter
+    - field: status
+      headerName: Status
+      minWidth: 100
+      flex: 1
+    - field: actions
+      headerName: Actions
+      minWidth: 100
+   
+   

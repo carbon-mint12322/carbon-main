@@ -1,0 +1,18 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - cropName
+      - cropType
+      - plantingMaterial
+      - seedVariety
+      - seedSource
+      - seedPurchaseReceipt
+      - seedCertificate
+      - season
+      - otherGrowingSeason
+      - '*'
+    seedPurchaseReceipt:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'
+    seedCertificate:
+      'ui:widget': 'UploadFilesWithAttachmentsWidget'

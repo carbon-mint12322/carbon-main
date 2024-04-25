@@ -1,0 +1,174 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Irrigation Event'
+  properties:
+    irrigation:
+      type: object
+      title: 'Irrigation'
+    sourceOfIrrigation:
+      title: Source of irrigation
+      type: string
+      enum:
+        - Rainfall
+        - Borewell
+        - Open well
+        - Canal
+        - Rivers
+        - Pond
+        - Municipality water/ drainage water
+        - Lake
+        - Reservoir
+        - Others
+      default: Rainfall
+    criticalCropGrowthStage:
+      title: Irrigated in critical crop growth stages
+      type: string
+      enum:
+        - Panicle initiation
+        - Booting
+        - Heading
+        - Flowering
+        - Milky & dough stages
+        - Others
+        - None of the above
+      default: Panicle initiation
+    durationAndExpenses:
+      title: 'Duration and expenses'
+      '$ref': '#/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          criticalCropGrowthStage:
+            const: Others
+      then:
+        properties:
+          othercriticalCropGrowthStage:
+            type: string
+            title: Other critical crop growth stages observed
+    - if:
+        properties:
+          sourceOfIrrigation:
+            const: Others
+      then:
+        properties:
+          otherSourceOfIrrigation:
+            type: string
+            title: Other source of irrigation
+          otherIrrigationData:
+            '$ref': '#/irrigationData'
+            title: ''
+    - if:
+        properties:
+          sourceOfIrrigation:
+            const: Borewell
+      then:
+        properties:
+          borewellIrrigationData:
+            '$ref': '#/irrigationData'
+            title: ''
+    - if:
+        properties:
+          sourceOfIrrigation:
+            const: Open well
+      then:
+        properties:
+          openWellIrrigationData:
+            '$ref': '#/irrigationData'
+            title: ''
+    - if:
+        properties:
+          sourceOfIrrigation:
+            const: Canal
+      then:
+        properties:
+          canalIrrigationData:
+            '$ref': '#/irrigationData'
+            title: ''
+    - if:
+        properties:
+          sourceOfIrrigation:
+            const: Rivers
+      then:
+        properties:
+          riversIrrigationData:
+            '$ref': '#/irrigationData'
+            title: ''
+    - if:
+        properties:
+          sourceOfIrrigation:
+            const: Pond
+      then:
+        properties:
+          pondIrrigationData:
+            '$ref': '#/irrigationData'
+            title: ''
+    - if:
+        properties:
+          sourceOfIrrigation:
+            const: Municipality water/ drainage water
+      then:
+        properties:
+          municipalityIrrigationData:
+            '$ref': '#/irrigationData'
+            title: ''
+    - if:
+        properties:
+          sourceOfIrrigation:
+            const: Lake
+      then:
+        properties:
+          lakeIrrigationData:
+            '$ref': '#/irrigationData'
+            title: ''
+    - if:
+        properties:
+          sourceOfIrrigation:
+            const: Reservoir
+      then:
+        properties:
+          reservoirIrrigationData:
+            '$ref': '#/irrigationData'
+            title: ''
+
+  irrigationData:
+    properties:
+      methodOfIrrigation:
+        title: Method of irrigation
+        type: string
+        enum:
+          - Flooding
+          - Check basin method
+          - Border strip method
+          - Ridge and furrow method
+          - Rain pipe irrigation
+          - Rain gun
+          - Ring basin method
+          - Drip irrigation
+          - Macro sprinkler irrigation
+          - Micro sprinkler Irrigation
+          - Pot/pitcher irrigation
+          - Others
+        default: Flooding
+      irrigatedArea:
+        title: Irrigated area (sq.m)
+        type: number
+        minimum: 0
+      volumeOfWater:
+        title: Volume of water used for irrigation (litres)
+        type: number
+        minimum: 0
+    if:
+      properties:
+        methodOfIrrigation:
+          const: Others
+    then:
+      properties:
+        otherIrrigationMethod:
+          type: string
+          title: Other irrigation method
+  DurationAndExpenses: file:../common/durationAndExpenses.yaml
+uiHints: file:~/specs/jsonschemas/src/forms/ui/irrigationEvent.yaml

@@ -1,0 +1,5 @@
+form:
+  uiSchema:
+    'ui:order':
+      - '*'
+    outputProcessingUnits: file:~/specs/jsonschemas/src/common/ui/outputProcessingUnit.yaml

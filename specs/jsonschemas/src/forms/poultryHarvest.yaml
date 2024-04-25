@@ -1,0 +1,39 @@
+extends: ./poultryValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Harvest'
+  properties:
+    startDate:
+      title: Harvest start date
+      type: string
+      format: date
+    endDate:
+      title: Harvest end date
+      type: string
+      format: date
+    noOfBirds:
+      type: number
+      title: Number of birds harvested
+    averageWeight:
+      type: number
+      title: Average weights of birds at harvest
+    totalExpenditure:
+      type: number
+      minimum: 0
+      title: Total expenditure for harvest
+    evidence:
+      title: Evidence
+      type: array
+      description: Attach evidences
+      items:
+        type: string
+    otherRemarks:
+      type: string
+      title: Other remarks
+  required:
+    - startDate
+    - endDate
+    - noOfBirds
+    - averageWeight
+    - totalExpenditure
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryHarvest.yaml

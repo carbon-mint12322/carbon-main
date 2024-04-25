@@ -1,0 +1,12 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - startDate
+      - endDate
+      - harvestQuantity
+      - harvestingMethod
+      - totalExpenditure
+      - otherRemarks
+      - '*'

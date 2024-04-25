@@ -1,0 +1,5 @@
+extends: ./lpEventNonValidationLifecycle.yaml
+jsonschema:
+  title: 'Other Test'
+  $ref: '#/definitions/OtherTest'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/farmResourcesOthersTest.yaml

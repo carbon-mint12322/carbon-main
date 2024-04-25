@@ -1,0 +1,399 @@
+jsonschema:
+  properties:
+    croppingSystem:
+      $ref: '#/definitions/CroppingSystemId'
+      title: Cropping System
+    plot:
+      $ref: '#/definitions/PlotId'
+      title: Plot
+    pop:
+      $ref: '#/definitions/PoPId'
+      title: POP
+    masterCrop:
+      $ref: '#/definitions/MasterCropId'
+      title: Master crop
+    cropTag:
+      type: string
+      title: Crop tag name
+    areaInAcres:
+      type: number
+      title: Cultivated area (in acres)
+    category:
+      type: string
+      enum:
+        - Main
+        - Inter
+        - Border
+        - Cover
+        - Mixed
+      default: Main
+      title: Cropping system type
+    estimatedPopulation:
+      type: number
+      title: Estimated population
+    estimatedYieldTonnes:
+      type: number
+      title: Estimated yield (in tonnes)
+      min: 0
+      exclusiveMinimum: 0
+    plannedSowingDate:
+      type: string
+      format: date
+      title: Planned plantation date
+    estHarvestDate:
+      type: string
+      format: date
+      title: Estimated harvest date
+    nutritionRequirements:
+      type: object
+      title: Nutrition requirements
+      '$ref': '#/nutritionRequirementsData'
+  required:
+    - areaInAcres
+    - category
+    - estimatedYieldTonnes
+    - plannedSowingDate
+    - estHarvestDate
+  allOf:
+    - if:
+        properties:
+          masterCrop:
+            type: string
+            maxLength: 0
+      then:
+        properties:
+          name:
+            $ref: '#/definitions/CropName'
+            title: Name
+          cropType:
+            type: string
+            title: Crop sub type
+          plantingMaterial:
+            type: string
+            enum:
+              - Seeds
+              - Cuttings
+              - Layers
+              - Grafts
+              - Budded plants
+              - Clones
+              - Splits
+              - Suckers
+              - Slips
+              - Tissue culture plants
+              - Bulbs
+              - Corms
+              - Ratoon
+              - Saplings
+              - Other
+            default: Seeds
+            title: Planting material
+          seedVariety:
+            type: string
+            title: Planting material variety
+            pattern: '^[a-zA-Z][a-zA-Z0-9\s]*$'
+          seedSource:
+            type: string
+            title: Planting material source
+            pattern: '^[a-zA-Z][a-zA-Z0-9\s]*$'
+          season:
+            type: string
+            enum:
+              - Rabi
+              - Kharif
+              - Summer
+              - Biennial
+              - Annual
+              - Perennial crop
+              - Other
+            default: Rabi
+            title: Growing season
+        if:
+          properties:
+            season:
+              type: string
+              const: Other
+        then:
+          properties:
+            otherGrowingSeason:
+              title: Other growing season
+              type: string
+        required:
+          - name
+          - cropTag
+          - cropType
+          - plantingMaterial
+          - seedVariety
+          - seedSource
+          - season
+  nutritionRequirementsData:
+    properties:
+      greenManure:
+        title: Green manure
+        type: boolean
+        default: false
+      greenLeafManure:
+        title: Green leaf manure
+        type: boolean
+        default: false
+      fym:
+        title: Farm yard manure /poultry manure / bulky organic manure
+        type: boolean
+        default: false
+      concentrates:
+        title: Concentrates
+        type: boolean
+        default: false
+      bioFertilizer:
+        title: Biofertilizer
+        type: boolean
+        default: false
+      otherComposts:
+        title: Other enriched composts
+        type: boolean
+        default: false
+      biodynamicPreparations:
+        title: Biodynamic preparations
+        type: boolean
+        default: false
+      chemicalFertilizers:
+        title: Chemical fertilizers
+        type: boolean
+        default: false
+      microNutrients:
+        title: Micro nutrients
+        type: boolean
+        default: false
+      minerals:
+        title: Minerals from rocks
+        type: boolean
+        default: false
+      bioStimulants:
+        title: Bio stimulants
+        type: boolean
+        default: false
+      plantGrowthRegulators:
+        title: Plant growth regulators / Plant hormones
+        type: boolean
+        default: false
+      growthRetardants:
+        title: Growth retardants / Suppressants / Defoliants
+        type: boolean
+        default: false
+      otherProducts:
+        title: Other special products
+        type: boolean
+        default: false
+    allOf:
+      - if:
+          properties:
+            greenManure:
+              const: true
+        then:
+          properties:
+            greenManureRequirements:
+              title: Green manure requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            greenLeafManure:
+              const: true
+        then:
+          properties:
+            greenLeafManureRequirements:
+              title: Green leaf requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            fym:
+              const: true
+        then:
+          properties:
+            fymRequirements:
+              title: FYM requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            concentrates:
+              const: true
+        then:
+          properties:
+            concentratesRequirements:
+              title: Concentrates requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            bioFertilizer:
+              const: true
+        then:
+          properties:
+            bioFertilizerRequirements:
+              title: BioFertilizer requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            otherComposts:
+              const: true
+        then:
+          properties:
+            otherCompostsRequirements:
+              title: Other composts requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            biodynamicPreparations:
+              const: true
+        then:
+          properties:
+            biodynamicPreparationsRequirements:
+              title: Biodynamic preparations requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            chemicalFertilizers:
+              const: true
+        then:
+          properties:
+            chemicalFertilizersRequirements:
+              title: Chemical fertilizers requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            microNutrients:
+              const: true
+        then:
+          properties:
+            microNutrientsRequirements:
+              title: Micro nutrition fertilizers requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            minerals:
+              const: true
+        then:
+          properties:
+            mineralsRequirements:
+              title: Minerals fertilizers requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            bioStimulants:
+              const: true
+        then:
+          properties:
+            bioStimulantsRequirements:
+              title: Bio stimulants fertilizers requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            plantGrowthRegulators:
+              const: true
+        then:
+          properties:
+            plantGrowthRegulatorsRequirements:
+              title: Plant growth regulators requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            growthRetardants:
+              const: true
+        then:
+          properties:
+            growthRetardantsRequirements:
+              title: Growth retardants requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+      - if:
+          properties:
+            otherProducts:
+              const: true
+        then:
+          properties:
+            otherProductsRequirements:
+              title: Other product requirements
+              type: array
+
+              items:
+                title: ''
+                $ref: '#/criticalStageData'
+  criticalStageData:
+    properties:
+      criticalStage:
+        type: string
+        title: Crop critical stage
+        enum:
+          - Land preparation
+          - Before sowing/planting
+          - Initial seedling
+          - Pre flowering
+          - Flowering
+          - Grain formation
+          - Early vegetative
+          - Taselling
+          - Silking stage
+        default: Initial seedling
+      quantity:
+        type: number
+        title: Quantity (Kgs/Litres)
+      dosage:
+        type: number
+        title: Dosage
+      mode:
+        type: string
+        title: Mode of application
+      details:
+        type: string
+        title: Details
+  timestamps: true
+uiHints: file:~/specs/jsonschemas/src/domain/ui/crop.yaml

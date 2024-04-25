@@ -1,0 +1,35 @@
+type: object
+title: Farmhouse
+properties:
+  name:
+    type: string
+    title: Farmhouse name
+  size:
+    type: number
+    title: Size (Sqyd)
+    minimum: 0
+  condition:
+    type: string
+    title: Condition
+  amenities:
+    type: string
+    title: Amenities
+  ownership:
+    type: string
+    title: Ownership
+  use:
+    type: string
+    title: Use
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+  map:
+    title: Farmhouse map
+    type: string
+required:
+  - name
+  - size
+  - photoEvidence
+  - map

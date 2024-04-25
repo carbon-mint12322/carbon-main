@@ -1,0 +1,41 @@
+type: object
+title: Scrap shed
+properties:
+  name:
+    type: string
+    title: Name
+  type:
+    type: string
+    title: type
+    enum:
+      - Open air
+      - Enclosed
+    default: Open air
+  size:
+    type: number
+    title: Size (sqyd)
+  condition:
+    type: string
+    title: Condition
+  capacity:
+    type: string
+    title: Capacity
+  use:
+    type: string
+    title: Use
+  ownership:
+    type: string
+    title: Ownership
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+  map:
+    title: Scrap shed map
+    type: string
+required:
+  - name
+  - type
+  - photoEvidence
+  - map

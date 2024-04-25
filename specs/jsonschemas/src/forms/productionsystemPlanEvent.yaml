@@ -1,0 +1,56 @@
+jsonschema:
+  title: Schedule Event
+  type: object
+  properties:
+    name:
+      title: Activity name
+      type: string
+    activityType:
+      title: Activity type
+      type: string
+      enum:
+        - Shed Preparation
+        - Sanitization       
+      default: Shed Preparation
+    range:
+      title: Date Range
+      $ref: '#/definitions/DateRange'
+    technicalAdvice:
+      title: Technical advice
+      type: string
+    repeated:
+      title: Repeated control point
+      type: boolean
+      default: false
+    ccp:
+      title: Critical control point
+      type: boolean
+      default: false
+    eventStatus:
+      type: string
+      title: Status
+      enum:
+        - Pending
+        - Completed
+        - Not Applicable
+      default: Pending
+  required:
+    - name
+    - activityType
+    - range
+  allOf:
+    - if:
+        properties:
+          repeated:
+            const: true
+      then:
+        properties:
+          frequency:
+            title: Frequency (Days)
+            type: number
+            minimum: 0
+          ends:
+            title: Ends (Days)
+            type: number
+            minimum: 0
+uiHints: file:~/specs/jsonschemas/src/forms/ui/poultryPlanEvent.yaml

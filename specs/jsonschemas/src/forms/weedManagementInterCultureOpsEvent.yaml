@@ -1,0 +1,106 @@
+extends: ./nonValidationLifecycle.yaml
+jsonschema:
+  type: object
+  title: 'Weed Management Inter Culture Ops Event'
+  properties:
+    typeOfInterculturalOperation:
+      title: Type of intercultural operation
+      type: string
+      enum:
+        - Crust breaking
+        - Earthing up
+        - Pruning
+        - Digging
+        - Trenching
+        - Thinning
+        - Trellising
+        - Training
+        - Mulching
+        - Blanching
+        - Gap filling
+        - Detasseling
+        - Propping
+        - Stalking
+        - De-Haulming
+        - Nipping
+        - De-Suckering
+        - Tipping
+        - Topping
+        - Disbudding
+        - Pinching
+        - De-Shooting
+        - Stenting
+        - Others
+      default: Crust breaking
+    implementsUsed:
+      title: Implements used
+      type: array
+      minItems: 1
+      items:
+        type: string
+        enum:
+          - sickle
+          - spade
+          - handHoe
+          - hoeComeRake
+          - starTypeWeeder
+          - pegTypeWeeder
+          - wheelHoe
+          - conoWeeder
+          - scissors
+          - shovel
+          - trowel
+          - diggingFork
+          - manual
+          - others
+        enumNames:
+          - Sickle
+          - Spade
+          - Hand hoe
+          - Hoe come rake
+          - Star type weeder
+          - Peg type weeder
+          - Wheel hoe
+          - Cono weeder
+          - Scissors
+          - Shovel
+          - Trowel
+          - Digging fork
+          - Manual
+          - Others
+      uniqueItems: true
+    useCleanedFarmTools:
+      title: Use cleaned farm tools
+      type: string
+      enum:
+        - 'Yes'
+        - 'No'
+      default: 'No'
+    durationAndExpenses:
+      title: 'Duration and Expenses'
+      '$ref': '#/definitions/DurationAndExpenses'
+    otherRemarks:
+      type: string
+      title: Other remarks
+  allOf:
+    - if:
+        properties:
+          implementsUsed:
+            contains:
+              type: string
+              const: others
+      then:
+        properties:
+          otherImplementsUsed:
+            type: string
+            title: Other implement used
+    - if:
+        properties:
+          typeOfInterculturalOperation:
+            const: Others
+      then:
+        properties:
+          otherTypeOfInterculturalOperation:
+            type: string
+            title: Other type of intercultural operation
+uiHints: file:~/specs/jsonschemas/src/forms/ui/weedManagementInterCultureOpsEvent.yaml

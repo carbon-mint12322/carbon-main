@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/blockchain/*": ["blockchain/*"],
+      "~/backendlib/*": ["backendlib/*"],
+      "~/entitylib/*": ["entitylib/*", "gen/entitylib/*"],
+      "~/frontendlib/*": ["frontendlib/*"],
+      "~/gen-pages/*": ["gen-pages/*"],
+      "~/gen/*": ["gen/*"],
+      "~/components/*": ["components/*"],
+      "~/styles/*": ["styles/*"],
+      "~/contexts/*": ["contexts/*"],
+      "~/lib/*": ["lib/*"],
+      "~/plugins/*": ["plugins/*"],
+      "~/rbac/*": ["rbac/*"],
+      "~/specs/*": ["specs/*"],
+      "~/smart-contracts/*": ["smart-contracts/*"],
+      "~/static/*": ["static/*"],
+      "~/utility/*": ["utility/*"],
+      "~/utils/*": ["utils/*"],
+      "~/workflows/*": ["workflows/*"],
+      "~/container/*": ["container/*"],
+      "~/tests/*": ["__tests__/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}

@@ -1,0 +1,18 @@
+form:
+  uiSchema:
+    disputeDetails:
+      'ui:order':
+        - disputeDate
+        - disputingParties
+        - description
+        - location
+        - disputeType
+        - assignedTo
+        - priorityLevel
+        - status
+        - closureConfirmation
+        - attachments
+      description:
+        'ui:widget': textarea
+      attachments:
+        'ui:widget': 'UploadFilesWithAttachmentsWidget'

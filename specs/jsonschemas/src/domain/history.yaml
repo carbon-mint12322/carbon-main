@@ -1,0 +1,26 @@
+jsonschema:
+  properties:
+    relatedTo:
+      type: object
+      properties:
+        objectId:
+          type: string
+          description: 'The id of the object that is being updated'
+        collectionName:
+          type: string
+          description: 'The name of the collection where the object resides'
+    modifications:
+      type: object
+    snapshot:
+      type: object
+    createdBy:
+      $ref: "#/definitions/NameID"
+    createdAt:
+      type: string
+      format: date
+  required:
+    - relatedTo
+    - modifications
+    - snapshot
+    - createdAt
+    - createdBy

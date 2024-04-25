@@ -1,0 +1,24 @@
+form:
+  uiSchema:
+    'ui:order':
+      - schemes
+      - '*'
+    schemes:
+      items:
+        certificationBodyId:
+          'ui:widget': ReferenceSelectorWidget
+          ui:placeholder: Select a certification body
+          foreignSchemaId: '/certificationbody'
+          foreignLabelWidget: NameLabelWidget
+        certificationDocument:
+          'ui:widget': 'file'
+        'ui:order':
+          - certificationBodyId
+          - scheme
+          - conversionStatus
+          - certificationStatus
+          - certificationDocument
+          - validityStartDate
+          - validityEndDate
+          - certificationAuthority
+          - '*'

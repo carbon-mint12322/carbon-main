@@ -1,0 +1,11 @@
+form:
+  uiSchema:
+    'ui:order':
+      - name
+      - description
+      - recommendedBy
+      - aquaPopType
+      - controlPoints
+      - '*'
+    aquaPopType: file:~/specs/jsonschemas/src/common/ui/aquaPopType.yaml
+    controlPoints: file:~/specs/jsonschemas/src/common/ui/controlPoint.yaml

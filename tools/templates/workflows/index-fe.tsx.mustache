@@ -1,0 +1,194 @@
+// Generated code (template: tools/templates/workflows/index-fe.tsx.mustache)
+import {ComponentType, FunctionComponent } from 'react';
+import dynamic from 'next/dynamic';
+import { WorkflowDefinition, WorkflowStartHandlerInput } from "../../backendlib/workflow/types";
+
+import { useOperator } from '~/contexts/OperatorContext';
+import {BaseEventEditor, IEditorProps } from "~/components/events/BaseEventEditor";
+import { startWorkflowRQ } from '~/frontendlib/model-lib/workflow';
+
+export const workflowNames = [
+ {{#workflows}}
+  "{{name}}",
+{{/workflows}}
+]
+
+// Dynamic import of forms
+{{#uniqInputSchemaNames}}
+// Event list for {{mappedName}}
+
+const Form_{{.}} = dynamic(() =>
+  import('~/gen/data-views/{{.}}/{{.}}Editor.rtml'), {ssr:false});
+
+{{/uniqInputSchemaNames}}
+
+
+function EventFormComponent(props:any) {
+  const { eventName, ...rest } = props;
+  switch(lookupSchema(eventName)) {
+    {{#uniqInputSchemaNames}}
+    case `{{.}}`: return <Form_{{.}} {...rest} />;
+    {{/uniqInputSchemaNames}}
+    default: break;
+  }
+  return <div> No such event: {eventName} </div>;
+}
+
+export function EventForm(props:any) {
+  const { eventName, ...rest } = props;
+  return <EventFormComponent eventName={eventName} {...rest} />;
+}
+
+{{#workflows}}
+function get_{{mappedName}}_form(schemaName: string):ComponentType<any> {
+  switch (schemaName) {
+{{#inputSchemas}}  
+    case '{{.}}':
+      return Form_{{.}};
+{{/inputSchemas}}
+    default: break;
+  }
+  return () => <>No such event: {schemaName} in workflow farmer-onboarding</>;
+}
+
+{{/workflows}}
+
+function getWfStartEventName(wfName: string) {
+  switch (wfName) {
+{{#workflows}}
+    case '{{name}}':
+      return "{{startEventName}}";
+{{/workflows}}
+    default: break;
+  }
+  return "<unknown-start-event>";
+}
+
+function getWfStartSchemaName(wfName: string) {
+  switch (wfName) {
+{{#workflows}}
+    case '{{name}}':
+      return "{{startSchemaName}}";
+{{/workflows}}
+    default: break;
+  }
+  return "<unknown-start-schema>";
+}
+
+        function getWfStartEventDescription(wfName: string) {
+            switch (wfName) {
+        {{#workflows}}
+                case '{{name}}':
+                    return "{{startEventDescription}}";
+        {{/workflows}}
+                default: break;
+            }
+            return "<unknown-start-event>"; }
+
+
+{{#uniqInputSchemaNames}}
+const {{.}}_promise = import('~/gen/jsonschemas/{{.}}.json');
+{{/uniqInputSchemaNames}}
+
+
+
+const event2schemaMap: Record<string,string> = {
+  {{#event2schemaMaps}}
+  [`{{{eventName}}}`]: `{{{schemaName}}}`, 
+  {{/event2schemaMaps}}
+}
+function lookupSchema(eventName:string) {
+  return event2schemaMap[eventName] || eventName;
+}
+
+export async function getEventSchema(eventName: string) : Promise<any> {
+  switch (lookupSchema(eventName)) {
+{{#uniqInputSchemaNames}}
+    case '{{.}}':
+      return {{.}}_promise;
+{{/uniqInputSchemaNames}}
+    default: break;
+  }
+
+  return Promise.reject(new Error("Unknown event: " + eventName));
+
+}
+
+export function getEventEntryForm(wfName: string, eventName: string): ComponentType<any> {
+  switch (wfName) {
+{{#workflows}}
+    case '{{name}}':
+      return get_{{mappedName}}_form(eventName);
+{{/workflows}}
+    default: break;
+  }
+
+  return NoSuchEvent;
+
+  function NoSuchEvent() {
+  return (
+    <>
+      No such event: {eventName} in workflow {wfName}
+    </>
+  );
+  }
+  function NoSuchWorkflow() {
+    return <div> No such workflow {wfName} </div>;
+  }
+}
+
+interface Location {
+    lat: number;
+    lng: number;
+}
+
+interface Metadata {
+    location: Location;
+    timestamp: Date;
+}
+
+
+
+export function EventEditor(editorProps: IEditorProps) {
+  const { domainObjectId, wfName, evidences } = editorProps;
+  const { operator } = useOperator();
+  const org = operator?.slug;
+  
+  return (
+    <BaseEventEditor
+      {...editorProps}
+      onSubmit={submitForm}
+      getWfStartSchemaName={getWfStartSchemaName}
+      getWorkflowDef={getWorkflowDef}
+      getWfStartEventName={getWfStartEventName}
+      getEventEntryForm={getEventEntryForm}
+    />
+  );
+
+  function submitForm(formData: any) {
+    const eventName = getWfStartEventName(wfName);
+    const eventDescription = getWfStartEventDescription(wfName);
+    const input: WorkflowStartHandlerInput = {
+      wfName,
+      domainObjectId,
+      eventName,
+      eventData: { ...formData, evidences, name: formData.name ? formData.name : eventDescription },
+      org
+    };
+    //console.debug({ msg: 'submitting workflow', input });
+    return editorProps.onSubmit(input);
+  }
+
+}
+
+async function getWorkflowDef(name: string): Promise<WorkflowDefinition> {
+  switch(name) {
+{{#workflows}}
+    case "{{mappedName}}": case "{{name}}": return (await import("../../gen/workflows/{{name}}/wf-schema")).default;
+{{/workflows}}
+    default: break;
+  } 
+  return Promise.reject(new Error(`No such workflow: ${name}`));
+}
+
+export default getWorkflowDef;

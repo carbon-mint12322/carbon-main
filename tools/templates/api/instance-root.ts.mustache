@@ -1,0 +1,24 @@
+// Generated API code - model instance root for {{modelName}}
+import { NextApiRequest, NextApiResponse } from 'next'
+import {Handler} from "~/backendlib/types";
+
+import deleteHandler from "~/gen/pages/api/{{modelName}}/delete"
+import getHandler from "~/gen/pages/api/{{modelName}}/get"
+import updateHandler from "~/gen/pages/api/{{modelName}}/update"
+
+const fourOhFive = (req: NextApiRequest, res: NextApiResponse) =>
+  res.status(405).send({error: "Invalid request"})
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) =>
+  req.method === "DELETE"
+  ? deleteHandler(req, res)
+  :
+  (req.method === "GET"
+    ? getHandler(req, res)
+    :
+    (req.method === "POST"
+      ? updateHandler(req, res)
+      :
+      fourOhFive(req,res)))
+
+export default handler;

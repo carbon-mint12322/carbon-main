@@ -1,0 +1,34 @@
+type: object
+title: Medical assistance
+properties:
+  name:
+    type: string
+    title: Name
+  type:
+    type: string
+    title: type
+    enum:
+      - Emergency
+      - Routine check-ups
+      - Vaccinations
+      - Other
+    default: Emergency
+  size:
+    type: number
+    title: Size (sqyd)
+  equipment:
+    type: string
+    title: Equipment
+  photoEvidence:
+    $ref: '#/definitions/MandatoryPhotoEvidenceMin1'
+    title: Upload photo evidence
+    description: Photo Evidence
+    default: []
+  map:
+    title: Medical assistance map
+    type: string
+required:
+  - name
+  - type
+  - photoEvidence
+  - map

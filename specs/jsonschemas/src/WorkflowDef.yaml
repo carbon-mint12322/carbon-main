@@ -1,0 +1,40 @@
+jsonschema:  
+  type: object
+  properties:
+    name:
+      type: string
+    description:
+      type: string
+    domainSchemaId:
+      type: string
+      description: |
+        The schema ID of the objects we will be dealing with in this
+        workflow. Object IDs will be passed into workflow
+        processEvent. Objects matching schema and ID are automatically
+        loaded when workflow events are processed.
+    startStateName:
+      type: string
+    states:
+      type: array
+      items:
+        $ref: "#/definitions/WFStateType"
+  required: [name, states, startStateName, domainSchemaId]
+uiHints:
+  form:
+    uiSchema:
+      "ui:order":   
+        - name
+        - domainSchemaId
+        - states
+        - "*"
+  table:
+    # Options to be passed to MUI's datagrid component
+    # See Data Grid documentation for details
+    dataGridOptions:
+      columns:
+        - field: name
+          headerName: Workflow Name
+          width: 400
+        - field: domainSchemaId
+          headerName: Domain Schema
+          width: 200

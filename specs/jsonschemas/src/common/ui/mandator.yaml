@@ -1,0 +1,19 @@
+'ui:order':
+  - operatedBy
+  - mandatorPoc
+  - mandatorPhone
+  - iecNumber
+  - iecDocumentFile
+  - gstNumberp
+  - gstDocumentFile
+  - panNumber
+  - panDocumentFile
+  - registeredBankName
+  - registeredBankACNumber
+  - '*'
+iecDocumentFile:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+gstDocumentFile:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+panDocumentFile:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'

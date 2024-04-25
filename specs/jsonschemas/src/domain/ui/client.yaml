@@ -1,0 +1,15 @@
+form:
+  uiSchema:
+    cfaMessage:
+      'ui:widget': textarea
+    'ui:order':
+      - organizationDetails
+      - claims
+      - cropMessages
+      - cfaMessage    
+      - '*'
+    organizationDetails: file:~/specs/jsonschemas/src/common/ui/organization.yaml
+    claims: file:~/specs/jsonschemas/src/common/ui/claims.yaml
+    cropMessages: file:~/specs/jsonschemas/src/common/ui/cropMessages.yaml
+  
+   

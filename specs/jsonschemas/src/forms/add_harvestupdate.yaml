@@ -1,0 +1,6 @@
+jsonschema:
+  properties:
+    harvestUpdateDetails:
+      title: Harvest Update Details
+      $ref: '#/definitions/HarvestUpdate'
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_harvestupdate.yaml

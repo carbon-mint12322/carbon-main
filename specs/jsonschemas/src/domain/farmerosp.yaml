@@ -1,0 +1,66 @@
+jsonschema:
+  properties:
+    year:
+      type: number
+      title: OSP Year
+      minimum: 2000
+      maximum: 3000
+    totalArea:
+      type: number
+      title: Total Area (Ha)
+    latitude:
+      title: Latitude
+      type: string
+    longitude:
+      title: Longitude
+      type: string
+    crops:
+      type: array
+      minItems: 1
+      title: 'Crops'
+      items:
+        type: object
+        title: ''
+        properties:
+          crop:
+            type: string
+            title: Crop
+          cropType:
+            title: Crop Type (M/I/C/B)
+            type: string
+            enum:
+              - M
+              - I
+              - C
+              - B
+            default: M
+          cropArea:
+            title: Crop Area (Ha)
+            type: number
+          estQty:
+            title: Est. Quantity (MT)
+            type: number
+          variety:
+            title: Variety
+            type: string
+          sowingDate:
+            title: Sowing Date
+            type: string
+            format: date
+        required:
+          - crop
+          - cropType
+          - cropArea
+          - estQty
+          - sowingDate
+    remarks:
+      type: string
+      title: Remarks
+
+  required:
+    - year
+    - totalArea
+    - latitude
+    - longitude
+
+uiHints: file:~/specs/jsonschemas/src/domain/ui/farmerosp.yaml

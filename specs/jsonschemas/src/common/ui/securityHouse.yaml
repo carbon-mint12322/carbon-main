@@ -1,0 +1,16 @@
+photoEvidence:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+policies:
+  'ui:widget': 'UploadFilesWithAttachmentsWidget'
+map:
+  'ui:field': MapLandBoundariesField
+'ui:order':
+  - name
+  - type
+  - condition
+  - staff
+  - policies
+  - capacity
+  - photoEvidence
+  - map
+  - '*'

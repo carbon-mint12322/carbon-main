@@ -1,0 +1,30 @@
+form:
+  uiSchema:
+    otherRemarks:
+      'ui:widget': textarea
+    'ui:order':
+      - harvesting
+      - harvestProduce
+      - primaryProduce
+      - otherPrimaryProduce
+      - secondaryProduce
+      - otherSecondaryProduce
+      - otherBioMassProduce
+      - otherBioMassProduceByProduct
+      - harvestingStage
+      - harvestingIndex
+      - otherHarvestingIndex
+      - harvestingDoneBy
+      - manualImplementsUsed
+      - otherManualImplementsUsed
+      - bullockImplementsUsed
+      - otherBullockImplementsUsed
+      - machineryImplementsUsed
+      - otherMachineryImplementsUsed
+      - containersUsedCondition
+      - containersUsedState
+      - harvestQuantity
+      - durationAndExpenses
+      - otherRemarks
+      - '*'
+    durationAndExpenses: file:~/specs/jsonschemas/src/common/ui/durationAndExpenses.yaml

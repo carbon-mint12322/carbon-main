@@ -1,0 +1,54 @@
+jsonschema:
+  properties:
+    disputeDetails:
+      title: Dispute Details
+      type: object
+      properties:
+        disputeDate:
+          title: Dispute date
+          type: string
+          format: date
+        disputingParties:
+          title: Disputing parties
+          type: string
+        description:
+          title: Description
+          type: string
+        location:
+          title: Location
+          type: string
+        disputeType:
+          title: Complaint type
+          type: string
+          enum:
+            - Quality
+            - Contract
+            - Pricing
+          default: Quality
+        assignedTo:
+          title: Assigned to
+          type: string
+        priorityLevel:
+          title: Priority level
+          type: string
+        status:
+          title: Status
+          type: string
+          enum:
+            - Open
+            - In progress
+            - Closed
+          default: Open
+        closureConfirmation:
+          title: Closure confirmation
+          type: string
+        attachments:
+          type: array
+          title: Attachements
+          items:
+            type: string
+      required:
+        - disputeDate
+        - disputingParties
+        - description
+uiHints: file:~/specs/jsonschemas/src/forms/ui/add_collectivedispute.yaml
